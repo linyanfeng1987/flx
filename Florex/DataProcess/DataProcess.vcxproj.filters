@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{65cc6a67-b580-4a00-9518-ff74e99a0560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code">
+      <UniqueIdentifier>{b0589e96-d7c9-492d-bc04-e8a6c5c71379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\db">
+      <UniqueIdentifier>{fcee2c1b-e008-441f-8bf7-da607da491d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\table">
+      <UniqueIdentifier>{dd8bf63f-f317-4537-89bf-69b5327e9a47}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\VspdCToMySQL.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\DbObj.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Row.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Table.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Exception.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Field.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\TableStruct.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\PubFun.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DataProcess.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\DbObj.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Field.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Row.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\TableStruct.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Table.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Exception.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\PubFun.cpp">
+      <Filter>public\code</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

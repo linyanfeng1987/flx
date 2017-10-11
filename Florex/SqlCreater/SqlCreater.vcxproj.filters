@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="extends">
+      <UniqueIdentifier>{3877bb1f-7b24-46f4-bc41-646a22abe30e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mt4Msg\VspdCToMySQL.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mt4Msg\DbObj.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mt4Msg\ConstDef.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Florex\table\Field.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Florex\table\TableStruct.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Florex\table\Row.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Florex\table\Table.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Florex\table\Exception.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mt4Msg\PubFun.h">
+      <Filter>extends</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SqlCreater.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Mt4Msg\VspdCToMySQL.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Mt4Msg\DbObj.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Florex\table\Row.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Florex\table\TableStruct.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Florex\table\Table.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Florex\table\Exception.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Florex\table\Field.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Mt4Msg\PubFun.cpp">
+      <Filter>extends</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

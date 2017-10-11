@@ -1,0 +1,4 @@
+price
+rateName:eurusd,msgType:realTime,time:111,price:1.89626,volume:100
+rateName:eurusd,msgType:history,time:111,timeStepType:1,open:111,high:111,low:111,close:111,tick_volume:111,spread:111,real_volume:111
+oper

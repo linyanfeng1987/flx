@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{decf7ec8-ec77-40bc-b6bf-b118c82eab92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code">
+      <UniqueIdentifier>{9a4fc8b4-0064-4769-8c8a-90e819fc520f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\db">
+      <UniqueIdentifier>{d36d6d09-d102-4524-b5c1-4a6d7a75fa26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\table">
+      <UniqueIdentifier>{e87323d7-b2ca-4adb-9cba-6d716409bd23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,31 +36,7 @@
     <ClInclude Include="Mt4Msg.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="VspdCToMySQL.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DbObj.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\Florex\table\Exception.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Florex\table\Field.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Florex\table\Row.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Florex\table\Table.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Florex\table\TableStruct.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstDef.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="PubFun.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CurRate.h">
@@ -60,36 +48,39 @@
     <ClInclude Include="RateMsg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\PubFun.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\DbObj.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\VspdCToMySQL.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Exception.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Field.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Row.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Table.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\TableStruct.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\ConstDef.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4Msg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="VspdCToMySQL.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DbObj.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Florex\table\Exception.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Florex\table\Field.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Florex\table\Row.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Florex\table\Table.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Florex\table\TableStruct.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="PubFun.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CurRate.cpp">
@@ -100,6 +91,30 @@
     </ClCompile>
     <ClCompile Include="RateMsg.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\PubFun.cpp">
+      <Filter>public\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\DbObj.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Exception.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Field.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Row.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Table.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\TableStruct.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

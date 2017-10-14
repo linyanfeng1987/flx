@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MT4MSG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(sqlIncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(sqlIncludePath);$(SolutionDir)/public/code/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,28 +153,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Florex\table\Exception.h" />
-    <ClInclude Include="..\Florex\table\Field.h" />
-    <ClInclude Include="..\Florex\table\Row.h" />
-    <ClInclude Include="..\Florex\table\Table.h" />
-    <ClInclude Include="..\Florex\table\TableStruct.h" />
-    <ClInclude Include="ConstDef.h" />
+    <ClInclude Include="..\public\code\ConstDef.h" />
+    <ClInclude Include="..\public\code\db\DbObj.h" />
+    <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
+    <ClInclude Include="..\public\code\PubFun.h" />
+    <ClInclude Include="..\public\code\table\Exception.h" />
+    <ClInclude Include="..\public\code\table\Field.h" />
+    <ClInclude Include="..\public\code\table\Row.h" />
+    <ClInclude Include="..\public\code\table\Table.h" />
+    <ClInclude Include="..\public\code\table\TableStruct.h" />
     <ClInclude Include="CurRate.h" />
-    <ClInclude Include="DbObj.h" />
     <ClInclude Include="HisRate.h" />
     <ClInclude Include="Mt4Msg.h" />
-    <ClInclude Include="PubFun.h" />
     <ClInclude Include="RateMsg.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="VspdCToMySQL.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Florex\table\Exception.cpp" />
-    <ClCompile Include="..\Florex\table\Field.cpp" />
-    <ClCompile Include="..\Florex\table\Row.cpp" />
-    <ClCompile Include="..\Florex\table\Table.cpp" />
-    <ClCompile Include="..\Florex\table\TableStruct.cpp" />
+    <ClCompile Include="..\public\code\db\DbObj.cpp" />
+    <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
+    <ClCompile Include="..\public\code\PubFun.cpp" />
+    <ClCompile Include="..\public\code\table\Exception.cpp" />
+    <ClCompile Include="..\public\code\table\Field.cpp" />
+    <ClCompile Include="..\public\code\table\Row.cpp" />
+    <ClCompile Include="..\public\code\table\Table.cpp" />
+    <ClCompile Include="..\public\code\table\TableStruct.cpp" />
     <ClCompile Include="CurRate.cpp" />
-    <ClCompile Include="DbObj.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
@@ -191,9 +194,7 @@
     </ClCompile>
     <ClCompile Include="HisRate.cpp" />
     <ClCompile Include="Mt4Msg.cpp" />
-    <ClCompile Include="PubFun.cpp" />
     <ClCompile Include="RateMsg.cpp" />
-    <ClCompile Include="VspdCToMySQL.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

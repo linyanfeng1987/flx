@@ -3,7 +3,7 @@
 
 
 #include "Mt4Msg.h"
-#include "DbObj.h"
+#include "db/DbObj.h"
 #include "PubFun.h"
 #include <time.h>
 #include <list>

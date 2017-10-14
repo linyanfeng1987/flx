@@ -54,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(sqlIncludePath)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(sqlIncludePath);$(SolutionDir)/public/code/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,6 +82,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
     <ClInclude Include="..\public\code\PubFun.h" />

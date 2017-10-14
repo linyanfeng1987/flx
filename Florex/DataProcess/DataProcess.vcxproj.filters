@@ -57,6 +57,9 @@
     <ClInclude Include="..\public\code\PubFun.h">
       <Filter>public\code</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\ConstDef.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">

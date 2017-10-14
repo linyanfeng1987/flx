@@ -6,8 +6,8 @@
 
 #include <string>
 #include <list>
-#include "../Mt4Msg/ConstDef.h"
-#include "../Mt4Msg/DbObj.h"
+#include "ConstDef.h"
+#include "db/DbObj.h"
 
 using namespace std;
 const string dropFormat = "drop table `florex`.`%s`;";
@@ -162,12 +162,26 @@ void alterCurTable()
 	}
 }
 
+void alterCurTable_addSpead()
+{
+	list<string> tableNames = getCurTableName();
+	char msg[2048] = {};
+	CDbObj& db = CDbObj::instance();
+	for(string tableName : tableNames)
+	{
+		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT NOT NULL");
+
+		db.ExecuteSql(strAdd.c_str(), msg);
+	}
+}
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//createCurTable();
 	//createHisTable();
-	alterCurTable();
+	//alterCurTable();
+	//alterCurTable_addSpead();
 	return 0;
 }
 

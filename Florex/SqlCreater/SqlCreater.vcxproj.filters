@@ -16,6 +16,18 @@
     <Filter Include="extends">
       <UniqueIdentifier>{3877bb1f-7b24-46f4-bc41-646a22abe30e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{70fa3db9-436a-4323-825c-503d87affe48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code">
+      <UniqueIdentifier>{6f282589-049d-47c2-8888-792761acdeb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\db">
+      <UniqueIdentifier>{1eabae6a-58bf-4ea3-a6b9-f091444cddec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\table">
+      <UniqueIdentifier>{b210f88e-f1b6-429a-a06f-28fdc1aa4df3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,61 +36,61 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Mt4Msg\VspdCToMySQL.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\PubFun.h">
+      <Filter>public\code</Filter>
     </ClInclude>
-    <ClInclude Include="..\Mt4Msg\DbObj.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\db\DbObj.h">
+      <Filter>public\code\db</Filter>
     </ClInclude>
-    <ClInclude Include="..\Mt4Msg\ConstDef.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\db\VspdCToMySQL.h">
+      <Filter>public\code\db</Filter>
     </ClInclude>
-    <ClInclude Include="..\Florex\table\Field.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\table\Exception.h">
+      <Filter>public\code\table</Filter>
     </ClInclude>
-    <ClInclude Include="..\Florex\table\TableStruct.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\table\Field.h">
+      <Filter>public\code\table</Filter>
     </ClInclude>
-    <ClInclude Include="..\Florex\table\Row.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\table\Row.h">
+      <Filter>public\code\table</Filter>
     </ClInclude>
-    <ClInclude Include="..\Florex\table\Table.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\table\Table.h">
+      <Filter>public\code\table</Filter>
     </ClInclude>
-    <ClInclude Include="..\Florex\table\Exception.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\table\TableStruct.h">
+      <Filter>public\code\table</Filter>
     </ClInclude>
-    <ClInclude Include="..\Mt4Msg\PubFun.h">
-      <Filter>extends</Filter>
+    <ClInclude Include="..\public\code\ConstDef.h">
+      <Filter>public\code</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SqlCreater.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Mt4Msg\VspdCToMySQL.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\PubFun.cpp">
+      <Filter>public\code</Filter>
     </ClCompile>
-    <ClCompile Include="..\Mt4Msg\DbObj.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\db\DbObj.cpp">
+      <Filter>public\code\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\Florex\table\Row.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
+      <Filter>public\code\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\Florex\table\TableStruct.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\table\Exception.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
-    <ClCompile Include="..\Florex\table\Table.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\table\Field.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
-    <ClCompile Include="..\Florex\table\Exception.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\table\Row.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
-    <ClCompile Include="..\Florex\table\Field.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\table\Table.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
-    <ClCompile Include="..\Mt4Msg\PubFun.cpp">
-      <Filter>extends</Filter>
+    <ClCompile Include="..\public\code\table\TableStruct.cpp">
+      <Filter>public\code\table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

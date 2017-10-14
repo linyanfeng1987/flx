@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-#include "CurRate.h"
-#include "HisRate.h"
+#include "rate/CurRate.h"
+#include "rate/HisRate.h"
 
 using namespace std;
 

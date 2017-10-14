@@ -25,6 +25,9 @@
     <Filter Include="public\code\table">
       <UniqueIdentifier>{e87323d7-b2ca-4adb-9cba-6d716409bd23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\code\rate">
+      <UniqueIdentifier>{108af6a0-c79c-44a4-a055-1d33914077e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -37,12 +40,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\Florex\table\Exception.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CurRate.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HisRate.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="RateMsg.h">
@@ -75,18 +72,18 @@
     <ClInclude Include="..\public\code\ConstDef.h">
       <Filter>public\code</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\rate\CurRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\rate\HisRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4Msg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CurRate.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HisRate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="RateMsg.cpp">
@@ -115,6 +112,12 @@
     </ClCompile>
     <ClCompile Include="..\public\code\table\TableStruct.cpp">
       <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\CurRate.cpp">
+      <Filter>public\code\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\HisRate.cpp">
+      <Filter>public\code\rate</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

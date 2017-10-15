@@ -149,22 +149,28 @@
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
+    <ClInclude Include="..\public\code\rate\CurRate.h" />
+    <ClInclude Include="..\public\code\rate\HisRate.h" />
     <ClInclude Include="..\public\code\table\Exception.h" />
     <ClInclude Include="..\public\code\table\Field.h" />
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
+    <ClInclude Include="HisRateLoader.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
+    <ClCompile Include="..\public\code\rate\CurRate.cpp" />
+    <ClCompile Include="..\public\code\rate\HisRate.cpp" />
     <ClCompile Include="..\public\code\table\Exception.cpp" />
     <ClCompile Include="..\public\code\table\Field.cpp" />
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
+    <ClCompile Include="HisRateLoader.cpp" />
     <ClCompile Include="LoadDataFromFile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

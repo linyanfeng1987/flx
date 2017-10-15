@@ -14,16 +14,19 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{346e6a1d-b1ca-4f0f-bf94-68fd3f043f12}</UniqueIdentifier>
+      <UniqueIdentifier>{ece57eae-7817-4817-8840-6ca516f79666}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\code">
-      <UniqueIdentifier>{a3c00361-83e8-40c4-940d-ae03b0e8e4d5}</UniqueIdentifier>
+      <UniqueIdentifier>{c9017f53-788b-4c9d-b831-88253fcd223a}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\code\db">
-      <UniqueIdentifier>{c538a666-7d6d-447b-bc16-a4bc33c486e4}</UniqueIdentifier>
+      <UniqueIdentifier>{dff3964f-cd72-4987-a322-ef3bec089ed8}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\code\table">
-      <UniqueIdentifier>{a13420cc-892a-415a-bb87-9963d7a540d3}</UniqueIdentifier>
+      <UniqueIdentifier>{e9fdc383-5ba7-4a7a-a41b-a2645b0f96a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\rate">
+      <UniqueIdentifier>{e925389c-7501-42ef-9ee0-dbe5abc1b514}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,10 +36,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\PubFun.h">
+    <ClInclude Include="..\public\code\ConstDef.h">
       <Filter>public\code</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\ConstDef.h">
+    <ClInclude Include="..\public\code\PubFun.h">
       <Filter>public\code</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\DbObj.h">
@@ -59,6 +62,15 @@
     </ClInclude>
     <ClInclude Include="..\public\code\table\TableStruct.h">
       <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\rate\CurRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\rate\HisRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
+    <ClInclude Include="HisRateLoader.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +100,15 @@
     </ClCompile>
     <ClCompile Include="..\public\code\table\TableStruct.cpp">
       <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\CurRate.cpp">
+      <Filter>public\code\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\HisRate.cpp">
+      <Filter>public\code\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="HisRateLoader.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

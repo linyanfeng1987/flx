@@ -5,6 +5,8 @@
 #include <list>
 #include <tuple>
 #include <map>
+#include <iostream>
+#include "ConstDef.h"
 
 using namespace std;
 class PubFun
@@ -20,6 +22,14 @@ public:
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
 	static string getValueFromMap(string strKey, map<string, string> mapObj);
+
 	static string getTimeFormat(time_t timep);
+	static double calcPercentSpeadProS(long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice);
+
+	static bool readHisFile(ifstream &fin,list<string> &readRes);
+	static bool getFileByPath(string path, map<string, string> &files);
+
+	static time_t HisRateStringToDatetime(const char *str);
+	//static unsigned long long GetCurrentTimeMsec();
 };
 

@@ -12,12 +12,14 @@
 using namespace std;
 const string dropFormat = "drop table `florex`.`%s`;";
 const string createBaseTableFormat = "CREATE TABLE `florex`.`%s` (  \
-									 `startTime` INT NOT NULL,		\
+									 `curTime` INT NOT NULL,		\
+									 `curMsec` INT NOT NULL default 0,		\
 									 `priceBuy` FLOAT NOT NULL,			\
 									 `priceCell` FLOAT NOT NULL,			\
 									 `volume` FLOAT NOT NULL,		\
 									 `timeFormat` VARCHAR(45) NULL,	\
-									 PRIMARY KEY (`startTime`));";
+									 `percentSpead_s` FLOAT, \
+									 PRIMARY KEY (`curTime`,`curMsec`));";
 
 const string createHisTableFormat = " CREATE TABLE `florex`.`%s` (  \
 	`startTime` INT NOT NULL,			\
@@ -27,12 +29,17 @@ const string createHisTableFormat = " CREATE TABLE `florex`.`%s` (  \
 	`closePrice` FLOAT NOT NULL,		\
 	`volume` FLOAT NOT NULL,			\
 	`timeFormat` VARCHAR(45) NULL,		\
+	`percentSpead_s` FLOAT, \
 	PRIMARY KEY (`startTime`));";		
 
 const string changeColumnFormat = "alter table `florex`.`%s` CHANGE `%s` `%s` %s;";
 const string addColumnFormat = "alter table `florex`.`%s` add COLUMN `%s` %s;";
 
-string rateName[] = {"eurusd","usdjpy","xauusd","gbpusd","audusd"};
+const string dropPkFormat = "ALTER TABLE `florex`.`%s` DROP PRIMARY KEY;";
+const string addPkFormat = "ALTER TABLE `florex`.`%s` ADD PRIMARY KEY (%s);";
+
+string rateName[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audusd"};
+//string rateName[] = {"testRate"};
 
 string getChangeColumnSql(string strTable, string strOldCol, string strNewCol, string colInfo)
 {
@@ -169,12 +176,60 @@ void alterCurTable_addSpead()
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
-		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT NOT NULL");
+		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
 
 		db.ExecuteSql(strAdd.c_str(), msg);
 	}
 }
 
+void alterHisTable_addSpead()
+{
+	list<string> tableNames = getHisTableName();
+	char msg[2048] = {};
+	CDbObj& db = CDbObj::instance();
+	for(string tableName : tableNames)
+	{
+		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
+
+		db.ExecuteSql(strAdd.c_str(), msg);
+	}
+}
+
+void alterCurTable_addCurMsec()
+{
+	list<string> tableNames = getCurTableName();
+	char msg[2048] = {};
+	CDbObj& db = CDbObj::instance();
+	for(string tableName : tableNames)
+	{
+		string strAdd = getAddColumnSql(tableName, "curMsec", "INT NOT NULL default 0");
+
+		db.ExecuteSql(strAdd.c_str(), msg);
+	}
+}
+
+void alterCurTablePk()
+{
+	list<string> tableNames = getCurTableName();
+	char msg[2048] = {};
+	CDbObj& db = CDbObj::instance();
+	for(string tableName : tableNames)
+	{
+
+		char chSql[2048] = {0};
+		sprintf_s(chSql, dropPkFormat.c_str(), tableName.c_str());
+		string strDropPk = chSql;
+
+		char chSql2[2048] = {0};
+		sprintf_s(chSql2, addPkFormat.c_str(), tableName.c_str(), "startTime,curMsec");
+		string strAddPk = chSql2;
+
+		db.ExecuteSql(strDropPk.c_str(), msg);
+		printf("msg: %s", msg);
+		db.ExecuteSql(strAddPk.c_str(), msg);
+		printf("msg: %s", msg);
+	}
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -182,6 +237,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	//createHisTable();
 	//alterCurTable();
 	//alterCurTable_addSpead();
+	//alterCurTable_addCurMsec();
+	//alterCurTablePk();
+	alterHisTable_addSpead();
 	return 0;
 }
 

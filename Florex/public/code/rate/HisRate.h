@@ -8,6 +8,7 @@ public:
 	HisRate(void);
 	~HisRate(void);
 
+	string rateName;
 	long int time;         // 周期开始时间
 	int timeStepType;
 	double   open;         // 开盘价
@@ -18,6 +19,11 @@ public:
 	int      spread;       // 点差
 	unsigned int     real_volume;  // 交易量
 
+	double percentSpead_s;
+	string timeFormat;
+
 	string toString();
+	void loadByLine(string line);
+	string toSqlString();
 };
 

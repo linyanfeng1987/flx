@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="public">
+      <UniqueIdentifier>{f7260365-59d1-4900-b66d-4ad327aa42af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code">
+      <UniqueIdentifier>{0ae6ca4e-f7f4-4c30-8dea-187d6f4e7f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\db">
+      <UniqueIdentifier>{5f3bdebe-244f-4147-8cc9-a6e2e42f687d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\table">
+      <UniqueIdentifier>{e799e8f0-4581-4321-a142-6b092c2f6deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\rate">
+      <UniqueIdentifier>{2483da9e-bbd6-4269-b260-6ee939406edc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,10 +39,73 @@
     <ClInclude Include="dllInclude.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\PubFun.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\ConstDef.h">
+      <Filter>public\code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\DbObj.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\VspdCToMySQL.h">
+      <Filter>public\code\db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Exception.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Field.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Row.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\Table.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\table\TableStruct.h">
+      <Filter>public\code\table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\rate\CurRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\rate\HisRate.h">
+      <Filter>public\code\rate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4MsgTest.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\PubFun.cpp">
+      <Filter>public\code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\DbObj.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
+      <Filter>public\code\db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Exception.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Field.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Row.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\Table.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\table\TableStruct.cpp">
+      <Filter>public\code\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\CurRate.cpp">
+      <Filter>public\code\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\HisRate.cpp">
+      <Filter>public\code\rate</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

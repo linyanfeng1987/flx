@@ -49,7 +49,7 @@ char* msg_setHisValue( const char* strInfo )
 char* msg_setCurValue( const char* strInfo )
 {
 	static CDbObj& db = CDbObj::instance();
-	static map<string, double> lastPriceMap;
+	static map<string, CurRate> lastRateMap;
 	char logMsg[2048] = {0};
 	memset(logMsg, 0, sizeof(logMsg));
 	sprintf_s(logMsg, "msg_setCurValue begin\n%s", strInfo);
@@ -59,35 +59,41 @@ char* msg_setCurValue( const char* strInfo )
 	{
 		CurRate curRate = rateMsg.curRate;
 		double lastPrice = 0;
-		map<string, double>::iterator iter =  lastPriceMap.find(rateMsg.rateName);
-		if (iter != lastPriceMap.end())
+		map<string, CurRate>::iterator iter =  lastRateMap.find(rateMsg.rateName);
+		if (iter != lastRateMap.end())
 		{
-			lastPrice = iter->second;
+			lastPrice = iter->second.priceBuy;
 		}
 		else
 		{
-			lastPriceMap.insert(make_pair(rateMsg.rateName, lastPrice));
-			iter = lastPriceMap.find(rateMsg.rateName);
+			lastRateMap.insert(make_pair(rateMsg.rateName, curRate));
+			iter = lastRateMap.find(rateMsg.rateName);
 		}
-		
+		CurRate lastRate = iter->second;
 		double dTmp = abs(lastPrice - curRate.priceBuy);
 		if (dTmp > 0.0001)
 		{
 			Operation oper;
 			oper.amount = 11;
 
-			string timeFormat = PubFun::getTimeFormat(curRate.time);
-			string strSqlFormat = "insert into %s ( startTime, priceBuy, priceCell, volume, timeFormat ) value ( %d, %0.5f, %0.5f, %d, \"%s\" );";
+			curRate.timeFormat = PubFun::getTimeFormat(curRate.time);
+			double speadProS = PubFun::calcPercentSpeadProS(lastRate.time, lastRate.mscd, lastRate.priceBuy, curRate.time, curRate.mscd, curRate.priceBuy);
+
+			string strSqlFormat = "insert into %s ( curTime, curMsec, priceBuy, priceCell, volume, timeFormat, percentSpead_s ) value \
+				( %d, %d, %.5f, %.5f, %d,\"%s\", %.5f);";
+			//( %d, \"%s\");"; right1
 			string strTableName = "currency_pair_";
 			strTableName += rateMsg.rateName;
 
 			char chSql[2048] = {0};
 			memset(chSql, 0, sizeof(chSql));
-			sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), curRate.time, curRate.priceBuy, curRate.priceCell, curRate.volume, timeFormat.c_str());
-
+			sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), 
+				curRate.time, curRate.mscd, curRate.priceBuy, curRate.priceCell, curRate.volume, curRate.timeFormat.c_str(), speadProS);
+				//curRate.time, curRate.priceBuy, curRate.priceCell, curRate.volume, timeFormat.c_str());
+				//curRate.time, timeFormat.c_str()); right1
 			char msg[2048] = {};
 			db.ExecuteSql(chSql, msg);
-			iter->second = curRate.priceBuy;
+			iter->second = curRate;
 		}
 		else
 		{

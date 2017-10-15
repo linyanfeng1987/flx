@@ -42,9 +42,6 @@
     <ClInclude Include="..\Florex\table\Exception.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="RateMsg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\PubFun.h">
       <Filter>public\code</Filter>
     </ClInclude>
@@ -78,15 +75,15 @@
     <ClInclude Include="..\public\code\rate\HisRate.h">
       <Filter>public\code\rate</Filter>
     </ClInclude>
+    <ClInclude Include="RateMsg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4Msg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RateMsg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\PubFun.cpp">
@@ -118,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\rate\HisRate.cpp">
       <Filter>public\code\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="RateMsg.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

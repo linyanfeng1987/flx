@@ -77,6 +77,7 @@ RateMsg RateMsg::getRateMsg(string strInfo)
 				{
 					curRate.time = (long int)time(0);
 				}
+				curRate.mscd = clock()%1000;
 
 				rateMsg.curRate = curRate;
 			}

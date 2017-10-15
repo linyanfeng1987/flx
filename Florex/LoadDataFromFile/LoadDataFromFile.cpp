@@ -4,28 +4,34 @@
 #include <tchar.h>
 
 #include <time.h>
+#include "PubFun.h"
+#include "HisRateLoader.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	CHisRateLoader loader;
+	string path = "F:\\florexData\\2017-9-3";
+	map<string, string> files;
+	PubFun::getFileByPath(path, files);
+	int nIndex = 0;
+	string file = "";
+	string filePath = "";
+	string fileExt = "";
+	for ( pair<string,string> fileInfo : files )
+	{
+		file = fileInfo.first;
+		filePath = fileInfo.second;
 
-	time_t tt = time(NULL);
-	tm t;
-	localtime_s(&t, &tt);
-	printf("current year is %d;current month is %d;current date of month is %d\r\n",
-		1900 + t.tm_year,
-		1 + t.tm_mon/*此month的范围为0-11*/,
-		t.tm_mday);
-
-	printf("\t本地时间：%d-%d-%d %d:%d:%d\r\n",
-		t.tm_year + 1900,
-		t.tm_mon + 1,
-		t.tm_mday,
-		t.tm_hour,
-		t.tm_min,
-		t.tm_sec);
-
-	time_t t2 = mktime(&t);
-	//ctime();
+		nIndex = file.rfind('.');
+		if ( -1 != nIndex )
+		{
+			fileExt = file.substr(nIndex+1);
+			if (fileExt == "txt")
+			{
+				loader.load(filePath);
+			}
+		}
+	}
 	return 0;
 }
 

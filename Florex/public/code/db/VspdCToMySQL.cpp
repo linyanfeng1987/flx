@@ -80,20 +80,33 @@ string VspdCToMySQL::SelectData(const char * SQL,int Cnum,char * Msg)
 }
 
 //更新数据
-bool VspdCToMySQL::ExecuteSql(const char * SQL,char * Msg)
+bool VspdCToMySQL::ExecuteSql(const char * SQL)
 {
-	char sql[2048];
-	sprintf_s(sql,SQL);
-	if(mysql_query(&mysql,sql) != 0)
+// 	char sql[2048];
+// 	sprintf_s(sql,SQL);
+	if(mysql_query(&mysql,SQL) != 0)
 	{
-		Msg = "ExecuteSql Data Error";
+		string error = mysql_error(&mysql);
+		printf("errorMsg:%s\n", error.c_str());
 		return false;
 	}
 	return true;
 }
 
+
+
 //关闭数据库连接
 void VspdCToMySQL::CloseMySQLConn()
 {
 	mysql_close(&mysql);
+}
+
+void VspdCToMySQL::startTransaction()
+{
+	mysql_query(&mysql,"START TRANSACTION"); // 开启事务， 如果没有开启事务，那么效率会变得非常低下！
+}
+
+void VspdCToMySQL::commit()
+{
+	mysql_query(&mysql,"COMMIT"); // 提交事务 
 }

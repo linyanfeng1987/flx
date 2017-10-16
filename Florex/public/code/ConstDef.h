@@ -18,3 +18,5 @@ const int timeStepStep_dd = 5;
 const int timeStepStep_ww = 6;
 
 const string dbName = "florex";
+
+const static int maxLineRead = 10000;

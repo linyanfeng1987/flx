@@ -42,7 +42,7 @@ void CDbObj::SelectData(const char * SQL,CTable table )
 	}
 }
 
-bool CDbObj::ExecuteSql( const char * SQL,char * Msg )
+bool CDbObj::ExecuteSql( const char * SQL )
 {
 	string strLog = "excecuteSql:";
 	strLog += SQL;
@@ -53,7 +53,7 @@ bool CDbObj::ExecuteSql( const char * SQL,char * Msg )
 		isConnect = true;
 	}
 
-	return db.ExecuteSql(SQL, Msg);;
+	return db.ExecuteSql(SQL);
 }
 
 void CDbObj::ConnectDb()
@@ -80,6 +80,22 @@ CDbObj& CDbObj::instance()
 		g_db = new CDbObj;
 	}
 	return *g_db;
+}
+
+void CDbObj::insertDatas( list<string> sqls )
+{
+	if(!isConnect)
+	{
+		ConnectDb();
+		isConnect = true;
+	}
+
+	db.startTransaction();
+	for (string sql : sqls)
+	{
+		db.ExecuteSql(sql.c_str());;
+	}
+	db.commit();
 }
 
 

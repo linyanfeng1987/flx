@@ -62,12 +62,17 @@ public:
     出口参数：
     int ：0表示成功；1表示失败
     */
-    bool ExecuteSql(const char * SQL,char * Msg);
+    bool ExecuteSql(const char * SQL);
 	   
     /*
     主要功能：
     关闭数据库连接
     */
     void CloseMySQLConn();
+
+
+	void startTransaction();
+
+	void commit();
 };
 

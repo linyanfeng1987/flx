@@ -136,7 +136,6 @@ double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double 
 
 bool PubFun::readHisFile( ifstream &fin,list<string> &readRes )
 {
-	const static int maxLineRead = 1000;
 	char ch[255] = {};
 	int lineCount = 0;
 	bool hasValue = false;

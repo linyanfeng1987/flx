@@ -16,7 +16,9 @@ public:
 
 	void SelectData(const char * SQL,CTable table);
 
-	bool ExecuteSql(const char * SQL,char * Msg);
+	bool ExecuteSql(const char * SQL);
+
+	void insertDatas(list<string> sqls);
 
 	void ConnectDb();
 

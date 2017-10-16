@@ -122,7 +122,6 @@ void createCurTable()
 	//list<string>::iterator iter 
 	char chSqlDrop[2048] = {0};
 	char chSqlCreat[2048] = {0};
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
@@ -130,8 +129,8 @@ void createCurTable()
 		memset(chSqlCreat, 0, sizeof(chSqlCreat));
 		sprintf_s(chSqlDrop, dropFormat.c_str(), tableName.c_str());
 		sprintf_s(chSqlCreat, createBaseTableFormat.c_str(), tableName.c_str());
-		db.ExecuteSql(chSqlDrop, msg);
-		db.ExecuteSql(chSqlCreat, msg);
+		db.ExecuteSql(chSqlDrop);
+		db.ExecuteSql(chSqlCreat);
 	}
 }
 
@@ -141,7 +140,6 @@ void createHisTable()
 	//list<string>::iterator iter 
 	char chSqlDrop[2048] = {0};
 	char chSqlCreat[2048] = {0};
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
@@ -149,69 +147,64 @@ void createHisTable()
 		memset(chSqlCreat, 0, sizeof(chSqlCreat));
 		sprintf_s(chSqlDrop, dropFormat.c_str(), tableName.c_str());
 		sprintf_s(chSqlCreat, createHisTableFormat.c_str(), tableName.c_str());
-		db.ExecuteSql(chSqlDrop, msg);
-		db.ExecuteSql(chSqlCreat, msg);
+		db.ExecuteSql(chSqlDrop);
+		db.ExecuteSql(chSqlCreat);
 	}
 }
 
 void alterCurTable()
 {
 	list<string> tableNames = getCurTableName();
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
 		string strChange = getChangeColumnSql(tableName, "price", "priceBuy", "FLOAT NOT NULL");
 		string strAdd = getAddColumnSql(tableName, "priceCell", "FLOAT NOT NULL");
 
-		db.ExecuteSql(strChange.c_str(), msg);
-		db.ExecuteSql(strAdd.c_str(), msg);
+		db.ExecuteSql(strChange.c_str());
+		db.ExecuteSql(strAdd.c_str());
 	}
 }
 
 void alterCurTable_addSpead()
 {
 	list<string> tableNames = getCurTableName();
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
 		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
 
-		db.ExecuteSql(strAdd.c_str(), msg);
+		db.ExecuteSql(strAdd.c_str());
 	}
 }
 
 void alterHisTable_addSpead()
 {
 	list<string> tableNames = getHisTableName();
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
 		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
 
-		db.ExecuteSql(strAdd.c_str(), msg);
+		db.ExecuteSql(strAdd.c_str());
 	}
 }
 
 void alterCurTable_addCurMsec()
 {
 	list<string> tableNames = getCurTableName();
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
 		string strAdd = getAddColumnSql(tableName, "curMsec", "INT NOT NULL default 0");
 
-		db.ExecuteSql(strAdd.c_str(), msg);
+		db.ExecuteSql(strAdd.c_str());
 	}
 }
 
 void alterCurTablePk()
 {
 	list<string> tableNames = getCurTableName();
-	char msg[2048] = {};
 	CDbObj& db = CDbObj::instance();
 	for(string tableName : tableNames)
 	{
@@ -224,10 +217,8 @@ void alterCurTablePk()
 		sprintf_s(chSql2, addPkFormat.c_str(), tableName.c_str(), "startTime,curMsec");
 		string strAddPk = chSql2;
 
-		db.ExecuteSql(strDropPk.c_str(), msg);
-		printf("msg: %s", msg);
-		db.ExecuteSql(strAddPk.c_str(), msg);
-		printf("msg: %s", msg);
+		db.ExecuteSql(strDropPk.c_str());
+		db.ExecuteSql(strAddPk.c_str());
 	}
 }
 
@@ -239,7 +230,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//alterCurTable_addSpead();
 	//alterCurTable_addCurMsec();
 	//alterCurTablePk();
-	alterHisTable_addSpead();
+	//alterHisTable_addSpead();
 	return 0;
 }
 

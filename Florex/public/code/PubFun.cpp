@@ -121,16 +121,33 @@ std::string PubFun::getTimeFormat(time_t timep)
 	strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S", &tmpTm);
 	return tmp;
 }
-
+/*
 double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice )
 {
-	long int dMscd = (endTime * 1000 + endMscd) - (startTime * 1000 + startMscd);
+	long int dMscd = (endTime - startTime) * 1000 + endMscd - startMscd;
 	double percentSpead = 0;
 	if ( 0 != dMscd)
 	{
-		percentSpead = ((endPrice-startPrice) / dMscd * 1000)/startPrice * 100;
+		//percentSpead = ((endPrice-startPrice) / dMscd * 1000)/startPrice * 100;
+		percentSpead = (endPrice-startPrice) / dMscd /startPrice * 100000;
 	}
 	
+	return percentSpead;
+}
+*/
+
+double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice )
+{
+	double second = (endTime - startTime) + (endMscd - startMscd)/1000.0;
+	double basePrice = startPrice < endPrice ? startPrice : endPrice;
+	double percentSpead = 0;
+	if ( second > 0.0001 || second < -0.0001 )
+	{
+		//percentSpead = ((endPrice-startPrice) / dMscd * 1000)/startPrice * 100;
+		//Íò·ÖÖ®
+		percentSpead = (endPrice-startPrice) / second /basePrice * 10000;
+	}
+
 	return percentSpead;
 }
 

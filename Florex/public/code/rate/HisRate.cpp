@@ -86,7 +86,7 @@ void HisRate::loadByLine( string line )
 	
 	this->time = (long int)t;
 	this->timeFormat = PubFun::getTimeFormat(t);
-	this->percentSpead_s = PubFun::calcPercentSpeadProS(this->time, 0, this->high, this->time+60, 0, this->low);
+	this->percentSpead_s = PubFun::calcPercentSpeadProS(this->time, 0, this->low, this->time+60, 0, this->high);
 	this->timeStepType = timeStepStep_mm;
 }
 

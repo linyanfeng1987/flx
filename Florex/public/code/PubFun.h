@@ -22,7 +22,9 @@ public:
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
 	static string getValueFromMap(string strKey, map<string, string> mapObj);
-
+	static string strToLower(string str);
+	static string strToUpper(string str);
+	
 	static string getTimeFormat(time_t timep);
 	static double calcPercentSpeadProS(long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice);
 

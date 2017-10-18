@@ -72,7 +72,7 @@ double PubFun::stringToDouble(string str)
 
 void PubFun::log( string str )
 {
-	return;
+	//return;
 	static char ch[2048] = {0};
 	memset(ch, 0, sizeof(ch));
 	static ofstream ofile;
@@ -223,6 +223,20 @@ time_t PubFun::HisRateStringToDatetime(const char *str)
 	time_t t_ = mktime(&tm_); //已经减了8个时区  
 	return t_; //秒时间  
 }  
+
+std::string PubFun::strToLower( string str )
+{
+	char tmpCh[255] = {0};
+	strcpy_s(tmpCh, str.c_str());
+	return strlwr(tmpCh);
+}
+
+std::string PubFun::strToUpper( string str )
+{
+	char tmpCh[255] = {0};
+	strcpy_s(tmpCh, str.c_str());
+	return strupr(tmpCh);
+}
 
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  

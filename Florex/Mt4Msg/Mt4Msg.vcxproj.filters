@@ -28,6 +28,12 @@
     <Filter Include="public\code\rate">
       <UniqueIdentifier>{108af6a0-c79c-44a4-a055-1d33914077e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\code\process">
+      <UniqueIdentifier>{e8d815c8-0435-435d-a775-46cb97b58888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\code\process\cap">
+      <UniqueIdentifier>{f3993be1-fc67-4f98-96b6-79b7ccbe1e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -78,6 +84,15 @@
     <ClInclude Include="RateMsg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\cap\baseCap.h">
+      <Filter>public\code\process\cap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\cap\threshold.h">
+      <Filter>public\code\process\cap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\cap\additionCap.h">
+      <Filter>public\code\process\cap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4Msg.cpp">
@@ -118,6 +133,15 @@
     </ClCompile>
     <ClCompile Include="RateMsg.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\cap\baseCap.cpp">
+      <Filter>public\code\process\cap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\cap\threshold.cpp">
+      <Filter>public\code\process\cap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\cap\additionCap.cpp">
+      <Filter>public\code\process\cap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

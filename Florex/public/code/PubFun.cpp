@@ -228,14 +228,16 @@ std::string PubFun::strToLower( string str )
 {
 	char tmpCh[255] = {0};
 	strcpy_s(tmpCh, str.c_str());
-	return strlwr(tmpCh);
+	_strlwr_s(tmpCh);
+	return tmpCh;
 }
 
 std::string PubFun::strToUpper( string str )
 {
 	char tmpCh[255] = {0};
 	strcpy_s(tmpCh, str.c_str());
-	return strupr(tmpCh);
+	_strupr_s(tmpCh);
+	return tmpCh;
 }
 
 /*

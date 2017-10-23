@@ -27,6 +27,7 @@ public:
 	
 	static string getTimeFormat(time_t timep);
 	static double calcPercentSpeadProS(long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice);
+	static double calcPercentSpeadProS(double startPrice, double endPrice, double second);
 
 	static bool readHisFile(ifstream &fin,list<string> &readRes);
 	static bool getFileByPath(string path, map<string, string> &files);

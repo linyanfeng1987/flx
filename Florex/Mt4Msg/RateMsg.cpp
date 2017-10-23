@@ -64,10 +64,14 @@ RateMsg RateMsg::getRateMsg(string strInfo)
 		string strMsgType = "";
 		if (iter != keyValueMap.end())
 		{
+			rateMsg.rateName = keyValueMap.find("rateName")->second;
+			rateMsg.msgType = keyValueMap.find("msgType")->second;
+			rateMsg.status = 1;
 			strMsgType = iter->second;
 			if (strMsgType == msgType_cur)
 			{
 				CurRate curRate;
+				curRate.rateName = rateMsg.rateName;
 				curRate.time = PubFun::stringToInt(PubFun::getValueFromMap("time", keyValueMap));
 				curRate.priceBuy = PubFun::stringToDouble(PubFun::getValueFromMap("priceBuy", keyValueMap));
 				curRate.priceCell = PubFun::stringToDouble(PubFun::getValueFromMap("priceCell", keyValueMap));
@@ -84,6 +88,7 @@ RateMsg RateMsg::getRateMsg(string strInfo)
 			else if (strMsgType == msgType_his)
 			{
 				HisRate hisRat;
+				hisRat.rateName = rateMsg.rateName;
 				hisRat.time = PubFun::stringToInt(PubFun::getValueFromMap("time", keyValueMap));
 				hisRat.timeStepType = PubFun::stringToInt(PubFun::getValueFromMap("timeStepType", keyValueMap));
 				hisRat.open = PubFun::stringToDouble(PubFun::getValueFromMap("open", keyValueMap));
@@ -97,9 +102,7 @@ RateMsg RateMsg::getRateMsg(string strInfo)
 				rateMsg.hisRate = hisRat;
 			}
 
-			rateMsg.rateName = keyValueMap.find("rateName")->second;
-			rateMsg.msgType = keyValueMap.find("msgType")->second;
-			rateMsg.status = 1;
+			
 		}
 	}
 	catch (...)

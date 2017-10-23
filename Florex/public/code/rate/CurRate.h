@@ -8,6 +8,7 @@ public:
 	~CurRate(void);
 	CurRate();
 
+	string rateName;
 	long int time;         // 价格时间
 	long mscd;
 	double priceBuy;

@@ -158,6 +158,7 @@
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
     <ClInclude Include="..\public\code\process\cap\additionCap.h" />
     <ClInclude Include="..\public\code\process\cap\baseCap.h" />
+    <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
     <ClCompile Include="..\public\code\process\cap\additionCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
+    <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />

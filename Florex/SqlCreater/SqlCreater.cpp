@@ -222,6 +222,29 @@ void alterCurTablePk()
 	}
 }
 
+void alterTableDesc()
+{
+	CDbObj& db = CDbObj::instance();
+	list<string> tableNames = getCurTableName();
+	for(string tableName : tableNames)
+	{
+		string strAdd1 = getAddColumnSql(tableName, "processFlag", "VARCHAR(45)");
+		db.ExecuteSql(strAdd1.c_str());
+		string strAdd2 = getAddColumnSql(tableName, "desc", "VARCHAR(512)");
+		db.ExecuteSql(strAdd2.c_str());
+	}
+
+	tableNames = getHisTableName();
+	for(string tableName : tableNames)
+	{
+		string strAdd1 = getAddColumnSql(tableName, "processFlag", "VARCHAR(45)");
+		db.ExecuteSql(strAdd1.c_str());
+		string strAdd2 = getAddColumnSql(tableName, "desc", "VARCHAR(512)");
+		db.ExecuteSql(strAdd2.c_str());
+	}
+}
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//createCurTable();
@@ -231,6 +254,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//alterCurTable_addCurMsec();
 	//alterCurTablePk();
 	//alterHisTable_addSpead();
+	alterTableDesc();
 	return 0;
 }
 

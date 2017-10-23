@@ -139,6 +139,11 @@ double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double 
 double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice )
 {
 	double second = (endTime - startTime) + (endMscd - startMscd)/1000.0;
+	return calcPercentSpeadProS(startPrice, endPrice, second);
+}
+
+double PubFun::calcPercentSpeadProS( double startPrice, double endPrice, double second )
+{
 	double basePrice = startPrice < endPrice ? startPrice : endPrice;
 	double percentSpead = 0;
 	if ( second > 0.0001 || second < -0.0001 )

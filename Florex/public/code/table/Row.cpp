@@ -242,3 +242,21 @@ void CRow::addByList( list<string> valueList )
 		setAndaddValue(fieldIter->first, *valueIter);
 	}
 }
+
+std::string CRow::getValue( string strKey )
+{
+	string destValue = "";
+	if (m_pTableStruct->find(strKey) != m_pTableStruct->end())
+	{
+		CRow::iterator iter = this->find(strKey);
+		if (iter != this->end())
+		{
+			destValue = iter->second;
+		}
+		else
+		{
+			destValue = "";
+		}
+	}
+	return destValue;
+}

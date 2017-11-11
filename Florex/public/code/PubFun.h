@@ -33,6 +33,8 @@ public:
 	static bool getFileByPath(string path, map<string, string> &files);
 
 	static time_t HisRateStringToDatetime(const char *str);
+	static string getStepStr(int nStep);
+
 	//static unsigned long long GetCurrentTimeMsec();
 };
 

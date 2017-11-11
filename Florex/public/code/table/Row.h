@@ -34,7 +34,7 @@ public:
 
 	void setAndaddValue(string strKey, string strValue);
 	void addByList(list<string> valueList);
-
+	string getValue(string strKey);
 	
 
 	DBTYPE m_dbType;

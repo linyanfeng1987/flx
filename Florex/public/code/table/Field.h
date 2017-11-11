@@ -9,10 +9,10 @@ class CField
 public:
 	CField()
 	{
-		strName = "defultName";
-		strType = "string";
-		bIsPk = false;
+		load("defultName");
 	}
+
+	void load(string strName, string strType="string", bool bIsPk = false);
 	string strType;
 	bool bIsPk;
 	string strName;

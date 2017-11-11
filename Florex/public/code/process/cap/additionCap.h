@@ -1,3 +1,4 @@
+#pragma once
 #include "baseCap.h"
 
 class CAdditionCap : public CBaseCap

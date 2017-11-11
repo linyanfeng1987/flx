@@ -96,7 +96,7 @@ std::string HisRate::toSqlString()
 						  ( %d, %.5f, %.5f, %.5f, %.5f, %d, \"%s\", %.5f);";
 	string strTableName = "currency_pair_";
 	strTableName += this->rateName;
-	strTableName = dbName +"."+ strTableName;
+	strTableName = florexDbName +"."+ strTableName;
 	switch (this->timeStepType)
 	{
 	case timeStepStep_mm:

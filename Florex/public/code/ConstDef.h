@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 using namespace std;
@@ -17,6 +19,8 @@ const int timeStepStep_4h = 4;
 const int timeStepStep_dd = 5;
 const int timeStepStep_ww = 6;
 
-const string dbName = "florex";
+const string florexDbName = "florex";
 
 const static int maxLineRead = 10000;
+
+const string rateNames[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audusd"};

@@ -82,7 +82,7 @@ char* msg_setCurValue( const char* strInfo )
 			string strSqlFormat = "insert into %s ( curTime, curMsec, priceBuy, priceCell, volume, timeFormat, percentSpead_s ) value \
 				( %d, %d, %.5f, %.5f, %d,\"%s\", %.5f);";
 			//( %d, \"%s\");"; right1
-			string strTableName = dbName + ".";
+			string strTableName = florexDbName + ".";
 			strTableName += "currency_pair_";
 			strTableName += rateMsg.rateName;
 

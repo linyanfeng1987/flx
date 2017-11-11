@@ -245,6 +245,39 @@ std::string PubFun::strToUpper( string str )
 	return tmpCh;
 }
 
+std::string PubFun::getStepStr( int nStep )
+{
+	string strStep = "";
+	switch (nStep)
+	{
+	case timeStepStep_mm:
+		strStep = tableTimeStepEnd_mm;
+		break;
+	case timeStepStep_15m:
+		strStep = tableTimeStepEnd_15m;
+		break;
+	case timeStepStep_hh:
+		strStep = tableTimeStepEnd_hh;
+		break;
+	case timeStepStep_4h:
+		strStep = tableTimeStepEnd_4h;
+		break;
+	case timeStepStep_dd:
+		strStep = tableTimeStepEnd_dd;
+		break;
+	case timeStepStep_ww:
+		strStep = tableTimeStepEnd_ww;
+		break;
+	case timeStepStep_def:
+		strStep = "";
+		break;
+	default:
+		strStep = "";
+		break;
+	}
+	return strStep;
+}
+
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  
 { 

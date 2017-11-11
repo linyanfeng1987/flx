@@ -1,3 +1,4 @@
+#pragma once
 #include "threshold.h"
 #include "rate/HisRate.h"
 #include "rate/CurRate.h"

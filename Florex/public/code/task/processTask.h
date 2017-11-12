@@ -14,6 +14,8 @@ public:
 	static CTableStruct tableStruct;
 	static string fields[];
 
+	void load(CRow *pRow);
+
 	string getTaskId();
 	string getRateName();
 	int getRateType();

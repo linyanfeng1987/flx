@@ -67,7 +67,7 @@ void CDbObj::ConnectDb()
 	string strMsg = "";//消息变量
 	char* Msg = "";
 
-	if(db.ConnMySQL(host,port,dbname,user,passwd,charset,strMsg) == 0)
+	if(db.ConnMySQL(host,port,dbname,user,passwd,charset,strMsg))
 		printf("连接成功\r\n");
 	else
 		printf(Msg);

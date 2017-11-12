@@ -21,7 +21,7 @@ bool VspdCToMySQL::ConnMySQL(char *host,char * port ,char * Db,char * user,char*
 		bRes  = false;
 	}    
 
-	if (bRes && mysql_real_connect(&mysql,host,user,passwd,Db,0,NULL,0) == NULL)
+	if (bRes && mysql_real_connect(&mysql,host,user,passwd,NULL,0,NULL,0) == NULL)
 	{
 		bRes  = false;
 	}    

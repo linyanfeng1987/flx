@@ -82,3 +82,8 @@ int CProcessTask::getStatus()
 {
 	return PubFun::stringToInt(pRow->find(fields[7])->second);
 }
+
+void CProcessTask::load( CRow *pRow )
+{
+	this->pRow = pRow;
+}

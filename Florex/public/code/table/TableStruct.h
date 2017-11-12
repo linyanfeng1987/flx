@@ -27,7 +27,6 @@ public:
 // 	string getUpdateSqlFormat();
 // 	string getCondition();
 
-
 	string tableName;
 
 	//KeyList& getKeyFields(){return m_keyFiled;}

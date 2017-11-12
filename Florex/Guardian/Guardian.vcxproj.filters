@@ -40,6 +40,9 @@
     <Filter Include="public\code\data">
       <UniqueIdentifier>{f9cd6dc1-9a5c-4ccf-9e23-d4a35c19380c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\code\db\dataObj">
+      <UniqueIdentifier>{5c91fb3f-1f37-4a59-8d30-099f94531ba2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,17 +102,23 @@
     <ClInclude Include="..\public\code\task\taskBuilder.h">
       <Filter>public\code\tesk</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\task\processTask.h">
-      <Filter>public\code\tesk</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\db\dateOperateion.h">
       <Filter>public\code\db</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\baseProcess.h">
       <Filter>public\code\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\task\processTaskTable.h">
-      <Filter>public\code\tesk</Filter>
+    <ClInclude Include="..\public\code\db\dataObj\baseObj.h">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\processTask.h">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\curRateD.h">
+      <Filter>public\code\db\dataObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,17 +173,23 @@
     <ClCompile Include="..\public\code\task\taskBuilder.cpp">
       <Filter>public\code\tesk</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\task\processTask.cpp">
-      <Filter>public\code\tesk</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\db\dateOperateion.cpp">
       <Filter>public\code\db</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\baseProcess.cpp">
       <Filter>public\code\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\task\processTaskTable.cpp">
-      <Filter>public\code\tesk</Filter>
+    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\processTask.cpp">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp">
+      <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

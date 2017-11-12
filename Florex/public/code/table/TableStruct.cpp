@@ -3,7 +3,12 @@
 
 CTableStruct::CTableStruct(string strName)
 {
-	tableName = strName;
+	setName(strName);
+}
+
+CTableStruct::CTableStruct()
+{
+
 }
 
 
@@ -19,6 +24,11 @@ std::string CTableStruct::getCreateSql()
 std::string CTableStruct::getDeleteSql()
 {
 	return "";
+}
+
+void CTableStruct::setName( string strName )
+{
+	tableName = strName;
 }
 
 // 

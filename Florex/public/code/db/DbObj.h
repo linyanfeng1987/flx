@@ -14,7 +14,7 @@ public:
 	
 	static CDbObj& instance();
 
-	void SelectData(const char * SQL,CTable table);
+	void SelectData(const char * SQL,CTable& table);
 
 	bool ExecuteSql(const char * SQL);
 

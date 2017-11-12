@@ -83,6 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\public\code\ConstDef.h" />
+    <ClInclude Include="..\public\code\db\dataObj\baseObj.h" />
+    <ClInclude Include="..\public\code\db\dataObj\curRateD.h" />
+    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h" />
+    <ClInclude Include="..\public\code\db\dataObj\processTask.h" />
     <ClInclude Include="..\public\code\db\dateOperateion.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
@@ -99,13 +103,15 @@
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
-    <ClInclude Include="..\public\code\task\processTask.h" />
-    <ClInclude Include="..\public\code\task\processTaskTable.h" />
     <ClInclude Include="..\public\code\task\taskBuilder.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\processTask.cpp" />
     <ClCompile Include="..\public\code\db\dateOperateion.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
@@ -122,8 +128,6 @@
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
-    <ClCompile Include="..\public\code\task\processTask.cpp" />
-    <ClCompile Include="..\public\code\task\processTaskTable.cpp" />
     <ClCompile Include="..\public\code\task\taskBuilder.cpp" />
     <ClCompile Include="Guardian.cpp" />
     <ClCompile Include="stdafx.cpp">

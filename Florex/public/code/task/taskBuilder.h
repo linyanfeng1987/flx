@@ -13,6 +13,9 @@ public:
 	void run();
 protected:
 	void runOneRate(string rateName);
+	void runOneProcess(string processName);
 
+
+	static CDbObj& db; 
 };
 

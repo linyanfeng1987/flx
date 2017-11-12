@@ -17,7 +17,7 @@ CDbObj::~CDbObj(void)
 	}
 }
 
-void CDbObj::SelectData(const char * SQL,CTable table )
+void CDbObj::SelectData(const char * SQL,CTable& table )
 {
 	string strLog = "selectData:";
 	strLog += SQL;
@@ -62,7 +62,7 @@ void CDbObj::ConnectDb()
 	char* user="root";
 	char* port ="3306";
 	char* passwd="101050";
-	char* dbname="florex"; 
+	char* dbname=""; 
 	char* charset = "GBK";//支持中文
 	string strMsg = "";//消息变量
 	char* Msg = "";

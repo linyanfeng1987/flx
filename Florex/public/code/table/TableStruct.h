@@ -13,7 +13,10 @@ class CTableStruct: public map<string, CField>
 {
 public:
 	CTableStruct(string strName);
+	CTableStruct();
 	~CTableStruct();
+
+	void setName(string strName);
 
 	string getCreateSql();
 	string getDeleteSql();

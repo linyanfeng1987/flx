@@ -20,6 +20,7 @@ const int timeStepStep_dd = 5;
 const int timeStepStep_ww = 6;
 
 const string florexDbName = "florex";
+const string coreDbName = "core";
 
 const static int maxLineRead = 10000;
 

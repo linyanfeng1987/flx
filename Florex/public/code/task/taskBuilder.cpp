@@ -1,5 +1,6 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
+#include "db/dataObj/processTask.h"
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 
@@ -43,4 +44,27 @@ void CTaskBuilder::runOneRate( string rateName )
 void CTaskBuilder::runOneProcess( string processName )
 {
 
+}
+
+void CTaskBuilder::reLoadTask()
+{
+	tasks.clear();
+	string strSqlFormat = "select * from %s;";
+	string strTableName = coreDbName + ".";
+	strTableName += "processtask";
+
+	char chSql[2048] = {0};
+	memset(chSql, 0, sizeof(chSql));
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
+	CTable resTable;
+	db.SelectData(chSql, resTable);
+
+	CTable::iterator iter = resTable.begin();
+	for (; iter != resTable.end(); iter++)
+	{
+		CProcessTask processTask;
+		processTask.load(&(iter->second));
+		processTask.getTaskId();
+		tasks.insert(make_pair(processTask.getTaskId(), processTask));
+	}
 }

@@ -9,6 +9,8 @@
 #include <list>
 #include <tuple>
 #include <map>
+#include <direct.h>  
+#include <stdio.h> 
 #include "RateMsg.h"
 
 const int step_mm = 1;
@@ -108,7 +110,16 @@ char* msg_setCurValue( const char* strInfo )
 
 char* msg_beat()
 {
+	static char msg[1024] = {0};
+	memset(msg, 0, sizeof(msg));
 	Operation oper;
 	oper.amount = 11;
-	return "hello mt4.^_^";
+	char   buffer[MAX_PATH];   
+	_getcwd(buffer, MAX_PATH);  
+	string strMsg = "hello mt4.^_^";
+	strMsg.append(" workPath:");
+	strMsg.append(buffer);
+
+	strcpy_s(msg, strMsg.c_str());
+	return msg;
 }

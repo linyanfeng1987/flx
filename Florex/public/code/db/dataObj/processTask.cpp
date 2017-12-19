@@ -1,7 +1,7 @@
 #include "processTask.h"
 #include "PubFun.h"
 
-string CProcessTask::fields[] = {"taskId", "rateName", "rateType", "startTime", "endTime", "processName", "paramter", "status"};
+string CProcessTask::fields[] = {"taskId", "rateName", "rateType", "startTime", "endTime", "processTypeName", "paramter", "status"};
 
 
 CProcessTask::CProcessTask()
@@ -46,37 +46,72 @@ CProcessTask::~CProcessTask()
 
 std::string CProcessTask::getTaskId()
 {
-	return pRow->find(fields[0])->second;
+	
+	return pRow->getValue(fields[0]);
+}
+void CProcessTask::setTaskId( string taskId )
+{
+	pRow->setValue(fields[0], taskId);
 }
 
 std::string CProcessTask::getRateName()
 {
-	return pRow->find(fields[1])->second;
+	return pRow->getValue(fields[1]);
+}
+
+void CProcessTask::setRateName( string rateName )
+{
+	pRow->setValue(fields[1], rateName);
 }
 
 int CProcessTask::getRateType()
 {
-	return PubFun::stringToInt(pRow->find(fields[2])->second);
+	return PubFun::stringToInt(pRow->getValue(fields[2]));
+}
+
+void CProcessTask::setRateType( int rateType )
+{
+	pRow->setValue(fields[2], PubFun::intToString(rateType));
 }
 
 time_t CProcessTask::getStartTime()
 {
-	return PubFun::stringToInt(pRow->find(fields[3])->second);
+	return PubFun::stringToInt(pRow->getValue(fields[3]));
+}
+
+void CProcessTask::setStartTime( time_t startTime )
+{
+	pRow->setValue(fields[3], PubFun::intToString((int)startTime));
 }
 
 time_t CProcessTask::getEndTime()
 {
-	return PubFun::stringToInt(pRow->find(fields[4])->second);
+	return PubFun::stringToInt(pRow->getValue(fields[4]));
 }
 
-std::string CProcessTask::getProcessName()
+void CProcessTask::setEndTime( time_t endTime )
 {
-	return pRow->find(fields[5])->second;
+	pRow->setValue(fields[4], PubFun::intToString((int)endTime));
+}
+
+std::string CProcessTask::getProcessTypeName()
+{
+	return pRow->getValue(fields[5]);
+}
+
+void CProcessTask::setProcessTypeName( string processTypeName )
+{
+	pRow->setValue(fields[5], processTypeName);
 }
 
 std::string CProcessTask::getParamter()
 {
-	return pRow->find(fields[6])->second;
+	return pRow->getValue(fields[6]);
+}
+
+void CProcessTask::setParamter( string paramter )
+{
+	pRow->setValue(fields[6], paramter);
 }
 
 int CProcessTask::getStatus()
@@ -84,7 +119,22 @@ int CProcessTask::getStatus()
 	return PubFun::stringToInt(pRow->find(fields[7])->second);
 }
 
-void CProcessTask::load( CRow *pRow )
+void CProcessTask::setStatus( int status )
 {
-	this->pRow = pRow;
+	pRow->setValue(fields[5], PubFun::intToString(status));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

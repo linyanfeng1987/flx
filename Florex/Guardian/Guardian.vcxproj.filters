@@ -43,6 +43,9 @@
     <Filter Include="public\code\db\dataObj">
       <UniqueIdentifier>{5c91fb3f-1f37-4a59-8d30-099f94531ba2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\code\tinyXml">
+      <UniqueIdentifier>{7aab2233-925e-40b1-a9a6-9df74be9491c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -120,6 +123,21 @@
     <ClInclude Include="..\public\code\db\dataObj\curRateD.h">
       <Filter>public\code\db\dataObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\data\globalData.h">
+      <Filter>public\code\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\processConfig.h">
+      <Filter>public\code\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\tinyXml\tinystr.h">
+      <Filter>public\code\tinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\tinyXml\tinyxml.h">
+      <Filter>public\code\tinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\processStatus.h">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -189,6 +207,30 @@
       <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\data\globalData.cpp">
+      <Filter>public\code\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\processConfig.cpp">
+      <Filter>public\code\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tinyXml\tinyxml.cpp">
+      <Filter>public\code\tinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp">
+      <Filter>public\code\tinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp">
+      <Filter>public\code\tinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tinyXml\echo.cpp">
+      <Filter>public\code\tinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tinyXml\tinystr.cpp">
+      <Filter>public\code\tinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp">
       <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
   </ItemGroup>

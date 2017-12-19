@@ -278,6 +278,28 @@ std::string PubFun::getStepStr( int nStep )
 	return strStep;
 }
 
+std::string PubFun::intToString(int nValue)
+{
+	char tmpCh[255] = {0};  
+	_itoa_s(nValue, tmpCh, 10);
+	return tmpCh;
+}
+
+std::string PubFun::get14CurTimeString()
+{
+	SYSTEMTIME s_time; 
+	GetLocalTime(&s_time); 
+	
+	return get14TimeString(s_time);
+}
+
+std::string PubFun::get14TimeString( SYSTEMTIME& s_time )
+{
+	char ch[1024] = {0};
+	sprintf_s(ch, "%d%d%d%d%d%d", s_time.wYear, s_time.wMonth, s_time.wDay, s_time.wHour, s_time.wMinute, s_time.wSecond);
+	return ch;
+}
+
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  
 { 

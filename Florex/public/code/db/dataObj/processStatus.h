@@ -9,13 +9,12 @@ public:
 
 	static string fields[];
 
-	void load(CRow *pRow);
-
 	string getProcessName();
+	void setProcessName(string processName);
 	int getProcessStatus();
+	void setProcessStatus(int processStatus);
 	int getStep();
+	void setStep(int step);
 	time_t getLastTime();
-
-protected:
-	CRow* pRow;
+	void setLastTime(time_t lastTime);
 };

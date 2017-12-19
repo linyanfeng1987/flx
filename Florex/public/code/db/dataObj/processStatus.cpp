@@ -34,25 +34,41 @@ CProcessStatus::~CProcessStatus()
 
 std::string CProcessStatus::getProcessName()
 {
-	return pRow->find(fields[1])->second;
+	return pRow->getValue(fields[0]);
+}
+
+void CProcessStatus::setProcessName( string processName )
+{
+	pRow->setValue(fields[0], processName);
 }
 
 int CProcessStatus::getProcessStatus()
 {
-	return PubFun::stringToInt(pRow->find(fields[2])->second);
+	return PubFun::stringToInt( pRow->getValue(fields[1]));
+}
+
+void CProcessStatus::setProcessStatus( int processStatus )
+{
+	pRow->setValue(fields[1], PubFun::intToString(processStatus));
 }
 
 int CProcessStatus::getStep()
 {
-	return PubFun::stringToInt(pRow->find(fields[3])->second);
+	return PubFun::stringToInt( pRow->getValue(fields[2]));
+}
+
+void CProcessStatus::setStep( int step )
+{
+	pRow->setValue(fields[2], PubFun::intToString(step));
 }
 
 time_t CProcessStatus::getLastTime()
 {
-	return PubFun::stringToInt(pRow->find(fields[4])->second);
+	return PubFun::stringToInt( pRow->getValue(fields[3]));
 }
 
-void CProcessStatus::load( CRow *pRow )
+void CProcessStatus::setLastTime( time_t lastTime )
 {
-	this->pRow = pRow;
+	pRow->setValue(fields[3], PubFun::intToString((int)lastTime));
 }
+

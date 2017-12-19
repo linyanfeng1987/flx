@@ -13,7 +13,8 @@ public:
 
 	static CTableStruct tableStruct;
 
-private:
-
+	void load(CRow *pRow);
+protected:
+	CRow* pRow;
 };
 

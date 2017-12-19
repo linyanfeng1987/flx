@@ -83,9 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\public\code\ConstDef.h" />
+    <ClInclude Include="..\public\code\data\globalData.h" />
     <ClInclude Include="..\public\code\db\dataObj\baseObj.h" />
     <ClInclude Include="..\public\code\db\dataObj\curRateD.h" />
     <ClInclude Include="..\public\code\db\dataObj\hisRateD.h" />
+    <ClInclude Include="..\public\code\db\dataObj\processStatus.h" />
     <ClInclude Include="..\public\code\db\dataObj\processTask.h" />
     <ClInclude Include="..\public\code\db\dateOperateion.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
@@ -95,6 +97,7 @@
     <ClInclude Include="..\public\code\process\cap\baseCap.h" />
     <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
+    <ClInclude Include="..\public\code\process\processConfig.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
     <ClInclude Include="..\public\code\rate\HisRate.h" />
@@ -104,13 +107,17 @@
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
     <ClInclude Include="..\public\code\task\taskBuilder.h" />
+    <ClInclude Include="..\public\code\tinyXml\tinystr.h" />
+    <ClInclude Include="..\public\code\tinyXml\tinyxml.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\public\code\data\globalData.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\processTask.cpp" />
     <ClCompile Include="..\public\code\db\dateOperateion.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
@@ -120,6 +127,7 @@
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
+    <ClCompile Include="..\public\code\process\processConfig.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
     <ClCompile Include="..\public\code\rate\HisRate.cpp" />
@@ -129,6 +137,11 @@
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
     <ClCompile Include="..\public\code\task\taskBuilder.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\echo.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinystr.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxml.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp" />
     <ClCompile Include="Guardian.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

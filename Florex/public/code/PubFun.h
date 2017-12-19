@@ -19,6 +19,7 @@ public:
 	static tuple<bool,string, string> parseKeyValue(string strSrc);
 	static int stringToInt(string str);
 	static double stringToDouble(string str);
+	static string intToString(int nValue);
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
 	static string getValueFromMap(string strKey, map<string, string> mapObj);
@@ -34,6 +35,9 @@ public:
 
 	static time_t HisRateStringToDatetime(const char *str);
 	static string getStepStr(int nStep);
+	static string get14TimeString( SYSTEMTIME& s_time);
+	static string get14CurTimeString();
+	
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

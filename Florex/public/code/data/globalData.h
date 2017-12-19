@@ -13,7 +13,9 @@ public:
 
 	void loadConfig();
 
-	map<string, CProcessConfig> taskConfigs;
+	CProcessConfig* getProcessConfig(string processId);
+
+	map<string, CProcessConfig> porcessConfigs;
 
 protected:
 	CGlobalData();

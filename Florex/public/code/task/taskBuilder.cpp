@@ -4,6 +4,7 @@
 
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
+CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 
 // 思路整理
 // 获取一个配置的process信息，获取这个process对应的rate或rates
@@ -21,39 +22,29 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
-	for (string rateName : rateNames)
+	for (auto& iter : gData.porcessConfigs)
 	{
-		runOneRate(rateName);
+		runOneProcess(iter.second);
 	}
 }
 
-
-void CTaskBuilder::runOneRate( string rateName )
+void CTaskBuilder::runOneProcess( CProcessConfig& porcessConfig )
 {
-	string strSqlFormat = "select * from %s order by curTime desc, curMsec desc limit 1;";
-	string strTableName = florexDbName + ".";
-	strTableName += "currency_pair_";
-	strTableName += rateName;
-
-	char chSql[2048] = {0};
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CTable resTable;
-	db.SelectData(chSql, resTable);
-
-	CTable::iterator iter = resTable.begin();
-	if (iter != resTable.end())
+	for (auto rate : porcessConfig.rates)
 	{
-		//获取第一行的值
-		int curTime = PubFun::stringToInt(iter->second.getValue("curTime"));
-
+		time_t rateLastTime = getRateLastTime(rate.second);
+		string porcessName = porcessConfig.processTypeName + "_" + rate.first;
+		time_t processLastTime = getProcessLastTime(porcessName);
+		time_t timeStep = rateLastTime - processLastTime;
+		if (timeStep > porcessConfig.minTimeStep )
+		{
+			//create task
+			CProcessTask task;
+			task.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+		}
 	}
 }
 
-void CTaskBuilder::runOneProcess( string processName )
-{
-
-}
 
 void CTaskBuilder::reLoadTask()
 {
@@ -77,3 +68,50 @@ void CTaskBuilder::reLoadTask()
 		tasks.insert(make_pair(processTask.getTaskId(), processTask));
 	}
 }
+
+time_t CTaskBuilder::getRateLastTime( string rateName )
+{
+	string strSqlFormat = "select * from %s order by curTime desc, curMsec desc limit 1;";
+	string strTableName = florexDbName + ".";
+	strTableName += "currency_pair_";
+	strTableName += rateName;
+	time_t lastTime = 0;
+
+	char chSql[2048] = {0};
+	memset(chSql, 0, sizeof(chSql));
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
+	CTable resTable;
+	db.SelectData(chSql, resTable);
+
+	CTable::iterator iter = resTable.begin();
+	if (iter != resTable.end())
+	{
+		//获取第一行的值
+		lastTime = PubFun::stringToInt(iter->second.getValue("curTime"));
+	}
+	return lastTime;
+}
+
+time_t CTaskBuilder::getProcessLastTime( string processName )
+{
+	string strSqlFormat = "select * from %s order by lastTime desc limit 1;";
+	string strTableName = florexDbName + ".";
+	strTableName += "processstatus";
+	time_t lastTime = 0;
+
+	char chSql[2048] = {0};
+	memset(chSql, 0, sizeof(chSql));
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
+	CTable resTable;
+	db.SelectData(chSql, resTable);
+
+	CTable::iterator iter = resTable.begin();
+	if (iter != resTable.end())
+	{
+		//获取第一行的值
+		lastTime = PubFun::stringToInt(iter->second.getValue("curTime"));
+	}
+	return lastTime;
+}
+
+

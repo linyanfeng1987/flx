@@ -260,3 +260,16 @@ std::string CRow::getValue( string strKey )
 	}
 	return destValue;
 }
+
+void CRow::setValue( string strKey, string strValue )
+{
+	auto iter = this->find(strKey);
+	if(iter != this->end())
+	{
+		iter->second = strValue;
+	}
+	else
+	{
+		this->insert(make_pair(strKey, strValue));
+	}
+}

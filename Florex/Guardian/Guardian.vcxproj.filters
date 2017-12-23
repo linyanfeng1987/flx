@@ -114,9 +114,6 @@
     <ClInclude Include="..\public\code\db\dataObj\baseObj.h">
       <Filter>public\code\db\dataObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processTask.h">
-      <Filter>public\code\db\dataObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\db\dataObj\hisRateD.h">
       <Filter>public\code\db\dataObj</Filter>
     </ClInclude>
@@ -136,6 +133,9 @@
       <Filter>public\code\tinyXml</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataObj\processStatus.h">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\processTaskConfig.h">
       <Filter>public\code\db\dataObj</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,9 +200,6 @@
     <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp">
       <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processTask.cpp">
-      <Filter>public\code\db\dataObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp">
       <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
@@ -231,6 +228,9 @@
       <Filter>public\code\tinyXml</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp">
+      <Filter>public\code\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\processTaskConfig.cpp">
       <Filter>public\code\db\dataObj</Filter>
     </ClCompile>
   </ItemGroup>

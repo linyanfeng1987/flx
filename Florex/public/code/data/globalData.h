@@ -17,6 +17,7 @@ public:
 
 	map<string, CProcessConfig> porcessConfigs;
 
+	map<string, list<string> > processRates;
 protected:
 	CGlobalData();
 };

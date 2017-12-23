@@ -1,16 +1,21 @@
 #pragma once
 #include "baseObj.h"
+#include "process/processConfig.h"
 
-class CProcessTask : public CBaseObj
+/*
+CProcessTask = config + srcdata + timestep
+*/
+
+class CProcessTaskConfig : public CBaseObj
 {
 public:
-	CProcessTask();
-	~CProcessTask();
+	CProcessTaskConfig();
+	~CProcessTaskConfig();
 
 	static string fields[];
 
 	string getTaskId();
-	string getRateName();
+	string getRate();
 	int getRateType();
 	time_t getStartTime();
 	time_t getEndTime();
@@ -20,18 +25,24 @@ public:
 
 
 	void setTaskId(string taskId);
-	void setRateName(string rateName);
+	void setRate(string rate);
 	void setRateType(int rateType);
 	void setStartTime(time_t startTime);
 	void setEndTime(time_t endTime);
 	void setProcessTypeName(string processTypeName);
 	void setParamter(string paramter);
 	void setStatus(int status);
+
+	void setProcessConfig(CProcessConfig config);
+	CProcessConfig getProcessConfig(){return this->config;}
+
 protected:
+	CProcessConfig config;
 	string taskId;
-	// 指明元数据的类型
-	string rateName;
-	int rateType;
+	// 指明元数据的类型 
+	string rate;
+
+	string dataSrc;
 	time_t startTime;
 	time_t endTime;
 

@@ -1,6 +1,6 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
-#include "db/dataObj/processTask.h"
+#include "db/dataObj/processTaskConfig.h"
 
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
@@ -24,31 +24,44 @@ void CTaskBuilder::run()
 {
 	for (auto& iter : gData.porcessConfigs)
 	{
-		runOneProcess(iter.second);
+		runOneProcessType(iter.second);
 	}
 }
 
-void CTaskBuilder::runOneProcess( CProcessConfig& porcessConfig )
+void CTaskBuilder::runOneProcessType( CProcessConfig& porcessConfig )
 {
-	for (auto rate : porcessConfig.rates)
+
+	auto iter = gData.processRates.find(porcessConfig.getProcessName());
+	if (iter != gData.processRates.end())
 	{
-		time_t rateLastTime = getRateLastTime(rate.second);
-		string porcessName = porcessConfig.processTypeName + "_" + rate.first;
-		time_t processLastTime = getProcessLastTime(porcessName);
-		time_t timeStep = rateLastTime - processLastTime;
-		if (timeStep > porcessConfig.minTimeStep )
+		list<string> rates =iter->second;
+		for (string rate : rates)
 		{
-			//create task
-			CProcessTask task;
-			task.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+			runOneRate(rate, porcessConfig);
 		}
+	}
+}
+
+void CTaskBuilder::runOneRate( string rateName, CProcessConfig& porcessConfig )
+{
+	time_t rateLastTime = getRateLastTime(rateName);
+	string porcessName = porcessConfig.getProcessName();
+	time_t processLastTime = getProcessLastTime(porcessName);
+	time_t timeStep = rateLastTime - processLastTime;
+	if (timeStep > porcessConfig.timeStep )
+	{
+		CProcessTaskConfig task;
+		task.setRate(rateName);
+		task.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+		task.setProcessConfig(porcessConfig);
+
 	}
 }
 
 
 void CTaskBuilder::reLoadTask()
 {
-	tasks.clear();
+	taskConfigs.clear();
 	string strSqlFormat = "select * from %s;";
 	string strTableName = coreDbName + ".";
 	strTableName += "processtask";
@@ -62,10 +75,10 @@ void CTaskBuilder::reLoadTask()
 	CTable::iterator iter = resTable.begin();
 	for (; iter != resTable.end(); iter++)
 	{
-		CProcessTask processTask;
+		CProcessTaskConfig processTask;
 		processTask.load(&(iter->second));
 		processTask.getTaskId();
-		tasks.insert(make_pair(processTask.getTaskId(), processTask));
+		taskConfigs.insert(make_pair(processTask.getTaskId(), processTask));
 	}
 }
 
@@ -113,5 +126,6 @@ time_t CTaskBuilder::getProcessLastTime( string processName )
 	}
 	return lastTime;
 }
+
 
 

@@ -146,8 +146,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\public\code\ConstDef.h" />
+    <ClInclude Include="..\public\code\data\globalData.h" />
+    <ClInclude Include="..\public\code\db\dataObj\baseObj.h" />
+    <ClInclude Include="..\public\code\db\dataObj\curRateD.h" />
+    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h" />
+    <ClInclude Include="..\public\code\db\dataObj\processStatus.h" />
+    <ClInclude Include="..\public\code\db\dataObj\processTaskConfig.h" />
+    <ClInclude Include="..\public\code\db\dateOperateion.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
+    <ClInclude Include="..\public\code\process\baseProcess.h" />
+    <ClInclude Include="..\public\code\process\cap\additionCap.h" />
+    <ClInclude Include="..\public\code\process\cap\baseCap.h" />
+    <ClInclude Include="..\public\code\process\cap\speadCap.h" />
+    <ClInclude Include="..\public\code\process\cap\threshold.h" />
+    <ClInclude Include="..\public\code\process\processConfig.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
     <ClInclude Include="..\public\code\rate\HisRate.h" />
@@ -156,12 +169,32 @@
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
+    <ClInclude Include="..\public\code\task\baseTask.h" />
+    <ClInclude Include="..\public\code\task\processTask.h" />
+    <ClInclude Include="..\public\code\task\taskBuilder.h" />
+    <ClInclude Include="..\public\code\task\taskRunner.h" />
+    <ClInclude Include="..\public\code\tinyXml\tinystr.h" />
+    <ClInclude Include="..\public\code\tinyXml\tinyxml.h" />
     <ClInclude Include="HisRateLoader.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\public\code\data\globalData.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp" />
+    <ClCompile Include="..\public\code\db\dataObj\processTaskConfig.cpp" />
+    <ClCompile Include="..\public\code\db\dateOperateion.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
+    <ClCompile Include="..\public\code\process\baseProcess.cpp" />
+    <ClCompile Include="..\public\code\process\cap\additionCap.cpp" />
+    <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
+    <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
+    <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
+    <ClCompile Include="..\public\code\process\processConfig.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
     <ClCompile Include="..\public\code\rate\HisRate.cpp" />
@@ -170,8 +203,20 @@
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
+    <ClCompile Include="..\public\code\task\baseTask.cpp" />
+    <ClCompile Include="..\public\code\task\processTask.cpp" />
+    <ClCompile Include="..\public\code\task\taskBuilder.cpp" />
+    <ClCompile Include="..\public\code\task\taskRunner.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\echo.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinystr.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxml.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp" />
     <ClCompile Include="HisRateLoader.cpp" />
     <ClCompile Include="LoadDataFromFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LoadDataFromFile.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

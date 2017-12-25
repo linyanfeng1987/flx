@@ -106,7 +106,10 @@
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
+    <ClInclude Include="..\public\code\task\baseTask.h" />
+    <ClInclude Include="..\public\code\task\processTask.h" />
     <ClInclude Include="..\public\code\task\taskBuilder.h" />
+    <ClInclude Include="..\public\code\task\taskRunner.h" />
     <ClInclude Include="..\public\code\tinyXml\tinystr.h" />
     <ClInclude Include="..\public\code\tinyXml\tinyxml.h" />
     <ClInclude Include="stdafx.h" />
@@ -136,7 +139,10 @@
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
+    <ClCompile Include="..\public\code\task\baseTask.cpp" />
+    <ClCompile Include="..\public\code\task\processTask.cpp" />
     <ClCompile Include="..\public\code\task\taskBuilder.cpp" />
+    <ClCompile Include="..\public\code\task\taskRunner.cpp" />
     <ClCompile Include="..\public\code\tinyXml\echo.cpp" />
     <ClCompile Include="..\public\code\tinyXml\tinystr.cpp" />
     <ClCompile Include="..\public\code\tinyXml\tinyxml.cpp" />

@@ -5,12 +5,12 @@
 /*
 CProcessTask = config + srcdata + timestep
 */
-
-class CProcessTaskConfig : public CBaseObj
+// 任务相关信息，具体任务的操作信息
+class CProcessTaskInfo : public CBaseObj
 {
 public:
-	CProcessTaskConfig();
-	~CProcessTaskConfig();
+	CProcessTaskInfo();
+	~CProcessTaskInfo();
 
 	static string fields[];
 

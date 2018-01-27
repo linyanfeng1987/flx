@@ -1,10 +1,10 @@
-#include "processTaskConfig.h"
+#include "processTaskInfo.h"
 #include "PubFun.h"
 
-string CProcessTaskConfig::fields[] = {"taskId", "rate", "rateType", "startTime", "endTime", "processTypeName", "paramter", "status"};
+string CProcessTaskInfo::fields[] = {"taskId", "rate", "rateType", "startTime", "endTime", "processTypeName", "paramter", "status"};
 
 
-CProcessTaskConfig::CProcessTaskConfig()
+CProcessTaskInfo::CProcessTaskInfo()
 {
 	if (0 == tableStruct.size())
 	{
@@ -39,92 +39,92 @@ CProcessTaskConfig::CProcessTaskConfig()
 	pRow = nullptr;
 }
 
-CProcessTaskConfig::~CProcessTaskConfig()
+CProcessTaskInfo::~CProcessTaskInfo()
 {
 	
 }
 
-std::string CProcessTaskConfig::getTaskId()
+std::string CProcessTaskInfo::getTaskId()
 {
 	
 	return pRow->getValue(fields[0]);
 }
-void CProcessTaskConfig::setTaskId( string taskId )
+void CProcessTaskInfo::setTaskId( string taskId )
 {
 	pRow->setValue(fields[0], taskId);
 }
 
-std::string CProcessTaskConfig::getRate()
+std::string CProcessTaskInfo::getRate()
 {
 	return pRow->getValue(fields[1]);
 }
 
-void CProcessTaskConfig::setRate( string rateName )
+void CProcessTaskInfo::setRate( string rateName )
 {
 	pRow->setValue(fields[1], rateName);
 }
 
-int CProcessTaskConfig::getRateType()
+int CProcessTaskInfo::getRateType()
 {
 	return PubFun::stringToInt(pRow->getValue(fields[2]));
 }
 
-void CProcessTaskConfig::setRateType( int rateType )
+void CProcessTaskInfo::setRateType( int rateType )
 {
 	pRow->setValue(fields[2], PubFun::intToString(rateType));
 }
 
-time_t CProcessTaskConfig::getStartTime()
+time_t CProcessTaskInfo::getStartTime()
 {
 	return PubFun::stringToInt(pRow->getValue(fields[3]));
 }
 
-void CProcessTaskConfig::setStartTime( time_t startTime )
+void CProcessTaskInfo::setStartTime( time_t startTime )
 {
 	pRow->setValue(fields[3], PubFun::intToString((int)startTime));
 }
 
-time_t CProcessTaskConfig::getEndTime()
+time_t CProcessTaskInfo::getEndTime()
 {
 	return PubFun::stringToInt(pRow->getValue(fields[4]));
 }
 
-void CProcessTaskConfig::setEndTime( time_t endTime )
+void CProcessTaskInfo::setEndTime( time_t endTime )
 {
 	pRow->setValue(fields[4], PubFun::intToString((int)endTime));
 }
 
-std::string CProcessTaskConfig::getProcessTypeName()
+std::string CProcessTaskInfo::getProcessTypeName()
 {
 	return pRow->getValue(fields[5]);
 }
 
-void CProcessTaskConfig::setProcessTypeName( string processTypeName )
+void CProcessTaskInfo::setProcessTypeName( string processTypeName )
 {
 	pRow->setValue(fields[5], processTypeName);
 }
 
-std::string CProcessTaskConfig::getParamter()
+std::string CProcessTaskInfo::getParamter()
 {
 	return pRow->getValue(fields[6]);
 }
 
-void CProcessTaskConfig::setParamter( string paramter )
+void CProcessTaskInfo::setParamter( string paramter )
 {
 	pRow->setValue(fields[6], paramter);
 }
 
-int CProcessTaskConfig::getStatus()
+int CProcessTaskInfo::getStatus()
 {
 	return PubFun::stringToInt(pRow->find(fields[7])->second);
 }
 
-void CProcessTaskConfig::setStatus( int status )
+void CProcessTaskInfo::setStatus( int status )
 {
 	pRow->setValue(fields[5], PubFun::intToString(status));
 }
 
-void CProcessTaskConfig::setProcessConfig( CProcessConfig config )
+void CProcessTaskInfo::setProcessConfig( CProcessConfig config )
 {
 	this->config = config;
 

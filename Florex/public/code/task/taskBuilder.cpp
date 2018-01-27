@@ -1,7 +1,7 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
-#include "db/dataObj/processTaskConfig.h"
-
+#include "db/dataObj/processTaskInfo.h"
+#include <thread>
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
@@ -22,15 +22,18 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
-	for (auto& iter : gData.porcessConfigs)
+	while (true)
 	{
-		runOneProcessType(iter.second);
+		for (auto& iter : gData.porcessConfigs)
+		{
+			runOneProcessType(iter.second);
+		}
+		::Sleep(1000);
 	}
 }
 
 void CTaskBuilder::runOneProcessType( CProcessConfig& porcessConfig )
 {
-
 	auto iter = gData.processRates.find(porcessConfig.getProcessName());
 	if (iter != gData.processRates.end())
 	{
@@ -50,11 +53,11 @@ void CTaskBuilder::runOneRate( string rateName, CProcessConfig& porcessConfig )
 	time_t timeStep = rateLastTime - processLastTime;
 	if (timeStep > porcessConfig.timeStep )
 	{
-		CProcessTaskConfig task;
-		task.setRate(rateName);
-		task.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		task.setProcessConfig(porcessConfig);
-
+		CProcessTaskInfo taskInfo;
+		taskInfo.setRate(rateName);
+		taskInfo.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+		taskInfo.setProcessConfig(porcessConfig);
+		gData.addProcessConfig(taskInfo);
 	}
 }
 
@@ -75,7 +78,7 @@ void CTaskBuilder::reLoadTask()
 	CTable::iterator iter = resTable.begin();
 	for (; iter != resTable.end(); iter++)
 	{
-		CProcessTaskConfig processTask;
+		CProcessTaskInfo processTask;
 		processTask.load(&(iter->second));
 		processTask.getTaskId();
 		taskConfigs.insert(make_pair(processTask.getTaskId(), processTask));

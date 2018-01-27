@@ -108,9 +108,6 @@
     <ClInclude Include="..\public\code\db\dataObj\processStatus.h">
       <Filter>public\db\dataObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processTaskConfig.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\db\dataObj\baseObj.h">
       <Filter>public\db\dataObj</Filter>
     </ClInclude>
@@ -140,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="..\public\code\rate\CurRate.h">
       <Filter>public\rate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h">
+      <Filter>public\db\dataObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +206,6 @@
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processTaskConfig.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp">
       <Filter>public\db\dataObj</Filter>
     </ClCompile>
@@ -241,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\rate\HisRate.cpp">
       <Filter>public\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp">
+      <Filter>public\db\dataObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

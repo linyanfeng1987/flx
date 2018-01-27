@@ -1,5 +1,6 @@
 #include "globalData.h"
 
+
 CGlobalData::CGlobalData()
 {
 }
@@ -33,6 +34,27 @@ CProcessConfig* CGlobalData::getProcessConfig( string processId )
 	{
 		pCfg = &(iter->second);
 	}
+	return pCfg;
+}
+
+void CGlobalData::addProcessConfig( CProcessTaskInfo cfg )
+{
+	taskMutex.lock();
+	tasks.push_back(cfg);
+	taskMutex.unlock();
+}
+
+CProcessTaskInfo* CGlobalData::popProcessConfig()
+{
+	CProcessTaskInfo* pCfg = nullptr;
+	taskMutex.lock();
+	auto it = tasks.begin();
+	if(it != tasks.end())
+	{
+		pCfg = &*it;
+		tasks.erase(it);
+	}
+	taskMutex.unlock();
 	return pCfg;
 }
 

@@ -17,7 +17,5 @@ protected:
 	void reloadTaskList();
 	void rangTaskList();
 
-
-	map<string, thread> processThreads;
 };
 

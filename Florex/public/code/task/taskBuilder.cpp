@@ -1,7 +1,6 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
 #include "db/dataObj/processTaskInfo.h"
-#include <thread>
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();

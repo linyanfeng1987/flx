@@ -254,7 +254,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	//alterCurTable_addCurMsec();
 	//alterCurTablePk();
 	//alterHisTable_addSpead();
-	alterTableDesc();
+	//alterTableDesc();
+
+	printf("def printf\n");
 	return 0;
 }
 

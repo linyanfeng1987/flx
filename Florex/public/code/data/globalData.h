@@ -1,5 +1,4 @@
 #pragma once
-#include <thread>
 #include <mutex>
 
 #include "PubFun.h"
@@ -23,9 +22,6 @@ public:
 
 	map<string, list<string> > processRates;
 
-	list<thread> threads;
-
-	
 	void addProcessConfig(CProcessTaskInfo cfg);
 	CProcessTaskInfo* popProcessConfig();
 protected:

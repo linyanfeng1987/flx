@@ -31,7 +31,7 @@ void CTaskBuilder::run()
 	}
 }
 
-void CTaskBuilder::runOneProcessType( CProcessConfig& porcessConfig )
+void CTaskBuilder::runOneProcessType( CProcessInfo& porcessConfig )
 {
 	auto iter = gData.processRates.find(porcessConfig.getProcessName());
 	if (iter != gData.processRates.end())
@@ -44,7 +44,7 @@ void CTaskBuilder::runOneProcessType( CProcessConfig& porcessConfig )
 	}
 }
 
-void CTaskBuilder::runOneRate( string rateName, CProcessConfig& porcessConfig )
+void CTaskBuilder::runOneRate( string rateName, CProcessInfo& porcessConfig )
 {
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = porcessConfig.getProcessName();
@@ -55,8 +55,8 @@ void CTaskBuilder::runOneRate( string rateName, CProcessConfig& porcessConfig )
 		CProcessTaskInfo taskInfo;
 		taskInfo.setRate(rateName);
 		taskInfo.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		taskInfo.setProcessConfig(porcessConfig);
-		gData.addProcessConfig(taskInfo);
+		taskInfo.setprocessInfo(porcessConfig);
+		gData.addprocessInfo(taskInfo);
 	}
 }
 

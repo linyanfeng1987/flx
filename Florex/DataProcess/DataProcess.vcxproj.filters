@@ -78,9 +78,6 @@
     <ClInclude Include="..\public\code\process\baseProcess.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\processConfig.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\cap\threshold.h">
       <Filter>public\process\cap</Filter>
     </ClInclude>
@@ -141,6 +138,12 @@
     <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h">
       <Filter>public\db\dataObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\processType.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\processInfo.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -177,9 +180,6 @@
       <Filter>public\tinyXml</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\baseProcess.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\process\processConfig.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp">
@@ -241,6 +241,12 @@
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp">
       <Filter>public\db\dataObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\processType.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\processInfo.cpp">
+      <Filter>public\process</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,25 +26,25 @@ void CGlobalData::loadConfig()
 
 }
 
-CProcessConfig* CGlobalData::getProcessConfig( string processId )
+CProcessType* CGlobalData::getProcessType( string processId )
 {
-	CProcessConfig *pCfg = nullptr;
-	map<string, CProcessConfig>::iterator iter = porcessConfigs.find(processId);
-	if (iter != porcessConfigs.end())
+	CProcessType *pCfg = nullptr;
+	map<string, CProcessType>::iterator iter = porcessTypes.find(processId);
+	if (iter != porcessTypes.end())
 	{
 		pCfg = &(iter->second);
 	}
 	return pCfg;
 }
 
-void CGlobalData::addProcessConfig( CProcessTaskInfo cfg )
+void CGlobalData::addprocessInfo( CProcessTaskInfo cfg )
 {
 	taskMutex.lock();
 	tasks.push_back(cfg);
 	taskMutex.unlock();
 }
 
-CProcessTaskInfo* CGlobalData::popProcessConfig()
+CProcessTaskInfo* CGlobalData::popprocessInfo()
 {
 	CProcessTaskInfo* pCfg = nullptr;
 	taskMutex.lock();

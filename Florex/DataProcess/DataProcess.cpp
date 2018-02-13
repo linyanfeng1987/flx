@@ -5,7 +5,7 @@
 #include <tchar.h>
 #include <thread>
 
-#include "process/processConfig.h"
+#include "process/processType.h"
 #include "data/globalData.h"
 #include "task/taskBuilder.h"
 #include "task/taskRunner.h"
@@ -13,12 +13,18 @@
 CGlobalData& gData = CGlobalData::instance();
 void cfgInit()
 {
-	CProcessConfig processCfg;
-	processCfg.processTypeName = "TEST_3600_XAUUSD";
-	processCfg.porcessFlag = 1;
-	processCfg.timeStep = 3600;
-	processCfg.dependOnList.push_back("XAUUSD");
-	gData.porcessConfigs.insert(make_pair(processCfg.processTypeName, processCfg));
+	CProcessType tmpType;
+	string tmpName = "TEST_3600";
+	tmpType.processTypeName = tmpName;
+	tmpType.porcessFlag = 1;
+	tmpType.timeStep = 3600;
+	tmpType.dependOnTypeList.push_back("");
+	gData.porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	
+	list<string> tmpList;
+	tmpList.push_back(tmpName);
+
+	gData.processRates.insert(make_pair("XAUUSD", tmpList));
 }
 
 void buildTask(int value)

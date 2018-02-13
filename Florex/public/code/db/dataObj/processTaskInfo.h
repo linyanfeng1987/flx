@@ -1,6 +1,6 @@
 #pragma once
 #include "baseObj.h"
-#include "process/processConfig.h"
+#include "process/processInfo.h"
 
 /*
 CProcessTask = config + srcdata + timestep
@@ -33,11 +33,11 @@ public:
 	void setParamter(string paramter);
 	void setStatus(int status);
 
-	void setProcessConfig(CProcessConfig config);
-	CProcessConfig getProcessConfig(){return this->config;}
+	void setprocessInfo(CProcessInfo config);
+	CProcessInfo getprocessInfo(){return this->config;}
 
 protected:
-	CProcessConfig config;
+	CProcessInfo config;
 	string taskId;
 	// 指明元数据的类型 
 	string rate;

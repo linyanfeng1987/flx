@@ -14,8 +14,8 @@ public:
 	void reLoadTask();
 	void run();
 protected:
-	void runOneRate(string rateName, CProcessConfig& porcessConfig);
-	void runOneProcessType(CProcessConfig& porcessConfig);
+	void runOneRate(string rateName, CProcessInfo& porcessConfig);
+	void runOneProcessType(CProcessInfo& porcessConfig);
 
 
 	time_t getRateLastTime(string rateName);

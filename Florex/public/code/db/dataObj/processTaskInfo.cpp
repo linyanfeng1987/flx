@@ -124,7 +124,7 @@ void CProcessTaskInfo::setStatus( int status )
 	pRow->setValue(fields[5], PubFun::intToString(status));
 }
 
-void CProcessTaskInfo::setProcessConfig( CProcessConfig config )
+void CProcessTaskInfo::setprocessInfo( CProcessInfo config )
 {
 	this->config = config;
 

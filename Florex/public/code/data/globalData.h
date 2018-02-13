@@ -3,7 +3,7 @@
 
 #include "PubFun.h"
 #include "ConstDef.h"
-#include "process/processConfig.h"
+#include "process/processInfo.h"
 #include "db/dataObj/processTaskInfo.h"
 
 
@@ -16,14 +16,16 @@ public:
 
 	void loadConfig();
 
-	CProcessConfig* getProcessConfig(string processId);
+	CProcessType* getProcessType(string processId);
 
-	map<string, CProcessConfig> porcessConfigs;
+	// process类型的信息
+	map<string, CProcessType> porcessTypes;
 
+	// process类型，对应的rate类型
 	map<string, list<string> > processRates;
 
-	void addProcessConfig(CProcessTaskInfo cfg);
-	CProcessTaskInfo* popProcessConfig();
+	void addprocessInfo(CProcessTaskInfo cfg);
+	CProcessTaskInfo* popprocessInfo();
 protected:
 	
 	list<CProcessTaskInfo> tasks;

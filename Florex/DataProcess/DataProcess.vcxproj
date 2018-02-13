@@ -97,7 +97,8 @@
     <ClInclude Include="..\public\code\process\cap\baseCap.h" />
     <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
-    <ClInclude Include="..\public\code\process\processConfig.h" />
+    <ClInclude Include="..\public\code\process\processInfo.h" />
+    <ClInclude Include="..\public\code\process\processType.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
     <ClInclude Include="..\public\code\rate\HisRate.h" />
@@ -129,7 +130,8 @@
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
-    <ClCompile Include="..\public\code\process\processConfig.cpp" />
+    <ClCompile Include="..\public\code\process\processInfo.cpp" />
+    <ClCompile Include="..\public\code\process\processType.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
     <ClCompile Include="..\public\code\rate\HisRate.cpp" />

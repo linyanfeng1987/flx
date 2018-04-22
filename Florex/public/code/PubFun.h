@@ -37,7 +37,12 @@ public:
 	static string getStepStr(int nStep);
 	static string get14TimeString( SYSTEMTIME& s_time);
 	static string get14CurTimeString();
+
+	static double timeConvert(time_t ts, int msec);
+	static pair<time_t, int> timeConvert(double dTime);
 	
+
+	static void getIntListByStep(list<long long>& destList, double startValue, double endValue, int step);
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

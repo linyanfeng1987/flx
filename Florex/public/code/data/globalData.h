@@ -26,7 +26,10 @@ public:
 
 	void addprocessInfo(CProcessTaskInfo cfg);
 	CProcessTaskInfo* popprocessInfo();
+
+	map<string, CProcessInfo> porcessConfigs;
 protected:
+	
 	
 	list<CProcessTaskInfo> tasks;
 	recursive_mutex taskMutex; 

@@ -128,7 +128,7 @@ void CProcessTaskInfo::setprocessInfo( CProcessInfo config )
 {
 	this->config = config;
 
-	this->setProcessTypeName(config.getProcessName());
+	this->setProcessTypeName(config.pProcessType->getProcessName());
 }
 
 

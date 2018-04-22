@@ -12,6 +12,9 @@ class CProcessInfo
 public:
 	CProcessInfo();
 	~CProcessInfo();
+
+	string getProcessName(){return "";}
+	double timeStep;
 	
 	void init(CProcessType* pProcessType, string rate);
 public:

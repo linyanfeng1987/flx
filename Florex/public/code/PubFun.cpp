@@ -300,6 +300,40 @@ std::string PubFun::get14TimeString( SYSTEMTIME& s_time )
 	return ch;
 }
 
+void PubFun::getIntListByStep( list<long long>& destList, double startValue, double endValue, int step )
+{
+	destList.clear();
+	if(step > 0)
+	{
+		long long startInt = (long long)(startValue +  0.5);
+		long long tempInt = startInt;
+		while (true)
+		{
+			if(tempInt > endValue)
+			{
+				break;
+			}
+
+			destList.push_back(tempInt);
+			tempInt += step;
+		}
+	}
+}
+
+double PubFun::timeConvert( time_t ts, int msec )
+{
+	double dTime = double(ts + msec / 1000);
+	return dTime;
+}
+
+pair<time_t, int> PubFun::timeConvert( double dTime )
+{
+	time_t ts = (time_t)dTime;
+	int msec = (int)((dTime - ts)*1000);
+
+	return make_pair(ts, msec);
+}
+
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  
 { 

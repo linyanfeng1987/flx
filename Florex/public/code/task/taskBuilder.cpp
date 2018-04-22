@@ -33,7 +33,7 @@ void CTaskBuilder::run()
 
 void CTaskBuilder::runOneProcessType( CProcessInfo& porcessConfig )
 {
-	auto iter = gData.processRates.find(porcessConfig.getProcessName());
+	auto iter = gData.processRates.find(porcessConfig.rate);
 	if (iter != gData.processRates.end())
 	{
 		list<string> rates =iter->second;

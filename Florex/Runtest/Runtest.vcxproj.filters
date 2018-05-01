@@ -14,34 +14,40 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{0fbe96e2-09a7-49b8-897c-800e2249b914}</UniqueIdentifier>
+      <UniqueIdentifier>{efb8a726-c6d5-4c3d-8de7-253a71b34c1a}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{35710b92-4edc-4a28-bfe6-27f88b81c035}</UniqueIdentifier>
+      <UniqueIdentifier>{7a86c09f-f811-4212-b7a7-b9354e95155a}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{25b5da50-90b8-471d-a0f1-9a556f9e599c}</UniqueIdentifier>
+      <UniqueIdentifier>{ea98d51f-671b-492d-acce-34bd321fe4de}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{fbd85d57-3dea-4081-9a99-7fb75b097fd6}</UniqueIdentifier>
+      <UniqueIdentifier>{f8bda2d1-159e-4d10-9a31-1e97c3a7b457}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{46dd86ec-a83c-4751-9f32-dc14f8a5562b}</UniqueIdentifier>
+      <UniqueIdentifier>{499c31b6-90dc-46bd-a5e0-1f156f75009f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\process\calculation">
+      <UniqueIdentifier>{b46714b7-289b-4010-8d53-98bc7bd3dfab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\process\obj">
+      <UniqueIdentifier>{ff61df55-5928-494b-bbca-cdfd1efd61d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{b4bf2a17-d6a7-4510-972e-16ed248bd210}</UniqueIdentifier>
+      <UniqueIdentifier>{ec334808-532e-4330-901e-f6d3d9371370}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{85b5db0a-ad5b-47cd-a2c6-e1f21a313a8d}</UniqueIdentifier>
+      <UniqueIdentifier>{096194ae-41f0-4b3a-9873-210d0f5c943a}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataObj">
-      <UniqueIdentifier>{7862b47b-8dcf-4eaf-a341-6abed9384b55}</UniqueIdentifier>
+      <UniqueIdentifier>{957d6fa0-cdd8-43fd-a545-83a162584ba2}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{619cc0e7-aad3-4d2b-9f0a-2b3fe098ba09}</UniqueIdentifier>
+      <UniqueIdentifier>{ee639fd0-5dce-4fb7-a893-2db1a325add0}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{8278df67-a4d9-43a1-bd01-109d386aa9bf}</UniqueIdentifier>
+      <UniqueIdentifier>{995bbe05-8d69-46e6-9b0d-16f96f48e6a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,10 +84,16 @@
     <ClInclude Include="..\public\code\tinyXml\tinyxml.h">
       <Filter>public\tinyXml</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\averageProcess.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\process\baseProcess.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\processConfig.h">
+    <ClInclude Include="..\public\code\process\processInfo.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\processType.h">
       <Filter>public\process</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\cap\additionCap.h">
@@ -95,6 +107,18 @@
     </ClInclude>
     <ClInclude Include="..\public\code\process\cap\threshold.h">
       <Filter>public\process\cap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\calculation\averageCalc.h">
+      <Filter>public\process\calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\calculation\baseCalc.h">
+      <Filter>public\process\calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\proCorrecting.h">
+      <Filter>public\process\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\sum.h">
+      <Filter>public\process\obj</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\data\globalData.h">
       <Filter>public\data</Filter>
@@ -182,10 +206,16 @@
     <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp">
       <Filter>public\tinyXml</Filter>
     </ClCompile>
+    <ClCompile Include="..\public\code\process\averageProcess.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
     <ClCompile Include="..\public\code\process\baseProcess.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\processConfig.cpp">
+    <ClCompile Include="..\public\code\process\processInfo.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\processType.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\cap\additionCap.cpp">
@@ -199,6 +229,18 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\cap\threshold.cpp">
       <Filter>public\process\cap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\calculation\averageCalc.cpp">
+      <Filter>public\process\calculation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp">
+      <Filter>public\process\calculation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp">
+      <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\sum.cpp">
+      <Filter>public\process\obj</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\data\globalData.cpp">
       <Filter>public\data</Filter>

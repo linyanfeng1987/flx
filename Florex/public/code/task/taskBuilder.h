@@ -2,6 +2,7 @@
 #include "db/DbObj.h"
 #include "data/globalData.h"
 #include "db/dataObj/processTaskInfo.h"
+#include "process/processType.h"
 #include "PubFun.h"
 #include "ConstDef.h"
 

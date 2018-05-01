@@ -43,7 +43,7 @@ void CTaskBuilder::runOneProcessType( CProcessInfo& porcessConfig )
 		}
 	}
 }
-
+//  这里的CProcessInfo可能不对
 void CTaskBuilder::runOneRate( string rateName, CProcessInfo& porcessConfig )
 {
 	time_t rateLastTime = getRateLastTime(rateName);

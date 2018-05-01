@@ -25,10 +25,10 @@ bool CProCorrecting::clac( double tmpTime, double tmpValue, map<double, double>&
 	curTime = tmpTime;
 	curValue = tmpValue;
 
-	int timeDef = curTime - lastTime;
+	double timeDef = curTime - lastTime;
 	if(0 != timeDef)
 	{
-		int valueDef = curValue - lastValue;
+		double valueDef = curValue - lastValue;
 		double valueSetp = valueDef / timeDef;
 		list<long long> timeList;
 		PubFun::getIntListByStep(timeList, lastTime, curTime, step);
@@ -36,7 +36,7 @@ bool CProCorrecting::clac( double tmpTime, double tmpValue, map<double, double>&
 		for(long long timePoint : timeList)
 		{
 			tempValue = lastValue+(timePoint - lastTime)*valueSetp;
-			valueMap.insert(make_pair(timePoint, tempValue));
+			valueMap.insert(make_pair(double(timePoint), tempValue));
 		}
 	}
 	return true;

@@ -4,6 +4,7 @@
 class CProcessStatus : public CBaseObj
 {
 public:
+	/*
 	CProcessStatus();
 	~CProcessStatus();
 
@@ -17,4 +18,5 @@ public:
 	void setStep(int step);
 	time_t getLastTime();
 	void setLastTime(time_t lastTime);
+	*/
 };

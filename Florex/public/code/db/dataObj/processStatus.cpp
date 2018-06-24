@@ -1,6 +1,6 @@
 #include "processStatus.h"
 #include "PubFun.h"
-
+/*
 string CProcessStatus::fields[] = {"processName", "processStatus", "step", "lastTime"};
 
 
@@ -71,4 +71,6 @@ void CProcessStatus::setLastTime( time_t lastTime )
 {
 	pRow->setValue(fields[3], PubFun::intToString((int)lastTime));
 }
+
+*/
 

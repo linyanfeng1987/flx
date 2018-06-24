@@ -23,43 +23,44 @@ void CTaskBuilder::run()
 {
 	while (true)
 	{
-		for (auto& iter : gData.porcessConfigs)
+		for (auto& rateIter : gData.processRates)
 		{
-			runOneProcessType(iter.second);
+			runOneRate(rateIter.first, rateIter.second);
 		}
 		::Sleep(1000);
 	}
 }
 
-void CTaskBuilder::runOneProcessType( CProcessInfo& porcessConfig )
+void CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 {
-	auto iter = gData.processRates.find(porcessConfig.rate);
-	if (iter != gData.processRates.end())
+	for(string& processTypeName :processTypeNames)
 	{
-		list<string> rates =iter->second;
-		for (string rate : rates)
+		CProcessType* pPorcessType = gData.getProcessType(processTypeName);
+		if(pPorcessType != nullptr)
 		{
-			runOneRate(rate, porcessConfig);
-		}
+			runOneProcessInfo(rateName, *pPorcessType);
+		}	
 	}
 }
-//  这里的CProcessInfo可能不对
-void CTaskBuilder::runOneRate( string rateName, CProcessInfo& porcessConfig )
+
+void CTaskBuilder::runOneProcessInfo(string rateName, CProcessType& processType )
 {
 	time_t rateLastTime = getRateLastTime(rateName);
-	string porcessName = porcessConfig.getProcessName();
+	string porcessName = processType.getProcessName();
 	time_t processLastTime = getProcessLastTime(porcessName);
 	time_t timeStep = rateLastTime - processLastTime;
-	if (timeStep > porcessConfig.timeStep )
+	CProcessInfo processInfo;
+	processInfo.init(&processType, rateName);
+	if (timeStep > processType.timeStep )
 	{
 		CProcessTaskInfo taskInfo;
 		taskInfo.setRate(rateName);
 		taskInfo.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		taskInfo.setprocessInfo(porcessConfig);
-		gData.addprocessInfo(taskInfo);
+		taskInfo.setprocessInfo(processInfo);
+		taskInfo.setStatus(0);
+		gData.addProcessTaskInfo(taskInfo);
 	}
 }
-
 
 void CTaskBuilder::reLoadTask()
 {
@@ -79,7 +80,6 @@ void CTaskBuilder::reLoadTask()
 	{
 		CProcessTaskInfo processTask;
 		processTask.load(&(iter->second));
-		processTask.getTaskId();
 		taskConfigs.insert(make_pair(processTask.getTaskId(), processTask));
 	}
 }

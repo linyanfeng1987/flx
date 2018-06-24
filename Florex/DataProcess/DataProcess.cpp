@@ -11,21 +11,6 @@
 #include "task/taskRunner.h"
 
 CGlobalData& gData = CGlobalData::instance();
-void cfgInit()
-{
-	CProcessType tmpType;
-	string tmpName = "TEST_3600";
-	tmpType.processTypeName = tmpName;
-	tmpType.porcessFlag = 1;
-	tmpType.timeStep = 3600;
-	tmpType.dependOnTypeList.push_back("");
-	gData.porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-	
-	list<string> tmpList;
-	tmpList.push_back(tmpName);
-
-	gData.processRates.insert(make_pair("XAUUSD", tmpList));
-}
 
 void buildTask(int value)
 {
@@ -50,7 +35,7 @@ void threadRun()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	cfgInit();
+	gData.init();
 
 	threadRun();
 

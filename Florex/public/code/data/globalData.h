@@ -14,7 +14,11 @@ public:
 	
 	~CGlobalData();
 
+	void init();
+
 	void loadConfig();
+	// 暂时代替loadConfig，做代码中的数据初始化
+	void initDataInCode();
 
 	CProcessType* getProcessType(string processId);
 
@@ -24,10 +28,10 @@ public:
 	// process类型，对应的rate类型
 	map<string, list<string> > processRates;
 
-	void addprocessInfo(CProcessTaskInfo cfg);
-	CProcessTaskInfo* popprocessInfo();
+	void addProcessTaskInfo(CProcessTaskInfo cfg);
+	CProcessTaskInfo* popProcessTaskInfo();
 
-	map<string, CProcessInfo> porcessConfigs;
+	map<string, CProcessInfo> porcessInfos;
 protected:
 	
 	

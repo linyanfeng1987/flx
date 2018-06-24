@@ -49,6 +49,9 @@
     <Filter Include="public\process\obj">
       <UniqueIdentifier>{6f184253-21af-45a7-9790-704dd26fa31b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\db\dataStruct">
+      <UniqueIdentifier>{e9556d88-eeb3-42c7-99a2-88b914e524bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -164,6 +167,12 @@
     </ClInclude>
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h">
       <Filter>public\process\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +292,12 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp">
       <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

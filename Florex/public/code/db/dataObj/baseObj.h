@@ -14,7 +14,7 @@ public:
 	static CTableStruct tableStruct;
 
 	void load(CRow *pRow);
-protected:
+
 	CRow* pRow;
 };
 

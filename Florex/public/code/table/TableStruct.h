@@ -2,6 +2,12 @@
 #include <list>
 #include "Field.h"
 
+/*
+记录表字段信息，作为表结构处理的sql生成
+
+主要记录字段信息，与sql交互的接口
+*/
+
 class KeyList: public list<string>
 {
 public:
@@ -18,8 +24,10 @@ public:
 
 	void setName(string strName);
 
-	string getCreateSql();
-	string getDeleteSql();
+	string getCreateTableSql();
+	string getDeleteTableSql();
+
+	string getSelectSql(string conditicon);
 
 // 	string getSql();
 // 	string getInsertSql();

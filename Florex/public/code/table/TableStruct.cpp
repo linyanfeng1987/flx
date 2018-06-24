@@ -16,12 +16,12 @@ CTableStruct::~CTableStruct(void)
 {
 }
 
-std::string CTableStruct::getCreateSql()
+std::string CTableStruct::getCreateTableSql()
 {
 	return "";
 }
 
-std::string CTableStruct::getDeleteSql()
+std::string CTableStruct::getDeleteTableSql()
 {
 	return "";
 }
@@ -29,6 +29,17 @@ std::string CTableStruct::getDeleteSql()
 void CTableStruct::setName( string strName )
 {
 	tableName = strName;
+}
+
+std::string CTableStruct::getSelectSql( string conditicon )
+{
+	string strSql = "select * from ";
+	strSql += tableName;
+	if(!conditicon.empty())
+	{
+	}
+		
+	return strSql;
 }
 
 // 

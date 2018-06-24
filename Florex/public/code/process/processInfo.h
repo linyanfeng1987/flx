@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// CProcessType + rateœ‡πÿ
 class CProcessInfo
 {
 public:

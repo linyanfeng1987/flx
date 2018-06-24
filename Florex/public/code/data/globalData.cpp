@@ -26,6 +26,22 @@ void CGlobalData::loadConfig()
 
 }
 
+void CGlobalData::initDataInCode()
+{
+	CProcessType tmpType;
+	string tmpName = "Average_3600";
+	tmpType.processTypeName = tmpName;
+	tmpType.porcessFlag = 1;
+	tmpType.timeStep = 3600;
+	tmpType.dependOnTypeList.push_back("");
+	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+
+	list<string> tmpList;
+	tmpList.push_back(tmpName);
+
+	processRates.insert(make_pair("XAUUSD", tmpList));
+}
+
 CProcessType* CGlobalData::getProcessType( string processId )
 {
 	CProcessType *pCfg = nullptr;
@@ -37,14 +53,14 @@ CProcessType* CGlobalData::getProcessType( string processId )
 	return pCfg;
 }
 
-void CGlobalData::addprocessInfo( CProcessTaskInfo cfg )
+void CGlobalData::addProcessTaskInfo( CProcessTaskInfo cfg )
 {
 	taskMutex.lock();
 	tasks.push_back(cfg);
 	taskMutex.unlock();
 }
 
-CProcessTaskInfo* CGlobalData::popprocessInfo()
+CProcessTaskInfo* CGlobalData::popProcessTaskInfo()
 {
 	CProcessTaskInfo* pCfg = nullptr;
 	taskMutex.lock();
@@ -58,4 +74,9 @@ CProcessTaskInfo* CGlobalData::popprocessInfo()
 	return pCfg;
 }
 
+void CGlobalData::init()
+{
+	initDataInCode();
+	loadConfig();
+}
 

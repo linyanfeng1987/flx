@@ -9,7 +9,7 @@ public:
 	CAverageProcess();
 	~CAverageProcess();
 
-	void calc(char* argv[]);
+	void calc(const char* argv);
 private:
 
 };

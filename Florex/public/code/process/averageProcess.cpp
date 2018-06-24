@@ -8,12 +8,9 @@ CAverageProcess::~CAverageProcess()
 {
 }
 
-void CAverageProcess::calc( char* argv[] )
+void CAverageProcess::calc( const char* argv )
 {
 	double timeStart = 0;
 	double timeEnd = 0;
 	string rate = "";
-
-
-	
 }

@@ -11,7 +11,7 @@ public:
 	CBaseObj();
 	~CBaseObj();
 
-	static CTableStruct tableStruct;
+	CTableStruct *pTableStruct;
 
 	void load(CRow *pRow);
 

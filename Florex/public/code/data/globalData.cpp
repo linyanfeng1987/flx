@@ -29,10 +29,10 @@ void CGlobalData::loadConfig()
 void CGlobalData::initDataInCode()
 {
 	CProcessType tmpType;
-	string tmpName = "Average_3600";
+	string tmpName = "average";
 	tmpType.processTypeName = tmpName;
-	tmpType.porcessFlag = 1;
-	tmpType.timeStep = 3600;
+	//tmpType.porcessFlag = 1;
+	tmpType.timeStep = 3000;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
 

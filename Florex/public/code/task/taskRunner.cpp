@@ -1,4 +1,5 @@
 #include "taskRunner.h"
+#include "db/dataStruct/processTaskInfoStruct.h"
 
 // 查找数据库，开启对应线程处理数据
 
@@ -32,7 +33,8 @@ bool CtaskRunner::reloadTaskList()
 {
 	bool hasData = false;
 	// 从数据库中加载未执行的任务
-	string sql = CProcessTaskInfo::tableStruct.getSelectSql("status = 0");
+	CProcessTaskInfoStruct processTaskInfoStruct;
+	string sql = processTaskInfoStruct.getSelectSql("status = 0");
 	CTable table;
 	db.SelectData(sql.c_str(), table);
 

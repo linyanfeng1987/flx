@@ -46,7 +46,7 @@ public:
 	string processTypeName;
 
 	// process的标志位
-	int porcessFlag;
+	//int porcessFlag;
 
 	// 步长， 单位秒
 	time_t timeStep;

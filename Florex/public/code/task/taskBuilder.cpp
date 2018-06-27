@@ -54,7 +54,6 @@ void CTaskBuilder::runOneProcessInfo(string rateName, CProcessType& processType 
 	if (timeStep > processType.timeStep )
 	{
 		CProcessTaskInfo taskInfo;
-		taskInfo.setRate(rateName);
 		taskInfo.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
 		taskInfo.setprocessInfo(processInfo);
 		taskInfo.setStatus(0);

@@ -160,6 +160,8 @@
     <ClInclude Include="..\public\code\db\dataObj\hisRateD.h" />
     <ClInclude Include="..\public\code\db\dataObj\processStatus.h" />
     <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h" />
     <ClInclude Include="..\public\code\db\dateOperateion.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
@@ -200,6 +202,8 @@
     <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp" />
     <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp" />
     <ClCompile Include="..\public\code\db\dateOperateion.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />

@@ -9,6 +9,9 @@ public:
 	static CDataOperation& getDataOperation();
 
 	time_t GetLastTimeFromeRate(string rateName, int nType = timeStepStep_def);
+
+protected:
+	
 private:
 	CDataOperation();
 };

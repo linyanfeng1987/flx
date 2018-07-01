@@ -10,10 +10,10 @@ string CProcessTaskInfoStruct::key_processTypeName = "processTypeName";
 string CProcessTaskInfoStruct::key_paramter = "paramter"; 
 string CProcessTaskInfoStruct::key_status = "status"; 
 
-string CProcessTaskInfoStruct::key_tableName = "core.processTask" ; 
 CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 {
-	this->setName(key_tableName);
+	tableName = "core.processTask" ; 
+	this->setName(tableName);
 	CField field;
 	//taskId
 	field.load(key_taskId, "string", true);

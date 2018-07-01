@@ -37,6 +37,8 @@ std::string CTableStruct::getSelectSql( string conditicon )
 	strSql += tableName;
 	if(!conditicon.empty())
 	{
+		strSql.append(" ");
+		strSql.append(conditicon);
 	}
 		
 	return strSql;

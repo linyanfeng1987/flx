@@ -1,6 +1,6 @@
 #include "dateOperateion.h"
 #include "PubFun.h"
-
+#include "db/dataStruct/curRateStruct.h"
 
 CDbObj &g_db = CDbObj::instance();
 
@@ -26,10 +26,12 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 	char chSql[2048] = {0};
 	sprintf_s(chSql, sqlFormat.c_str(), florexDbName.c_str(), rateName.c_str(), strStep.c_str());
 
-	CTable table;
+	CCurRateStruct rateStruct;
+	CTable table(&rateStruct);
 	g_db.SelectData(chSql, table);
 
 	string strCurTime = table.begin()->second.find("curTime")->second;
 	
 	return PubFun::stringToInt(strCurTime);
 }
+

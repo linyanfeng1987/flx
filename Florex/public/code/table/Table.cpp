@@ -2,8 +2,9 @@
 #include "Exception.h"
 
 
-CTable::CTable(void)
+CTable::CTable(CTableStruct* tableStruct)
 {
+	init(tableStruct);
 	m_rowIndex = 0;
 }
 

@@ -12,7 +12,7 @@ public:
 	CTaskBuilder();
 	~CTaskBuilder();
 
-	void reLoadTask();
+	bool reloadTaskList();
 	void run();
 protected:
 	void runOneRate(string rateName, list<string>& processTypeNames);

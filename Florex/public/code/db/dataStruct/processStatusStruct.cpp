@@ -7,11 +7,10 @@ string CProcessStatusStruct::key_processStatus = "processStatus";
 string CProcessStatusStruct::key_step = "step"; 
 string CProcessStatusStruct::key_lastTime = "lastTime";
 
-string CProcessStatusStruct::key_tableName = "core.processTask" ;
-
 CProcessStatusStruct::CProcessStatusStruct()
 {
-	this->setName(key_tableName);
+	tableName = "core.processTask" ;
+	this->setName(tableName);
 	CField field;
 	//processName
 	field.load(key_processName, "string", true);

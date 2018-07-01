@@ -12,5 +12,4 @@ public:
 	static string key_step; 
 	static string key_lastTime; 
 
-	static string key_tableName; 
 };

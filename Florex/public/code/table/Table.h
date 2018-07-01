@@ -7,7 +7,7 @@
 class CTable: public map<int, CRow>
 {
 public:
-	CTable(void);
+	CTable(CTableStruct* tableStruct);
 	~CTable(void);
 
 	void init(CTableStruct* tableStruct);

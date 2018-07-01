@@ -1,6 +1,8 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
 #include "db/dataObj/processTaskInfo.h"
+#include "db/dataStruct/processTaskInfoStruct.h"
+#include "db/dataStruct/curRateStruct.h"
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
@@ -61,26 +63,29 @@ void CTaskBuilder::runOneProcessInfo(string rateName, CProcessType& processType 
 	}
 }
 
-void CTaskBuilder::reLoadTask()
+
+bool CTaskBuilder::reloadTaskList()
 {
 	taskConfigs.clear();
-	string strSqlFormat = "select * from %s;";
-	string strTableName = coreDbName + ".";
-	strTableName += "processtask";
+	bool hasData = false;
+	// 从数据库中加载未执行的任务
+	CProcessTaskInfoStruct processTaskInfoStruct;
+	string sql = processTaskInfoStruct.getSelectSql("status = 0");
+	CTable table(&processTaskInfoStruct);
+	db.SelectData(sql.c_str(), table);
 
-	char chSql[2048] = {0};
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CTable resTable;
-	db.SelectData(chSql, resTable);
-
-	CTable::iterator iter = resTable.begin();
-	for (; iter != resTable.end(); iter++)
+	for(auto it : table)
 	{
-		CProcessTaskInfo processTask;
-		processTask.load(&(iter->second));
-		taskConfigs.insert(make_pair(processTask.getTaskId(), processTask));
+		CProcessTaskInfo processTaskInfo;	
+		processTaskInfo.load(&(it.second));
+		processTaskInfo.setStatus(1);
+		db.ExecuteSql(processTaskInfo.pRow->getUpdateSql().c_str());
+		gData.addProcessTaskInfo(processTaskInfo);
+		taskConfigs.insert(make_pair(processTaskInfo.getTaskId(), processTaskInfo));
+
+		hasData = true;
 	}
+	return hasData;
 }
 
 time_t CTaskBuilder::getRateLastTime( string rateName )
@@ -94,7 +99,8 @@ time_t CTaskBuilder::getRateLastTime( string rateName )
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CTable resTable;
+	CCurRateStruct rateStruct;
+	CTable resTable(&rateStruct);
 	db.SelectData(chSql, resTable);
 
 	CTable::iterator iter = resTable.begin();
@@ -116,7 +122,8 @@ time_t CTaskBuilder::getProcessLastTime( string processName )
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CTable resTable;
+	CCurRateStruct rateStruct;
+	CTable resTable(&rateStruct);
 	db.SelectData(chSql, resTable);
 
 	CTable::iterator iter = resTable.begin();

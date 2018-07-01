@@ -20,6 +20,4 @@ public:
 	static string key_processTypeName; 
 	static string key_paramter; 
 	static string key_status; 
-
-	static string key_tableName; 
 };

@@ -14,43 +14,43 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{5f32ea44-1070-4daa-9002-338d7f41b163}</UniqueIdentifier>
+      <UniqueIdentifier>{58f7d479-498e-4ec8-8009-c15016e8dfc3}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{14b3c700-7114-403b-a050-62397e351be9}</UniqueIdentifier>
+      <UniqueIdentifier>{ce4dcd02-183b-4bda-ad89-097628b1687b}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{3373dbc4-2251-411f-b5df-1a83e2acf09e}</UniqueIdentifier>
+      <UniqueIdentifier>{54887bdb-96a6-449f-83d6-3985c0db3b59}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{b6a7108c-1b91-4c32-816a-eabc744bcbc8}</UniqueIdentifier>
+      <UniqueIdentifier>{61658725-d917-4aa5-b32f-876ae4dd94cc}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{6daae390-3edc-4f27-9ca6-b610a43eb6a9}</UniqueIdentifier>
+      <UniqueIdentifier>{1b6d072a-89ea-424b-b63e-55b527e6d5f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{e0cf0fd3-3914-416b-b5eb-55b1a95c406e}</UniqueIdentifier>
+      <UniqueIdentifier>{4f47031d-9025-4e70-8d58-80590b7a4ede}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{dfed56b3-8c76-4609-afea-a4a07b634da1}</UniqueIdentifier>
+      <UniqueIdentifier>{4b601cad-502c-46ae-8d9f-c1b9bafff3e9}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{a6424f9c-f372-4367-b8f9-22f0df7a001e}</UniqueIdentifier>
+      <UniqueIdentifier>{5ee6c3d1-ffbe-4efb-9818-ad25c20aaaad}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{561cc4fa-de30-4939-8c61-e8c1c7d5087a}</UniqueIdentifier>
+      <UniqueIdentifier>{1c91eeb3-7fb0-4856-a4df-7a63ff961376}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataObj">
-      <UniqueIdentifier>{aa538a12-a540-484c-9bcd-91713fb8cf09}</UniqueIdentifier>
+      <UniqueIdentifier>{7c48c24b-7501-4058-92c7-159ed85a5e3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{37003710-e134-4649-8b82-34508d3250a6}</UniqueIdentifier>
+      <UniqueIdentifier>{068146c0-760a-4e44-91ce-ab8f6c315d4b}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{418a10a6-fda4-431a-ba49-2796497da208}</UniqueIdentifier>
+      <UniqueIdentifier>{6033edbe-a2be-4754-ad5d-a4de2d0d5335}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{3e1db3d5-0970-4a02-a06b-e2eb90c7c5e2}</UniqueIdentifier>
+      <UniqueIdentifier>{8becc7d6-4e16-4ebb-9245-77daf0a4df2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +151,9 @@
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\table\Exception.h">
@@ -276,6 +279,9 @@
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\table\Exception.cpp">

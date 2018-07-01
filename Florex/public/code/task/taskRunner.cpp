@@ -35,7 +35,7 @@ bool CtaskRunner::reloadTaskList()
 	// 从数据库中加载未执行的任务
 	CProcessTaskInfoStruct processTaskInfoStruct;
 	string sql = processTaskInfoStruct.getSelectSql("status = 0");
-	CTable table;
+	CTable table(&processTaskInfoStruct);
 	db.SelectData(sql.c_str(), table);
 
 	for(auto it : table)

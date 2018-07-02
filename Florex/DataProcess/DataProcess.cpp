@@ -35,6 +35,11 @@ void threadRun()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	string strSqlFormat = "insert into core.newTable ( name, value ) value ( 'testName', 'testValue');";
+
+	CDbObj &db = CDbObj::instance();
+	db.ExecuteSql(strSqlFormat.c_str());
+
 	gData.init();
 
 	threadRun();

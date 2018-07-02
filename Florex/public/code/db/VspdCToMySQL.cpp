@@ -16,12 +16,18 @@ bool VspdCToMySQL::ConnMySQL(char *host,char * port ,char * Db,char * user,char*
 {
 	bool bRes = true;
 
+	int nRes =mysql_library_init(0, NULL, NULL);
+	if (nRes) {
+		fprintf(stderr, "could not initialize MySQL client library\n");
+		strMsg = mysql_error(NULL);
+	}
+
 	if( mysql_init(&mysql) == NULL )
 	{
 		bRes  = false;
 	}    
 
-	if (bRes && mysql_real_connect(&mysql,host,user,passwd,NULL,0,NULL,0) == NULL)
+	if (bRes && mysql_real_connect(&mysql,host,user,passwd,NULL,3306,NULL,0) == NULL)
 	{
 		bRes  = false;
 	}    
@@ -33,7 +39,7 @@ bool VspdCToMySQL::ConnMySQL(char *host,char * port ,char * Db,char * user,char*
 	
 	if (!bRes)
 	{
-		strMsg = mysql_error(&mysql);
+		strMsg = mysql_error(NULL);
 		return false;
 	}
 	return true;

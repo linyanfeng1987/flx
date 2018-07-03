@@ -19,6 +19,7 @@ CDbObj::~CDbObj(void)
 
 void CDbObj::SelectData(const char * SQL,CTable& table )
 {
+	dbMutex.lock();
 	string strLog = "selectData:";
 	strLog += SQL;
 	PubFun::log(strLog);
@@ -34,16 +35,18 @@ void CDbObj::SelectData(const char * SQL,CTable& table )
 	list<string>::iterator rowIter = rows.begin();
 	for(;rowIter != rows.end(); rowIter++)
 	{
-		CRow rowObj;
+		CRow rowObj(table.m_tableStruct);
 		list<string> values = PubFun::split(*rowIter, ",");
 		rowObj.addByList(values);
 		
 		table.addRow(rowObj);
 	}
+	dbMutex.unlock();
 }
 
 bool CDbObj::ExecuteSql( const char * SQL )
 {
+	dbMutex.lock();
 	string strLog = "excecuteSql:";
 	strLog += SQL;
 	PubFun::log(strLog);
@@ -53,7 +56,9 @@ bool CDbObj::ExecuteSql( const char * SQL )
 		isConnect = true;
 	}
 
-	return db.ExecuteSql(SQL);
+	bool bRes = db.ExecuteSql(SQL);
+	dbMutex.unlock();
+	return bRes;
 }
 
 void CDbObj::ConnectDb()
@@ -71,6 +76,7 @@ void CDbObj::ConnectDb()
 		printf("连接成功\r\n");
 	else
 		printf(Msg);
+
 }
 
 CDbObj& CDbObj::instance()
@@ -84,6 +90,7 @@ CDbObj& CDbObj::instance()
 
 void CDbObj::insertDatas( list<string> sqls )
 {
+	dbMutex.lock();
 	if(!isConnect)
 	{
 		ConnectDb();
@@ -96,6 +103,7 @@ void CDbObj::insertDatas( list<string> sqls )
 		db.ExecuteSql(sql.c_str());;
 	}
 	db.commit();
+	dbMutex.unlock();
 }
 
 

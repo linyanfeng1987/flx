@@ -13,9 +13,9 @@ std::string trim(std::string s)
 	return s;
 }
 
-CRow::CRow(void)
+CRow::CRow(CTableStruct *pTableStruct)
 {
-	m_pTableStruct = NULL;
+	init(pTableStruct);
 }
 
 

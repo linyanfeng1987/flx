@@ -1,6 +1,7 @@
 #pragma once
 #include "VspdCToMySQL.h"
 #include "../table/Table.h"
+#include <mutex>
 
 class CDbObj
 {
@@ -24,6 +25,7 @@ public:
 
 private:
 	bool isConnect;
+	std::mutex dbMutex;
 	VspdCToMySQL db;
 };
 

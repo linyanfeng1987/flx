@@ -19,7 +19,7 @@ enum DBTYPE
 class CRow : public map<string, string>
 {
 public:
-	CRow(void);
+	CRow(CTableStruct *pTableStruct);
 	~CRow(void);
 
 	void init(CTableStruct *pTableStruct);

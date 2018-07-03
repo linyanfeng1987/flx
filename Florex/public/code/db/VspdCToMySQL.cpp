@@ -56,9 +56,10 @@ string VspdCToMySQL::SelectData(const char * SQL,int Cnum,char * Msg)
 	char rg = '\n';//ÐÐ¸ô¿ª
 	char cg = ',';//×Ö¶Î¸ô¿ª
 
-	if(mysql_query(&mysql,sql) != 0)
+	int nRes = mysql_query(&mysql,sql);
+	if(nRes != 0)
 	{
-		Msg = "select ps_info Error";
+		string strMsg = mysql_error(&mysql);
 		return "";
 	}
 	m_res = mysql_store_result(&mysql);

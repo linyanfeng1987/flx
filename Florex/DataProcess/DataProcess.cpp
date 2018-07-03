@@ -9,6 +9,7 @@
 #include "data/globalData.h"
 #include "task/taskBuilder.h"
 #include "task/taskRunner.h"
+#include "db/dataStruct/curRateStruct.h"
 
 CGlobalData& gData = CGlobalData::instance();
 
@@ -36,9 +37,15 @@ void threadRun()
 int _tmain(int argc, _TCHAR* argv[])
 {
 	string strSqlFormat = "insert into core.newTable ( name, value ) value ( 'testName', 'testValue');";
-
 	CDbObj &db = CDbObj::instance();
+	db.ConnectDb();
 	db.ExecuteSql(strSqlFormat.c_str());
+	/*
+	string strSqlTest = "select * from florex.currency_pair_XAUUSD order by curTime desc, curMsec desc limit 1;";
+	CCurRateStruct rateStruct;
+	CTable table(&rateStruct);
+	db.SelectData(strSqlTest.c_str(), table);
+	*/
 
 	gData.init();
 

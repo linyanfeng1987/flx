@@ -56,9 +56,9 @@ tuple<bool,string, string> PubFun::parseKeyValue(string strSrc)
 	return res;
 }
 
-int PubFun::stringToInt(string str)
+long PubFun::stringToInt(string str)
 {
-	int i = 0;
+	long i = 0;
 	sscanf_s(str.c_str(),"%d",&i);
 	return i;
 }
@@ -69,6 +69,21 @@ double PubFun::stringToDouble(string str)
 	sscanf_s(str.c_str(),"%lf",&i);
 	return i;
 }
+
+std::string PubFun::intToString(long nValue)
+{
+	char tmpCh[255] = {0};  
+	_itoa_s(nValue, tmpCh, 10);
+	return tmpCh;
+}
+
+std::string PubFun::doubleToString( double dValue )
+{
+	char str[256] = {0};
+	sprintf_s(str, "%lf", dValue);
+	return string(str);
+}
+
 
 void PubFun::log( string str )
 {
@@ -278,12 +293,7 @@ std::string PubFun::getStepStr( int nStep )
 	return strStep;
 }
 
-std::string PubFun::intToString(int nValue)
-{
-	char tmpCh[255] = {0};  
-	_itoa_s(nValue, tmpCh, 10);
-	return tmpCh;
-}
+
 
 std::string PubFun::get14CurTimeString()
 {
@@ -333,6 +343,7 @@ pair<time_t, int> PubFun::timeConvert( double dTime )
 
 	return make_pair(ts, msec);
 }
+
 
 
 

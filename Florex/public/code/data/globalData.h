@@ -3,9 +3,9 @@
 
 #include "PubFun.h"
 #include "ConstDef.h"
-#include "process/processInfo.h"
-#include "db/dataObj/processTaskInfo.h"
-
+#include "process/processType.h"
+#include "db/dataStruct/processTaskInfoStruct.h"
+#include "table/Table.h"
 
 class CGlobalData
 {
@@ -28,14 +28,14 @@ public:
 	// process类型，对应的rate类型
 	map<string, list<string> > processRates;
 
-	void addProcessTaskInfo(CProcessTaskInfo cfg);
-	CProcessTaskInfo* popProcessTaskInfo();
+	void addProcessTaskInfo(CRow cfg);
+	CRow* popProcessTaskInfo();
 
-	map<string, CProcessInfo> porcessInfos;
+	map<string, CRow> porcessInfos;
 protected:
+	//map<string, CTableStruct> 
 	
-	
-	list<CProcessTaskInfo> tasks;
+	CTable tasks;
 	recursive_mutex taskMutex; 
 	CGlobalData();
 };

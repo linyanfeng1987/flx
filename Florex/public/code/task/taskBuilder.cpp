@@ -1,8 +1,8 @@
 #include "taskBuilder.h"
 #include "ConstDef.h"
-#include "db/dataObj/processTaskInfo.h"
 #include "db/dataStruct/processTaskInfoStruct.h"
 #include "db/dataStruct/curRateStruct.h"
+#include "db/dataStruct/processStatusStruct.h"
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
@@ -40,25 +40,35 @@ void CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 		CProcessType* pPorcessType = gData.getProcessType(processTypeName);
 		if(pPorcessType != nullptr)
 		{
-			runOneProcessInfo(rateName, *pPorcessType);
+			runOneProcessType(rateName, *pPorcessType);
 		}	
 	}
 }
 
-void CTaskBuilder::runOneProcessInfo(string rateName, CProcessType& processType )
+void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType )
 {
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
 	time_t processLastTime = getProcessLastTime(porcessName);
+	if(0 == processLastTime)
+	{
+		// 说明未存储对应数据, 获取rate的起始时间代替
+		processLastTime = getRateStartTime(rateName);
+	}
 	time_t timeStep = rateLastTime - processLastTime;
-	CProcessInfo processInfo;
-	processInfo.init(&processType, rateName);
 	if (timeStep > processType.timeStep )
 	{
-		CProcessTaskInfo taskInfo;
-		taskInfo.setTaskId( PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		taskInfo.setprocessInfo(processInfo);
-		taskInfo.setStatus(0);
+		// 这里属性缺少
+		CRow taskInfo(CProcessTaskInfoStruct::instence());
+		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
+		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
+		taskInfo.setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_startTime, processLastTime);
+		time_t endTime = processLastTime + timeStep/processType.timeStep * processType.timeStep;
+		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
+		taskInfo.setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
+		taskInfo.setStringValue(CProcessTaskInfoStruct::key_paramter, "");
+		taskInfo.setStringValue(CProcessTaskInfoStruct::key_status, "0");
 		gData.addProcessTaskInfo(taskInfo);
 	}
 }
@@ -69,19 +79,17 @@ bool CTaskBuilder::reloadTaskList()
 	taskConfigs.clear();
 	bool hasData = false;
 	// 从数据库中加载未执行的任务
-	CProcessTaskInfoStruct processTaskInfoStruct;
-	string sql = processTaskInfoStruct.getSelectSql("status = 0");
-	CTable table(&processTaskInfoStruct);
+	CProcessTaskInfoStruct* pTaskInfo = CProcessTaskInfoStruct::instence();
+	string sql = pTaskInfo->getSelectSql("status = 0");
+	CTable table(pTaskInfo);
 	db.SelectData(sql.c_str(), table);
 
 	for(auto it : table)
 	{
-		CProcessTaskInfo processTaskInfo;	
-		processTaskInfo.load(&(it.second));
-		processTaskInfo.setStatus(1);
-		db.ExecuteSql(processTaskInfo.pRow->getUpdateSql().c_str());
-		gData.addProcessTaskInfo(processTaskInfo);
-		taskConfigs.insert(make_pair(processTaskInfo.getTaskId(), processTaskInfo));
+		it.second.setStringValue(CProcessTaskInfoStruct::key_status, "1");
+		db.ExecuteSql(it.second.getUpdateSql().c_str());
+		gData.addProcessTaskInfo(it.second);
+		taskConfigs.insert(make_pair(it.second.getStringValue(CProcessTaskInfoStruct::key_taskId), it.second));
 
 		hasData = true;
 	}
@@ -90,15 +98,25 @@ bool CTaskBuilder::reloadTaskList()
 
 time_t CTaskBuilder::getRateLastTime( string rateName )
 {
-	string strSqlFormat = "select * from %s order by curTime desc, curMsec desc limit 1;";
+	return getRateTime(rateName, "order by curTime desc, curMsec desc limit 1");
+}
+
+time_t CTaskBuilder::getRateStartTime( string rateName )
+{
+	return getRateTime(rateName, "order by curTime, curMsec limit 1");
+}
+
+time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
+{
+	string strSqlFormat = "select * from %s %s;";
 	string strTableName = florexDbName + ".";
-	strTableName += "currency_pair_";
-	strTableName += rateName;
+	strTableName.append("currency_pair_");
+	strTableName.append(rateName);
 	time_t lastTime = 0;
 
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
 	CCurRateStruct rateStruct;
 	CTable resTable(&rateStruct);
 	db.SelectData(chSql, resTable);
@@ -112,18 +130,20 @@ time_t CTaskBuilder::getRateLastTime( string rateName )
 	return lastTime;
 }
 
+
+
 time_t CTaskBuilder::getProcessLastTime( string processName )
 {
 	string strSqlFormat = "select * from %s order by lastTime desc limit 1;";
-	string strTableName = florexDbName + ".";
+	string strTableName = coreDbName + ".";
 	strTableName += "processstatus";
 	time_t lastTime = 0;
 
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CCurRateStruct rateStruct;
-	CTable resTable(&rateStruct);
+	CProcessStatusStruct processStatusStruct;
+	CTable resTable(&processStatusStruct);
 	db.SelectData(chSql, resTable);
 
 	CTable::iterator iter = resTable.begin();
@@ -134,6 +154,7 @@ time_t CTaskBuilder::getProcessLastTime( string processName )
 	}
 	return lastTime;
 }
+
 
 
 

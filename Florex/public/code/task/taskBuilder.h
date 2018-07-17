@@ -1,7 +1,6 @@
 #pragma once
 #include "db/DbObj.h"
 #include "data/globalData.h"
-#include "db/dataObj/processTaskInfo.h"
 #include "process/processType.h"
 #include "PubFun.h"
 #include "ConstDef.h"
@@ -16,12 +15,14 @@ public:
 	void run();
 protected:
 	void runOneRate(string rateName, list<string>& processTypeNames);
-	void runOneProcessInfo(string rateName, CProcessType& processType);
+	void runOneProcessType(string rateName, CProcessType& processType);
 
 
 	time_t getRateLastTime(string rateName);
+	time_t getRateStartTime(string rateName);
+	time_t getRateTime(string rateName, string orderSql);
 	time_t getProcessLastTime(string processName);
-	map<string, CProcessTaskInfo> taskConfigs;
+	map<string, CRow> taskConfigs;
 
 	static CDbObj& db; 
 	static CGlobalData& gData; 

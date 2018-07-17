@@ -1,7 +1,7 @@
 #include "globalData.h"
 
 
-CGlobalData::CGlobalData()
+CGlobalData::CGlobalData():tasks(CProcessTaskInfoStruct::instence())
 {
 }
 
@@ -53,21 +53,21 @@ CProcessType* CGlobalData::getProcessType( string processId )
 	return pCfg;
 }
 
-void CGlobalData::addProcessTaskInfo( CProcessTaskInfo cfg )
+void CGlobalData::addProcessTaskInfo( CRow cfg )
 {
 	taskMutex.lock();
-	tasks.push_back(cfg);
+	tasks.addRow(cfg);
 	taskMutex.unlock();
 }
 
-CProcessTaskInfo* CGlobalData::popProcessTaskInfo()
+CRow* CGlobalData::popProcessTaskInfo()
 {
-	CProcessTaskInfo* pCfg = nullptr;
+	CRow* pCfg = nullptr;
 	taskMutex.lock();
 	auto it = tasks.begin();
 	if(it != tasks.end())
 	{
-		pCfg = &*it;
+		pCfg = &(it->second);
 		tasks.erase(it);
 	}
 	taskMutex.unlock();

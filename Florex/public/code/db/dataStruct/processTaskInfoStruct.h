@@ -4,8 +4,10 @@
 
 class CProcessTaskInfoStruct : public CTableStruct
 {
-public:
+protected:
 	CProcessTaskInfoStruct();
+public:
+	static CProcessTaskInfoStruct* instence();
 	~CProcessTaskInfoStruct();
 
 	// Ψһid

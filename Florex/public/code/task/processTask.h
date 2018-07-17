@@ -1,5 +1,5 @@
 #pragma once
-#include "db/dataObj/processTaskInfo.h"
+#include "table/Row.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
 class CProcessTask
@@ -8,9 +8,9 @@ public:
 	CProcessTask();
 	~CProcessTask();
 
-	void setProcessTaskConfig(CProcessTaskInfo* pConfig){this->pConfig = pConfig;}
+	void setProcessTaskConfig(CRow* pConfig){this->pConfig = pConfig;}
 	int run();
 protected:
-	CProcessTaskInfo* pConfig;
+	CRow* pConfig;
 
 };

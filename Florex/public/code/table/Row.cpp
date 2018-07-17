@@ -1,5 +1,6 @@
 #include "Row.h"
 #include "Exception.h"
+#include "PubFun.h"
 
 std::string trim(std::string s) 
 {
@@ -17,7 +18,6 @@ CRow::CRow(CTableStruct *pTableStruct)
 {
 	init(pTableStruct);
 }
-
 
 CRow::~CRow(void)
 {
@@ -273,3 +273,45 @@ void CRow::setValue( string strKey, string strValue )
 		this->insert(make_pair(strKey, strValue));
 	}
 }
+
+
+std::string CRow::getStringValue(string strKey)
+{
+	return this->getValue(strKey);
+}
+
+long CRow::getIntValue(string strKey)
+{
+	return PubFun::stringToInt(this->getValue(strKey));
+}
+
+time_t CRow::getTimeValue(string strKey)
+{
+	return PubFun::stringToInt(this->getValue(strKey));
+}
+
+double CRow::getDoubleValue(string strKey)
+{
+	return PubFun::stringToDouble(this->getValue(strKey));
+}
+
+void CRow::setStringValue(string strKey, string strValue )
+{
+	this->setValue(strKey, strValue);
+}
+
+void CRow::setIntValue(string strKey, long lValue )
+{
+	this->setValue(strKey, PubFun::intToString(lValue));
+}
+
+void CRow::setTimeValue(string strKey, time_t tValue )
+{
+	this->setValue(strKey, PubFun::intToString(tValue));
+}
+
+void CRow::setDoubleValue(string strKey, double dValue )
+{
+	this->setValue(strKey, PubFun::doubleToString(dValue));
+}
+

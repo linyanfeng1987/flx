@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <unordered_map>
 #include "Field.h"
 
 /*
@@ -15,7 +16,7 @@ public:
 };
 
 
-class CTableStruct: public map<string, CField>
+class CTableStruct: public unordered_map<string, CField>
 {
 public:
 	CTableStruct(string strName);

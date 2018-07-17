@@ -17,9 +17,10 @@ public:
 
 	static list<string> split(const string &str,const string &pattern);
 	static tuple<bool,string, string> parseKeyValue(string strSrc);
-	static int stringToInt(string str);
+	static long stringToInt(string str);
 	static double stringToDouble(string str);
-	static string intToString(int nValue);
+	static string intToString(long nValue);
+	static string doubleToString(double dValue);
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
 	static string getValueFromMap(string strKey, map<string, string> mapObj);

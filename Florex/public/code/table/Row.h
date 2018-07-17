@@ -19,6 +19,7 @@ enum DBTYPE
 class CRow : public map<string, string>
 {
 public:
+	// 可以进行sql交互的
 	CRow(CTableStruct *pTableStruct);
 	~CRow(void);
 
@@ -36,6 +37,20 @@ public:
 	void addByList(list<string> valueList);
 	string getValue(string strKey);
 	void setValue(string strKey, string strValue);
+
+
+	string getStringValue(string strKey);
+	long getIntValue(string strKey);
+	time_t getTimeValue(string strKey);
+	double getDoubleValue(string strKey);
+
+
+	void setStringValue(string strKey, string strValue);
+	void setIntValue(string strKey, long lValue);
+	void setTimeValue(string strKey, time_t tValue);
+	void setDoubleValue(string strKey, double dValue);
+
+
 
 	DBTYPE m_dbType;
 

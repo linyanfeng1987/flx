@@ -18,7 +18,7 @@ protected:
 	bool reloadTaskList();
 	void rangTaskList();
 
-	CBaseProcess* getProcess(CProcessTaskInfo& taskInfo);
+	CBaseProcess* getProcess(CRow& taskInfo);
 
 	int maxProcessCount;
 

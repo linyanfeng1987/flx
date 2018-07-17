@@ -25,7 +25,7 @@ dependOnList 存储的依赖关系，
 */
 
 /*
-CProcessInfo 用于标识依赖关系，以及基础信息，
+CRow 用于标识依赖关系，以及基础信息，
 */
 
 
@@ -52,7 +52,6 @@ public:
 	time_t timeStep;
 
 	list<string> dependOnTypeList;
-
 private:
 	
 };

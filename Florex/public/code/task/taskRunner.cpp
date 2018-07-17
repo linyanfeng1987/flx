@@ -33,18 +33,16 @@ bool CtaskRunner::reloadTaskList()
 {
 	bool hasData = false;
 	// 从数据库中加载未执行的任务
-	CProcessTaskInfoStruct processTaskInfoStruct;
-	string sql = processTaskInfoStruct.getSelectSql("status = 0");
-	CTable table(&processTaskInfoStruct);
+	CProcessTaskInfoStruct *pTaskInfoStruct = CProcessTaskInfoStruct::instence();
+	string sql = pTaskInfoStruct->getSelectSql("status = 0");
+	CTable table(pTaskInfoStruct);
 	db.SelectData(sql.c_str(), table);
 
 	for(auto it : table)
 	{
-		CProcessTaskInfo processTaskInfo;	
-		processTaskInfo.load(&(it.second));
-		processTaskInfo.setStatus(1);
-		db.ExecuteSql(processTaskInfo.pRow->getUpdateSql().c_str());
-		gData.addProcessTaskInfo(processTaskInfo);
+		it.second.setIntValue(CProcessTaskInfoStruct::key_status, 1);
+		db.ExecuteSql(it.second.getUpdateSql().c_str());
+		gData.addProcessTaskInfo(it.second);
 
 		hasData = true;
 	}
@@ -54,13 +52,13 @@ bool CtaskRunner::reloadTaskList()
 void CtaskRunner::rangTaskList()
 {
 	// 执行任务
-	CProcessTaskInfo* processTaskInfo = gData.popProcessTaskInfo();
+	CRow* processTaskInfo = gData.popProcessTaskInfo();
 	if(nullptr != processTaskInfo)
 	{
 		CBaseProcess* pProcess = getProcess(*processTaskInfo);
 		if(nullptr != pProcess)
 		{
-			string param = processTaskInfo->getParamter();
+			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
 			pProcess->detach(param.c_str());
 		}
 	}
@@ -73,9 +71,9 @@ void CtaskRunner::rangTaskList()
 }
 
 // 通过info生成对应处理的process
-CBaseProcess* CtaskRunner::getProcess( CProcessTaskInfo& taskInfo )
+CBaseProcess* CtaskRunner::getProcess( CRow& taskInfo )
 {
-	if (taskInfo.getProcessTypeName() == "acb")
+	if (taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "acb")
 	{
 	}
 	return nullptr;

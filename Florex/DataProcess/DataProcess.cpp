@@ -22,7 +22,7 @@ void buildTask(int value)
 void runTask(int value)
 {
 	CtaskRunner taskRunner;
-	taskRunner.run();
+	//taskRunner.run();
 }
 
 void threadRun()

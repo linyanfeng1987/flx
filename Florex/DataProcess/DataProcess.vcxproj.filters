@@ -34,9 +34,6 @@
     <Filter Include="public\db">
       <UniqueIdentifier>{b40ad3fc-3030-4f78-bf39-bd6415b2d182}</UniqueIdentifier>
     </Filter>
-    <Filter Include="public\db\dataObj">
-      <UniqueIdentifier>{6e43e252-bd49-43d9-bb33-73a7790cd83a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="public\table">
       <UniqueIdentifier>{805f904c-d571-4a95-8301-676668e84eb8}</UniqueIdentifier>
     </Filter>
@@ -111,18 +108,6 @@
     <ClInclude Include="..\public\code\db\dateOperateion.h">
       <Filter>public\db</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processStatus.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\baseObj.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\curRateD.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\table\Table.h">
       <Filter>public\table</Filter>
     </ClInclude>
@@ -144,13 +129,7 @@
     <ClInclude Include="..\public\code\rate\CurRate.h">
       <Filter>public\rate</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\processType.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\process\processInfo.h">
       <Filter>public\process</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\calculation\baseCalc.h">
@@ -239,18 +218,6 @@
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\table\Exception.cpp">
       <Filter>public\table</Filter>
     </ClCompile>
@@ -272,13 +239,7 @@
     <ClCompile Include="..\public\code\rate\HisRate.cpp">
       <Filter>public\rate</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\process\processType.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\process\processInfo.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp">
@@ -305,5 +266,8 @@
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

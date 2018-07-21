@@ -21,7 +21,7 @@ protected:
 	time_t getRateLastTime(string rateName);
 	time_t getRateStartTime(string rateName);
 	time_t getRateTime(string rateName, string orderSql);
-	time_t getProcessLastTime(string processName);
+	CRow getProcessStatusLine(string processName);
 	map<string, CRow> taskConfigs;
 
 	static CDbObj& db; 

@@ -1,6 +1,7 @@
 #include "Row.h"
 #include "Exception.h"
 #include "PubFun.h"
+#include "db/DbObj.h"
 
 std::string trim(std::string s) 
 {
@@ -16,6 +17,7 @@ std::string trim(std::string s)
 
 CRow::CRow(CTableStruct *pTableStruct)
 {
+	setDataStatus(DATA_NEW);
 	init(pTableStruct);
 }
 
@@ -26,25 +28,25 @@ CRow::~CRow(void)
 std::string CRow::getSql()
 {
 	string strSql = "";
-	switch (m_dbType)
+	switch (m_dataStatus)
 	{
-	case DBTYPE_NEW:
+	case DATA_NEW:
 		{
 			strSql = getInsertSql();
 		}
 		
 		break;
-	case DBTYPE_SAME:
+	case DATA_SAME:
 		{
 			strSql = "";
 		}
 		break;
-	case DBTYPE_CHANGE:
+	case DATA_CHANGE:
 		{
 			strSql = getUpdateSql();
 		}
 		break;
-	case DETYPE_DELETE:
+	case DATA_DELETE:
 		{
 			strSql = getDeleteSql();
 		}
@@ -272,6 +274,8 @@ void CRow::setValue( string strKey, string strValue )
 	{
 		this->insert(make_pair(strKey, strValue));
 	}
+
+	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
 
 
@@ -313,5 +317,19 @@ void CRow::setTimeValue(string strKey, time_t tValue )
 void CRow::setDoubleValue(string strKey, double dValue )
 {
 	this->setValue(strKey, PubFun::doubleToString(dValue));
+}
+
+
+bool CRow::save()
+{
+	string strSql = getSql();
+	CDbObj::instance().ExecuteSql(strSql.c_str());
+	setDataStatus(DATA_SAME);
+	return true;
+}
+
+void CRow::setDataStatus( DATA_STATUS status )
+{
+	m_dataStatus = status;
 }
 

@@ -84,11 +84,6 @@
   <ItemGroup>
     <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\data\globalData.h" />
-    <ClInclude Include="..\public\code\db\dataObj\baseObj.h" />
-    <ClInclude Include="..\public\code\db\dataObj\curRateD.h" />
-    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h" />
-    <ClInclude Include="..\public\code\db\dataObj\processStatus.h" />
-    <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h" />
@@ -105,7 +100,6 @@
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h" />
     <ClInclude Include="..\public\code\process\obj\sum.h" />
-    <ClInclude Include="..\public\code\process\processInfo.h" />
     <ClInclude Include="..\public\code\process\processType.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
@@ -125,11 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\public\code\data\globalData.cpp" />
-    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp" />
-    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp" />
-    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp" />
-    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp" />
-    <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp" />
@@ -146,7 +135,6 @@
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp" />
     <ClCompile Include="..\public\code\process\obj\sum.cpp" />
-    <ClCompile Include="..\public\code\process\processInfo.cpp" />
     <ClCompile Include="..\public\code\process\processType.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
@@ -166,6 +154,9 @@
     <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp" />
     <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp" />
     <ClCompile Include="DataProcess.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

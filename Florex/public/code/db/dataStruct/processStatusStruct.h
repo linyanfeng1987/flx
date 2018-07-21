@@ -3,13 +3,17 @@
 
 class CProcessStatusStruct : public CTableStruct
 {
-public:
+protected:
 	CProcessStatusStruct();
+public:
+	static CProcessStatusStruct* instence();
+	
 	~CProcessStatusStruct();
 
 	static string key_processName; 
 	static string key_processStatus; 
 	static string key_step; 
-	static string key_lastTime; 
+	static string key_buildTaskLastTime; 
+	static string key_completeTaskLastTime; 
 
 };

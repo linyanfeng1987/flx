@@ -8,12 +8,12 @@
 
 using namespace std;
 
-enum DBTYPE
+enum DATA_STATUS
 {
-	DBTYPE_NEW,
-	DBTYPE_SAME,
-	DBTYPE_CHANGE,
-	DETYPE_DELETE,
+	DATA_NEW,
+	DATA_SAME,
+	DATA_CHANGE,
+	DATA_DELETE,
 };
 
 class CRow : public map<string, string>
@@ -27,6 +27,10 @@ public:
 
 	void setTableStruct(CTableStruct *pTableStruct){m_pTableStruct = pTableStruct;}
 	CTableStruct* getTableStruct(){return m_pTableStruct;}
+
+	bool save();
+
+	void setDataStatus(DATA_STATUS status);
 
 	string getSql();
 	string getInsertSql();
@@ -51,8 +55,7 @@ public:
 	void setDoubleValue(string strKey, double dValue);
 
 
-
-	DBTYPE m_dbType;
+	DATA_STATUS m_dataStatus;
 
 protected:
 	string getBaseInsertSqlFormat();

@@ -15,6 +15,6 @@ drop table `core`.`processstatus`;
 CREATE TABLE `core`.`processstatus` (
   `processName` VARCHAR(30) NOT NULL,
   `processStatus` INT NOT NULL DEFAULT 0,
-  `step` INT NOT NULL DEFAULT 0,
-  `lastTime` INT NOT NULL DEFAULT 0,
+  `buildTaskLastTime` INT NOT NULL DEFAULT 0,
+  `completeTaskLastTime` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`processName`));

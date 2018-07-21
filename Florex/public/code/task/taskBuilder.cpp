@@ -49,27 +49,32 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 {
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
-	time_t processLastTime = getProcessLastTime(porcessName);
-	if(0 == processLastTime)
+	CRow processStatusInfo = getProcessStatusLine(porcessName);
+	//获取第一行的值
+	time_t processBuildLastTime = PubFun::stringToInt(processStatusInfo.getValue(CProcessStatusStruct::key_buildTaskLastTime));
+	if(0 == processBuildLastTime)
 	{
 		// 说明未存储对应数据, 获取rate的起始时间代替
-		processLastTime = getRateStartTime(rateName);
+		processBuildLastTime = getRateStartTime(rateName);
 	}
-	time_t timeStep = rateLastTime - processLastTime;
+	time_t timeStep = rateLastTime - processBuildLastTime;
 	if (timeStep > processType.timeStep )
 	{
-		// 这里属性缺少
 		CRow taskInfo(CProcessTaskInfoStruct::instence());
 		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
 		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
 		taskInfo.setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_startTime, processLastTime);
-		time_t endTime = processLastTime + timeStep/processType.timeStep * processType.timeStep;
+		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
+		time_t endTime = processBuildLastTime + timeStep/processType.timeStep * processType.timeStep;
 		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
 		taskInfo.setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
 		taskInfo.setStringValue(CProcessTaskInfoStruct::key_paramter, "");
 		taskInfo.setStringValue(CProcessTaskInfoStruct::key_status, "0");
+		taskInfo.save();
 		gData.addProcessTaskInfo(taskInfo);
+
+		processStatusInfo.setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
+		processStatusInfo.save();
 	}
 }
 
@@ -132,27 +137,26 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 
 
 
-time_t CTaskBuilder::getProcessLastTime( string processName )
+CRow CTaskBuilder::getProcessStatusLine( string processName )
 {
-	string strSqlFormat = "select * from %s order by lastTime desc limit 1;";
+	string strSqlFormat = "select * from %s where processName = %s;";
 	string strTableName = coreDbName + ".";
 	strTableName += "processstatus";
 	time_t lastTime = 0;
 
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str());
-	CProcessStatusStruct processStatusStruct;
-	CTable resTable(&processStatusStruct);
-	db.SelectData(chSql, resTable);
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
+	CProcessStatusStruct* pProcessStatusStruct = CProcessStatusStruct::instence();
+	CTable processStatusTable(pProcessStatusStruct);
+	db.SelectData(chSql, processStatusTable);
 
-	CTable::iterator iter = resTable.begin();
-	if (iter != resTable.end())
+	CTable::iterator iter = processStatusTable.begin();
+	if (iter != processStatusTable.end())
 	{
-		//获取第一行的值
-		lastTime = PubFun::stringToInt(iter->second.getValue("curTime"));
+		return iter->second;
 	}
-	return lastTime;
+	return nullptr;
 }
 
 

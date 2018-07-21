@@ -38,7 +38,7 @@ void CDbObj::SelectData(const char * SQL,CTable& table )
 		CRow rowObj(table.m_tableStruct);
 		list<string> values = PubFun::split(*rowIter, ",");
 		rowObj.addByList(values);
-		
+		rowObj.setDataStatus(DATA_SAME);
 		table.addRow(rowObj);
 	}
 	dbMutex.unlock();

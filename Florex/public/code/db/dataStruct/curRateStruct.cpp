@@ -1,36 +1,25 @@
 #include "curRateStruct.h"
 #include "PubFun.h"
+#include "ConstDef.h"
 
-string CCurRateStruct::curTime = "curTime"; 
-string CCurRateStruct::curMsec = "curMsec"; 
 string CCurRateStruct::priceBuy = "priceBuy"; 
-string CCurRateStruct::priceCell = "priceCell"; 
+string CCurRateStruct::priceSell = "priceCell"; 
 string CCurRateStruct::volume = "volume"; 
-string CCurRateStruct::timeFormat = "timeFormat"; 
 string CCurRateStruct::percentSpead_s = "percentSpead_s"; 
 
-CCurRateStruct::CCurRateStruct()
+
+CCurRateStruct::CCurRateStruct(string rateName):CBaseCurRateStruct(rateName)
 {
-	tableName = "ratebase" ; 
-	this->setName(tableName);
+	setRateName(rateName);
 	CField field;
-
-	field.load(curTime, "int", true);
-	this->insert(make_pair(field.strName, field));
-
-	field.load(curMsec, "int");
-	this->insert(make_pair(field.strName, field));
 
 	field.load(priceBuy, "double");
 	this->insert(make_pair(field.strName, field));
 
-	field.load(priceCell, "double");
+	field.load(priceSell, "double");
 	this->insert(make_pair(field.strName, field));
 
 	field.load(volume, "double");
-	this->insert(make_pair(field.strName, field));
-
-	field.load(timeFormat, "string");
 	this->insert(make_pair(field.strName, field));
 
 	field.load(percentSpead_s, "double");
@@ -40,5 +29,14 @@ CCurRateStruct::CCurRateStruct()
 CCurRateStruct::~CCurRateStruct()
 {
 	
+}
+
+void CCurRateStruct::setRateName(string rateName)
+{
+	tableName = florexDbName; 
+	tableName.append(".").append(rateName);
+
+	this->setName(tableName);
+	curRateTableName = tableName;
 }
 

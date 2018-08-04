@@ -1,8 +1,5 @@
 #include "taskBuilder.h"
-#include "ConstDef.h"
-#include "db/dataStruct/processTaskInfoStruct.h"
-#include "db/dataStruct/curRateStruct.h"
-#include "db/dataStruct/processStatusStruct.h"
+#include "db/DbFunc.h"
 
 CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
@@ -49,7 +46,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 {
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
-	CRow processStatusInfo = getProcessStatusLine(porcessName);
+	CRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
 	//获取第一行的值
 	time_t processBuildLastTime = PubFun::stringToInt(processStatusInfo.getValue(CProcessStatusStruct::key_buildTaskLastTime));
 	if(0 == processBuildLastTime)
@@ -79,7 +76,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 }
 
 
-bool CTaskBuilder::reloadTaskList()
+bool CTaskBuilder::reloadTaskList_delete()
 {
 	taskConfigs.clear();
 	bool hasData = false;
@@ -122,7 +119,7 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
-	CCurRateStruct rateStruct;
+	CCurRateStruct rateStruct(rateName);
 	CTable resTable(&rateStruct);
 	db.SelectData(chSql, resTable);
 
@@ -134,31 +131,5 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 	}
 	return lastTime;
 }
-
-
-
-CRow CTaskBuilder::getProcessStatusLine( string processName )
-{
-	string strSqlFormat = "select * from %s where processName = %s;";
-	string strTableName = coreDbName + ".";
-	strTableName += "processstatus";
-	time_t lastTime = 0;
-
-	char chSql[2048] = {0};
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
-	CProcessStatusStruct* pProcessStatusStruct = CProcessStatusStruct::instence();
-	CTable processStatusTable(pProcessStatusStruct);
-	db.SelectData(chSql, processStatusTable);
-
-	CTable::iterator iter = processStatusTable.begin();
-	if (iter != processStatusTable.end())
-	{
-		return iter->second;
-	}
-	return nullptr;
-}
-
-
 
 

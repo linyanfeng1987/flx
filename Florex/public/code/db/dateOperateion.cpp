@@ -26,7 +26,7 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 	char chSql[2048] = {0};
 	sprintf_s(chSql, sqlFormat.c_str(), florexDbName.c_str(), rateName.c_str(), strStep.c_str());
 
-	CCurRateStruct rateStruct;
+	CCurRateStruct rateStruct(rateName);
 	CTable table(&rateStruct);
 	g_db.SelectData(chSql, table);
 

@@ -4,6 +4,7 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 #include "process/baseProcess.h"
+#include "task/processTask.h"
 
 class CtaskRunner
 {
@@ -18,10 +19,12 @@ protected:
 	bool reloadTaskList();
 	void rangTaskList();
 
-	CBaseProcess* getProcess(CRow& taskInfo);
+	CProcessTask* getProcessTask(CRow& taskInfo);
+	CBaseProcess* getProcess( CRow& taskInfo );
 
 	int maxProcessCount;
 
+	map<string, CProcessTask*> runingTasks;
 	static CDbObj& db; 
 	static CGlobalData& gData; 
 };

@@ -6,6 +6,7 @@ CAverageCalc::CAverageCalc( int cycle ): sum(cycle)
 
 }
 
+
 CAverageCalc::~CAverageCalc()
 {
 }

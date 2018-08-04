@@ -1,16 +1,22 @@
 #pragma once
 #include "table/Row.h"
+#include "baseTask.h"
+#include "process/baseProcess.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
-class CProcessTask
+class CProcessTask : public CBaseTask
 {
 public:
-	CProcessTask();
+	CProcessTask(CRow porcessTaskInfo, CRow porcessStatus, CBaseProcess* pProcess);
 	~CProcessTask();
 
-	void setProcessTaskConfig(CRow* pConfig){this->pConfig = pConfig;}
-	int run();
-protected:
-	CRow* pConfig;
+	string getTaskId();
 
+protected:
+	void runInThread(const char* argv);
+	int completeTask();
+	
+	CRow porcessTaskInfo;
+	CRow porcessStatus;
+	CBaseProcess *pProcess;
 };

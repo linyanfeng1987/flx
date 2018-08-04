@@ -9,8 +9,7 @@ CBaseProcess::~CBaseProcess()
 {
 }
 
-void CBaseProcess::detach( const char* argv )
+void CBaseProcess::init( CRow* pTaskInfo )
 {
-	thread calcThread(&CBaseProcess::calc, this, argv);
-	calcThread.detach();
+	this->pTaskInfo = pTaskInfo;
 }

@@ -1,20 +1,21 @@
 #pragma once
+#include "baseCurRateStruct.h"
 #include "table/TableStruct.h"
 
 
-class CCurRateStruct : public CTableStruct
+class CCurRateStruct : public CBaseCurRateStruct
 {
 public:
-	CCurRateStruct();
+	CCurRateStruct(string rateName);
 	~CCurRateStruct();
 
-	static string curTime; 
-	static string curMsec; 
+	void setRateName(string rateName);
+ 
 	static string priceBuy; 
-	static string priceCell; 
+	static string priceSell; 
 	static string volume; 
 
-	static string timeFormat; 
 	static string percentSpead_s; 
 
+	string curRateTableName;
 };

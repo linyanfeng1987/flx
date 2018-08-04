@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include "table/Table.h"
+#include "db/dataStruct/processTaskInfoStruct.h"
+#include "table/Row.h"
 
 using namespace std;
 class CBaseProcess
@@ -8,11 +11,12 @@ public:
 	CBaseProcess();
 	~CBaseProcess();
 
-	void detach(const char* argv);
-	virtual void calc(const char* argv) = 0;
-private:
+	virtual void calc(CTable& table) = 0;
+	virtual void init(CRow* pTaskInfo);
+protected:
 	string procssName;
 	int processByte;
 	int calculateStepSecond;
+	CRow* pTaskInfo;
 };
 

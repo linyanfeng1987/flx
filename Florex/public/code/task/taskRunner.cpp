@@ -1,5 +1,6 @@
 #include "taskRunner.h"
-#include "db/dataStruct/processTaskInfoStruct.h"
+#include "process/averageProcess.h"
+#include "db/DbFunc.h"
 
 // 查找数据库，开启对应线程处理数据
 
@@ -40,8 +41,8 @@ bool CtaskRunner::reloadTaskList()
 
 	for(auto it : table)
 	{
-		it.second.setIntValue(CProcessTaskInfoStruct::key_status, 1);
-		db.ExecuteSql(it.second.getUpdateSql().c_str());
+		it.second.setStringValue(CProcessTaskInfoStruct::key_status, "1");
+		it.second.save();
 		gData.addProcessTaskInfo(it.second);
 
 		hasData = true;
@@ -55,12 +56,13 @@ void CtaskRunner::rangTaskList()
 	CRow* processTaskInfo = gData.popProcessTaskInfo();
 	if(nullptr != processTaskInfo)
 	{
-		CBaseProcess* pProcess = getProcess(*processTaskInfo);
-		if(nullptr != pProcess)
+		CProcessTask* pTask = getProcessTask(*processTaskInfo);
+		if(nullptr != pTask)
 		{
 			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
-			pProcess->detach(param.c_str());
+			pTask->run(param.c_str());
 		}
+		runingTasks.insert(make_pair(pTask->getTaskId(), pTask));
 	}
 	else
 	{	if (!reloadTaskList())
@@ -73,10 +75,22 @@ void CtaskRunner::rangTaskList()
 // 通过info生成对应处理的process
 CBaseProcess* CtaskRunner::getProcess( CRow& taskInfo )
 {
-	if (taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "acb")
+	CBaseProcess* pProcess = nullptr;
+	if (taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "average")
 	{
+		pProcess = new CAverageProcess(); 
 	}
-	return nullptr;
+	return pProcess;
+}
+
+CProcessTask* CtaskRunner::getProcessTask( CRow& taskInfo )
+{
+	CBaseProcess* pProcess = getProcess(taskInfo);
+	CRow processStatus = CDbFunc::getProcessStatusLine(taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName));
+
+	CProcessTask *pTask = new CProcessTask(taskInfo, processStatus, pProcess);
+
+	return pTask;
 }
 
 

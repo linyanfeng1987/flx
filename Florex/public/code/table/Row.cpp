@@ -15,10 +15,10 @@ std::string trim(std::string s)
 	return s;
 }
 
-CRow::CRow(CTableStruct *pTableStruct)
+CRow::CRow(PTableStruct tableStruct)
 {
 	setDataStatus(DATA_NEW);
-	init(pTableStruct);
+	init(tableStruct);
 }
 
 CRow::~CRow(void)
@@ -93,11 +93,11 @@ std::string CRow::getBaseInsertSqlFormat()
 {
 	string strBaseSqlFormat = "";
 	strBaseSqlFormat += "insert into ";
-	strBaseSqlFormat += m_pTableStruct->tableName;
+	strBaseSqlFormat += tableStruct->tableName;
 	strBaseSqlFormat += " (";
-	CTableStruct::iterator fieldIter = m_pTableStruct->begin();
+	auto fieldIter = tableStruct->begin();
 	string strTmp = "";
-	for(unsigned int i = 0;i < m_pTableStruct->size();i++, fieldIter++)
+	for(unsigned int i = 0;i < tableStruct->size();i++, fieldIter++)
 	{
 		if (!strTmp.empty())
 		{
@@ -152,7 +152,7 @@ std::string CRow::getBaseUpdateSqlFormat()
 {
 	string strBaseSqlFormat = "";
 	strBaseSqlFormat += "update ";
-	strBaseSqlFormat += m_pTableStruct->tableName;
+	strBaseSqlFormat += tableStruct->tableName;
 	strBaseSqlFormat += " set ";
 	strBaseSqlFormat += "%s";
 	strBaseSqlFormat += getConditionFormat();
@@ -164,7 +164,7 @@ std::string CRow::getBaseUpdateSqlFormat()
 std::string CRow::getDeleteSql()
 {
 	string strSql = "delete from ";
-	strSql += m_pTableStruct->tableName;
+	strSql += tableStruct->tableName;
 	string strCondition = getConditionFormat();
 	if (trim(strCondition).empty())
 	{
@@ -180,11 +180,11 @@ std::string CRow::getDeleteSql()
 std::string CRow::getConditionFormat()
 {
 	string strSql = "";
-	CTableStruct::iterator fieldIter;
+	PTableStruct::iterator fieldIter;
 	CRow::iterator iter = this->begin();
 	for(;iter != this->end(); iter++)
 	{
-		fieldIter = m_pTableStruct->find(iter->first);
+		fieldIter = tableStruct->find(iter->first);
  		if (fieldIter->second.bIsPk)
  		{
 			if (!strSql.empty())
@@ -206,14 +206,14 @@ std::string CRow::getConditionFormat()
 	return strSql;
 }
 
-void CRow::init( CTableStruct *pTableStruct )
+void CRow::init( PTableStruct tableStruct )
 {
-	setTableStruct(pTableStruct);
+	setTableStruct(tableStruct);
 }
 
 void CRow::setAndaddValue( string strKey, string strValue )
 {
-	if (m_pTableStruct->find(strKey) != m_pTableStruct->end())
+	if (tableStruct->find(strKey) != tableStruct->end())
 	{
 		CRow::iterator iter = this->find(strKey);
 		if (iter != this->end())
@@ -233,12 +233,12 @@ void CRow::setAndaddValue( string strKey, string strValue )
 
 void CRow::addByList( list<string> valueList )
 {
-	if (valueList.size() != m_pTableStruct->size())
+	if (valueList.size() != tableStruct->size())
 	{
 		throw Exception("addByList error.");
 	}
 	list<string>::iterator valueIter= valueList.begin();
-	CTableStruct::iterator fieldIter = m_pTableStruct->begin();
+	PTableStruct::iterator fieldIter = tableStruct->begin();
 	for (; valueIter != valueList.end();valueIter++, fieldIter++)
 	{
 		setAndaddValue(fieldIter->first, *valueIter);
@@ -248,7 +248,7 @@ void CRow::addByList( list<string> valueList )
 std::string CRow::getValue( string strKey )
 {
 	string destValue = "";
-	if (m_pTableStruct->find(strKey) != m_pTableStruct->end())
+	if (tableStruct->find(strKey) != tableStruct->end())
 	{
 		CRow::iterator iter = this->find(strKey);
 		if (iter != this->end())

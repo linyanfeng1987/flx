@@ -27,10 +27,10 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 	sprintf_s(chSql, sqlFormat.c_str(), florexDbName.c_str(), rateName.c_str(), strStep.c_str());
 
 	CCurRateStruct rateStruct(rateName);
-	CTable table(&rateStruct);
+	PTable table(&rateStruct);
 	g_db.SelectData(chSql, table);
 
-	string strCurTime = table.begin()->second.find("curTime")->second;
+	string strCurTime = table.begin()->second->find("curTime")->second;
 	
 	return PubFun::stringToInt(strCurTime);
 }

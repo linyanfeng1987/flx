@@ -14,43 +14,40 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{f6cfbf72-e68f-4dcf-a719-cf042a932cf1}</UniqueIdentifier>
+      <UniqueIdentifier>{f5434a53-cbda-477d-841d-4a12923af481}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{06fa84f6-00e7-436e-8f53-aedd4a2437a3}</UniqueIdentifier>
+      <UniqueIdentifier>{dc18e797-2618-41f1-aff3-56b3a7f2c645}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{35dea65a-bfea-460e-8ffe-0875fcad4282}</UniqueIdentifier>
+      <UniqueIdentifier>{d8b6c0dc-63cb-4c6d-a6a8-f06a3e20bcc1}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{1dd4b086-76b0-4d0c-a6b0-83e532aec768}</UniqueIdentifier>
+      <UniqueIdentifier>{253b4e9e-0cee-46e5-85e9-c4c36b9fcbee}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{30751eb7-4114-4800-8a8b-f3d0da4d871d}</UniqueIdentifier>
+      <UniqueIdentifier>{fc368c8d-06b6-424f-94de-40c8447c76d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{8758b657-7283-49d2-8ace-6d954e2f0687}</UniqueIdentifier>
+      <UniqueIdentifier>{4e1b041b-bdf7-4cad-9b4f-1ce8181052a5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{ec6788af-fa4c-4f53-ab22-002a0726ba05}</UniqueIdentifier>
+      <UniqueIdentifier>{ffe2c940-054e-478d-9fea-4d13ac14838e}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{7986df83-37aa-44f2-af9d-8df47ef1cefb}</UniqueIdentifier>
+      <UniqueIdentifier>{90ba4200-224c-4900-9950-6981d31227a3}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{0dfbea61-a9c6-4842-8dec-f617a775028d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="public\db\dataObj">
-      <UniqueIdentifier>{91537f4d-d339-467c-8485-0a57c7f31811}</UniqueIdentifier>
+      <UniqueIdentifier>{d8cd96f2-4677-479a-ab44-d6f82241b5f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{0ba96f79-1eb2-4e38-885b-a5265b3bbf80}</UniqueIdentifier>
+      <UniqueIdentifier>{1ac685a3-7f07-4a4f-8c44-b47fc35c1293}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{f4f96ae4-2688-4c7a-9db0-555b5a8ec1f2}</UniqueIdentifier>
+      <UniqueIdentifier>{c0fc0758-e1c5-40f6-a5c4-7e3553f1f150}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{a76aa079-a8ff-4fc1-955f-6e9c39e0f370}</UniqueIdentifier>
+      <UniqueIdentifier>{1cbb68af-2ca4-450e-938b-6ed12c9a78ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +90,6 @@
     <ClInclude Include="..\public\code\process\baseProcess.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\processInfo.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\processType.h">
       <Filter>public\process</Filter>
     </ClInclude>
@@ -129,34 +123,28 @@
     <ClInclude Include="..\public\code\db\dateOperateion.h">
       <Filter>public\db</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\db\DbFunc.h">
+      <Filter>public\db</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\db\DbObj.h">
       <Filter>public\db</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h">
       <Filter>public\db</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\baseObj.h">
-      <Filter>public\db\dataObj</Filter>
+    <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\curRateD.h">
-      <Filter>public\db\dataObj</Filter>
+    <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\hisRateD.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processStatus.h">
-      <Filter>public\db\dataObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataObj\processTaskInfo.h">
-      <Filter>public\db\dataObj</Filter>
+    <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
-      <Filter>public\db\dataStruct</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\table\Exception.h">
@@ -221,9 +209,6 @@
     <ClCompile Include="..\public\code\process\baseProcess.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\processInfo.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\process\processType.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
@@ -257,34 +242,28 @@
     <ClCompile Include="..\public\code\db\dateOperateion.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
+    <ClCompile Include="..\public\code\db\DbFunc.cpp">
+      <Filter>public\db</Filter>
+    </ClCompile>
     <ClCompile Include="..\public\code\db\DbObj.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\baseObj.cpp">
-      <Filter>public\db\dataObj</Filter>
+    <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\curRateD.cpp">
-      <Filter>public\db\dataObj</Filter>
+    <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\hisRateD.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processStatus.cpp">
-      <Filter>public\db\dataObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataObj\processTaskInfo.cpp">
-      <Filter>public\db\dataObj</Filter>
+    <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
-      <Filter>public\db\dataStruct</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\table\Exception.cpp">

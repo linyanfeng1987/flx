@@ -3,17 +3,27 @@
 #include "Field.h"
 #include "TableStruct.h"
 #include <vector>
+#include <memory>
 
-class CTable: public map<int, CRow>
+using namespace std;
+class CTable: public map<int, PRow>
 {
 public:
-	CTable(CTableStruct* tableStruct);
+	CTable(PTableStruct tableStruct);
 	~CTable(void);
 
-	void init(CTableStruct* tableStruct);
-	void addRow(CRow row);
+	void init(PTableStruct tableStruct);
+	void addRow(PRow row);
 
-	CTableStruct* m_tableStruct;
+	PTableStruct tableStruct;
+
+private:
+
+	CTable(const CTable &otherOne); // 私有的拷贝构造函数
+	CTable &operator = (const CTable &otherOne);
 	int m_rowIndex;
 };
+
+typedef shared_ptr<CTable> PTable;
+#define newTable(T) make_shared<CTable>(T);
 

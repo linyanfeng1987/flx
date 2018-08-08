@@ -2,6 +2,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include <memory>
 
 #include "TableStruct.h"
 #include "Field.h"
@@ -20,13 +21,13 @@ class CRow : public map<string, string>
 {
 public:
 	// 可以进行sql交互的
-	CRow(CTableStruct *pTableStruct);
+	CRow(PTableStruct tableStruct);
 	~CRow(void);
 
-	void init(CTableStruct *pTableStruct);
+	void init(PTableStruct tableStruct);
 
-	void setTableStruct(CTableStruct *pTableStruct){m_pTableStruct = pTableStruct;}
-	CTableStruct* getTableStruct(){return m_pTableStruct;}
+	void setTableStruct(PTableStruct tableStruct){this->tableStruct = tableStruct;}
+	PTableStruct getTableStruct(){return tableStruct;}
 
 	bool save();
 
@@ -62,6 +63,9 @@ protected:
 	string getBaseUpdateSqlFormat();
 	string getConditionFormat();
 
-	CTableStruct *m_pTableStruct;
+	PTableStruct tableStruct;
 };
+
+typedef shared_ptr<CRow> PRow;
+#define newRow(T) make_shared<CRow>(T);
 

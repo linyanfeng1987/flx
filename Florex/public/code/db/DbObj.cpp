@@ -17,31 +17,63 @@ CDbObj::~CDbObj(void)
 	}
 }
 
-void CDbObj::SelectData(const char * SQL,CTable& table )
+PRow CDbObj::SelectOneData( const char * SQL, PTableStruct tableStruct )
 {
-	dbMutex.lock();
+	PRow pFirstRow = nullptr;
 	string strLog = "selectData:";
 	strLog += SQL;
 	PubFun::log(strLog);
-	if (!isConnect)
 	{
-		ConnectDb();
+		dbMutex.lock();
+		if (!isConnect)
+		{
+			ConnectDb();
+		}
+		char* Msg = "";
+		int cNum = (int)tableStruct->size();
+		string strRes = db.SelectData(SQL, cNum, Msg);
+		list<string> rows = PubFun::split(strRes, "\n");
+		list<string>::iterator rowIter = rows.begin();
+		for(;rowIter != rows.end(); rowIter++)
+		{
+			PRow pRowObj = newRow(tableStruct);
+			list<string> values = PubFun::split(*rowIter, ",");
+			pRowObj->addByList(values);
+			pRowObj->setDataStatus(DATA_SAME);
+			pFirstRow = pRowObj;
+			break;
+		}
+		dbMutex.unlock();
 	}
-	char* Msg = "";
-	int cNum = (int)table.m_tableStruct->size();
-	string strRes = db.SelectData(SQL, cNum, Msg);
+	return pFirstRow;
+}
 
-	list<string> rows = PubFun::split(strRes, "\n");
-	list<string>::iterator rowIter = rows.begin();
-	for(;rowIter != rows.end(); rowIter++)
+void CDbObj::SelectData( const char * SQL, PTable resTable)
+{
+	string strLog = "selectData:";
+	strLog += SQL;
+	PubFun::log(strLog);
 	{
-		CRow rowObj(table.m_tableStruct);
-		list<string> values = PubFun::split(*rowIter, ",");
-		rowObj.addByList(values);
-		rowObj.setDataStatus(DATA_SAME);
-		table.addRow(rowObj);
+		dbMutex.lock();
+		if (!isConnect)
+		{
+			ConnectDb();
+		}
+		char* Msg = "";
+		int cNum = (int)resTable->tableStruct->size();
+		string strRes = db.SelectData(SQL, cNum, Msg);
+		list<string> rows = PubFun::split(strRes, "\n");
+		list<string>::iterator rowIter = rows.begin();
+		for(;rowIter != rows.end(); rowIter++)
+		{
+			PRow row = newRow(resTable->tableStruct);
+			list<string> values = PubFun::split(*rowIter, ",");
+			row->addByList(values);
+			row->setDataStatus(DATA_SAME);
+			resTable->addRow(row);
+		}
+		dbMutex.unlock();
 	}
-	dbMutex.unlock();
 }
 
 bool CDbObj::ExecuteSql( const char * SQL )
@@ -105,5 +137,6 @@ void CDbObj::insertDatas( list<string> sqls )
 	db.commit();
 	dbMutex.unlock();
 }
+
 
 

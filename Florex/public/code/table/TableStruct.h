@@ -48,3 +48,6 @@ public:
 protected:
 	//KeyList m_keyFiled;
 };
+
+typedef shared_ptr<CTableStruct> PTableStruct;
+#define newTableStruct(T) make_shared<CTableStruct>(T);

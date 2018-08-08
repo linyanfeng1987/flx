@@ -46,9 +46,9 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 {
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
-	CRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
+	PRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
 	//获取第一行的值
-	time_t processBuildLastTime = PubFun::stringToInt(processStatusInfo.getValue(CProcessStatusStruct::key_buildTaskLastTime));
+	time_t processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CProcessStatusStruct::key_buildTaskLastTime));
 	if(0 == processBuildLastTime)
 	{
 		// 说明未存储对应数据, 获取rate的起始时间代替
@@ -57,25 +57,26 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	time_t timeStep = rateLastTime - processBuildLastTime;
 	if (timeStep > processType.timeStep )
 	{
-		CRow taskInfo(CProcessTaskInfoStruct::instence());
-		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
-		taskInfo.setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
-		taskInfo.setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
-		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
+		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
+		PRow taskInfo = newRow(taskInfoStruct);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
+		taskInfo->setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
 		time_t endTime = processBuildLastTime + timeStep/processType.timeStep * processType.timeStep;
-		taskInfo.setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
-		taskInfo.setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
-		taskInfo.setStringValue(CProcessTaskInfoStruct::key_paramter, "");
-		taskInfo.setStringValue(CProcessTaskInfoStruct::key_status, "0");
-		taskInfo.save();
+		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, "");
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, "0");
+		taskInfo->save();
 		gData.addProcessTaskInfo(taskInfo);
 
-		processStatusInfo.setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
-		processStatusInfo.save();
+		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
+		processStatusInfo->save();
 	}
 }
 
-
+/*
 bool CTaskBuilder::reloadTaskList_delete()
 {
 	taskConfigs.clear();
@@ -83,20 +84,20 @@ bool CTaskBuilder::reloadTaskList_delete()
 	// 从数据库中加载未执行的任务
 	CProcessTaskInfoStruct* pTaskInfo = CProcessTaskInfoStruct::instence();
 	string sql = pTaskInfo->getSelectSql("status = 0");
-	CTable table(pTaskInfo);
-	db.SelectData(sql.c_str(), table);
+	PTable table(pTaskInfo);
+	db.SelectData(sql.c_str(), table)111;
 
 	for(auto it : table)
 	{
-		it.second.setStringValue(CProcessTaskInfoStruct::key_status, "1");
-		db.ExecuteSql(it.second.getUpdateSql().c_str());
-		gData.addProcessTaskInfo(it.second);
-		taskConfigs.insert(make_pair(it.second.getStringValue(CProcessTaskInfoStruct::key_taskId), it.second));
+		it.second->setStringValue(CProcessTaskInfoStruct::key_status, "1");
+		db.ExecuteSql(it.second->getUpdateSql().c_str());
+		gData.addProcessTaskInfo(*(it.second));
+		taskConfigs.insert(make_pair(it.second->getStringValue(CProcessTaskInfoStruct::key_taskId), *(it.second)));
 
 		hasData = true;
 	}
 	return hasData;
-}
+}*/
 
 time_t CTaskBuilder::getRateLastTime( string rateName )
 {
@@ -119,15 +120,15 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
-	CCurRateStruct rateStruct(rateName);
-	CTable resTable(&rateStruct);
+	PCurRateStruct rateStruct = newCurRateStruct(rateName);
+	PTable resTable = newTable(rateStruct);
 	db.SelectData(chSql, resTable);
 
-	CTable::iterator iter = resTable.begin();
-	if (iter != resTable.end())
+	auto iter = resTable->begin();
+	if (iter != resTable->end())
 	{
 		//获取第一行的值
-		lastTime = PubFun::stringToInt(iter->second.getValue("curTime"));
+		lastTime = PubFun::stringToInt(iter->second->getValue("curTime"));
 	}
 	return lastTime;
 }

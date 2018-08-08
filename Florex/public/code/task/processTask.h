@@ -7,7 +7,7 @@
 class CProcessTask : public CBaseTask
 {
 public:
-	CProcessTask(CRow porcessTaskInfo, CRow porcessStatus, CBaseProcess* pProcess);
+	CProcessTask(PRow porcessTaskInfo, PRow porcessStatus, PBaseProcess pProcess);
 	~CProcessTask();
 
 	string getTaskId();
@@ -16,7 +16,9 @@ protected:
 	void runInThread(const char* argv);
 	int completeTask();
 	
-	CRow porcessTaskInfo;
-	CRow porcessStatus;
-	CBaseProcess *pProcess;
+	PRow porcessTaskInfo;
+	PRow porcessStatus;
+	PBaseProcess process;
 };
+typedef shared_ptr<CProcessTask> PProcessTask;
+#define newProcessTask(T1,T2,T3) make_shared<CProcessTask>(T1,T2,T3);

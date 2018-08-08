@@ -19,12 +19,12 @@ protected:
 	bool reloadTaskList();
 	void rangTaskList();
 
-	CProcessTask* getProcessTask(CRow& taskInfo);
-	CBaseProcess* getProcess( CRow& taskInfo );
+	PProcessTask getProcessTask(PRow taskInfo);
+	PBaseProcess getProcess( PRow taskInfo );
 
 	int maxProcessCount;
 
-	map<string, CProcessTask*> runingTasks;
+	map<string, PProcessTask> runingTasks;
 	static CDbObj& db; 
 	static CGlobalData& gData; 
 };

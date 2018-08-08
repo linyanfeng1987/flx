@@ -11,7 +11,7 @@ public:
 	CTaskBuilder();
 	~CTaskBuilder();
 
-	bool reloadTaskList_delete();
+	//bool reloadTaskList_delete();
 	void run();
 protected:
 	void runOneRate(string rateName, list<string>& processTypeNames);
@@ -21,7 +21,7 @@ protected:
 	time_t getRateLastTime(string rateName);
 	time_t getRateStartTime(string rateName);
 	time_t getRateTime(string rateName, string orderSql);
-	map<string, CRow> taskConfigs;
+	map<string, PRow> taskConfigs;
 
 	static CDbObj& db; 
 	static CGlobalData& gData; 

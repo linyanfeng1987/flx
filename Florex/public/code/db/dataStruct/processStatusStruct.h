@@ -1,12 +1,16 @@
 #pragma once
 #include "table/TableStruct.h"
 
+class CProcessStatusStruct;
+typedef shared_ptr<CProcessStatusStruct> PProcessStatusStruct;
+#define newProcessStatusStruct(T) make_shared<CProcessStatusStruct>(T);
+
 class CProcessStatusStruct : public CTableStruct
 {
 protected:
 	CProcessStatusStruct();
 public:
-	static CProcessStatusStruct* instence();
+	static PProcessStatusStruct instence();
 	
 	~CProcessStatusStruct();
 
@@ -17,3 +21,4 @@ public:
 	static string key_completeTaskLastTime; 
 
 };
+

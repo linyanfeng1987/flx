@@ -19,3 +19,5 @@ public:
 
 	string curRateTableName;
 };
+typedef shared_ptr<CCurRateStruct> PCurRateStruct;
+#define newCurRateStruct(T) make_shared<CCurRateStruct>(T);

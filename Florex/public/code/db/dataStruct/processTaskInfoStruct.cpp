@@ -46,9 +46,9 @@ CProcessTaskInfoStruct::~CProcessTaskInfoStruct()
 	
 }
 
-CProcessTaskInfoStruct* CProcessTaskInfoStruct::instence()
+PProcessTaskInfoStruct CProcessTaskInfoStruct::instence()
 {
-	static CProcessTaskInfoStruct g;
-	return &g;
+	static PProcessTaskInfoStruct g = newProcessTaskInfoStruct();
+	return g;
 }
 

@@ -2,7 +2,7 @@
 #include "Exception.h"
 
 
-CTable::CTable(CTableStruct* tableStruct)
+CTable::CTable(PTableStruct tableStruct)
 {
 	init(tableStruct);
 	m_rowIndex = 0;
@@ -11,25 +11,19 @@ CTable::CTable(CTableStruct* tableStruct)
 
 CTable::~CTable(void)
 {
+
 }
 
-void CTable::init( CTableStruct* tableStruct )
+void CTable::init( PTableStruct tableStruct )
 {
-	m_tableStruct = tableStruct;
+	this->tableStruct = tableStruct;
 }
 
-void CTable::addRow( CRow row )
+void CTable::addRow( PRow row )
 {
-	if (row.getTableStruct() != m_tableStruct)
+	std::pair<CTable::iterator, bool> pr = this->insert(make_pair(m_rowIndex++,row));
+	if (!pr.second)
 	{
-		throw Exception("error in addRow.");
-	}
-	else
-	{
-		std::pair<CTable::iterator, bool> pr = this->insert(make_pair(m_rowIndex++,row));
-		if (!pr.second)
-		{
-			throw Exception("insert error in addRow.");
-		}
+		throw Exception("insert error in addRow.");
 	}
 }

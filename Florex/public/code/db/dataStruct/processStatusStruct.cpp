@@ -36,8 +36,8 @@ CProcessStatusStruct::~CProcessStatusStruct()
 	
 }
 
-CProcessStatusStruct* CProcessStatusStruct::instence()
+PProcessStatusStruct CProcessStatusStruct::instence()
 {
-	static CProcessStatusStruct g;
-	return &g;
+	static PProcessStatusStruct g = newProcessStatusStruct();
+	return g;
 }

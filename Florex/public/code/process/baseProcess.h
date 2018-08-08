@@ -11,12 +11,12 @@ public:
 	CBaseProcess();
 	~CBaseProcess();
 
-	virtual void calc(CTable& table) = 0;
-	virtual void init(CRow* pTaskInfo);
+	virtual void calc(PTable& table) = 0;
+	virtual void init(PRow pTaskInfo);
 protected:
 	string procssName;
 	int processByte;
 	int calculateStepSecond;
-	CRow* pTaskInfo;
+	PRow pTaskInfo;
 };
-
+typedef shared_ptr<CBaseProcess> PBaseProcess;

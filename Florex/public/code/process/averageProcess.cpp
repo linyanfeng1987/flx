@@ -11,7 +11,7 @@ CAverageProcess::~CAverageProcess()
 
 }
 
-void CAverageProcess::calc( CTable& table )
+void CAverageProcess::calc( PTable& table )
 {
 	string pureRateName = pTaskInfo->getStringValue("");
 	string timeName = pTaskInfo->getStringValue("");
@@ -22,7 +22,7 @@ void CAverageProcess::calc( CTable& table )
 	CAverageCalc* pCalcSellObj = new CAverageCalc(cycle);;
 	for (auto rowIter : table)
 	{
-		CRow averageRow(&curRateAverageStruct);
+		PRow averageRow(&curRateAverageStruct);
 		double priceBuy = rowIter.second.getDoubleValue(CCurRateStruct::priceBuy);
 		double priceSell = rowIter.second.getDoubleValue(CCurRateStruct::priceSell);
 
@@ -39,7 +39,7 @@ void CAverageProcess::calc( CTable& table )
 	}
 }
 
-void CAverageProcess::init( CRow* pTaskInfo )
+void CAverageProcess::init( PRow pTaskInfo )
 {
 	CBaseProcess::init(pTaskInfo);
 	cycle = pTaskInfo->getIntValue(CProcessTaskInfoStruct::key_paramter);

@@ -11,11 +11,11 @@ public:
 	CAverageProcess();
 	~CAverageProcess();
 
-	void calc(CTable& table);
-	void init(CRow* pTaskInfo);
+	void calc(PTable& table);
+	void init(PRow pTaskInfo);
 protected:
 	int cycle;
-
-	
 };
+typedef shared_ptr<CAverageProcess> PAverageProcess;
+#define newAverageProcess() make_shared<CAverageProcess>();
 

@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
 #include <list>
+#include <memory>
 
 using namespace std;
+
 class CField
 {
 public:
@@ -17,3 +19,4 @@ public:
 	string strName;
 };
 
+typedef shared_ptr<CField> PField;

@@ -10,12 +10,15 @@ protected:
 	 CDbObj(void);
 
 	 static CDbObj* g_db;
+
 public:
 	~CDbObj(void);
 	
 	static CDbObj& instance();
 
-	void SelectData(const char * SQL,CTable& table);
+	PRow SelectOneData(const char * SQL, PTableStruct tableStruct);
+
+	void SelectData(const char * SQL, PTable resTable);
 
 	bool ExecuteSql(const char * SQL);
 

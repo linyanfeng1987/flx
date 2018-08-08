@@ -34,15 +34,15 @@ bool CtaskRunner::reloadTaskList()
 {
 	bool hasData = false;
 	// 从数据库中加载未执行的任务
-	CProcessTaskInfoStruct *pTaskInfoStruct = CProcessTaskInfoStruct::instence();
-	string sql = pTaskInfoStruct->getSelectSql("status = 0");
-	CTable table(pTaskInfoStruct);
+	PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
+	string sql = taskInfoStruct->getSelectSql("status = 0");
+	PTable table = newTable(taskInfoStruct);
 	db.SelectData(sql.c_str(), table);
 
-	for(auto it : table)
+	for(auto it : *table)
 	{
-		it.second.setStringValue(CProcessTaskInfoStruct::key_status, "1");
-		it.second.save();
+		it.second->setStringValue(CProcessTaskInfoStruct::key_status, "1");
+		it.second->save();
 		gData.addProcessTaskInfo(it.second);
 
 		hasData = true;
@@ -53,16 +53,16 @@ bool CtaskRunner::reloadTaskList()
 void CtaskRunner::rangTaskList()
 {
 	// 执行任务
-	CRow* processTaskInfo = gData.popProcessTaskInfo();
+	PRow processTaskInfo = gData.popProcessTaskInfo();
 	if(nullptr != processTaskInfo)
 	{
-		CProcessTask* pTask = getProcessTask(*processTaskInfo);
-		if(nullptr != pTask)
+		PProcessTask task = getProcessTask(processTaskInfo);
+		if(nullptr != task)
 		{
 			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
-			pTask->run(param.c_str());
+			task->run(param.c_str());
 		}
-		runingTasks.insert(make_pair(pTask->getTaskId(), pTask));
+		runingTasks.insert(make_pair(task->getTaskId(), task));
 	}
 	else
 	{	if (!reloadTaskList())
@@ -73,24 +73,24 @@ void CtaskRunner::rangTaskList()
 }
 
 // 通过info生成对应处理的process
-CBaseProcess* CtaskRunner::getProcess( CRow& taskInfo )
+PBaseProcess CtaskRunner::getProcess( PRow taskInfo )
 {
-	CBaseProcess* pProcess = nullptr;
-	if (taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "average")
+	PBaseProcess process = nullptr;
+	if (taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "average")
 	{
-		pProcess = new CAverageProcess(); 
+		process = newAverageProcess(); 
 	}
-	return pProcess;
+	return process;
 }
 
-CProcessTask* CtaskRunner::getProcessTask( CRow& taskInfo )
+PProcessTask CtaskRunner::getProcessTask( PRow taskInfo )
 {
-	CBaseProcess* pProcess = getProcess(taskInfo);
-	CRow processStatus = CDbFunc::getProcessStatusLine(taskInfo.getStringValue(CProcessTaskInfoStruct::key_processTypeName));
+	PBaseProcess pProcess = getProcess(taskInfo);
+	PRow processStatus = CDbFunc::getProcessStatusLine(taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName));
 
-	CProcessTask *pTask = new CProcessTask(taskInfo, processStatus, pProcess);
+	PProcessTask task = newProcessTask(taskInfo, processStatus, pProcess);
 
-	return pTask;
+	return task;
 }
 
 

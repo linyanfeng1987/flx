@@ -19,7 +19,7 @@ public:
 	
 	static CDbFunc& instance();
 
-	static CRow getProcessStatusLine(string processName);
+	static PRow getProcessStatusLine(string processName);
 
 private:
 	static CDbObj& db; 

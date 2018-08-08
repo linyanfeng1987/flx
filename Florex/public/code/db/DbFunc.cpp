@@ -15,7 +15,7 @@ CDbFunc::~CDbFunc(void)
 }
 
 
-CRow CDbFunc::getProcessStatusLine( string processName )
+PRow CDbFunc::getProcessStatusLine( string processName )
 {
 	string strSqlFormat = "select * from %s where processName = %s;";
 	string strTableName = coreDbName + ".";
@@ -25,14 +25,7 @@ CRow CDbFunc::getProcessStatusLine( string processName )
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
-	CProcessStatusStruct* pProcessStatusStruct = CProcessStatusStruct::instence();
-	CTable processStatusTable(pProcessStatusStruct);
-	db.SelectData(chSql, processStatusTable);
+	PTableStruct processStatusStruct = CProcessStatusStruct::instence();
 
-	CTable::iterator iter = processStatusTable.begin();
-	if (iter != processStatusTable.end())
-	{
-		return iter->second;
-	}
-	return nullptr;
+	return db.SelectOneData(chSql, processStatusStruct);;
 }

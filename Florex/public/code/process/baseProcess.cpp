@@ -9,7 +9,7 @@ CBaseProcess::~CBaseProcess()
 {
 }
 
-void CBaseProcess::init( CRow* pTaskInfo )
+void CBaseProcess::init( PRow pTaskInfo )
 {
 	this->pTaskInfo = pTaskInfo;
 }

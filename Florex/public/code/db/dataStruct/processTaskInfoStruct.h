@@ -1,13 +1,16 @@
 #pragma once
 #include "table/TableStruct.h"
 
+class CProcessTaskInfoStruct;
+typedef shared_ptr<CProcessTaskInfoStruct> PProcessTaskInfoStruct;
+#define newProcessTaskInfoStruct(T) make_shared<CProcessTaskInfoStruct>(T);
 
 class CProcessTaskInfoStruct : public CTableStruct
 {
 protected:
 	CProcessTaskInfoStruct();
 public:
-	static CProcessTaskInfoStruct* instence();
+	static PProcessTaskInfoStruct instence();
 	~CProcessTaskInfoStruct();
 
 	// Œ®“ªid
@@ -29,3 +32,4 @@ public:
 	//-1£∫»ŒŒÒ ß∞‹
 	static string key_status; 
 };
+

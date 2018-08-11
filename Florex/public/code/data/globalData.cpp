@@ -1,8 +1,9 @@
 #include "globalData.h"
 #include "tinyXml/tinyxml.h"
 
-CGlobalData::CGlobalData():tasks(CProcessTaskInfoStruct::instence())
+CGlobalData::CGlobalData()
 {
+	tasks = newTable(CProcessTaskInfoStruct::instence());
 }
 
 CGlobalData::~CGlobalData()
@@ -56,7 +57,7 @@ CProcessType* CGlobalData::getProcessType( string processId )
 void CGlobalData::addProcessTaskInfo( PRow cfg )
 {
 	taskMutex.lock();
-	tasks.addRow(cfg);
+	tasks->addRow(cfg);
 	taskMutex.unlock();
 }
 
@@ -64,11 +65,11 @@ PRow CGlobalData::popProcessTaskInfo()
 {
 	PRow pCfg = nullptr;
 	taskMutex.lock();
-	auto it = tasks.begin();
-	if(it != tasks.end())
+	auto it = tasks->begin();
+	if(it != tasks->end())
 	{
 		pCfg = it->second;
-		tasks.erase(it);
+		tasks->erase(it);
 	}
 	taskMutex.unlock();
 	return pCfg;

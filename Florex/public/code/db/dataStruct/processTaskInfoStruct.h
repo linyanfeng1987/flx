@@ -3,7 +3,6 @@
 
 class CProcessTaskInfoStruct;
 typedef shared_ptr<CProcessTaskInfoStruct> PProcessTaskInfoStruct;
-#define newProcessTaskInfoStruct(T) make_shared<CProcessTaskInfoStruct>(T);
 
 class CProcessTaskInfoStruct : public CTableStruct
 {

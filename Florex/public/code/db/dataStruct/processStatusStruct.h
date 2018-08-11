@@ -3,7 +3,6 @@
 
 class CProcessStatusStruct;
 typedef shared_ptr<CProcessStatusStruct> PProcessStatusStruct;
-#define newProcessStatusStruct(T) make_shared<CProcessStatusStruct>(T);
 
 class CProcessStatusStruct : public CTableStruct
 {

@@ -180,21 +180,19 @@ std::string CRow::getDeleteSql()
 std::string CRow::getConditionFormat()
 {
 	string strSql = "";
-	PTableStruct::iterator fieldIter;
-	CRow::iterator iter = this->begin();
-	for(;iter != this->end(); iter++)
+	for (auto fieldPair : *tableStruct)
 	{
-		fieldIter = tableStruct->find(iter->first);
- 		if (fieldIter->second.bIsPk)
- 		{
+		if (fieldPair.second.bIsPk)
+		{
+			auto valueIter = find(fieldPair.first);
 			if (!strSql.empty())
 			{
 				strSql += " and ";
 			}
 
-			strSql += iter->first;
+			strSql += valueIter->first;
 			strSql += "=";
-			strSql += iter->second;
+			strSql += valueIter->second;
 		}
 	}
 	
@@ -238,10 +236,10 @@ void CRow::addByList( list<string> valueList )
 		throw Exception("addByList error.");
 	}
 	list<string>::iterator valueIter= valueList.begin();
-	PTableStruct::iterator fieldIter = tableStruct->begin();
-	for (; valueIter != valueList.end();valueIter++, fieldIter++)
+	for (auto fieldPair : *tableStruct)
 	{
-		setAndaddValue(fieldIter->first, *valueIter);
+		setAndaddValue(fieldPair.first, *valueIter);
+		valueIter++;
 	}
 }
 
@@ -311,7 +309,7 @@ void CRow::setIntValue(string strKey, long lValue )
 
 void CRow::setTimeValue(string strKey, time_t tValue )
 {
-	this->setValue(strKey, PubFun::intToString(tValue));
+	this->setValue(strKey, PubFun::intToString((long)tValue));
 }
 
 void CRow::setDoubleValue(string strKey, double dValue )

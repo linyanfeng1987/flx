@@ -14,40 +14,40 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{f7095c34-5dd3-4958-a3ad-9833213bcfd6}</UniqueIdentifier>
+      <UniqueIdentifier>{61a7da65-226b-45be-9e6b-9a40ea63934e}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{c80ca02f-ab2d-4858-946e-d9301c69e94a}</UniqueIdentifier>
+      <UniqueIdentifier>{6b69217b-31ea-4bbc-9830-baaf6ab01646}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{c06b5ccc-ed36-4702-9344-5cd5274d8eb6}</UniqueIdentifier>
+      <UniqueIdentifier>{38601c59-20f1-4403-a2a7-0f1c96090130}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{83f729d5-656d-4125-9626-5cd31115e45d}</UniqueIdentifier>
+      <UniqueIdentifier>{86c9d438-a67c-4ecd-af9b-2da57cad56a5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{61a3bd58-dc76-45ae-ad8a-111aaaf9fc4f}</UniqueIdentifier>
+      <UniqueIdentifier>{6dd64c25-c4d6-45d7-abe2-d5f9d8e87991}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{f6753801-56b6-4ed7-9787-3d729485f96e}</UniqueIdentifier>
+      <UniqueIdentifier>{f28234b3-ea0d-4ed6-a702-77c2fca25968}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{c0cf1880-116d-43c8-8413-e68e07450cb4}</UniqueIdentifier>
+      <UniqueIdentifier>{4c451f59-14aa-4f60-9696-c3c95293fa79}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{151baefa-f24d-4de6-827c-4fc334bf9145}</UniqueIdentifier>
+      <UniqueIdentifier>{267a5a86-dc80-4a83-bfae-1189b3f441bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{9a98a4b1-bf8d-4553-ad87-1d2ac5aef2ce}</UniqueIdentifier>
+      <UniqueIdentifier>{d014ebb9-8674-4cad-accd-c969bd96a9ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{efde3323-7140-4e03-8ce4-8445122725f6}</UniqueIdentifier>
+      <UniqueIdentifier>{23655f05-eaa8-4ec8-8e44-6560d713134f}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{05f3e674-c03c-4fd5-bbd6-94500ead6459}</UniqueIdentifier>
+      <UniqueIdentifier>{ae332f15-08b5-4e01-8f5a-a4470f631d7e}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{7db89523-70bc-4a18-b760-4d0eb042eda1}</UniqueIdentifier>
+      <UniqueIdentifier>{fc09bca1-b700-4776-807b-1e78f597e49b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

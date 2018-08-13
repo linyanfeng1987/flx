@@ -44,6 +44,46 @@ std::string CTableStruct::getSelectSql( string conditicon )
 	return strSql;
 }
 
+std::string CTableStruct::getBaseInsertSqlFormat()
+{
+	if (strInsertSqlFormat.empty())
+	{
+		strInsertSqlFormat = "insert into ";
+		strInsertSqlFormat += tableName;
+		strInsertSqlFormat += " (";
+		string strTmp = "";
+		for(auto field : *this)
+		{
+			if (!strTmp.empty())
+			{
+				strTmp += ",";
+				strTmp += " ";
+			}
+			strTmp += field.first;
+		}
+		strInsertSqlFormat += strTmp;
+		strInsertSqlFormat += ")";
+		strInsertSqlFormat += " value";
+		strInsertSqlFormat += " ( ";
+		strInsertSqlFormat += "%s";
+		strInsertSqlFormat += " )";
+		strInsertSqlFormat += ";";
+	}
+
+	return strInsertSqlFormat;
+}
+
+//UPDATE tbl_name SET col_name1=value1, col_name2=value2, бн WHERE conditions
+std::string CTableStruct::getBaseUpdateSqlFormat()
+{
+	if(strUpdateSqlFormat.empty())
+	{
+		strUpdateSqlFormat = "update " + tableName + " set %s %s;";
+	}
+
+	return strUpdateSqlFormat;
+}
+
 // 
 // std::string CTableStruct::getInsertSql()
 // {

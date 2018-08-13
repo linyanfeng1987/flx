@@ -3,8 +3,8 @@ drop table `core`.`processtask`;
 CREATE TABLE `core`.`processtask` (
   `taskId` VARCHAR(45) NOT NULL,
   `processTypeName` VARCHAR(20) NOT NULL,
-  `rateName` VARCHAR(20) NULL,
-  `rateType` INT NULL,
+  `rate` VARCHAR(20) NULL,
+  `rateType` VARCHAR(20) NULL,
   `startTime` INT NULL,
   `endTime` INT NULL,
   `paramter` VARCHAR(100) NULL,

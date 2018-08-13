@@ -28,6 +28,9 @@ public:
 	string getCreateTableSql();
 	string getDeleteTableSql();
 
+	string getBaseInsertSqlFormat();
+	string getBaseUpdateSqlFormat();
+
 	string getSelectSql(string conditicon);
 
 // 	string getSql();
@@ -47,6 +50,9 @@ public:
 
 protected:
 	//KeyList m_keyFiled;
+
+	string strInsertSqlFormat;
+	string strUpdateSqlFormat;
 };
 
 typedef shared_ptr<CTableStruct> PTableStruct;

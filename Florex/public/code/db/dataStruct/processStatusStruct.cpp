@@ -4,14 +4,14 @@
 
 string CProcessStatusStruct::key_processName = "processName"; 
 string CProcessStatusStruct::key_processStatus = "processStatus"; 
-string CProcessStatusStruct::key_step = "step"; 
+//string CProcessStatusStruct::key_step = "step"; 
 string CProcessStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
 string CProcessStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
 
 
 CProcessStatusStruct::CProcessStatusStruct()
 {
-	tableName = "core.processTask" ;
+	tableName = "core.processstatus" ;
 	this->setName(tableName);
 	CField field;
 	//processName
@@ -21,8 +21,8 @@ CProcessStatusStruct::CProcessStatusStruct()
 	field.load(key_processStatus, "int");
 	this->insert(make_pair(field.strName, field));
 	//step
-	field.load(key_step, "int");
-	this->insert(make_pair(field.strName, field));
+// 	field.load(key_step, "int");
+// 	this->insert(make_pair(field.strName, field));
 	//buildTaskLastTime
 	field.load(key_buildTaskLastTime, "int");
 	this->insert(make_pair(field.strName, field));

@@ -17,7 +17,7 @@ CDbFunc::~CDbFunc(void)
 
 PRow CDbFunc::getProcessStatusLine( string processName )
 {
-	string strSqlFormat = "select * from %s where processName = %s;";
+	string strSqlFormat = "select * from %s where processName = '%s';";
 	string strTableName = coreDbName + ".";
 	strTableName += "processstatus";
 	time_t lastTime = 0;

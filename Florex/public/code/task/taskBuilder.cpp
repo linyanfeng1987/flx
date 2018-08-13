@@ -48,12 +48,22 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	string porcessName = processType.getProcessName();
 	PRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
 	//获取第一行的值
-	time_t processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CProcessStatusStruct::key_buildTaskLastTime));
-	if(0 == processBuildLastTime)
+	time_t processBuildLastTime = 0;
+	if(nullptr != processStatusInfo)
 	{
-		// 说明未存储对应数据, 获取rate的起始时间代替
+		processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CProcessStatusStruct::key_buildTaskLastTime));
+	}
+	else
+	{
+		processStatusInfo = newRow(CProcessStatusStruct::instence());
+		processStatusInfo->setStringValue(CProcessStatusStruct::key_processName, porcessName);
+		processStatusInfo->setTimeValue(CProcessStatusStruct::key_processStatus, 0);
+		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, 0);
+		processStatusInfo->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, 0);
+		// 获取rate的起始时间代替
 		processBuildLastTime = getRateStartTime(rateName);
 	}
+
 	time_t timeStep = rateLastTime - processBuildLastTime;
 	if (timeStep > processType.timeStep )
 	{

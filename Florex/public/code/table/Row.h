@@ -55,13 +55,11 @@ public:
 	void setTimeValue(string strKey, time_t tValue);
 	void setDoubleValue(string strKey, double dValue);
 
-
 	DATA_STATUS m_dataStatus;
 
 protected:
-	string getBaseInsertSqlFormat();
-	string getBaseUpdateSqlFormat();
-	string getConditionFormat();
+	
+	string getCondition();
 
 	PTableStruct tableStruct;
 };

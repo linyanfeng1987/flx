@@ -63,121 +63,64 @@ std::string CRow::getSql()
 
 std::string CRow::getInsertSql()
 {
-	static string strBaseSqlFormat = "";
-	if(strBaseSqlFormat.empty())
-	{
-		strBaseSqlFormat = getBaseInsertSqlFormat();
-	}
-
+	string strBaseSqlFormat = tableStruct->getBaseInsertSqlFormat();
 	char chSql[2048] = {0};
 	string strTmp = "";
-	CRow::iterator rowIter;
-	strTmp.clear();
-	rowIter = this->begin();
-	for (; rowIter != this->end(); rowIter++)
-	{
+	string strValue = "";
+	for(auto field : *tableStruct){
+		strValue = getStringValue(field.first);
 		if (!strTmp.empty())
 		{
 			strTmp += ",";
 			strTmp += " ";
 		}
-		strTmp += rowIter->second;	
+		strTmp +="'" + strValue + "'";	
 	}
+
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str());
 
 	return string(chSql);
 }
 
-std::string CRow::getBaseInsertSqlFormat()
-{
-	string strBaseSqlFormat = "";
-	strBaseSqlFormat += "insert into ";
-	strBaseSqlFormat += tableStruct->tableName;
-	strBaseSqlFormat += " (";
-	auto fieldIter = tableStruct->begin();
-	string strTmp = "";
-	for(unsigned int i = 0;i < tableStruct->size();i++, fieldIter++)
-	{
-		if (!strTmp.empty())
-		{
-			strTmp += ",";
-			strTmp += " ";
-		}
-		strTmp += fieldIter->first;
-	}
-	strBaseSqlFormat += strTmp;
-	strBaseSqlFormat += ")";
-	strBaseSqlFormat += " value";
-	strBaseSqlFormat += " ( ";
-	strBaseSqlFormat += "%s";
-	strBaseSqlFormat += " )";
-	strBaseSqlFormat += ";";
 
-	return strBaseSqlFormat;
-}
 
 std::string CRow::getUpdateSql()
 {
-	static string strBaseSqlFormat = "";
-	if(strBaseSqlFormat.empty())
-	{
-		strBaseSqlFormat = getBaseUpdateSqlFormat();
-	}
+	string strBaseSqlFormat = tableStruct->getBaseUpdateSqlFormat();
 
 	char chSql[2048] = {0};
 	string strTmp = "";
-	CRow::iterator rowIter;
 	strTmp.clear();
-	rowIter = this->begin();
-	for (; rowIter != this->end(); rowIter++)
-	{
+	string strValue;
+	for(auto field : *tableStruct){
+		strValue = getStringValue(field.first);
 		if (!strTmp.empty())
 		{
 			strTmp += ",";
 			strTmp += " ";
 		}
-		strTmp += rowIter->first;
-		strTmp += "=";
-		strTmp += rowIter->second;
+		strTmp += field.first + "='" + strValue + "'";
 	}
+	string strCondition = getCondition();
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str());
+	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition);
 
 	return string(chSql);
-}
-
-//UPDATE tbl_name SET col_name1=value1, col_name2=value2, … WHERE conditions
-std::string CRow::getBaseUpdateSqlFormat()
-{
-	string strBaseSqlFormat = "";
-	strBaseSqlFormat += "update ";
-	strBaseSqlFormat += tableStruct->tableName;
-	strBaseSqlFormat += " set ";
-	strBaseSqlFormat += "%s";
-	strBaseSqlFormat += getConditionFormat();
-	strBaseSqlFormat += ";";
-
-	return strBaseSqlFormat;
 }
 
 std::string CRow::getDeleteSql()
 {
 	string strSql = "delete from ";
 	strSql += tableStruct->tableName;
-	string strCondition = getConditionFormat();
-	if (trim(strCondition).empty())
-	{
-		//不允许不带条件删除，避免清空表
-		throw Exception("error condition");
-	}
+	string strCondition = getCondition();
 	strSql += strCondition;
 	strSql += ";";
 	return strSql;
 }
 
 // where a = A and b = B
-std::string CRow::getConditionFormat()
+std::string CRow::getCondition()
 {
 	string strSql = "";
 	for (auto fieldPair : *tableStruct)
@@ -191,14 +134,21 @@ std::string CRow::getConditionFormat()
 			}
 
 			strSql += valueIter->first;
-			strSql += "=";
+			strSql += "='";
 			strSql += valueIter->second;
+			strSql += "'";
 		}
 	}
 	
 	if (!strSql.empty())
 	{
 		strSql = " where " + strSql;
+	}
+
+	if (trim(strSql).empty())
+	{
+		//不允许不带条件删除，避免清空表
+		throw Exception("error condition");
 	}
 
 	return strSql;

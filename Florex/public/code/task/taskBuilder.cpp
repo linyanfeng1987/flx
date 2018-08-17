@@ -57,7 +57,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	{
 		processStatusInfo = newRow(CProcessStatusStruct::instence());
 		processStatusInfo->setStringValue(CProcessStatusStruct::key_processName, porcessName);
-		processStatusInfo->setTimeValue(CProcessStatusStruct::key_processStatus, 0);
+		processStatusInfo->setIntValue(CProcessStatusStruct::key_processStatus, 0);
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, 0);
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, 0);
 		// 获取rate的起始时间代替

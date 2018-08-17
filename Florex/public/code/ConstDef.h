@@ -25,3 +25,5 @@ const string coreDbName = "core";
 const static int maxLineRead = 10000;
 
 const string rateNames[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audusd"};
+
+

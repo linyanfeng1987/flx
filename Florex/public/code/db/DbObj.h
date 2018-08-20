@@ -18,23 +18,31 @@ public:
 	
 	static CDbObj& instance();
 
-	PRow SelectOneData(const char * sql, PTableStruct tableStruct);
+	PRow selectOneData(const char * sql, PTableStruct tableStruct);
 
-	void SelectData(const char * sql, PTable resTable);
+	void selectData(const char * sql, PTable resTable);
 
-	bool ExecuteSql(const char * sql);
+	void executeSql(const char * sql);
 
 	void insertDatas(list<string> sqls);
 
-	void ConnectDb();
+	void connectDefDb();
 
 	void startTransaction();
 
 	void commit();
 
-	bool ConnMySQL(char *host,unsigned int port,char * Db,char * user,char* passwd,char * charset,string &strMsg);
+	void initMySQL();
+
+	void connectMySQL(char *host,unsigned int port,char * Db,char * user,char* passwd,char * charset,string &strMsg);
+
+	void throwSqlError();
+
+	void tryConnect();
+
+	bool checkContect();
 private:
-	bool isConnect;
+	bool isMySqlInit;
 	std::mutex dbMutex;
 	MYSQL mysql;
 };

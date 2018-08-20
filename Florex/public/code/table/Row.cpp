@@ -148,7 +148,7 @@ std::string CRow::getCondition()
 	if (trim(strSql).empty())
 	{
 		//不允许不带条件删除，避免清空表
-		throw Exception("error condition");
+		throw CStrException("error condition");
 	}
 
 	return strSql;
@@ -173,7 +173,7 @@ void CRow::setAndaddValue( string strKey, string strValue )
 			std::pair<CRow::iterator, bool> pr = this->insert(make_pair(strKey,strValue));
 			if (!pr.second)
 			{
-				throw Exception("setAndaddValue error.");
+				throw CStrException("setAndaddValue error.");
 			}
 		}
 	}
@@ -183,7 +183,7 @@ void CRow::addByList( list<string> valueList )
 {
 	if (valueList.size() != tableStruct->size())
 	{
-		throw Exception("addByList error.");
+		throw CStrException("addByList error.");
 	}
 	list<string>::iterator valueIter= valueList.begin();
 	for (auto fieldPair : *tableStruct)
@@ -271,7 +271,7 @@ void CRow::setDoubleValue(string strKey, double dValue )
 bool CRow::save()
 {
 	string strSql = getSql();
-	CDbObj::instance().ExecuteSql(strSql.c_str());
+	CDbObj::instance().executeSql(strSql.c_str());
 	setDataStatus(DATA_SAME);
 	return true;
 }

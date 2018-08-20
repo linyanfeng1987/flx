@@ -36,6 +36,7 @@ bool VspdCToMySQL::ConnMySQL(char *host,char * port ,char * Db,char * user,char*
 	{
 		bRes  = false;
 	}
+	strMsg = mysql_error(NULL);
 	
 	if (!bRes)
 	{

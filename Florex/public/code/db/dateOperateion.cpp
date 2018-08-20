@@ -28,7 +28,7 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable table = newTable(rateStruct);
-	g_db.SelectData(chSql, table);
+	g_db.selectData(chSql, table);
 
 	string strCurTime = table->begin()->second->find("curTime")->second;
 	

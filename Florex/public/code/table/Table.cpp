@@ -24,6 +24,6 @@ void CTable::addRow( PRow row )
 	std::pair<CTable::iterator, bool> pr = this->insert(make_pair(m_rowIndex++,row));
 	if (!pr.second)
 	{
-		throw Exception("insert error in addRow.");
+		throw CStrException("insert error in addRow.");
 	}
 }

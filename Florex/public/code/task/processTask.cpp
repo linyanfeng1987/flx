@@ -39,7 +39,7 @@ void CProcessTask::runInThread( const char* argv )
 	condition.append(" and ");
 	condition.append(CProcessTaskInfoStruct::key_endTime).append("<=").append(endTime);
 	string sql = rateStruct->getSelectSql(condition);
-	CDbObj::instance().SelectData(sql.c_str(), rateTable);
+	CDbObj::instance().selectData(sql.c_str(), rateTable);
 
 	process->calc(rateTable);
 

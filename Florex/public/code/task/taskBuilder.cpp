@@ -132,7 +132,7 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable resTable = newTable(rateStruct);
-	db.SelectData(chSql, resTable);
+	db.selectData(chSql, resTable);
 
 	auto iter = resTable->begin();
 	if (iter != resTable->end())

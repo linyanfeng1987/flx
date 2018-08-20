@@ -27,5 +27,5 @@ PRow CDbFunc::getProcessStatusLine( string processName )
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
 	PTableStruct processStatusStruct = CProcessStatusStruct::instence();
 
-	return db.SelectOneData(chSql, processStatusStruct);;
+	return db.selectOneData(chSql, processStatusStruct);;
 }

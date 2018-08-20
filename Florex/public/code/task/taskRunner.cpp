@@ -37,7 +37,7 @@ bool CtaskRunner::reloadTaskList()
 	PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
 	string sql = taskInfoStruct->getSelectSql("status = 0");
 	PTable table = newTable(taskInfoStruct);
-	db.SelectData(sql.c_str(), table);
+	db.selectData(sql.c_str(), table);
 
 	for(auto it : *table)
 	{

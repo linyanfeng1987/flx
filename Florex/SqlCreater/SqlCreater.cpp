@@ -129,8 +129,8 @@ void createCurTable()
 		memset(chSqlCreat, 0, sizeof(chSqlCreat));
 		sprintf_s(chSqlDrop, dropFormat.c_str(), tableName.c_str());
 		sprintf_s(chSqlCreat, createBaseTableFormat.c_str(), tableName.c_str());
-		db.ExecuteSql(chSqlDrop);
-		db.ExecuteSql(chSqlCreat);
+		db.executeSql(chSqlDrop);
+		db.executeSql(chSqlCreat);
 	}
 }
 
@@ -147,8 +147,8 @@ void createHisTable()
 		memset(chSqlCreat, 0, sizeof(chSqlCreat));
 		sprintf_s(chSqlDrop, dropFormat.c_str(), tableName.c_str());
 		sprintf_s(chSqlCreat, createHisTableFormat.c_str(), tableName.c_str());
-		db.ExecuteSql(chSqlDrop);
-		db.ExecuteSql(chSqlCreat);
+		db.executeSql(chSqlDrop);
+		db.executeSql(chSqlCreat);
 	}
 }
 
@@ -161,8 +161,8 @@ void alterCurTable()
 		string strChange = getChangeColumnSql(tableName, "price", "priceBuy", "FLOAT NOT NULL");
 		string strAdd = getAddColumnSql(tableName, "priceCell", "FLOAT NOT NULL");
 
-		db.ExecuteSql(strChange.c_str());
-		db.ExecuteSql(strAdd.c_str());
+		db.executeSql(strChange.c_str());
+		db.executeSql(strAdd.c_str());
 	}
 }
 
@@ -174,7 +174,7 @@ void alterCurTable_addSpead()
 	{
 		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
 
-		db.ExecuteSql(strAdd.c_str());
+		db.executeSql(strAdd.c_str());
 	}
 }
 
@@ -186,7 +186,7 @@ void alterHisTable_addSpead()
 	{
 		string strAdd = getAddColumnSql(tableName, "percentSpead_s", "FLOAT");
 
-		db.ExecuteSql(strAdd.c_str());
+		db.executeSql(strAdd.c_str());
 	}
 }
 
@@ -198,7 +198,7 @@ void alterCurTable_addCurMsec()
 	{
 		string strAdd = getAddColumnSql(tableName, "curMsec", "INT NOT NULL default 0");
 
-		db.ExecuteSql(strAdd.c_str());
+		db.executeSql(strAdd.c_str());
 	}
 }
 
@@ -217,8 +217,8 @@ void alterCurTablePk()
 		sprintf_s(chSql2, addPkFormat.c_str(), tableName.c_str(), "startTime,curMsec");
 		string strAddPk = chSql2;
 
-		db.ExecuteSql(strDropPk.c_str());
-		db.ExecuteSql(strAddPk.c_str());
+		db.executeSql(strDropPk.c_str());
+		db.executeSql(strAddPk.c_str());
 	}
 }
 
@@ -229,18 +229,18 @@ void alterTableDesc()
 	for(string tableName : tableNames)
 	{
 		string strAdd1 = getAddColumnSql(tableName, "processFlag", "VARCHAR(45)");
-		db.ExecuteSql(strAdd1.c_str());
+		db.executeSql(strAdd1.c_str());
 		string strAdd2 = getAddColumnSql(tableName, "desc", "VARCHAR(512)");
-		db.ExecuteSql(strAdd2.c_str());
+		db.executeSql(strAdd2.c_str());
 	}
 
 	tableNames = getHisTableName();
 	for(string tableName : tableNames)
 	{
 		string strAdd1 = getAddColumnSql(tableName, "processFlag", "VARCHAR(45)");
-		db.ExecuteSql(strAdd1.c_str());
+		db.executeSql(strAdd1.c_str());
 		string strAdd2 = getAddColumnSql(tableName, "desc", "VARCHAR(512)");
-		db.ExecuteSql(strAdd2.c_str());
+		db.executeSql(strAdd2.c_str());
 	}
 }
 

@@ -3,10 +3,12 @@
 #include "db/DbObj.h"
 #include <time.h>
 #include <list>
-#include <tuple>
+//#include <tuple>
 #include <map>
 #include <iostream>
+
 #include "ConstDef.h"
+#include "LogObj.h"
 
 using namespace std;
 class PubFun
@@ -23,6 +25,7 @@ public:
 	static string doubleToString(double dValue);
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
+	static string strFormat(const char * strFormat, ...);
 	static string getValueFromMap(string strKey, map<string, string> mapObj);
 	static string strToLower(string str);
 	static string strToUpper(string str);
@@ -44,6 +47,10 @@ public:
 	
 
 	static void getIntListByStep(list<long long>& destList, double startValue, double endValue, int step);
+
+	static double getFileSize( string filePath );
+
+	static char* wcharToChar(const wchar_t* wp);
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

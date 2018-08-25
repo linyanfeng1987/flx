@@ -36,10 +36,12 @@ void threadRun()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	string strSqlFormat = "insert into core.newTable ( name, value ) value ( 'testName', 'testValue');";
 	CDbObj &db = CDbObj::instance();
-	db.ConnectDb();
-	db.ExecuteSql(strSqlFormat.c_str());
+	db.tryConnect();
+	string strSqlFormat = "insert into core.newTable ( name, value ) value ( '%s', '%s');";
+
+	string sql = PubFun::strFormat(strSqlFormat.c_str(), PubFun::get14CurTimeString().c_str(), "linyanfeng");
+	db.executeSql(sql.c_str());
 	/*
 	string strSqlTest = "select * from florex.currency_pair_XAUUSD order by curTime desc, curMsec desc limit 1;";
 	CCurRateStruct rateStruct;

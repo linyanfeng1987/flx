@@ -1,12 +1,9 @@
 #include "PubFun.h"
-#include <time.h>
-#include <fstream>
-#include <ctime>
 #include <fstream>
 #include <io.h>
 
 using namespace std;
-string logFile = "f:/log/mt4Msg.log";
+string baselogFile = "f:/log/mt4Msg.log";
 
 PubFun::PubFun(void)
 {
@@ -93,7 +90,7 @@ void PubFun::log( string str )
 	static ofstream ofile;
 	if (!ofile.is_open())
 	{
-		ofile.open(logFile, std::ios_base::app);
+		ofile.open(baselogFile, std::ios_base::app);
 	}
 	
 	static SYSTEMTIME s_time; 
@@ -114,6 +111,33 @@ void PubFun::logFormat( const char * strFormat, ...)
 	sprintf_s(msgbuffer, strFormat, va_list_ptr);
 	log(msgbuffer);
 	va_end(va_list_ptr);  
+}
+
+std::string PubFun::strFormat( const char * strFormat, ... )
+{
+// 	static char msgbuffer[2048] = {0};
+// 	va_list va_list_ptr;
+// 	va_start(va_list_ptr, strFormat);  
+// 	sprintf_s(msgbuffer, strFormat, va_list_ptr);
+// 	va_end(va_list_ptr);  
+// 	return msgbuffer;
+
+	char *pszStr = NULL;
+	if (NULL != strFormat)
+	{
+		va_list va_list_ptr = NULL;
+		va_start(va_list_ptr, strFormat); //初始化变量参数
+		size_t nLength = _vscprintf(strFormat, va_list_ptr) + 1; //获取格式化字符串长度
+		pszStr = new char[nLength];
+		memset(pszStr, '\0', nLength);
+		_vsnprintf_s(pszStr, nLength, nLength, strFormat, va_list_ptr);
+		va_end(va_list_ptr); //重置变量参数
+	}
+	string strResult(pszStr);
+	delete[]pszStr;
+	return strResult;
+
+
 }
 
 std::string PubFun::getValueFromMap( string strKey, map<string, string> mapObj )
@@ -344,7 +368,29 @@ pair<time_t, int> PubFun::timeConvert( double dTime )
 	return make_pair(ts, msec);
 }
 
+double PubFun::getFileSize( string filePath )
+{
+	// C++获取文件大小方法二  
+	int fileSize = -1;
+	FILE* file = nullptr;
+	fopen_s(&file,filePath.c_str(), "rb");  
+	if (file)  
+	{  
+		fileSize = _filelength(_fileno(file));    
+		fclose(file);  
+	}
+	return fileSize;
+}
 
+char* PubFun::wcharToChar(const wchar_t* wp)
+{
+	char *m_char;
+	int len = WideCharToMultiByte(CP_ACP, 0, wp, wcslen(wp), NULL, 0, NULL, NULL);
+	m_char = new char[len + 1];
+	WideCharToMultiByte(CP_ACP, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
+	m_char[len] = '\0';
+	return m_char;
+}
 
 
 /*

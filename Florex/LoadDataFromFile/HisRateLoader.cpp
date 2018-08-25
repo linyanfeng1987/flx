@@ -64,6 +64,6 @@ bool CHisRateLoader::loadLine( string line )
 
 	string sql = hisRate.toSqlString();
 
-	db.ExecuteSql(sql.c_str());
+	db.executeSql(sql.c_str());
 	return true;
 }

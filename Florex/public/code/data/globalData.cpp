@@ -1,8 +1,18 @@
+#include<tchar.h>
 #include "globalData.h"
 #include "tinyXml/tinyxml.h"
 
-CGlobalData::CGlobalData()
+CGlobalData::CGlobalData():log(CLogObj::instance())
 {
+ 	wchar_t* path = nullptr;
+ 	_get_wpgmptr(&path);
+	string strPath = PubFun::wcharToChar(path);
+	string strMsg = PubFun::strFormat("curPath:%s", strPath.c_str());
+	log.info(strMsg);
+	cout<<strMsg<<endl;
+// 	wchar_t path2[256];
+// 	GetModuleFileName(NULL, path2, 256);
+// 	wprintf(_T("path:%s\n"),path2);
 	tasks = newTable(CProcessTaskInfoStruct::instence());
 }
 

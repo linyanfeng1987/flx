@@ -94,7 +94,7 @@ char* msg_setCurValue( const char* strInfo )
 				curRate.time, curRate.mscd, curRate.priceBuy, curRate.priceCell, curRate.volume, curRate.timeFormat.c_str(), speadProS);
 				//curRate.time, curRate.priceBuy, curRate.priceCell, curRate.volume, timeFormat.c_str());
 				//curRate.time, timeFormat.c_str()); right1
-			db.ExecuteSql(chSql);
+			db.executeSql(chSql);
 			iter->second = curRate;
 		}
 		else

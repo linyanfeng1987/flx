@@ -7,6 +7,7 @@
 #include "db/dataStruct/processTaskInfoStruct.h"
 #include "table/Table.h"
 
+
 class CGlobalData
 {
 public:
@@ -40,5 +41,7 @@ protected:
 	PTable tasks;
 	recursive_mutex taskMutex; 
 	CGlobalData();
+
+	CLogObj log;
 };
 

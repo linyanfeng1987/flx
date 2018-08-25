@@ -14,40 +14,40 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{6dda07f7-8e9f-4e3e-a498-6e5676b3c897}</UniqueIdentifier>
+      <UniqueIdentifier>{850f0794-8969-4a3a-8826-0c45fd1ef9b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{93717b60-4ebe-41cc-9f37-b509db70e5ff}</UniqueIdentifier>
+      <UniqueIdentifier>{b8f1c315-e477-482e-8574-037e174cbb81}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{374bb934-6ed0-41e5-b722-ab8e3c4a3413}</UniqueIdentifier>
+      <UniqueIdentifier>{9736aca7-74af-41a7-b02d-c0bb12a7c37b}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{1767933f-0e4c-4207-beae-1b65c71b5b24}</UniqueIdentifier>
+      <UniqueIdentifier>{a3858680-c330-4580-92a9-ddc500452a62}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{c7d14069-1306-49f3-887e-d04c8064aa26}</UniqueIdentifier>
+      <UniqueIdentifier>{8ab552af-7f66-4cdb-a734-904dc0492ce5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{5ddfe3e7-b580-4933-a187-6d947530a3f9}</UniqueIdentifier>
+      <UniqueIdentifier>{bff2de49-fc33-49aa-8432-0f54b37906d6}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{bf0ae7d8-f9fe-4c73-b184-dbc0c9fc7375}</UniqueIdentifier>
+      <UniqueIdentifier>{a8693a8a-5c18-4898-be62-63aae48ee174}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{d95b485c-6fa3-4b34-895c-edeff723574c}</UniqueIdentifier>
+      <UniqueIdentifier>{06c52e50-a795-48fc-b4c3-5f14fd2608e0}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{de701561-e57a-4b93-ac89-d19b03fac5ba}</UniqueIdentifier>
+      <UniqueIdentifier>{75b3dfd3-17de-48c9-b956-381b09d46ee8}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{802cb863-72d3-4418-b3ef-76d71c78c1ac}</UniqueIdentifier>
+      <UniqueIdentifier>{b73a1dd6-f18f-4aee-bc77-221ff4c7b704}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{565770f0-3883-450f-8c40-ad8982dee799}</UniqueIdentifier>
+      <UniqueIdentifier>{7882cd74-2ac9-4a1e-a5bc-e37fba5d34b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{6c23cd13-792e-4b85-980b-ef05e4730ea0}</UniqueIdentifier>
+      <UniqueIdentifier>{f2d38c44-2bc1-4b56-97b2-1d479a3bd7fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +61,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\ConstDef.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\Exception.h">
       <Filter>public</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\PubFun.h">
@@ -147,7 +150,7 @@
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\table\Exception.h">
+    <ClInclude Include="..\public\code\AutoMutex.h">
       <Filter>public\table</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\table\Field.h">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Guardian.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\Exception.cpp">
+      <Filter>public</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\PubFun.cpp">
       <Filter>public</Filter>
@@ -269,7 +275,7 @@
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\table\Exception.cpp">
+    <ClCompile Include="..\public\code\AutoMutex.cpp">
       <Filter>public\table</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\table\Field.cpp">

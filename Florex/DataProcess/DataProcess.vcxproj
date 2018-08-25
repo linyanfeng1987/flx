@@ -83,6 +83,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\public\code\AutoMutex.h" />
     <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\data\globalData.h" />
     <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h" />
@@ -94,6 +95,8 @@
     <ClInclude Include="..\public\code\db\DbFunc.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
+    <ClInclude Include="..\public\code\Exception.h" />
+    <ClInclude Include="..\public\code\LogObj.h" />
     <ClInclude Include="..\public\code\process\averageProcess.h" />
     <ClInclude Include="..\public\code\process\baseProcess.h" />
     <ClInclude Include="..\public\code\process\calculation\averageCalc.h" />
@@ -108,7 +111,6 @@
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
     <ClInclude Include="..\public\code\rate\HisRate.h" />
-    <ClInclude Include="..\public\code\table\Exception.h" />
     <ClInclude Include="..\public\code\table\Field.h" />
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
@@ -122,6 +124,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\public\code\AutoMutex.cpp" />
     <ClCompile Include="..\public\code\data\globalData.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp" />
@@ -132,6 +135,8 @@
     <ClCompile Include="..\public\code\db\DbFunc.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
+    <ClCompile Include="..\public\code\Exception.cpp" />
+    <ClCompile Include="..\public\code\LogObj.cpp" />
     <ClCompile Include="..\public\code\process\averageProcess.cpp" />
     <ClCompile Include="..\public\code\process\baseProcess.cpp" />
     <ClCompile Include="..\public\code\process\calculation\averageCalc.cpp" />
@@ -146,7 +151,6 @@
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
     <ClCompile Include="..\public\code\rate\HisRate.cpp" />
-    <ClCompile Include="..\public\code\table\Exception.cpp" />
     <ClCompile Include="..\public\code\table\Field.cpp" />
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />

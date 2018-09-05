@@ -12,17 +12,24 @@
 #include "db/dataStruct/curRateStruct.h"
 
 CGlobalData& gData = CGlobalData::instance();
+CTaskBuilder taskBuilder;
+CtaskRunner taskRunner;
 
 void buildTask(int value)
 {
-	CTaskBuilder taskBuilder;
+	//CTaskBuilder taskBuilder;
 	taskBuilder.run();
+	int a = 0;
+	a++;
 }
 
 void runTask(int value)
 {
-	CtaskRunner taskRunner;
+	//CtaskRunner taskRunner;
 	taskRunner.run();
+
+	int a = 0;
+	a++;
 }
 
 void threadRun()
@@ -37,7 +44,7 @@ void threadRun()
 int _tmain(int argc, _TCHAR* argv[])
 {
 	CDbObj &db = CDbObj::instance();
-	db.tryConnect();
+	db.initMySQL();
 	string strSqlFormat = "insert into core.newTable ( name, value ) value ( '%s', '%s');";
 
 	string sql = PubFun::strFormat(strSqlFormat.c_str(), PubFun::get14CurTimeString().c_str(), "linyanfeng");

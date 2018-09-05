@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-class CTable: public map<int, PRow>
+class CTable: public Linked_map<int, PRow>
 {
 public:
 	CTable(PTableStruct tableStruct);

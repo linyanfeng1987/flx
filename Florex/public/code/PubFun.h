@@ -9,6 +9,7 @@
 
 #include "ConstDef.h"
 #include "LogObj.h"
+#include "Exception.h"
 
 using namespace std;
 class PubFun

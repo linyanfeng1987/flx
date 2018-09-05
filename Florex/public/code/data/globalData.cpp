@@ -89,10 +89,18 @@ void CGlobalData::init()
 {
 	initDataInCode();
 	loadConfig();
+	initDataStruct();
 }
 
 void CGlobalData::initDataInXml()
 {
 
+}
+
+void CGlobalData::initDataStruct()
+{
+	PTestDbInfoStruct p1 = CTestDbInfoStruct::instence();
+	PProcessTaskInfoStruct p2 = CProcessTaskInfoStruct::instence();
+	PProcessStatusStruct p3 = CProcessStatusStruct::instence();
 }
 

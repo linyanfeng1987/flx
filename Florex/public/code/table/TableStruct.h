@@ -1,8 +1,7 @@
 #pragma once
 #include <list>
-#include <unordered_map>
 #include "Field.h"
-
+#include "LinkedHashMap.h"
 /*
 记录表字段信息，作为表结构处理的sql生成
 
@@ -16,7 +15,7 @@ public:
 };
 
 
-class CTableStruct: public unordered_map<string, CField>
+class CTableStruct: public Linked_map<string, CField>
 {
 public:
 	CTableStruct(string strName);

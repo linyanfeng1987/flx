@@ -1,10 +1,9 @@
 #include "dateOperateion.h"
+#include "Exception.h"
 #include "PubFun.h"
 #include "db/dataStruct/curRateStruct.h"
 
-CDbObj &g_db = CDbObj::instance();
-
-CDataOperation::CDataOperation()
+CDataOperation::CDataOperation():log(CLogObj::instance())
 {
 }
 
@@ -28,10 +27,18 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable table = newTable(rateStruct);
-	g_db.selectData(chSql, table);
-
-	string strCurTime = table->begin()->second->find("curTime")->second;
+	time_t curTime = -1;
+	try
+	{
+		CDbObj::instance().selectData(chSql, table);
+		string strCurTime = table->begin()->second->find("curTime")->second;
+		curTime = PubFun::stringToInt(strCurTime);
+	}
+	catch (CStrException& e)
+	{
+		log.error(string("GetLastTimeFromeRate Ê§°Ü£¡msg:").append(e.what()));
+	}
 	
-	return PubFun::stringToInt(strCurTime);
+	return curTime;
 }
 

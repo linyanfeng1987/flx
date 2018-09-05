@@ -1,10 +1,10 @@
 #include "taskRunner.h"
 #include "process/averageProcess.h"
 #include "db/DbFunc.h"
+#include "task/dbTestTask.h"
 
 // 查找数据库，开启对应线程处理数据
 
-CDbObj& CtaskRunner::db = CDbObj::instance();
 CGlobalData& CtaskRunner::gData = CGlobalData::instance();
 
 void processRun(int value)
@@ -13,40 +13,65 @@ void processRun(int value)
 	taskRunner.run();
 }
 
-CtaskRunner::CtaskRunner()
+CtaskRunner::CtaskRunner():log(CLogObj::instance())
 {
 	maxProcessCount = 10;
 }
 
 CtaskRunner::~CtaskRunner()
 {
+	int a = 0;
+	a++;
+	//CDbObj::release();
 }
 
 void CtaskRunner::run()
 {
 	while (true)
 	{
-		rangTaskList();	
+		//rangTaskList();
+		buildTestDbTask();
+	}
+}
+
+void CtaskRunner::buildTestDbTask()
+{
+	PDbTestTask ptask1 = newDbTestTask(-1);
+	PDbTestTask ptask2 = newDbTestTask(2);
+
+	ptask1->run(nullptr);
+	ptask2->run(nullptr);
+
+	while (2 != ptask1->getStatus() || 2 != ptask2->getStatus())
+	{
+		::Sleep(1000);
 	}
 }
 
 bool CtaskRunner::reloadTaskList()
 {
 	bool hasData = false;
-	// 从数据库中加载未执行的任务
-	PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
-	string sql = taskInfoStruct->getSelectSql("status = 0");
-	PTable table = newTable(taskInfoStruct);
-	db.selectData(sql.c_str(), table);
+	try{
+		// 从数据库中加载未执行的任务
+		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
+		string sql = taskInfoStruct->getSelectSql("status = 0");
+		PTable table = newTable(taskInfoStruct);
+		CDbObj::instance().selectData(sql.c_str(), table);
 
-	for(auto it : *table)
-	{
-		it.second->setStringValue(CProcessTaskInfoStruct::key_status, "1");
-		it.second->save();
-		gData.addProcessTaskInfo(it.second);
+		for(auto it : *table)
+		{
+			it.second->setStringValue(CProcessTaskInfoStruct::key_status, "1");
+			it.second->save();
+			gData.addProcessTaskInfo(it.second);
 
-		hasData = true;
+			hasData = true;
+		}
 	}
+	catch (CStrException& e)
+	{
+		log.error(string("reloadTaskList 失败！msg:").append(e.what()));
+	}
+	
 	return hasData;
 }
 

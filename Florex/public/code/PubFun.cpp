@@ -1,4 +1,5 @@
 #include "PubFun.h"
+#include "LogObj.h"
 #include <fstream>
 #include <io.h>
 
@@ -81,26 +82,29 @@ std::string PubFun::doubleToString( double dValue )
 	return string(str);
 }
 
-
 void PubFun::log( string str )
 {
-	//return;
-	static char ch[2048] = {0};
-	memset(ch, 0, sizeof(ch));
-	static ofstream ofile;
-	if (!ofile.is_open())
-	{
-		ofile.open(baselogFile, std::ios_base::app);
-	}
-	
-	static SYSTEMTIME s_time; 
-	GetLocalTime(&s_time);  
-
-	sprintf_s(ch, "[%d-%d-%d %d:%d:%d]:%s\n", s_time.wYear, s_time.wMonth, s_time.wDay, s_time.wHour, s_time.wMinute, s_time.wSecond, str.c_str());
- 
-	ofile<<ch<<endl;
-	ofile.close();                
+	CLogObj::instance().debug(str);           
 }
+// void PubFun::log( string str )
+// {
+// 	//return;
+// 	static char ch[2048] = {0};
+// 	memset(ch, 0, sizeof(ch));
+// 	static ofstream ofile;
+// 	if (!ofile.is_open())
+// 	{
+// 		ofile.open(baselogFile, std::ios_base::app);
+// 	}
+// 	
+// 	static SYSTEMTIME s_time; 
+// 	GetLocalTime(&s_time);  
+// 
+// 	sprintf_s(ch, "[%d-%d-%d %d:%d:%d]:%s\n", s_time.wYear, s_time.wMonth, s_time.wDay, s_time.wHour, s_time.wMinute, s_time.wSecond, str.c_str());
+//  
+// 	ofile<<ch<<endl;
+// 	ofile.close();                
+// }
 
 void PubFun::logFormat( const char * strFormat, ...)
 {

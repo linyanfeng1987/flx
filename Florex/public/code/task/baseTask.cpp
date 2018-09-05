@@ -2,9 +2,9 @@
 #include <thread>
 
 using namespace std;
-CBaseTask::CBaseTask()
+CBaseTask::CBaseTask():log(CLogObj::instance())
 {
-
+	status = 0;
 }
 
 CBaseTask::~CBaseTask()

@@ -104,7 +104,7 @@ std::string CRow::getUpdateSql()
 	}
 	string strCondition = getCondition();
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition);
+	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
 
 	return string(chSql);
 }

@@ -14,4 +14,5 @@ protected:
 	
 private:
 	CDataOperation();
+	CLogObj& log;
 };

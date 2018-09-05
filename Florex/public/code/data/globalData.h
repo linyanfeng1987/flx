@@ -4,9 +4,14 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 #include "process/processType.h"
-#include "db/dataStruct/processTaskInfoStruct.h"
 #include "table/Table.h"
+#include "LogObj.h"
+#include "Exception.h"
 
+
+#include "db/dataStruct/processTaskInfoStruct.h"
+#include "db/dataStruct/processStatusStruct.h"
+#include "db/dataStruct/testDbInfoStruct.h"
 
 class CGlobalData
 {
@@ -22,6 +27,8 @@ public:
 	void initDataInCode();
 
 	void initDataInXml();
+
+	void initDataStruct();
 
 	CProcessType* getProcessType(string processId);
 
@@ -42,6 +49,6 @@ protected:
 	recursive_mutex taskMutex; 
 	CGlobalData();
 
-	CLogObj log;
+	CLogObj& log;
 };
 

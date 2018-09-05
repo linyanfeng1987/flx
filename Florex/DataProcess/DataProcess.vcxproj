@@ -91,11 +91,13 @@
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\testDbInfoStruct.h" />
     <ClInclude Include="..\public\code\db\dateOperateion.h" />
     <ClInclude Include="..\public\code\db\DbFunc.h" />
     <ClInclude Include="..\public\code\db\DbObj.h" />
     <ClInclude Include="..\public\code\db\VspdCToMySQL.h" />
     <ClInclude Include="..\public\code\Exception.h" />
+    <ClInclude Include="..\public\code\LinkedHashMap.h" />
     <ClInclude Include="..\public\code\LogObj.h" />
     <ClInclude Include="..\public\code\process\averageProcess.h" />
     <ClInclude Include="..\public\code\process\baseProcess.h" />
@@ -116,11 +118,13 @@
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
     <ClInclude Include="..\public\code\task\baseTask.h" />
+    <ClInclude Include="..\public\code\task\dbTestTask.h" />
     <ClInclude Include="..\public\code\task\processTask.h" />
     <ClInclude Include="..\public\code\task\taskBuilder.h" />
     <ClInclude Include="..\public\code\task\taskRunner.h" />
     <ClInclude Include="..\public\code\tinyXml\tinystr.h" />
     <ClInclude Include="..\public\code\tinyXml\tinyxml.h" />
+    <ClInclude Include="..\public\code\tools\FunctionLog.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +135,7 @@
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\testDbInfoStruct.cpp" />
     <ClCompile Include="..\public\code\db\dateOperateion.cpp" />
     <ClCompile Include="..\public\code\db\DbFunc.cpp" />
     <ClCompile Include="..\public\code\db\DbObj.cpp" />
@@ -156,6 +161,7 @@
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
     <ClCompile Include="..\public\code\task\baseTask.cpp" />
+    <ClCompile Include="..\public\code\task\dbTestTask.cpp" />
     <ClCompile Include="..\public\code\task\processTask.cpp" />
     <ClCompile Include="..\public\code\task\taskBuilder.cpp" />
     <ClCompile Include="..\public\code\task\taskRunner.cpp" />
@@ -164,6 +170,7 @@
     <ClCompile Include="..\public\code\tinyXml\tinyxml.cpp" />
     <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp" />
     <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\public\code\tools\FunctionLog.cpp" />
     <ClCompile Include="DataProcess.cpp" />
   </ItemGroup>
   <ItemGroup>

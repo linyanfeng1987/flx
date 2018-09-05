@@ -17,7 +17,7 @@ enum DATA_STATUS
 	DATA_DELETE,
 };
 
-class CRow : public map<string, string>
+class CRow : public Linked_map<string, string>
 {
 public:
 	// 可以进行sql交互的

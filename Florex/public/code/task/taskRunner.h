@@ -19,13 +19,14 @@ protected:
 	bool reloadTaskList();
 	void rangTaskList();
 
+	void buildTestDbTask();
+
 	PProcessTask getProcessTask(PRow taskInfo);
 	PBaseProcess getProcess( PRow taskInfo );
 
 	int maxProcessCount;
-
+	CLogObj& log;
 	map<string, PProcessTask> runingTasks;
-	static CDbObj& db; 
 	static CGlobalData& gData; 
 };
 

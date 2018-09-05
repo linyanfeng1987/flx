@@ -49,6 +49,9 @@
     <Filter Include="public\db\dataStruct">
       <UniqueIdentifier>{e9556d88-eeb3-42c7-99a2-88b914e524bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\tools">
+      <UniqueIdentifier>{292d0dab-d4fe-4305-828d-9e4ace8e35f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -170,6 +173,18 @@
     </ClInclude>
     <ClInclude Include="..\public\code\LogObj.h">
       <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\LinkedHashMap.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\tools\FunctionLog.h">
+      <Filter>public\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\task\dbTestTask.h">
+      <Filter>public\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\testDbInfoStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +310,15 @@
     </ClCompile>
     <ClCompile Include="..\public\code\LogObj.cpp">
       <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tools\FunctionLog.cpp">
+      <Filter>public\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\task\dbTestTask.cpp">
+      <Filter>public\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\testDbInfoStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

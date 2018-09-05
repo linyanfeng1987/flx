@@ -23,7 +23,8 @@ protected:
 	time_t getRateTime(string rateName, string orderSql);
 	map<string, PRow> taskConfigs;
 
-	static CDbObj& db; 
+	CLogObj& log;
+	CDbObj* pDb; 
 	static CGlobalData& gData; 
 };
 

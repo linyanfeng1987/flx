@@ -1,7 +1,6 @@
 #include "taskBuilder.h"
 #include "db/DbFunc.h"
 
-CDbObj& CTaskBuilder::db = CDbObj::instance();
 CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 
 // 思路整理
@@ -10,12 +9,15 @@ CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 // 根据porcess的基础信息，在porcessStatus表中获取历史的最新处理时间，根据这个时间，以及step判断是否需要新建task
 // 若要建立新的task则讲任务放入porcessTask表中
 // 布置任务后重写processStatus表的时间，防止重新布置任务
-CTaskBuilder::CTaskBuilder()
+CTaskBuilder::CTaskBuilder():log(CLogObj::instance())
 {
 }
 
 CTaskBuilder::~CTaskBuilder()
 {
+	int a = 0;
+	a++;
+	//CDbObj::release();
 }
 
 void CTaskBuilder::run()
@@ -125,21 +127,22 @@ time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
 	string strTableName = florexDbName + ".";
 	strTableName.append("currency_pair_");
 	strTableName.append(rateName);
-	time_t lastTime = 0;
+	time_t lastTime = -1;
 
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable resTable = newTable(rateStruct);
-	db.selectData(chSql, resTable);
 
+	CDbObj::instance().selectData(chSql, resTable);
 	auto iter = resTable->begin();
 	if (iter != resTable->end())
 	{
 		//获取第一行的值
 		lastTime = PubFun::stringToInt(iter->second->getValue("curTime"));
 	}
+	
 	return lastTime;
 }
 

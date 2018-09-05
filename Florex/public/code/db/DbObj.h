@@ -1,7 +1,8 @@
 #pragma once
 #include "../table/Table.h"
+#include "LogObj.h"
+#include "Exception.h"
 #include <mutex>
-
 #include "mysql.h"
 
 using   namespace   std;
@@ -12,11 +13,12 @@ protected:
 	 CDbObj(void);
 
 	 static CDbObj* g_db;
-
+	 static map<size_t,CDbObj*>* pDbMap;
 public:
 	~CDbObj(void);
 	
 	static CDbObj& instance();
+	static void release();
 
 	PRow selectOneData(const char * sql, PTableStruct tableStruct);
 
@@ -26,24 +28,23 @@ public:
 
 	void insertDatas(list<string> sqls);
 
-	void connectDefDb();
-
-	void startTransaction();
-
-	void commit();
-
 	void initMySQL();
-
+	
+protected:
+	void tryConnect();
+	void connectDefDb();
 	void connectMySQL(char *host,unsigned int port,char * Db,char * user,char* passwd,char * charset,string &strMsg);
 
-	void throwSqlError();
+	void baseExecuteSql(const char * sql);
 
-	void tryConnect();
+	void startTransaction();
+	void commit();
+	
+	void throwSqlError(string sql="");
 
-	bool checkContect();
-private:
 	bool isMySqlInit;
-	std::mutex dbMutex;
 	MYSQL mysql;
-};
+	CLogObj& log;
 
+	static recursive_mutex dbMutex;
+};

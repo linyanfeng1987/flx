@@ -2,31 +2,62 @@
 #include "Exception.h"
 #include "DbObj.h"
 #include "AutoMutex.h"
+#include "tools/FunctionLog.h"
 #pragma comment(lib, "libmysql.lib")  
 
 CDbObj* CDbObj::g_db = nullptr;
+map<size_t,CDbObj*>* CDbObj::pDbMap = nullptr;
+recursive_mutex CDbObj::dbMutex;
 
-CDbObj::CDbObj(void)
+CDbObj& CDbObj::instance()
+{
+	if (nullptr == pDbMap)
+	{
+		pDbMap = new map<size_t,CDbObj*>;
+	}
+
+	size_t threadId = std::this_thread::get_id().hash();
+	auto findRes = pDbMap->find(threadId);
+	if (pDbMap->end() == findRes)
+	{
+		auto insertRes = pDbMap->insert(make_pair(threadId, new CDbObj));
+		findRes = insertRes.first;
+	}
+
+	return *(findRes->second);
+}
+
+void CDbObj::release()
+{
+	size_t threadId = std::this_thread::get_id().hash();
+	auto findRes = pDbMap->find(threadId);
+	if (pDbMap->end() != findRes)
+	{
+		delete findRes->second;
+		findRes->second = nullptr;
+		pDbMap->erase(findRes);
+	}
+}
+
+CDbObj::CDbObj(void):log(CLogObj::instance())
 {
 	isMySqlInit = false;
 }
 
-
 CDbObj::~CDbObj(void)
 {
 	CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	mysql_close(&mysql);
 }
 
 void CDbObj::startTransaction()
 {
-	CAutoMutex localMutex(&dbMutex);
 	mysql_query(&mysql,"START TRANSACTION"); // 开启事务， 如果没有开启事务，那么效率会变得非常低下！
 }
 
 void CDbObj::commit()
 {
-	CAutoMutex localMutex(&dbMutex);
 	mysql_query(&mysql,"COMMIT"); // 提交事务 
 }
 
@@ -36,8 +67,9 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 	PRow row = nullptr;
 	PubFun::log(strLog);
 	{
-		tryConnect();
 		CAutoMutex localMutex(&dbMutex);
+		CFunctionLog funLog(__FUNCTION__, __LINE__);
+		tryConnect();
 
 		int nRes = mysql_query(&mysql,sql);
 		string strMsg = "";
@@ -48,7 +80,7 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 			pRes = mysql_store_result(&mysql);
 			if(pRes==nullptr)
 			{
-				strMsg = mysql_error(&mysql);
+				throwSqlError(sql);
 			}
 			while(pRow = mysql_fetch_row(pRes))
 			{
@@ -60,15 +92,16 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 					row->setAndaddValue(fieldIter->first, pDataValue);
 					pDataValue = *(++pRow);
 					fieldIter++;
-					break;
 				}
+				
 				row->setDataStatus(DATA_SAME);
+				break;
 			}
 			mysql_free_result(pRes);
 		}
 		else
 		{
-			throwSqlError();
+			throwSqlError(sql);
 		}
 	}
 	return row;
@@ -77,22 +110,28 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 void CDbObj::selectData( const char * sql, PTable resTable)
 {
 	string strLog = "selectData:" + string(sql);
-	PubFun::log(strLog);
+	log.debug(strLog);
 	{
-		tryConnect();
+		resTable->clear();
 		CAutoMutex localMutex(&dbMutex);
+		CFunctionLog funLog(__FUNCTION__, __LINE__);
+		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
+		tryConnect();
 		
+		log.test(PubFun::strFormat("%s::mysql_query", __FUNCTION__), "dbObj");
 		int nRes = mysql_query(&mysql,sql);
 		string strMsg = "";
 		if(0 == nRes)
 		{
 			MYSQL_ROW pRow = nullptr;
 			MYSQL_RES *pRes = nullptr;
+			log.test(PubFun::strFormat("%s::mysql_store_result", __FUNCTION__), "dbObj");
 			pRes = mysql_store_result(&mysql);
 			if(pRes==nullptr)
 			{
-				throwSqlError();
+				throwSqlError(sql);
 			}
+			log.test(PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__), "dbObj");
 			while(pRow = mysql_fetch_row(pRes))
 			{
 				PRow row = newRow(resTable->tableStruct);
@@ -107,11 +146,13 @@ void CDbObj::selectData( const char * sql, PTable resTable)
 				row->setDataStatus(DATA_SAME);
 				resTable->addRow(row);
 			}
+			log.test(PubFun::strFormat("%s::mysql_free_result", __FUNCTION__), "dbObj");
 			mysql_free_result(pRes);
 		}
 		else
 		{
-			throwSqlError();
+			log.test(PubFun::strFormat("%s::throwSqlError", __FUNCTION__), "dbObj");
+			throwSqlError(sql);
 		}
 	}
 }
@@ -121,12 +162,21 @@ void CDbObj::executeSql( const char * sql )
 	string strLog = "excecuteSql:";
 	strLog += sql;
 	PubFun::log(strLog);
-	tryConnect();
+	{
+		CAutoMutex localMutex(&dbMutex);
+		CFunctionLog funLog(__FUNCTION__, __LINE__);
+		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
+		tryConnect();
+		log.test(PubFun::strFormat("%s::baseExecuteSql", __FUNCTION__), "dbObj");
+		baseExecuteSql(sql);
+	}
+}
 
-	CAutoMutex localMutex(&dbMutex);
+void CDbObj::baseExecuteSql( const char * sql )
+{
 	if(mysql_query(&mysql,sql) != 0)
 	{
-		throwSqlError();
+		throwSqlError(sql);
 	}
 }
 
@@ -137,28 +187,12 @@ void CDbObj::tryConnect()
 		initMySQL();
 	}
 
-	if (!checkContect())
+	// 0为链接正常
+	if (0 != mysql_ping(&mysql))
 	{
-		CAutoMutex localMutex(&dbMutex);
 		connectDefDb();
 	}
 }
-
-bool CDbObj::checkContect()
-{
-	CAutoMutex localMutex(&dbMutex);
-	if (isMySqlInit)
-	{
-		// 0为链接正常
-		if (0 == mysql_ping(&mysql))
-		{
-			return true;
-		}
-	}
-	
-	return false;
-}
-
 
 void CDbObj::connectDefDb()
 {
@@ -186,12 +220,17 @@ void CDbObj::connectMySQL(char *host,unsigned int port ,char * Db,char * user,ch
 void CDbObj::initMySQL()
 {
 	CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	bool bRes = false;
+	log.test(PubFun::strFormat("%s::mysql_library_init", __FUNCTION__), "dbObj");
 	int nRes =mysql_library_init(0, NULL, NULL);
 	if (0 == nRes) {
+		log.test(PubFun::strFormat("%s::mysql_init", __FUNCTION__), "dbObj");
 		if( NULL != mysql_init(&mysql) )
 		{
+			log.test(PubFun::strFormat("%s::connectDefDb", __FUNCTION__), "dbObj");
 			connectDefDb();
+			log.test(PubFun::strFormat("%s::mysql_set_character_set", __FUNCTION__), "dbObj");
 			if(0 == mysql_set_character_set(&mysql,"GBK"))
 			{
 				bRes  = true;
@@ -199,42 +238,37 @@ void CDbObj::initMySQL()
 			}
 		}    
 	}
-	string strMsg = mysql_error(NULL);
+
 	if (!bRes)
 	{
+		log.test(PubFun::strFormat("%s::throwSqlError", __FUNCTION__), "dbObj");
 		throwSqlError();
 	}
 }
 
-
-CDbObj& CDbObj::instance()
-{
-	if(g_db == nullptr)
-	{
-		g_db = new CDbObj;
-	}
-	return *g_db;
-}
-
 void CDbObj::insertDatas( list<string> sqls )
 {
+	CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	tryConnect();
 
 	startTransaction();
 	for (string sql : sqls)
 	{
-		executeSql(sql.c_str());;
+		baseExecuteSql(sql.c_str());;
 	}
 	commit();
 }
 
 
-
-void CDbObj::throwSqlError()
+void CDbObj::throwSqlError(string sql)
 {
 	string strMsg = mysql_error(&mysql);
+	log.error(PubFun::strFormat("执行sql失败:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
 	throw CStrException(strMsg);
 }
+
+
 
 
 

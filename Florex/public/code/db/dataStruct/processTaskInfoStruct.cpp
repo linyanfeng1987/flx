@@ -18,6 +18,9 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	//taskId
 	field.load(key_taskId, "string", true);
 	this->insert(make_pair(field.strName, field));
+	//processName
+	field.load(key_processTypeName, "string");
+	this->insert(make_pair(field.strName, field));
 	//rateName
 	field.load(key_rate, "string");
 	this->insert(make_pair(field.strName, field));
@@ -29,9 +32,6 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	this->insert(make_pair(field.strName, field));
 	//endTime
 	field.load(key_endTime, "int");
-	this->insert(make_pair(field.strName, field));
-	//processName
-	field.load(key_processTypeName, "string");
 	this->insert(make_pair(field.strName, field));
 	//paramter
 	field.load(key_paramter, "string");

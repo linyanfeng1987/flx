@@ -22,15 +22,15 @@ CtaskRunner::~CtaskRunner()
 {
 	int a = 0;
 	a++;
-	//CDbObj::release();
+	CDbObj::release();
 }
 
 void CtaskRunner::run()
 {
 	while (true)
 	{
-		//rangTaskList();
-		buildTestDbTask();
+		rangTaskList();
+		//buildTestDbTask();
 	}
 }
 
@@ -79,15 +79,18 @@ void CtaskRunner::rangTaskList()
 {
 	// Ö´ÐÐÈÎÎñ
 	PRow processTaskInfo = gData.popProcessTaskInfo();
+	int count = -1;
 	if(nullptr != processTaskInfo)
 	{
 		PProcessTask task = getProcessTask(processTaskInfo);
+		count = task.use_count();
 		if(nullptr != task)
 		{
 			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
 			task->run(param.c_str());
 		}
 		runingTasks.insert(make_pair(task->getTaskId(), task));
+		count = task.use_count();
 	}
 	else
 	{	if (!reloadTaskList())
@@ -101,7 +104,7 @@ void CtaskRunner::rangTaskList()
 PBaseProcess CtaskRunner::getProcess( PRow taskInfo )
 {
 	PBaseProcess process = nullptr;
-	if (taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName) == "average")
+	if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find("average"))
 	{
 		process = newAverageProcess(); 
 	}

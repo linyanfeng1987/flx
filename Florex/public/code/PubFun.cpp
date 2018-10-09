@@ -3,6 +3,7 @@
 #include <fstream>
 #include <io.h>
 
+#include<direct.h>
 using namespace std;
 string baselogFile = "f:/log/mt4Msg.log";
 
@@ -394,6 +395,46 @@ char* PubFun::wcharToChar(const wchar_t* wp)
 	WideCharToMultiByte(CP_ACP, 0, wp, wcslen(wp), m_char, len, NULL, NULL);
 	m_char[len] = '\0';
 	return m_char;
+}
+
+void PubFun::makeNewFile( string filePath, string fileName )
+{
+	makePath(filePath);
+	FILE* file = nullptr;
+	string fileAll = strFormat("%s/%s", filePath.c_str(), fileName.c_str());
+	fopen_s(&file, fileAll.c_str(),"w"); 
+	if(nullptr != file)
+	{
+		fclose(file);
+	}
+}
+
+void PubFun::makePath( string filePath )
+{
+	if(-1 == _access(filePath.c_str(),0))
+	{
+		int n1 = filePath.rfind('\\');
+		int n2 = filePath.rfind('/');
+		int nIndex = n1 > n2 ? n1 : n2;
+		if (-1 != nIndex)
+		{
+			string parentPath = filePath.substr(0, nIndex);
+			makePath(parentPath);
+		}
+		_mkdir(filePath.c_str());
+	}
+}
+
+void PubFun::buildValueList( long startValue, long endValue, long step, map<long, long>& resValueMap )
+{
+	long tmpValue = 0;
+	for (long i = startValue; i < endValue; )
+	{
+		tmpValue = i + step;
+		tmpValue = tmpValue < endValue ? tmpValue : endValue;
+		resValueMap.insert(make_pair(i, tmpValue));
+		i = tmpValue;
+	}
 }
 
 

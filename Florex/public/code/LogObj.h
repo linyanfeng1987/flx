@@ -7,6 +7,7 @@
 #include <io.h>
 #include <mutex>
 #include <thread>
+#include <map>
 
 #include "AutoMutex.h"
 #include <windows.h>
@@ -26,14 +27,17 @@ public:
 protected:
 	string makeFileName(string logFileFormat, string id="");
 	string makeLogStr(string levelTag, string& userMsg);
-	void checkFile(string fileName);
 	void writeLog(string fileName, string& str);
 	CLogObj();
+
+	string logBasePathFormat;
 
 	string baseErrorlogFile;
 	string baseInfologFile;
 	string baseWarnlogFile;
 	string baseDebuglogFile;
 	string baseTestlogFile;
+
+	map<string, string> fileMap;
 };
 

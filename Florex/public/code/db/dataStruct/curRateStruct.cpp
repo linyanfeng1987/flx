@@ -10,7 +10,17 @@ string CCurRateStruct::percentSpead_s = "percentSpead_s";
 
 CCurRateStruct::CCurRateStruct(string rateName):CBaseCurRateStruct(rateName)
 {
-	setRateName(rateName);
+	init(rateName);
+}
+
+// CCurRateStruct::CCurRateStruct( string rateName, string timeSetp ):CBaseCurRateStruct(rateName)
+// {
+// 	init(rateName, timeSetp);
+// }
+
+void CCurRateStruct::init( string rateName )
+{
+	setTableName(rateName);
 	CField field;
 
 	field.load(priceBuy, "double");
@@ -26,17 +36,20 @@ CCurRateStruct::CCurRateStruct(string rateName):CBaseCurRateStruct(rateName)
 	this->insert(make_pair(field.strName, field));
 }
 
+
 CCurRateStruct::~CCurRateStruct()
 {
 	
 }
 
-void CCurRateStruct::setRateName(string rateName)
+void CCurRateStruct::setTableName( string rateName)
 {
 	tableName = florexDbName; 
-	tableName.append(".").append(rateName);
+	tableName.append(".").append("currency_pair_").append(rateName);
 
 	this->setName(tableName);
 	curRateTableName = tableName;
 }
+
+
 

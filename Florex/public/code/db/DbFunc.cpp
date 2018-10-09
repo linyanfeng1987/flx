@@ -2,7 +2,6 @@
 #include "DbObj.h"
 
 
-CDbObj& CDbFunc::db = CDbObj::instance();
 CGlobalData& CDbFunc::gData = CGlobalData::instance();
 CDbFunc::CDbFunc(void)
 {
@@ -27,5 +26,5 @@ PRow CDbFunc::getProcessStatusLine( string processName )
 	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
 	PTableStruct processStatusStruct = CProcessStatusStruct::instence();
 
-	return db.selectOneData(chSql, processStatusStruct);;
+	return CDbObj::instance().selectOneData(chSql, processStatusStruct);;
 }

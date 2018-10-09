@@ -9,7 +9,7 @@ CBaseTask::CBaseTask():log(CLogObj::instance())
 
 CBaseTask::~CBaseTask()
 {
-
+	CDbObj::release();
 }
 
 int CBaseTask::run(const char* argv)

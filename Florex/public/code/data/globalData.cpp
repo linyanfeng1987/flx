@@ -50,7 +50,7 @@ void CGlobalData::initDataInCode()
 	list<string> tmpList;
 	tmpList.push_back(tmpName);
 
-	processRates.insert(make_pair("XAUUSD", tmpList));
+	processRates.insert(make_pair("xauusd", tmpList));
 }
 
 CProcessType* CGlobalData::getProcessType( string processId )

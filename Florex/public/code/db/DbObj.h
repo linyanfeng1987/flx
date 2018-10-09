@@ -46,5 +46,5 @@ protected:
 	MYSQL mysql;
 	CLogObj& log;
 
-	static recursive_mutex dbMutex;
+	//static recursive_mutex dbMutex;
 };

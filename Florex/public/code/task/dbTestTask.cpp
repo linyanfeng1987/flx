@@ -29,7 +29,7 @@ void CDbTestTask::runInThread( const char* argv )
 		PTestDbInfoStruct testDbStruct = CTestDbInfoStruct::instence();
 		PTable resTable = newTable(testDbStruct);
 
-		string baseId("linTest");
+		string baseId("linTest1");
 		string condition = "";
 		condition.append(CTestDbInfoStruct::key_id).append("='").append(baseId).append("'");
 		string sql = testDbStruct->getSelectSql(condition);
@@ -47,17 +47,19 @@ void CDbTestTask::runInThread( const char* argv )
 				log.test(PubFun::strFormat("insert new"), className);
 			}
 			else{
-				int nValue = row->getIntValue(CTestDbInfoStruct::key_value);
-				if (-100 < nValue && nValue < 100)
+				int nSrcValue = row->getIntValue(CTestDbInfoStruct::key_value);
+				int nDestValue = nSrcValue;
+				if (-100 < nSrcValue && nSrcValue < 100)
 				{
-					row->setIntValue(CTestDbInfoStruct::key_value, nValue+step);
+					nDestValue += step;
+					row->setIntValue(CTestDbInfoStruct::key_value, nDestValue);
 				}
 				else
 				{
 					log.info(string("testDb end!"));
 					break;
 				}
-				log.test(PubFun::strFormat("update now value:%d.", nValue), className);
+				log.test(PubFun::strFormat("update,srcValue:%d, destValue:%d.", nSrcValue, nDestValue), className);
 			}
 			row->save();
 		}

@@ -1,13 +1,13 @@
 #include "../PubFun.h"
 #include "Exception.h"
 #include "DbObj.h"
-#include "AutoMutex.h"
+//#include "AutoMutex.h"
 #include "tools/FunctionLog.h"
 #pragma comment(lib, "libmysql.lib")  
 
 CDbObj* CDbObj::g_db = nullptr;
 map<size_t,CDbObj*>* CDbObj::pDbMap = nullptr;
-recursive_mutex CDbObj::dbMutex;
+//recursive_mutex CDbObj::dbMutex;
 
 CDbObj& CDbObj::instance()
 {
@@ -46,7 +46,6 @@ CDbObj::CDbObj(void):log(CLogObj::instance())
 
 CDbObj::~CDbObj(void)
 {
-	CAutoMutex localMutex(&dbMutex);
 	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	mysql_close(&mysql);
 }
@@ -67,7 +66,7 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 	PRow row = nullptr;
 	PubFun::log(strLog);
 	{
-		CAutoMutex localMutex(&dbMutex);
+		//CAutoMutex localMutex(&dbMutex);
 		CFunctionLog funLog(__FUNCTION__, __LINE__);
 		tryConnect();
 
@@ -113,7 +112,7 @@ void CDbObj::selectData( const char * sql, PTable resTable)
 	log.debug(strLog);
 	{
 		resTable->clear();
-		CAutoMutex localMutex(&dbMutex);
+		//CAutoMutex localMutex(&dbMutex);
 		CFunctionLog funLog(__FUNCTION__, __LINE__);
 		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
 		tryConnect();
@@ -132,8 +131,10 @@ void CDbObj::selectData( const char * sql, PTable resTable)
 				throwSqlError(sql);
 			}
 			log.test(PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__), "dbObj");
+			long nCount = 0;
 			while(pRow = mysql_fetch_row(pRes))
 			{
+				log.test(PubFun::strFormat("%s::mysql_fetch_row count %d", __FUNCTION__, nCount++), "dbObj");
 				PRow row = newRow(resTable->tableStruct);
 				char* pDataValue = *pRow;
 				auto fieldIter = resTable->tableStruct->begin();
@@ -163,7 +164,7 @@ void CDbObj::executeSql( const char * sql )
 	strLog += sql;
 	PubFun::log(strLog);
 	{
-		CAutoMutex localMutex(&dbMutex);
+		//CAutoMutex localMutex(&dbMutex);
 		CFunctionLog funLog(__FUNCTION__, __LINE__);
 		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
 		tryConnect();
@@ -219,7 +220,7 @@ void CDbObj::connectMySQL(char *host,unsigned int port ,char * Db,char * user,ch
 
 void CDbObj::initMySQL()
 {
-	CAutoMutex localMutex(&dbMutex);
+	//CAutoMutex localMutex(&dbMutex);
 	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	bool bRes = false;
 	log.test(PubFun::strFormat("%s::mysql_library_init", __FUNCTION__), "dbObj");
@@ -248,7 +249,7 @@ void CDbObj::initMySQL()
 
 void CDbObj::insertDatas( list<string> sqls )
 {
-	CAutoMutex localMutex(&dbMutex);
+	//CAutoMutex localMutex(&dbMutex);
 	CFunctionLog funLog(__FUNCTION__, __LINE__);
 	tryConnect();
 

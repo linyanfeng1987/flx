@@ -4,14 +4,20 @@
 #include "db/dataStruct/curRateStruct.h"
 #include "table/Table.h"
 #include "db/DbObj.h"
+#include "PubFun.h"
+#include "tools/FunctionLog.h"
+
+const int timeStep = 3600*4;
 
 CProcessTask::CProcessTask( PRow taskInfo, PRow status, PBaseProcess process ):porcessTaskInfo(taskInfo),porcessStatus(status)
 {
+	log.debug(PubFun::strFormat("CProcessTask build, %d\n", this));
 	this->process = process;
 }
 
 CProcessTask::~CProcessTask()
 {
+	log.debug(PubFun::strFormat("CProcessTask end, %d\n", this));
 }
 
 int CProcessTask::completeTask()
@@ -37,19 +43,26 @@ void CProcessTask::runInThread( const char* argv )
 {
 	try
 	{
+		CFunctionLog funLog(__FUNCTION__, __LINE__);
 		string rateName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
 		string startTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_startTime);
 		string endTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_endTime);
 		PCurRateStruct rateStruct = newCurRateStruct(rateName);
 		PTable rateTable = newTable(rateStruct);
 
-		string condition = "";
-		condition.append(CProcessTaskInfoStruct::key_startTime).append(">=").append(startTime);
-		condition.append(" and ");
-		condition.append(CProcessTaskInfoStruct::key_endTime).append("<=").append(endTime);
-		string sql = rateStruct->getSelectSql(condition);
-		CDbObj::instance().selectData(sql.c_str(), rateTable);
-		process->calc(rateTable);
+		map<long, long> resValueMap;
+		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);
+
+		for (auto iter : resValueMap)
+		{
+			string condition = "";
+			condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
+			condition.append(" and ");
+			condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
+			string sql = rateStruct->getSelectSql(condition);
+			CDbObj::instance().selectData(sql.c_str(), rateTable);
+			process->calc(rateTable);
+		}
 		completeTask();
 	}
 	catch (CStrException& e)

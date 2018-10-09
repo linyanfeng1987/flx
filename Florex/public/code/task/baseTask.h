@@ -1,5 +1,6 @@
 #pragma once
 #include "LogObj.h"
+#include "db/DbObj.h"
 //任务基础类 可能被多线程调用
 
 class CBaseTask

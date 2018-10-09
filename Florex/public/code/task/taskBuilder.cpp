@@ -17,7 +17,7 @@ CTaskBuilder::~CTaskBuilder()
 {
 	int a = 0;
 	a++;
-	//CDbObj::release();
+	CDbObj::release();
 }
 
 void CTaskBuilder::run()
@@ -46,6 +46,7 @@ void CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 
 void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType )
 {
+	string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
 	PRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
@@ -81,7 +82,6 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, "");
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, "0");
 		taskInfo->save();
-		gData.addProcessTaskInfo(taskInfo);
 
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
 		processStatusInfo->save();
@@ -111,28 +111,25 @@ bool CTaskBuilder::reloadTaskList_delete()
 	return hasData;
 }*/
 
-time_t CTaskBuilder::getRateLastTime( string rateName )
+time_t CTaskBuilder::getRateLastTime( string strTableName )
 {
-	return getRateTime(rateName, "order by curTime desc, curMsec desc limit 1");
+	return getRateTime(strTableName, "order by curTime desc, curMsec desc limit 1");
 }
 
-time_t CTaskBuilder::getRateStartTime( string rateName )
+time_t CTaskBuilder::getRateStartTime( string strTableName )
 {
-	return getRateTime(rateName, "order by curTime, curMsec limit 1");
+	return getRateTime(strTableName, "order by curTime, curMsec limit 1");
 }
 
-time_t CTaskBuilder::getRateTime( string rateName, string orderSql )
+time_t CTaskBuilder::getRateTime( string strTableName, string orderSql )
 {
 	string strSqlFormat = "select * from %s %s;";
-	string strTableName = florexDbName + ".";
-	strTableName.append("currency_pair_");
-	strTableName.append(rateName);
 	time_t lastTime = -1;
 
 	char chSql[2048] = {0};
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), orderSql.c_str());
-	PCurRateStruct rateStruct = newCurRateStruct(rateName);
+	PCurRateStruct rateStruct = newCurRateStruct(strTableName);
+	sprintf_s(chSql, strSqlFormat.c_str(), rateStruct->tableName.c_str(), orderSql.c_str());
 	PTable resTable = newTable(rateStruct);
 
 	CDbObj::instance().selectData(chSql, resTable);

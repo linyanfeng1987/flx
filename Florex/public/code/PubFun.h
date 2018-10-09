@@ -38,6 +38,9 @@ public:
 	static bool readHisFile(ifstream &fin,list<string> &readRes);
 	static bool getFileByPath(string path, map<string, string> &files);
 
+	static void makeNewFile(string filePath, string fileName);
+	static void makePath(string filePath);
+
 	static time_t HisRateStringToDatetime(const char *str);
 	static string getStepStr(int nStep);
 	static string get14TimeString( SYSTEMTIME& s_time);
@@ -52,6 +55,8 @@ public:
 	static double getFileSize( string filePath );
 
 	static char* wcharToChar(const wchar_t* wp);
+
+	static void buildValueList(long startValue, long endValue, long step, map<long, long>& resValueMap);
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

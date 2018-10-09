@@ -1,7 +1,7 @@
 #include "LogObj.h"
 #include "PubFun.h"
 
-#include<direct.h>
+
 
 CLogObj& CLogObj::instance()
 {
@@ -27,14 +27,13 @@ CLogObj::CLogObj()
 		strPathBase = strPath.substr(0, nIndex);
 	}
 
-	string logPath = strPathBase + "/log";
-	_mkdir(logPath.c_str());
+	logBasePathFormat = strPathBase + "/log/%u";
 
-	baseErrorlogFile = logPath + "/processError_%d%02d%02d.log";
-	baseInfologFile = logPath + "/processInfo_%d%02d%02d.log";
-	baseWarnlogFile = logPath + "/processWarn_%d%02d%02d.log";
-	baseDebuglogFile = logPath + "/processDebug_%d%02d%02d.log";
-	baseTestlogFile = logPath + "/processTest_%d%02d%02d_%s.log";
+	baseErrorlogFile = "processError_%d%02d%02d.log";
+	baseInfologFile = "processInfo_%d%02d%02d.log";
+	baseWarnlogFile = "processWarn_%d%02d%02d.log";
+	baseDebuglogFile = "processDebug_%d%02d%02d.log";
+	baseTestlogFile = "processTest_%d%02d%02d_%s.log";
 }
 
 void CLogObj::error( string& msg )
@@ -102,19 +101,35 @@ void CLogObj::test( string& msg, string id )
 
 std::string CLogObj::makeFileName( string logFileFormat, string id/*=""*/ )
 {
+	string fileAllPath = "";
 	SYSTEMTIME s_time; 
 	GetLocalTime(&s_time); 
 	char ch[2048] = {0};
-	if (id.empty())
+	size_t threadId = std::this_thread::get_id().hash();
+	string fileKey = PubFun::strFormat("%u_%s", threadId, logFileFormat.c_str());
+	map<string, string>::iterator fileIter = fileMap.find(fileKey);
+	if (fileMap.end() == fileIter)
 	{
-		sprintf_s(ch, logFileFormat.c_str(),  s_time.wYear, s_time.wMonth, s_time.wDay);
-	}
-	else{
-		sprintf_s(ch, logFileFormat.c_str(),  s_time.wYear, s_time.wMonth, s_time.wDay, id.c_str());
-	}
+		string logPath = PubFun::strFormat(logBasePathFormat.c_str(), threadId);
+		if (id.empty())
+		{
+			sprintf_s(ch, logFileFormat.c_str(), s_time.wYear, s_time.wMonth, s_time.wDay);
+		}
+		else{
+			sprintf_s(ch, logFileFormat.c_str(), s_time.wYear, s_time.wMonth, s_time.wDay, id.c_str());
+		}
+		string fileName(ch);
+		PubFun::makeNewFile(logPath, fileName);
+		fileAllPath = PubFun::strFormat("%s/%s",logPath.c_str(), fileName.c_str());
 
-	string fileName(ch);
-	return fileName;
+		fileMap.insert(make_pair(fileKey, fileAllPath));
+	}
+	else
+	{
+		fileAllPath = fileIter->second;
+	}
+	
+	return fileAllPath;
 }
 
 std::string CLogObj::makeLogStr( string levelTag, string& userMsg )
@@ -131,22 +146,11 @@ std::string CLogObj::makeLogStr( string levelTag, string& userMsg )
 
 void CLogObj::writeLog( string fileName, string& str )
 {
-	checkFile(fileName);
 	ofstream ofile;
 	ofile.open(fileName, std::ios_base::app);
 	if (ofile.is_open())
 	{	
 		ofile<<str<<endl;
 		ofile.close();  
-	}
-}
-
-void CLogObj::checkFile( string fileName )
-{
-	FILE* file = nullptr;
-	fopen_s(&file, fileName.c_str(),"a"); 
-	if(nullptr != file)
-	{
-		fclose(file);
 	}
 }

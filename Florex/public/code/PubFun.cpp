@@ -2,6 +2,7 @@
 #include "LogObj.h"
 #include <fstream>
 #include <io.h>
+#include <regex>
 
 #include<direct.h>
 using namespace std;
@@ -58,14 +59,20 @@ tuple<bool,string, string> PubFun::parseKeyValue(string strSrc)
 long PubFun::stringToInt(string str)
 {
 	long i = 0;
-	sscanf_s(str.c_str(),"%d",&i);
+	if (!str.empty())
+	{
+		sscanf_s(str.c_str(),"%d",&i);
+	}
 	return i;
 }
 
 double PubFun::stringToDouble(string str)
 {
 	double i = 0;
-	sscanf_s(str.c_str(),"%lf",&i);
+	if (!str.empty())
+	{
+		sscanf_s(str.c_str(),"%lf",&i);
+	}
 	return i;
 }
 
@@ -289,40 +296,6 @@ std::string PubFun::strToUpper( string str )
 	return tmpCh;
 }
 
-std::string PubFun::getStepStr( int nStep )
-{
-	string strStep = "";
-	switch (nStep)
-	{
-	case timeStepStep_mm:
-		strStep = tableTimeStepEnd_mm;
-		break;
-	case timeStepStep_15m:
-		strStep = tableTimeStepEnd_15m;
-		break;
-	case timeStepStep_hh:
-		strStep = tableTimeStepEnd_hh;
-		break;
-	case timeStepStep_4h:
-		strStep = tableTimeStepEnd_4h;
-		break;
-	case timeStepStep_dd:
-		strStep = tableTimeStepEnd_dd;
-		break;
-	case timeStepStep_ww:
-		strStep = tableTimeStepEnd_ww;
-		break;
-	case timeStepStep_def:
-		strStep = "";
-		break;
-	default:
-		strStep = "";
-		break;
-	}
-	return strStep;
-}
-
-
 
 std::string PubFun::get14CurTimeString()
 {
@@ -437,6 +410,95 @@ void PubFun::buildValueList( long startValue, long endValue, long step, map<long
 	}
 }
 
+
+void PubFun::splitParamStr( string paramters, map<string, string> &resMap )
+{
+	regex reg1("(\\w+)=(\\w+),?");
+	vector<int> vec;
+	vec.push_back(1);
+	vec.push_back(2);
+
+	sregex_token_iterator iter(paramters.begin(), paramters.end(), reg1, vec);
+	sregex_token_iterator end;
+	for(; iter != end; ++iter)
+	{
+		string strKey = iter->str();
+		string strValue = (++iter)->str();
+		resMap.insert(make_pair(strKey, strValue));
+	}
+}
+
+std::string PubFun::getStepNameByType( int nStepType )
+{
+	string strStep = "";
+	switch (nStepType)
+	{
+	case timeStepStep_mm:
+		strStep = tableTimeStepEnd_mm;
+		break;
+	case timeStepStep_15m:
+		strStep = tableTimeStepEnd_15m;
+		break;
+	case timeStepStep_hh:
+		strStep = tableTimeStepEnd_hh;
+		break;
+	case timeStepStep_4h:
+		strStep = tableTimeStepEnd_4h;
+		break;
+	case timeStepStep_dd:
+		strStep = tableTimeStepEnd_dd;
+		break;
+	case timeStepStep_ww:
+		strStep = tableTimeStepEnd_ww;
+		break;
+	case timeStepStep_def:
+		strStep = "";
+		break;
+	default:
+		strStep = "";
+		break;
+	}
+	return strStep;
+}
+
+int PubFun::getStepType( time_t second )
+{
+	int stepType = 0;
+	switch (second)
+	{
+	case 60:
+		stepType = timeStepStep_mm;
+		break;
+	case 900:
+		stepType = timeStepStep_15m;
+		break;
+	case 3600:
+		stepType = timeStepStep_hh;
+		break;
+	case 14400:
+		stepType = timeStepStep_4h;
+		break;
+	case 86400:
+		stepType = timeStepStep_dd;
+		break;
+	case 604800:
+		stepType = timeStepStep_ww;
+		break;
+	case timeStepStep_def:
+		stepType = timeStepStep_def;
+		break;
+	default:
+		stepType = timeStepStep_def;
+		break;
+	}
+	return stepType;
+}
+
+std::string PubFun::getStepNameBySecond( time_t second )
+{
+	int stepType = getStepType(second);
+	return getStepNameByType(stepType);
+}
 
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  

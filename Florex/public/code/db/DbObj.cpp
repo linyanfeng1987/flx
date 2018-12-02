@@ -175,7 +175,17 @@ void CDbObj::executeSql( const char * sql )
 
 void CDbObj::baseExecuteSql( const char * sql )
 {
-	if(mysql_query(&mysql,sql) != 0)
+	if(mysql_query(&mysql,sql) == 0)
+	{
+		MYSQL_RES *pRes = nullptr;
+		pRes = mysql_store_result(&mysql);
+		if(pRes!=nullptr)
+		{
+			mysql_free_result(pRes);
+		}
+		
+	}
+	else
 	{
 		throwSqlError(sql);
 	}
@@ -189,7 +199,10 @@ void CDbObj::tryConnect()
 	}
 
 	// 0为链接正常
-	if (0 != mysql_ping(&mysql))
+	int pinRes = mysql_ping(&mysql);
+	string strMsg = mysql_error(&mysql);
+	log.test(PubFun::strFormat("%s::mysql_ping, res:%d", __FUNCTION__, pinRes), "dbObj");
+	if (0 != pinRes)
 	{
 		connectDefDb();
 	}
@@ -212,6 +225,7 @@ void CDbObj::connectDefDb()
 
 void CDbObj::connectMySQL(char *host,unsigned int port ,char * Db,char * user,char* passwd,char * charset, string &strMsg)
 {
+	log.test(PubFun::strFormat("%s::connectMySQL", __FUNCTION__), "dbObj");
 	if ( nullptr == mysql_real_connect(&mysql,host,user,passwd,NULL,port,NULL,0))
 	{
 		throwSqlError();

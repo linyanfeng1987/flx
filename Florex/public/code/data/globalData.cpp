@@ -43,7 +43,7 @@ void CGlobalData::initDataInCode()
 	string tmpName = "average";
 	tmpType.processTypeName = tmpName;
 	//tmpType.porcessFlag = 1;
-	tmpType.timeStep = 3000;
+	tmpType.timeStep = 900;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
 

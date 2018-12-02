@@ -7,7 +7,7 @@
 class CDbTestTask : public CBaseTask
 {
 public:
-	CDbTestTask(int step);
+	CDbTestTask(int step, string name);
 	~CDbTestTask();
 
 protected:
@@ -17,4 +17,4 @@ protected:
 	int step;
 };
 typedef shared_ptr<CDbTestTask> PDbTestTask;
-#define newDbTestTask(T1) make_shared<CDbTestTask>(T1);
+#define newDbTestTask(T1, T2) make_shared<CDbTestTask>(T1, T2);

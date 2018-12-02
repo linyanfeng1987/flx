@@ -42,7 +42,11 @@ public:
 	static void makePath(string filePath);
 
 	static time_t HisRateStringToDatetime(const char *str);
-	static string getStepStr(int nStep);
+
+	static string getStepNameByType(int nStepType);
+	static string getStepNameBySecond(time_t second);
+	static int getStepType(time_t second);
+	
 	static string get14TimeString( SYSTEMTIME& s_time);
 	static string get14CurTimeString();
 
@@ -57,6 +61,8 @@ public:
 	static char* wcharToChar(const wchar_t* wp);
 
 	static void buildValueList(long startValue, long endValue, long step, map<long, long>& resValueMap);
+
+	static void splitParamStr(string paramters, map<string, string> &resMap); 
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

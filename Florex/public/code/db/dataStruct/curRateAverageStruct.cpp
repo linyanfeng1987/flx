@@ -16,7 +16,7 @@ CCurRateAverageStruct::~CCurRateAverageStruct()
 void CCurRateAverageStruct::setTimeName(string timeName)
 {
 	tableName = curRateTableName; 
-	tableName.append(".").append("_").append(timeName);
+	tableName.append("_average").append(timeName);
 
 	this->setName(tableName);
 }

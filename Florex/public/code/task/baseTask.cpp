@@ -2,8 +2,14 @@
 #include <thread>
 
 using namespace std;
-CBaseTask::CBaseTask():log(CLogObj::instance())
+CBaseTask::CBaseTask(string taskName):log(CLogObj::instance())
 {
+	if(taskName == "")
+	{
+		int a = 0;
+		a++;
+	}
+	this->taskName = taskName;
 	status = 0;
 }
 
@@ -14,8 +20,15 @@ CBaseTask::~CBaseTask()
 
 int CBaseTask::run(const char* argv)
 {
-	thread runThread(&CBaseTask::runInThread, this, argv);
+	thread runThread(&CBaseTask::baseRunInThread, this, argv);
 	runThread.detach();
 	return 0;
+}
+
+void CBaseTask::baseRunInThread( const char* argv )
+{
+	CLogInfo logInfo(taskName);
+	log.addLogInfo(logInfo);
+	runInThread(argv);
 }
 

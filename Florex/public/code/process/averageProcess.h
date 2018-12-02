@@ -8,14 +8,15 @@ using namespace std;
 class CAverageProcess : public CBaseProcess
 {
 public:
-	CAverageProcess();
+	CAverageProcess(PRow pTaskInfo);
 	~CAverageProcess();
 
 	void calc(PTable& table);
 	void init(PRow pTaskInfo);
 protected:
 	int cycle;
+	int timeStepType;
 };
 typedef shared_ptr<CAverageProcess> PAverageProcess;
-#define newAverageProcess() make_shared<CAverageProcess>();
+#define newAverageProcess(T) make_shared<CAverageProcess>(T);
 

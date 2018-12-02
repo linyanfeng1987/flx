@@ -1,8 +1,10 @@
 #include "baseProcess.h"
 #include <thread>
 
-CBaseProcess::CBaseProcess()
+
+CBaseProcess::CBaseProcess( PRow pTaskInfo )
 {
+	init(pTaskInfo);
 }
 
 CBaseProcess::~CBaseProcess()

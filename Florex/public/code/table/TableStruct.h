@@ -32,6 +32,12 @@ public:
 
 	string getSelectSql(string conditicon);
 
+	string getFieldsStr(string split = ",");
+
+	bool tableExist();
+
+	void ensureExist();
+
 // 	string getSql();
 // 	string getInsertSql();
 // 	string getUpdateSql();

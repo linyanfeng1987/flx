@@ -1,9 +1,10 @@
 #include "averageProcess.h"
 #include "db/dataStruct/curRateAverageStruct.h"
+#include "PubFun.h"
 
-CAverageProcess::CAverageProcess()
+CAverageProcess::CAverageProcess( PRow pTaskInfo ):CBaseProcess(pTaskInfo)
 {
-	cycle = 0;
+	init(pTaskInfo);
 }
 
 CAverageProcess::~CAverageProcess()
@@ -13,13 +14,14 @@ CAverageProcess::~CAverageProcess()
 
 void CAverageProcess::calc( PTable& table )
 {
-	string pureRateName = pTaskInfo->getStringValue("");
-	string timeName = pTaskInfo->getStringValue("");
+	string pureRateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	string timeName = PubFun::getStepNameByType(timeStepType);
 	PCurRateAverageStruct curRateAverageStruct = newCurRateAverageStruct(pureRateName, timeName);
+	curRateAverageStruct->ensureExist();
 	
-
 	CAverageCalc* pCalcBuyObj = new CAverageCalc(cycle);
 	CAverageCalc* pCalcSellObj = new CAverageCalc(cycle);;
+	// @@@@@这里应该是历史记录的那种表
 	for (auto rowIter : *table)
 	{
 		PRow averageRow = newRow(curRateAverageStruct);
@@ -41,6 +43,17 @@ void CAverageProcess::calc( PTable& table )
 
 void CAverageProcess::init( PRow pTaskInfo )
 {
-	CBaseProcess::init(pTaskInfo);
-	cycle = pTaskInfo->getIntValue(CProcessTaskInfoStruct::key_paramter);
+	//@@@ 这里需要获取时间跨度值
+	string paramter = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+
+	map<string, string> resMap;
+	PubFun::splitParamStr(paramter, resMap);
+	auto iter = resMap.find("timeStep");
+	string strTimeStep = "";
+	if (resMap.end() != iter )
+	{
+		strTimeStep = iter->second;
+	}
+	cycle =  PubFun::stringToInt(strTimeStep);
+	timeStepType = PubFun::getStepType(cycle);
 }

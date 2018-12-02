@@ -11,6 +11,7 @@ CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 // 布置任务后重写processStatus表的时间，防止重新布置任务
 CTaskBuilder::CTaskBuilder():log(CLogObj::instance())
 {
+	
 }
 
 CTaskBuilder::~CTaskBuilder()
@@ -22,6 +23,8 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
+	CLogInfo logInfo("taskBuilder");
+	log.addLogInfo(logInfo);
 	while (true)
 	{
 		for (auto& rateIter : gData.processRates)
@@ -79,7 +82,8 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		time_t endTime = processBuildLastTime + timeStep/processType.timeStep * processType.timeStep;
 		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
-		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, "");
+		string strParam = PubFun::strFormat("timeStep=%d", processType.timeStep);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, strParam);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, "0");
 		taskInfo->save();
 

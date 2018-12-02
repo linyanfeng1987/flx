@@ -72,7 +72,6 @@ std::string CRow::getInsertSql()
 		if (!strTmp.empty())
 		{
 			strTmp += ",";
-			strTmp += " ";
 		}
 		strTmp +="'" + strValue + "'";	
 	}
@@ -196,7 +195,8 @@ void CRow::addByList( list<string> valueList )
 std::string CRow::getValue( string strKey )
 {
 	string destValue = "";
-	if (tableStruct->find(strKey) != tableStruct->end())
+	auto fieldIter = tableStruct->find(strKey);
+	if (fieldIter != tableStruct->end())
 	{
 		CRow::iterator iter = this->find(strKey);
 		if (iter != this->end())
@@ -206,6 +206,11 @@ std::string CRow::getValue( string strKey )
 		else
 		{
 			destValue = "";
+		}
+
+		if (destValue.empty() && fieldIter->second.isNumberType())
+		{
+			destValue = "0";
 		}
 	}
 	return destValue;

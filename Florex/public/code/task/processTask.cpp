@@ -7,9 +7,9 @@
 #include "PubFun.h"
 #include "tools/FunctionLog.h"
 
-const int timeStep = 3600*4;
+const int timeStep = 3600;
 
-CProcessTask::CProcessTask( PRow taskInfo, PRow status, PBaseProcess process ):porcessTaskInfo(taskInfo),porcessStatus(status)
+CProcessTask::CProcessTask( PRow status, PBaseProcess process, string name ):porcessTaskInfo(process->getTaskInfo()),porcessStatus(status),CBaseTask(name)
 {
 	log.debug(PubFun::strFormat("CProcessTask build, %d\n", this));
 	this->process = process;
@@ -47,8 +47,11 @@ void CProcessTask::runInThread( const char* argv )
 		string rateName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
 		string startTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_startTime);
 		string endTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_endTime);
+		string rateType = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+		string processTypeName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
 		PCurRateStruct rateStruct = newCurRateStruct(rateName);
 		PTable rateTable = newTable(rateStruct);
+		string logName = rateName + "_" + processTypeName;
 
 		map<long, long> resValueMap;
 		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);

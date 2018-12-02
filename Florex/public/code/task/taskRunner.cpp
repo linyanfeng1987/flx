@@ -27,6 +27,8 @@ CtaskRunner::~CtaskRunner()
 
 void CtaskRunner::run()
 {
+	CLogInfo logInfo("taskRunner");
+	log.addLogInfo(logInfo);
 	while (true)
 	{
 		rangTaskList();
@@ -36,8 +38,8 @@ void CtaskRunner::run()
 
 void CtaskRunner::buildTestDbTask()
 {
-	PDbTestTask ptask1 = newDbTestTask(-1);
-	PDbTestTask ptask2 = newDbTestTask(2);
+	PDbTestTask ptask1 = newDbTestTask(-1, "DBTask1");
+	PDbTestTask ptask2 = newDbTestTask(2, "DBTask2");
 
 	ptask1->run(nullptr);
 	ptask2->run(nullptr);
@@ -106,7 +108,7 @@ PBaseProcess CtaskRunner::getProcess( PRow taskInfo )
 	PBaseProcess process = nullptr;
 	if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find("average"))
 	{
-		process = newAverageProcess(); 
+		process = newAverageProcess(taskInfo); 
 	}
 	return process;
 }
@@ -116,7 +118,10 @@ PProcessTask CtaskRunner::getProcessTask( PRow taskInfo )
 	PBaseProcess pProcess = getProcess(taskInfo);
 	PRow processStatus = CDbFunc::getProcessStatusLine(taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName));
 
-	PProcessTask task = newProcessTask(taskInfo, processStatus, pProcess);
+	string rateName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
+	string processTypeName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+	string taskName = rateName + "_" + processTypeName;
+	PProcessTask task = newProcessTask(processStatus, pProcess, taskName);
 
 	return task;
 }

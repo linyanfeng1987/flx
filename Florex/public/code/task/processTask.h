@@ -7,7 +7,7 @@
 class CProcessTask : public CBaseTask
 {
 public:
-	CProcessTask(PRow porcessTaskInfo, PRow porcessStatus, PBaseProcess pProcess);
+	CProcessTask( PRow porcessStatus, PBaseProcess pProcess, string name);
 	~CProcessTask();
 
 	string getTaskId();

@@ -1,5 +1,6 @@
 #include "TableStruct.h"
-
+#include "PubFun.h"
+#include <regex>
 
 CTableStruct::CTableStruct(string strName)
 {
@@ -18,7 +19,42 @@ CTableStruct::~CTableStruct(void)
 
 std::string CTableStruct::getCreateTableSql()
 {
-	return "";
+	string fields = "";
+	string pkFields = "";
+	for(auto field : *this){
+		string strField = PubFun::strFormat("`%s`", field.first.c_str());
+		if(field.second.bIsPk){
+			if (!pkFields.empty())
+			{
+				pkFields.append(",");
+			}
+			pkFields.append(strField);
+		}
+
+		string fieldType = "";
+		if("int" == field.second.strType){
+			fieldType = "int";
+		}else if("double" == field.second.strType){
+			fieldType = "float";
+		}else if("string" == field.second.strType){
+			fieldType = "VARCHAR(45)";
+		}
+		string fieldDefSql = PubFun::strFormat("%s %s NOT NULL", strField.c_str(), fieldType.c_str());
+		if(!fields.empty())
+		{
+			fields.append(",\n");
+		}
+		fields.append(fieldDefSql);
+	}
+	string pkSql = "";
+	if (!pkFields.empty())
+	{
+		pkSql = PubFun::strFormat(",\nPRIMARY KEY (%s)", pkFields.c_str());
+	}
+
+	string strSql = PubFun::strFormat("create table %s \n(%s%s);", tableName.c_str(), fields.c_str(), pkSql.c_str());
+
+	return strSql;
 }
 
 std::string CTableStruct::getDeleteTableSql()
@@ -33,8 +69,7 @@ void CTableStruct::setName( string strName )
 
 std::string CTableStruct::getSelectSql( string conditicon )
 {
-	string strSql = "select * from ";
-	strSql += tableName;
+	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
 	if(!conditicon.empty())
 	{
 		strSql.append(" where ");
@@ -51,23 +86,8 @@ std::string CTableStruct::getBaseInsertSqlFormat()
 		strInsertSqlFormat = "insert into ";
 		strInsertSqlFormat += tableName;
 		strInsertSqlFormat += " (";
-		string strTmp = "";
-		for(auto field : *this)
-		{
-			if (!strTmp.empty())
-			{
-				strTmp += ",";
-				strTmp += " ";
-			}
-			strTmp += field.first;
-		}
-		strInsertSqlFormat += strTmp;
-		strInsertSqlFormat += ")";
-		strInsertSqlFormat += " value";
-		strInsertSqlFormat += " ( ";
-		strInsertSqlFormat += "%s";
-		strInsertSqlFormat += " )";
-		strInsertSqlFormat += ";";
+		strInsertSqlFormat += getFieldsStr();
+		strInsertSqlFormat += ") value ( %s );";
 	}
 
 	return strInsertSqlFormat;
@@ -82,6 +102,51 @@ std::string CTableStruct::getBaseUpdateSqlFormat()
 	}
 
 	return strUpdateSqlFormat;
+}
+
+std::string CTableStruct::getFieldsStr( string split /*= ","*/ )
+{
+	string fields = "";
+	for(auto field : *this){
+		if (!fields.empty())
+		{
+			fields.append(split);
+		}
+		fields.append(field.first);
+	}
+	return fields;
+}
+
+bool CTableStruct::tableExist()
+{
+	string strSql = PubFun::strFormat("select * from %s limit 1;", tableName.c_str());
+	CDbObj& dbObj = CDbObj::instance();
+	try
+	{
+		dbObj.executeSql(strSql.c_str());
+	}
+	catch (CStrException& e)
+	{
+		// 这里要处理表不存在的情况
+		string msg = e.what();
+		regex reg1("Table '[\\w\\.]+' doesn't exist");
+		smatch r1;
+		if(regex_match(msg, r1, reg1))
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+void CTableStruct::ensureExist()
+{
+	if (!tableExist())
+	{
+		string createTableSql = this->getCreateTableSql();
+		CDbObj::instance().executeSql(createTableSql.c_str());
+	}
 }
 
 // 

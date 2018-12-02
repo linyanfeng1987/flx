@@ -4,7 +4,7 @@
 #include "db/DbObj.h"
 #include "PubFun.h"
 
-CDbTestTask::CDbTestTask( int step )
+CDbTestTask::CDbTestTask( int step, string name): CBaseTask(name)
 {
 	this->step = step;
 }

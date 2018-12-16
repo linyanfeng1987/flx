@@ -1,5 +1,6 @@
 #include "Table.h"
 #include "Exception.h"
+#include "db/DbObj.h"
 
 
 CTable::CTable(PTableStruct tableStruct)
@@ -26,4 +27,16 @@ void CTable::addRow( PRow row )
 	{
 		throw CStrException("insert error in addRow.");
 	}
+}
+
+void CTable::save()
+{
+	list<string> sqls;
+	for (auto rowIter : *this)
+	{
+		sqls.push_back(rowIter.second->getSql());
+		rowIter.second->setDataStatus(DATA_SAME);
+	}
+
+	CDbObj::instance().insertDatas(sqls);
 }

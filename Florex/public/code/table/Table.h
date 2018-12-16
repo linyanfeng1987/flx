@@ -14,6 +14,7 @@ public:
 
 	void init(PTableStruct tableStruct);
 	void addRow(PRow row);
+	void save();
 
 	PTableStruct tableStruct;
 

@@ -1,18 +1,18 @@
 #include "baseCalc.h"
-#include "process/obj/sum.h"
+#include "process/obj/sumByTime.h"
 
 class CAverageCalc : public CBaseCalc
 {
 public:
-	CAverageCalc(int cycle);
+	CAverageCalc(double cycle);
 	~CAverageCalc();
 
-	double addValue(double curValue);
+	double addValue(double time, double curValue);
 protected:
 	// 周期
-	int cycle;
+	double cycle;
 	// 
 	// 求和容器
-	CSum sum;
+	CSumByTime sum;
 };
 

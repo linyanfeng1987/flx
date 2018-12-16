@@ -109,6 +109,7 @@
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h" />
     <ClInclude Include="..\public\code\process\obj\sum.h" />
+    <ClInclude Include="..\public\code\process\obj\sumByTime.h" />
     <ClInclude Include="..\public\code\process\processType.h" />
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp" />
     <ClCompile Include="..\public\code\process\obj\sum.cpp" />
+    <ClCompile Include="..\public\code\process\obj\sumByTime.cpp" />
     <ClCompile Include="..\public\code\process\processType.cpp" />
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />

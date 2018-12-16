@@ -50,7 +50,7 @@ public:
 	static string get14TimeString( SYSTEMTIME& s_time);
 	static string get14CurTimeString();
 
-	static double timeConvert(time_t ts, int msec);
+	static double timeConvert(time_t ts, double msec);
 	static pair<time_t, int> timeConvert(double dTime);
 	
 

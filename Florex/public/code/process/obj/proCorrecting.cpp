@@ -14,7 +14,7 @@ CProCorrecting::~CProCorrecting()
 {
 }
 
-bool CProCorrecting::clac( double tmpTime, double tmpValue, map<double, double>& valueMap )
+bool CProCorrecting::calc( double tmpTime, double tmpValue, map<double, double>& valueMap )
 {
 	valueMap.clear();
 	if(0 != this->curTime)

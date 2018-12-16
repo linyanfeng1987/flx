@@ -15,7 +15,7 @@ CBaseCurRateStruct::CBaseCurRateStruct(string pureRateName)
 	field.load(curTime, "int", true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(curMsec, "int");
+	field.load(curMsec, "int", true);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(timeFormat, "string");
@@ -30,6 +30,14 @@ CBaseCurRateStruct::~CBaseCurRateStruct()
 void CBaseCurRateStruct::setPureRateName(string pureRateName)
 {
 	this->pureRateName = pureRateName;
+	setTableName(pureRateName);
 }
 
 
+void CBaseCurRateStruct::setTableName( string rateName)
+{
+	string curTableName = florexDbName; 
+	curTableName.append(".").append("currency_pair_").append(rateName);
+
+	this->setName(curTableName);
+}

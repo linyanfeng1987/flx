@@ -27,10 +27,12 @@ public:
 	void executeSql(const char * sql);
 
 	void insertDatas(list<string> sqls);
+	void insertData(string sql);
 
 	void initMySQL();
 	
 protected:
+	void baseInsert(string sql);
 	void tryConnect();
 	void connectDefDb();
 	void connectMySQL(char *host,unsigned int port,char * Db,char * user,char* passwd,char * charset,string &strMsg);

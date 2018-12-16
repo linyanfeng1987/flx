@@ -9,6 +9,7 @@ public:
 	~CBaseCurRateStruct();
 
 	void setPureRateName(string pureRateName);
+	void setTableName(string rateName);
 
 
 	static string curTime; 

@@ -10,7 +10,7 @@ public:
 	~CProCorrecting();
 
 	void setStep(int step){this->step = step;}
-	bool clac(double curTime, double curValue, map<double, double>& valueMap);
+	bool calc(double curTime, double curValue, map<double, double>& valueMap);
 
 protected:
 	// 步长， 单位 秒

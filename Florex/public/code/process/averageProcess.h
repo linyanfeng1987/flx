@@ -16,6 +16,9 @@ public:
 protected:
 	int cycle;
 	int timeStepType;
+	double lastPrice;
+	shared_ptr<CAverageCalc> calcBuyObj;
+	shared_ptr<CAverageCalc> calcSellObj;
 };
 typedef shared_ptr<CAverageProcess> PAverageProcess;
 #define newAverageProcess(T) make_shared<CAverageProcess>(T);

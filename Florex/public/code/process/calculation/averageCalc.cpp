@@ -1,19 +1,17 @@
 #include "averageCalc.h"
 
 
-CAverageCalc::CAverageCalc( int cycle ): sum(cycle)
+CAverageCalc::CAverageCalc( double cycle ): sum(cycle)
 {
 
 }
-
 
 CAverageCalc::~CAverageCalc()
 {
 }
 
-double CAverageCalc::addValue( double curValue )
+double CAverageCalc::addValue(double time, double curValue )
 {
-	sum.add(curValue);
-	return sum.getAverage();
+	return sum.add(time, curValue);
 }
 

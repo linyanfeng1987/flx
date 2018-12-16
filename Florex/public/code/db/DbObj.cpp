@@ -1,6 +1,7 @@
 #include "../PubFun.h"
 #include "Exception.h"
 #include "DbObj.h"
+#include <regex>
 //#include "AutoMutex.h"
 #include "tools/FunctionLog.h"
 #pragma comment(lib, "libmysql.lib")  
@@ -270,9 +271,40 @@ void CDbObj::insertDatas( list<string> sqls )
 	startTransaction();
 	for (string sql : sqls)
 	{
-		baseExecuteSql(sql.c_str());;
+		baseInsert(sql);;
 	}
 	commit();
+}
+
+void CDbObj::insertData( string sql )
+{
+	tryConnect();
+	baseInsert(sql);
+}
+
+void CDbObj::baseInsert( string sql )
+{
+	string strLog = "insertSql:";
+	strLog += sql;
+	PubFun::log(strLog);
+	{
+		try
+		{
+			baseExecuteSql(sql.c_str());
+		}
+		catch (CStrException& e)
+		{
+			// 主键冲突的暂时不处理了
+			string msg = e.what();
+			regex reg1("^Duplicate entry.*?for key 'PRIMARY'$");
+			smatch r1;
+			if(!regex_match(msg, r1, reg1))
+			{
+				//不是主键冲突
+				throw e;
+			}
+		}
+	}
 }
 
 
@@ -282,6 +314,8 @@ void CDbObj::throwSqlError(string sql)
 	log.error(PubFun::strFormat("执行sql失败:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
 	throw CStrException(strMsg);
 }
+
+
 
 
 

@@ -9,8 +9,6 @@ public:
 	CCurRateStruct(string rateName);
 	//CCurRateStruct(string rateName, string timeSetp);
 	~CCurRateStruct();
-
-	void setTableName(string rateName);
  
 	static string priceBuy; 
 	static string priceSell; 
@@ -18,10 +16,8 @@ public:
 
 	static string percentSpead_s; 
 
-	string curRateTableName;
-
 protected:
-	void init(string rateName);
+	void init();
 };
 typedef shared_ptr<CCurRateStruct> PCurRateStruct;
 #define newCurRateStruct(T) make_shared<CCurRateStruct>(T);

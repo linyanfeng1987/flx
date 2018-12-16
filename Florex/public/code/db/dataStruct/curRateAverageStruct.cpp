@@ -2,11 +2,14 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
+string CCurRateAverageStruct::price = "price"; 
 
-CCurRateAverageStruct::CCurRateAverageStruct(string rateName,string timeName):CCurRateStruct(rateName)
+CCurRateAverageStruct::CCurRateAverageStruct(string rateName,string timeName):CBaseCurRateStruct(rateName)
 {
 	setTimeName(timeName);	
+	init();
 }
+
 
 CCurRateAverageStruct::~CCurRateAverageStruct()
 {
@@ -15,9 +18,18 @@ CCurRateAverageStruct::~CCurRateAverageStruct()
 
 void CCurRateAverageStruct::setTimeName(string timeName)
 {
-	tableName = curRateTableName; 
-	tableName.append("_average").append(timeName);
+	tableName.append("_average");
+	if (!timeName.empty())
+	{
+		tableName.append(timeName);
+	}
+}
 
-	this->setName(tableName);
+void CCurRateAverageStruct::init()
+{
+	CField field;
+
+	field.load(price, "double");
+	this->insert(make_pair(field.strName, field));
 }
 

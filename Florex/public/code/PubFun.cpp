@@ -332,9 +332,9 @@ void PubFun::getIntListByStep( list<long long>& destList, double startValue, dou
 	}
 }
 
-double PubFun::timeConvert( time_t ts, int msec )
+double PubFun::timeConvert( time_t ts, double msec )
 {
-	double dTime = double(ts + msec / 1000);
+	double dTime = ts + msec / 1000;
 	return dTime;
 }
 
@@ -406,7 +406,7 @@ void PubFun::buildValueList( long startValue, long endValue, long step, map<long
 		tmpValue = i + step;
 		tmpValue = tmpValue < endValue ? tmpValue : endValue;
 		resValueMap.insert(make_pair(i, tmpValue));
-		i = tmpValue;
+		i = tmpValue + 1;
 	}
 }
 

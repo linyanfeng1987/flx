@@ -19,26 +19,37 @@ void CAverageProcess::calc( PTable& table )
 	PCurRateAverageStruct curRateAverageStruct = newCurRateAverageStruct(pureRateName, timeName);
 	curRateAverageStruct->ensureExist();
 	
-	CAverageCalc* pCalcBuyObj = new CAverageCalc(cycle);
-	CAverageCalc* pCalcSellObj = new CAverageCalc(cycle);;
+	
+	PTable resTable = newTable(curRateAverageStruct);
+
 	// @@@@@这里应该是历史记录的那种表
 	for (auto rowIter : *table)
 	{
 		PRow averageRow = newRow(curRateAverageStruct);
+		long curTime = rowIter.second->getIntValue(CCurRateStruct::curTime);
+		long curMsec = rowIter.second->getIntValue(CCurRateStruct::curMsec);
+		double curDTime = PubFun::timeConvert(curTime, curMsec);
 		double priceBuy = rowIter.second->getDoubleValue(CCurRateStruct::priceBuy);
 		double priceSell = rowIter.second->getDoubleValue(CCurRateStruct::priceSell);
 
-		double averageBuyValue = pCalcBuyObj->addValue(priceBuy);
-		double averageSellValue = pCalcSellObj->addValue(priceSell);
+		double averageBuyValue = calcBuyObj->addValue(curDTime, priceBuy);
+		double averageSellValue = calcSellObj->addValue(curDTime, priceSell);
+		double averagePrice = (averageBuyValue + averageSellValue)/2;
+		double defValue = fabs(averagePrice - lastPrice);
+		if (defValue > g_priveSetp1)
+		{
+			lastPrice = averagePrice;
+			averageRow->setStringValue(CCurRateAverageStruct::curTime,rowIter.second->getStringValue(CCurRateStruct::curTime));
+			averageRow->setStringValue(CCurRateAverageStruct::curMsec,rowIter.second->getStringValue(CCurRateStruct::curMsec));
+			averageRow->setStringValue(CCurRateAverageStruct::timeFormat,rowIter.second->getStringValue(CCurRateStruct::timeFormat));
+			averageRow->setDoubleValue(CCurRateAverageStruct::price, averagePrice);
 
-		averageRow->setStringValue(CCurRateAverageStruct::curTime,rowIter.second->getStringValue(CCurRateStruct::curTime));
-		averageRow->setStringValue(CCurRateAverageStruct::curMsec,rowIter.second->getStringValue(CCurRateStruct::curMsec));
-		averageRow->setStringValue(CCurRateAverageStruct::timeFormat,rowIter.second->getStringValue(CCurRateStruct::timeFormat));
-		averageRow->setDoubleValue(CCurRateAverageStruct::priceBuy, averageBuyValue);
-		averageRow->setDoubleValue(CCurRateAverageStruct::priceSell, averageSellValue);
+			resTable->addRow(averageRow);
+		}
 
-		averageRow->save();
+		//averageRow->save();
 	}
+	resTable->save();
 }
 
 void CAverageProcess::init( PRow pTaskInfo )
@@ -56,4 +67,8 @@ void CAverageProcess::init( PRow pTaskInfo )
 	}
 	cycle =  PubFun::stringToInt(strTimeStep);
 	timeStepType = PubFun::getStepType(cycle);
+
+	calcBuyObj = make_shared<CAverageCalc>(cycle);
+	calcSellObj = make_shared<CAverageCalc>(cycle);
+	lastPrice = 0;
 }

@@ -26,4 +26,5 @@ const static int maxLineRead = 10000;
 
 const string rateNames[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audusd"};
 
-
+const double g_priveSetp1 = 0.1;
+const double g_priveSetp2 = 0.0001;

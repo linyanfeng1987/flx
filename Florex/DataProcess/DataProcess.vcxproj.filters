@@ -52,6 +52,9 @@
     <Filter Include="public\tools">
       <UniqueIdentifier>{292d0dab-d4fe-4305-828d-9e4ace8e35f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\process\obj\continue">
+      <UniqueIdentifier>{cb8111c1-188c-4ab8-93a5-7823593b23c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -189,6 +192,33 @@
     <ClInclude Include="..\public\code\process\obj\sumByTime.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\rateValue.h">
+      <Filter>public\process\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continueValue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueValue.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueObj.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continues.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueBuilder.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueJudgeObj.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -325,6 +355,33 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\sumByTime.cpp">
       <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\rateValue.cpp">
+      <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continueValue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueValue.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueObj.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continues.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueBuilder.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueJudgeObj.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp">
+      <Filter>public\process\obj\continue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -158,7 +158,7 @@ void CRow::init( PTableStruct tableStruct )
 	setTableStruct(tableStruct);
 }
 
-void CRow::setAndaddValue( string strKey, string strValue )
+void CRow::setAndaddValue( string& strKey, string& strValue )
 {
 	if (tableStruct->find(strKey) != tableStruct->end())
 	{
@@ -192,7 +192,7 @@ void CRow::addByList( list<string> valueList )
 	}
 }
 
-std::string CRow::getValue( string strKey )
+std::string CRow::getValue( string& strKey )
 {
 	string destValue = "";
 	auto fieldIter = tableStruct->find(strKey);
@@ -205,18 +205,18 @@ std::string CRow::getValue( string strKey )
 		}
 		else
 		{
-			destValue = "";
+			destValue = emptyString;
 		}
 
 		if (destValue.empty() && fieldIter->second.isNumberType())
 		{
-			destValue = "0";
+			destValue = zeroString;
 		}
 	}
 	return destValue;
 }
 
-void CRow::setValue( string strKey, string strValue )
+void CRow::setValue( string& strKey, string& strValue )
 {
 	auto iter = this->find(strKey);
 	if(iter != this->end())
@@ -232,42 +232,42 @@ void CRow::setValue( string strKey, string strValue )
 }
 
 
-std::string CRow::getStringValue(string strKey)
+std::string CRow::getStringValue(string& strKey)
 {
 	return this->getValue(strKey);
 }
 
-long CRow::getIntValue(string strKey)
+long CRow::getIntValue(string& strKey)
 {
 	return PubFun::stringToInt(this->getValue(strKey));
 }
 
-time_t CRow::getTimeValue(string strKey)
+time_t CRow::getTimeValue(string& strKey)
 {
 	return PubFun::stringToInt(this->getValue(strKey));
 }
 
-double CRow::getDoubleValue(string strKey)
+double CRow::getDoubleValue(string& strKey)
 {
 	return PubFun::stringToDouble(this->getValue(strKey));
 }
 
-void CRow::setStringValue(string strKey, string strValue )
+void CRow::setStringValue(string& strKey, string& strValue )
 {
 	this->setValue(strKey, strValue);
 }
 
-void CRow::setIntValue(string strKey, long lValue )
+void CRow::setIntValue(string& strKey, long lValue )
 {
 	this->setValue(strKey, PubFun::intToString(lValue));
 }
 
-void CRow::setTimeValue(string strKey, time_t tValue )
+void CRow::setTimeValue(string& strKey, time_t tValue )
 {
 	this->setValue(strKey, PubFun::intToString((long)tValue));
 }
 
-void CRow::setDoubleValue(string strKey, double dValue )
+void CRow::setDoubleValue(string& strKey, double dValue )
 {
 	this->setValue(strKey, PubFun::doubleToString(dValue));
 }

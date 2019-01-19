@@ -17,6 +17,9 @@ enum DATA_STATUS
 	DATA_DELETE,
 };
 
+const string emptyString = "";
+const string zeroString = "0";
+
 class CRow : public Linked_map<string, string>
 {
 public:
@@ -38,22 +41,22 @@ public:
 	string getUpdateSql();
 	string getDeleteSql();
 
-	void setAndaddValue(string strKey, string strValue);
+	void setAndaddValue(string& strKey, string& strValue);
 	void addByList(list<string> valueList);
-	string getValue(string strKey);
-	void setValue(string strKey, string strValue);
+	string getValue(string& strKey);
+	void setValue(string& strKey, string& strValue);
 
 
-	string getStringValue(string strKey);
-	long getIntValue(string strKey);
-	time_t getTimeValue(string strKey);
-	double getDoubleValue(string strKey);
+	string getStringValue(string& strKey);
+	long getIntValue(string& strKey);
+	time_t getTimeValue(string& strKey);
+	double getDoubleValue(string& strKey);
 
 
-	void setStringValue(string strKey, string strValue);
-	void setIntValue(string strKey, long lValue);
-	void setTimeValue(string strKey, time_t tValue);
-	void setDoubleValue(string strKey, double dValue);
+	void setStringValue(string& strKey, string& strValue);
+	void setIntValue(string& strKey, long lValue);
+	void setTimeValue(string& strKey, time_t tValue);
+	void setDoubleValue(string& strKey, double dValue);
 
 	DATA_STATUS m_dataStatus;
 

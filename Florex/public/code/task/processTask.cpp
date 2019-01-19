@@ -24,7 +24,7 @@ int CProcessTask::completeTask()
 {
 	try
 	{
-		porcessTaskInfo->setStringValue(CProcessTaskInfoStruct::key_status, "3");
+		porcessTaskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
 		porcessTaskInfo->save();
 
 		string completeTime = porcessStatus->getStringValue(CProcessStatusStruct::key_buildTaskLastTime);

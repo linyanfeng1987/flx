@@ -1,3 +1,4 @@
+#pragma once
 #include <list>
 #include <map>
 #include "process/obj/rateValue.h"
@@ -41,7 +42,7 @@ public:
 
 	bool isContinueStart_s(const CRateValue& curValue, CRateValue& startValue);
 	bool isContinueStart(double& stepPersent);
-	bool isContinueGoOn(const CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect);
+	bool isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect);
 
 	int getLevel(){return continueLevel;}
 protected:
@@ -49,7 +50,7 @@ protected:
 	
 	
 	// 停止连续，记录连续，并尝试校验新的连续
-	bool stopContinue(const CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue);
+	//bool stopContinue(CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue);
 
 	// 连续等级 
 	int continueLevel;

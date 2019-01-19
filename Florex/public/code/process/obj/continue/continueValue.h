@@ -1,6 +1,6 @@
+#pragma once
 #include "process/obj/rateValue.h"
-#include <memory.h>
-
+#include <memory>
 
 using namespace std;
 
@@ -18,7 +18,6 @@ public:
 	CRateValue stopValue;
 	// 停止的判断信息，类型暂定
 	string stopType;
-	double stopValue;
 };
 
 typedef shared_ptr<CContinueValue> PContinueValue;

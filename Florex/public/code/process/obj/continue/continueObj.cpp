@@ -14,7 +14,7 @@ void CContinueObj::init( CRateValue& startValue, CRateValue& tryEndValue, int& c
 	this->judegLevel = judegLevel;
 }
 
-bool CContinueObj::isContinueGoOn(const CRateValue& curValue )
+bool CContinueObj::isContinueGoOn(CRateValue& curValue )
 {
 	bool bRes = pJudgeGroup->isContinueGoOn(judegLevel, curValue, startValue, tryEndValue, curDirect);
 	if (!bRes)

@@ -84,7 +84,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
 		string strParam = PubFun::strFormat("timeStep=%d", processType.timeStep);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, strParam);
-		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, "0");
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("0"));
 		taskInfo->save();
 
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
@@ -141,7 +141,7 @@ time_t CTaskBuilder::getRateTime( string strTableName, string orderSql )
 	if (iter != resTable->end())
 	{
 		//获取第一行的值
-		lastTime = PubFun::stringToInt(iter->second->getValue("curTime"));
+		lastTime = PubFun::stringToInt(iter->second->getValue(string("curTime")));
 	}
 	
 	return lastTime;

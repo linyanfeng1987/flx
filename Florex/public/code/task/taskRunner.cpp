@@ -62,7 +62,7 @@ bool CtaskRunner::reloadTaskList()
 
 		for(auto it : *table)
 		{
-			it.second->setStringValue(CProcessTaskInfoStruct::key_status, "1");
+			it.second->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
 			it.second->save();
 			gData.addProcessTaskInfo(it.second);
 

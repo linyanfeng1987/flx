@@ -1,3 +1,4 @@
+#pragma once
 #include "continueObj.h"
 #include <map>
 using namespace std;

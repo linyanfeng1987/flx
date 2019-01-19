@@ -8,12 +8,6 @@ CContinueFinder::CContinueFinder( PContinueJudgeGroup pJudgeGroup )
 	this->pJudgeGroup = pJudgeGroup;
 }
 
-CContinueFinder::~CContinueFinder()
-{
-// 	CRateValue r1, r2;
-// 	flagValue.insert(make_pair(-1, r1));
-// 	flagValue.insert(make_pair(1, r2));
-}
 
 // 只记录生成最小连续的起始信息即可
 bool CContinueFinder::add(CRateValue& curValue)
@@ -37,7 +31,7 @@ void CContinueFinder::tryFindNew( CRateValue& curValue )
 		double stepValue = startValue.value - curValue.value;
 		int curDirect = stepValue > 0 ? 1 : -1;
 		auto curContinueObjIter = curObjs.find(curDirect);
-		if (objs.end() == curContinueObjIter)
+		if (curObjs.end() == curContinueObjIter)
 		{
 			// 当前容器内没有同方向的连续对象的时候，尝试判断是否生成新的
 			double stepPersent = abs(stepValue / curValue.value * 1000);

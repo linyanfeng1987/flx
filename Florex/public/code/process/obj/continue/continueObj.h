@@ -1,3 +1,4 @@
+#pragma once
 #include <list>
 #include <map>
 #include "process/obj/rateValue.h"
@@ -40,7 +41,7 @@ public:
 	void setId(long objId){this->objId = objId;}
 	long getId(){ return objId;}
 
-	bool isContinueGoOn(const CRateValue& curValue);
+	bool isContinueGoOn(CRateValue& curValue);
 
 	PContinueValue getContinueValue(){return pContinueValue;}
 protected:

@@ -1,3 +1,4 @@
+#pragma once
 #include "continueJudgeObj.h"
 #include "LinkedHashMap.h"
 using namespace std;
@@ -6,7 +7,7 @@ class CContinueJudgeGroup
 public:
 	CContinueJudgeGroup(int maxObjNumber, double stepLevelPersent);
 
-	bool isContinueGoOn(int& level, const CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect );
+	bool isContinueGoOn(int& level, CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect );
 	int isContinueStart(double& stepPersent);
 
 	void init(double minStepValuePersent, double minStepSpeedPersent, double retrcementValue, double retrcementSpead, double stopSpead);

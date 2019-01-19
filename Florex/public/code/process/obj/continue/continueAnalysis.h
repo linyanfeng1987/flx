@@ -1,3 +1,4 @@
+#pragma once
 #include "continueFinder.h"
 
 using namespace std;

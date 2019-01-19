@@ -16,7 +16,7 @@ void CContinueJudgeObj::init( double minStepValuePersent, double minStepSpeedPer
 	this->stopSpead = stopSpead;
 }
 
-bool CContinueJudgeObj::isContinueGoOn(const CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect )
+bool CContinueJudgeObj::isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect )
 {
 	bool bIsContinue = true;
 	double tryEndStepValue = (startValue.value - tryEndValue.value)*curDirect;
@@ -51,18 +51,19 @@ bool CContinueJudgeObj::isContinueStart( double& stepPersent )
 	return stepPersent > minStepValuePersent;
 }
 
-bool CContinueJudgeObj::stopContinue(const CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue )
-{
-	CContinueValue curContinueValue;
-	curContinueValue.startValue = startValue;
-	curContinueValue.endValue = tryEndValue;
-	curContinueValue.stopValue = stopValue;
-
-	startValue = tryEndValue;
-	if (isContinueStart(stopValue))
-	{
-		tryEndValue = stopValue;
-	}
-}
+// bool CContinueJudgeObj::stopContinue(CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue )
+// {
+// 	CContinueValue curContinueValue;
+// 	curContinueValue.startValue = startValue;
+// 	curContinueValue.endValue = tryEndValue;
+// 	curContinueValue.stopValue = stopValue;
+// 
+// 	startValue = tryEndValue;
+// 	if (isContinueStart(stopValue.value))
+// 	{
+// 		tryEndValue = stopValue;
+// 	}
+// 	return true;
+// }
 
 

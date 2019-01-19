@@ -1,3 +1,4 @@
+#pragma once
 #include <list>
 #include <map>
 #include "LinkedHashMap.h"
@@ -17,4 +18,4 @@ public:
 	double value;
 };
 
-const CRateValue zeroRateValue;
+//const CRateValue zeroRateValue;

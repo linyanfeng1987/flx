@@ -89,7 +89,7 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 				auto fieldIter = tableStruct->begin();
 				while (tableStruct->end() != fieldIter)
 				{
-					row->setAndaddValue(fieldIter->first, pDataValue);
+					row->setAndaddValue(fieldIter->first, string(pDataValue));
 					pDataValue = *(++pRow);
 					fieldIter++;
 				}
@@ -141,7 +141,7 @@ void CDbObj::selectData( const char * sql, PTable resTable)
 				auto fieldIter = resTable->tableStruct->begin();
 				while (resTable->tableStruct->end() != fieldIter)
 				{
-					row->setAndaddValue(fieldIter->first, pDataValue);
+					row->setAndaddValue(fieldIter->first, string(pDataValue));
 					pDataValue = *(++pRow);
 					fieldIter++;
 				}

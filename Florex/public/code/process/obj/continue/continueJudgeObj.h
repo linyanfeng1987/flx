@@ -30,24 +30,32 @@ using namespace std;
 //				builder：标准的集合？初始连续判断+obj生成
 //				continus：多个obj的存储
 
+enum emumContinueStatus
+{
+	continue_stop = -1,  // 中断
+	continue_lowDown,	// 降级
+	continue_keep,		// 保持（未增长）
+	continue_groupUp	// 增长
+};
 
 class CContinueJudgeObj
 {
 public:
 	CContinueJudgeObj(int continueLevel);
 
-	
+	static double getStepPersent(CRateValue& curValue, CRateValue& startValue);
 	
 	void init(double minStepValuePersent, double minStepSpeedPersent, double retrcementValue, double retrcementSpead, double stopSpead);
 
 	bool isContinueStart_s(const CRateValue& curValue, CRateValue& startValue);
 	bool isContinueStart(double& stepPersent);
-	bool isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect);
+	emumContinueStatus isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, double& curRetrcementSpead);
 
+	bool isLowDown(double& curRetrcementSpead);
 	int getLevel(){return continueLevel;}
 protected:
 	bool add(const CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect );
-	
+
 	
 	// 停止连续，记录连续，并尝试校验新的连续
 	//bool stopContinue(CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue);
@@ -64,7 +72,7 @@ protected:
 	double retrcementValue;
 	// 从起始值算起，最小速率，单位 s?h？
 	double stopSpead;
-	// 回撤速率
+	// 回撤速率 用于降低连续等级
 	double retrcementSpead;
 };
 

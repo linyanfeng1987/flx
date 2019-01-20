@@ -9,22 +9,53 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 
 bool CContinueJudgeGroup::isContinueGoOn( int& level, CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect )
 {
+	bool bIsContinue = true;
 	auto pCurJudge = judgeGroup.find(level)->second;
-	bool bIsContinue = pCurJudge->isContinueGoOn(curValue,startValue,tryEndValue,curDirect);
-	if (bIsContinue)
+	double curRetrcementSpead = 0;
+	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue,startValue,tryEndValue,curDirect, curRetrcementSpead);
+	if (continue_groupUp == conStatus)
 	{
 		tryEndValue =  curValue;
 		int nextLevel = level + 1;
-		if (nextLevel <= maxObjNumber)
+		while (nextLevel <= maxObjNumber)
 		{
 			// ³¢ÊÔ³É³¤
 			auto pNextJudge = judgeGroup.find(nextLevel)->second;
-			bool bIsGroupUp = pNextJudge->isContinueStart(curValue, startValue, curDirect);
+			double stepPersent = CContinueJudgeObj::getStepPersent(curValue, startValue);
+			bool bIsGroupUp = pNextJudge->isContinueStart(stepPersent);
 			if (bIsGroupUp)
 			{
 				level = nextLevel;
 			}
+			else
+			{
+				break;
+			}
+			++nextLevel;
 		}
+	}
+	else if (continue_lowDown == conStatus)
+	{
+		int nextLevel = level - 1;
+		while (nextLevel >= 0)
+		{
+			// ³¢ÊÔ½µ¼¶
+			auto pNextJudge = judgeGroup.find(nextLevel)->second;
+			bool isLowDown = pNextJudge->isLowDown(curRetrcementSpead);
+			if (isLowDown)
+			{
+				level = nextLevel;
+			}
+			else
+			{
+				break;
+			}
+			--nextLevel;
+		}
+	}
+	else if (continue_stop == conStatus)
+	{
+		bIsContinue = false;
 	}
 	return bIsContinue;
 }

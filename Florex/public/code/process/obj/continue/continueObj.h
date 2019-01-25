@@ -62,4 +62,4 @@ protected:
 };
 
 typedef shared_ptr<CContinueObj> PContinueObj;
-#define newContinueObj(T) make_shared<CContinueObj>(T);
+#define newContinueObj(T) make_shared<CContinueObj>(T)

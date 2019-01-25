@@ -134,7 +134,7 @@ std::string CRow::getCondition()
 
 			strSql += valueIter->first;
 			strSql += "='";
-			strSql += valueIter->second;
+			strSql += valueIter->second->getStrValue();
 			strSql += "'";
 		}
 	}
@@ -165,11 +165,11 @@ void CRow::setAndaddValue( string& strKey, string& strValue )
 		CRow::iterator iter = this->find(strKey);
 		if (iter != this->end())
 		{
-			iter->second = strValue;
+			iter->second->setValue(strValue);
 		}
 		else
 		{
-			std::pair<CRow::iterator, bool> pr = this->insert(make_pair(strKey,strValue));
+			std::pair<CRow::iterator, bool> pr = this->insert(make_pair(strKey, newValueP(strValue)));
 			if (!pr.second)
 			{
 				throw CStrException("setAndaddValue error.");
@@ -194,26 +194,17 @@ void CRow::addByList( list<string> valueList )
 
 std::string CRow::getValue( string& strKey )
 {
-	string destValue = "";
-	auto fieldIter = tableStruct->find(strKey);
-	if (fieldIter != tableStruct->end())
+	PValue destValue = nullptr;
+	CRow::iterator iter = this->find(strKey);
+	if (iter != this->end())
 	{
-		CRow::iterator iter = this->find(strKey);
-		if (iter != this->end())
-		{
-			destValue = iter->second;
-		}
-		else
-		{
-			destValue = emptyString;
-		}
-
-		if (destValue.empty() && fieldIter->second.isNumberType())
-		{
-			destValue = zeroString;
-		}
+		destValue = iter->second;
 	}
-	return destValue;
+	else
+	{
+		destValue = newValue();
+	}
+	return destValue->getStrValue();
 }
 
 void CRow::setValue( string& strKey, string& strValue )
@@ -221,11 +212,26 @@ void CRow::setValue( string& strKey, string& strValue )
 	auto iter = this->find(strKey);
 	if(iter != this->end())
 	{
-		iter->second = strValue;
+		iter->second->setValue(strValue);
 	}
 	else
 	{
-		this->insert(make_pair(strKey, strValue));
+		this->insert(make_pair(strKey, newValueP(strValue)));
+	}
+
+	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
+}
+
+void CRow::setValue( string& strKey, double dValue )
+{
+	auto iter = this->find(strKey);
+	if(iter != this->end())
+	{
+		iter->second->setValue(dValue);
+	}
+	else
+	{
+		this->insert(make_pair(strKey, newValueP(dValue)));
 	}
 
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
@@ -234,22 +240,22 @@ void CRow::setValue( string& strKey, string& strValue )
 
 std::string CRow::getStringValue(string& strKey)
 {
-	return this->getValue(strKey);
+	return  this->find(strKey)->second->getStrValue();
 }
 
 long CRow::getIntValue(string& strKey)
 {
-	return PubFun::stringToInt(this->getValue(strKey));
+	return this->find(strKey)->second->getIntValue();
 }
 
 time_t CRow::getTimeValue(string& strKey)
 {
-	return PubFun::stringToInt(this->getValue(strKey));
+	return this->find(strKey)->second->getSizeTValue();
 }
 
 double CRow::getDoubleValue(string& strKey)
 {
-	return PubFun::stringToDouble(this->getValue(strKey));
+	return this->find(strKey)->second->getDoubleValue();
 }
 
 void CRow::setStringValue(string& strKey, string& strValue )
@@ -259,17 +265,17 @@ void CRow::setStringValue(string& strKey, string& strValue )
 
 void CRow::setIntValue(string& strKey, long lValue )
 {
-	this->setValue(strKey, PubFun::intToString(lValue));
+	this->setValue(strKey, lValue);
 }
 
 void CRow::setTimeValue(string& strKey, time_t tValue )
 {
-	this->setValue(strKey, PubFun::intToString((long)tValue));
+	this->setValue(strKey, (double)tValue);
 }
 
 void CRow::setDoubleValue(string& strKey, double dValue )
 {
-	this->setValue(strKey, PubFun::doubleToString(dValue));
+	this->setValue(strKey, dValue);
 }
 
 

@@ -26,5 +26,5 @@ private:
 };
 
 typedef shared_ptr<CTable> PTable;
-#define newTable(T) make_shared<CTable>(T);
+#define newTable(T) make_shared<CTable>(T)
 

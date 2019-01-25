@@ -21,4 +21,4 @@ protected:
 	PBaseProcess process;
 };
 typedef shared_ptr<CProcessTask> PProcessTask;
-#define newProcessTask(T1,T2,T3) make_shared<CProcessTask>(T1,T2,T3);
+#define newProcessTask(T1,T2,T3) make_shared<CProcessTask>(T1,T2,T3)

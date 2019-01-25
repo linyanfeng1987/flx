@@ -12,11 +12,9 @@ CContinueFinder::CContinueFinder( PContinueJudgeGroup pJudgeGroup )
 // 只记录生成最小连续的起始信息即可
 bool CContinueFinder::add(CRateValue& curValue)
 {
-	bool bIsContinue = true;
-	
 	addToObj(curValue);
 	tryFindNew(curValue);
-	return bIsContinue;
+	return true;
 }
 
 void CContinueFinder::tryFindNew( CRateValue& curValue )

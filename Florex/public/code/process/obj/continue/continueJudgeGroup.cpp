@@ -60,20 +60,17 @@ bool CContinueJudgeGroup::isContinueGoOn( int& level, CRateValue& curValue, CRat
 	return bIsContinue;
 }
 
-void CContinueJudgeGroup::init( double minStepValuePersent, double minStepSpeedPersent, double retrcementValue, double retrcementSpead, double stopSpead )
+void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementValue, double retrcementSpead )
 {
-	this->minStepSpeedPersent = minStepSpeedPersent;
 	this->minStepValuePersent = minStepValuePersent;
 	this->retrcementSpead = retrcementSpead;
 	this->retrcementValue = retrcementValue;
-	this->stopSpead = stopSpead;
 
 	for (int nLevelIndex = 0; nLevelIndex <= maxObjNumber ; nLevelIndex++)
 	{
 		PContinueJudgeObj pObj = newContinueJudgeObj(nLevelIndex);
-		pObj->init(minStepValuePersent, minStepSpeedPersent, retrcementValue, retrcementSpead, stopSpead);
+		pObj->init(minStepValuePersent, retrcementValue, retrcementSpead);
 		minStepValuePersent /= stepLevelPersent;
-		minStepSpeedPersent /= stepLevelPersent;
 		retrcementValue /= stepLevelPersent;
 		retrcementSpead /= stepLevelPersent;
 

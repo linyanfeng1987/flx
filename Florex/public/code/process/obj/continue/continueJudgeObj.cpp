@@ -7,13 +7,13 @@ CContinueJudgeObj::CContinueJudgeObj( int continueLevel )
 
 
 
-void CContinueJudgeObj::init( double minStepValuePersent, double minStepSpeedPersent, double retrcementValue, double retrcementSpead, double stopSpead)
+void CContinueJudgeObj::init( double minStepValuePersent, double retrcementValue, double retrcementSpead)
 {
-	this->minStepSpeedPersent = minStepSpeedPersent;
+	//this->minStepSpeedPersent = minStepSpeedPersent;
 	this->minStepValuePersent = minStepValuePersent;
 	this->retrcementSpead = retrcementSpead;
 	this->retrcementValue = retrcementValue;
-	this->stopSpead = stopSpead;
+	//this->stopSpead = stopSpead;
 }
 
 emumContinueStatus CContinueJudgeObj::isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, double& curRetrcementSpead )

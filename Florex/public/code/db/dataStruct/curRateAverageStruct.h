@@ -17,4 +17,4 @@ protected:
 	void init();
 }; 
 typedef shared_ptr<CCurRateAverageStruct> PCurRateAverageStruct;
-#define newCurRateAverageStruct(T1,T2) make_shared<CCurRateAverageStruct>(T1,T2);
+#define newCurRateAverageStruct(T1,T2) make_shared<CCurRateAverageStruct>(T1,T2)

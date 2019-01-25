@@ -21,4 +21,4 @@ public:
 };
 
 typedef shared_ptr<CContinueValue> PContinueValue;
-#define newContinueValue() make_shared<CContinueValue>();
+#define newContinueValue() make_shared<CContinueValue>()

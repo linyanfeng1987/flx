@@ -10,7 +10,7 @@ public:
 	bool isContinueGoOn(int& level, CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect );
 	int isContinueStart(double& stepPersent);
 
-	void init(double minStepValuePersent, double minStepSpeedPersent, double retrcementValue, double retrcementSpead, double stopSpead);
+	void init(double minStepValuePersent, double retrcementValue, double retrcementSpead);
 protected:
 	Linked_map<int, PContinueJudgeObj> judgeGroup;
 
@@ -21,16 +21,16 @@ protected:
 
 	// 必须达到最小便宜比例，才算在此区间上连续, 单位：千分比
 	double minStepValuePersent;
-	double minStepSpeedPersent;
+	//double minStepSpeedPersent;
 	//////////////////////////////////////////////////////////////////////////
 	// 连续判断变量
 	// 回撤值，当回撤小于次值认为连续未中断，否则认为连续终端
 	double retrcementValue;
 	// 从起始值算起，最小速率，单位 s?h？
-	double stopSpead;
+	//double stopSpead;
 	// 回撤速率
 	double retrcementSpead;
 };
 
 typedef shared_ptr<CContinueJudgeGroup> PContinueJudgeGroup;
-#define newContinueJudgeGroup(T1,T2) make_shared<CContinueJudgeGroup>(T1,T2);
+#define newContinueJudgeGroup(T1,T2) make_shared<CContinueJudgeGroup>(T1,T2)

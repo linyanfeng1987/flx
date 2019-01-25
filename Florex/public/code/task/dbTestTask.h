@@ -17,4 +17,4 @@ protected:
 	int step;
 };
 typedef shared_ptr<CDbTestTask> PDbTestTask;
-#define newDbTestTask(T1, T2) make_shared<CDbTestTask>(T1, T2);
+#define newDbTestTask(T1, T2) make_shared<CDbTestTask>(T1, T2)

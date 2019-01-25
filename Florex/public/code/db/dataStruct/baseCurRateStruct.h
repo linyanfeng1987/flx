@@ -20,4 +20,4 @@ public:
 	string pureRateName;
 };
 typedef shared_ptr<CBaseCurRateStruct> PBaseCurRateStruct;
-#define newBaseCurRateStruct(T1) make_shared<CBaseCurRateStruct>(T1);
+#define newBaseCurRateStruct(T1) make_shared<CBaseCurRateStruct>(T1)

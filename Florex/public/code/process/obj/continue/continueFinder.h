@@ -46,4 +46,4 @@ protected:
 };
 
 typedef shared_ptr<CContinueFinder> PContinueFinder;
-#define newContinueFinder(T) make_shared<CContinueFinder>(T);
+#define newContinueFinder(T) make_shared<CContinueFinder>(T)

@@ -6,6 +6,7 @@
 
 #include "TableStruct.h"
 #include "Field.h"
+#include "Value.h"
 
 using namespace std;
 
@@ -17,10 +18,10 @@ enum DATA_STATUS
 	DATA_DELETE,
 };
 
-const string emptyString = "";
-const string zeroString = "0";
 
-class CRow : public Linked_map<string, string>
+
+
+class CRow : public Linked_map<string, PValue>
 {
 public:
 	// 可以进行sql交互的
@@ -45,13 +46,13 @@ public:
 	void addByList(list<string> valueList);
 	string getValue(string& strKey);
 	void setValue(string& strKey, string& strValue);
+	void setValue(string& strKey, double dValue);
 
 
 	string getStringValue(string& strKey);
 	long getIntValue(string& strKey);
 	time_t getTimeValue(string& strKey);
 	double getDoubleValue(string& strKey);
-
 
 	void setStringValue(string& strKey, string& strValue);
 	void setIntValue(string& strKey, long lValue);
@@ -63,10 +64,9 @@ public:
 protected:
 	
 	string getCondition();
-
 	PTableStruct tableStruct;
 };
 
 typedef shared_ptr<CRow> PRow;
-#define newRow(T) make_shared<CRow>(T);
+#define newRow(T) make_shared<CRow>(T)
 

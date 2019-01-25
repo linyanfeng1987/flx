@@ -107,6 +107,7 @@
     <ClInclude Include="..\public\code\process\cap\baseCap.h" />
     <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
+    <ClInclude Include="..\public\code\process\continueProcess.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
+    <ClInclude Include="..\public\code\table\Value.h" />
     <ClInclude Include="..\public\code\task\baseTask.h" />
     <ClInclude Include="..\public\code\task\dbTestTask.h" />
     <ClInclude Include="..\public\code\task\processTask.h" />
@@ -158,6 +160,7 @@
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
+    <ClCompile Include="..\public\code\process\continueProcess.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp" />
@@ -176,6 +179,7 @@
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
+    <ClCompile Include="..\public\code\table\Value.cpp" />
     <ClCompile Include="..\public\code\task\baseTask.cpp" />
     <ClCompile Include="..\public\code\task\dbTestTask.cpp" />
     <ClCompile Include="..\public\code\task\processTask.cpp" />

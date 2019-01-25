@@ -1,4 +1,5 @@
 #include "continueAnalysis.h"
+#include "ConstDef.h"
 
 CContinueAnalysis::CContinueAnalysis()
 {
@@ -18,8 +19,8 @@ void CContinueAnalysis::add(CRateValue& value )
 
 void CContinueAnalysis::init( )
 {
-	PContinueJudgeGroup pGroup = newContinueJudgeGroup(100, 0.618);
-	pGroup->init(0.1/1000, 0, 0.618, 0, 0);
+	PContinueJudgeGroup pGroup = newContinueJudgeGroup(100, goldenSection);
+	pGroup->init(0.1, goldenSection, goldenSection);
 	PContinueFinder pFinder = newContinueFinder(pGroup);
 	pFinder->setId(finderIndex++);
 	continueFinders.insert(make_pair(pFinder->getId(), pFinder));

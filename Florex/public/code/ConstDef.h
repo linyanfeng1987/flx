@@ -28,3 +28,5 @@ const string rateNames[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audu
 
 const double g_priveSetp1 = 0.1;
 const double g_priveSetp2 = 0.0001;
+
+const double goldenSection = 0.618;

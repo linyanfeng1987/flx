@@ -20,7 +20,7 @@ class CContinueFinder
 public:
 	CContinueFinder(PContinueJudgeGroup pJudgeGroup);
 
-	bool add(CRateValue& curValue);
+	bool add(PRateValue curValue);
 	
 	void init();
 
@@ -30,12 +30,12 @@ protected:
 
 	long finderId;
 
-	void tryFindNew(CRateValue& curValue);
-	void addToObj(CRateValue& curValue);
+	void tryFindNew(PRateValue curValue);
+	void addToObj(PRateValue curValue);
 	// ·½Ïò +1 »ò -1
 	//map<int, CRateValue> flagValue;
 	//int curContinueDirect;
-	CRateValue startValue;
+	PRateValue startValue;
 
 	long objIndex;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "process/obj/rateValue.h"
 #include <memory>
+#include "ConstDef.h"
 
 using namespace std;
 
@@ -11,11 +12,11 @@ public:
 	CContinueValue();
 
 
-	CRateValue startValue;
-	CRateValue endValue;
+	PRateValue startValue;
+	PRateValue endValue;
 
 	// 停止相关信息
-	CRateValue stopValue;
+	PRateValue stopValue;
 	// 停止的判断信息，类型暂定
 	string stopType;
 };

@@ -43,22 +43,22 @@ class CContinueJudgeObj
 public:
 	CContinueJudgeObj(int continueLevel);
 
-	static double getStepPersent(CRateValue& curValue, CRateValue& startValue);
+	static double getStepPersent(PRateValue curValue, PRateValue startValue);
 	
 	void init(double minStepValuePersent, double retrcementValue, double retrcementSpead);
 
-	bool isContinueStart_s(const CRateValue& curValue, CRateValue& startValue);
+	bool isContinueStart_s(const PRateValue curValue, PRateValue startValue);
 	bool isContinueStart(double& stepPersent);
-	emumContinueStatus isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, double& curRetrcementSpead);
+	emumContinueStatus isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect, double& curRetrcementSpead);
 
 	bool isLowDown(double& curRetrcementSpead);
 	int getLevel(){return continueLevel;}
 protected:
-	bool add(const CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect );
+	bool add(const PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect );
 
 	
 	// 停止连续，记录连续，并尝试校验新的连续
-	//bool stopContinue(CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue);
+	//bool stopContinue(PRateValue stopValue, PRateValue startValue, PRateValue tryEndValue);
 
 	// 连续等级 
 	int continueLevel;

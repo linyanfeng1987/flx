@@ -18,9 +18,6 @@ enum DATA_STATUS
 	DATA_DELETE,
 };
 
-
-
-
 class CRow : public Linked_map<string, PValue>
 {
 public:

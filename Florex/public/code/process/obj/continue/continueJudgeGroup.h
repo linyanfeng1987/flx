@@ -7,7 +7,7 @@ class CContinueJudgeGroup
 public:
 	CContinueJudgeGroup(int maxObjNumber, double stepLevelPersent);
 
-	bool isContinueGoOn(int& level, CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect );
+	bool isContinueGoOn(int& level, PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int curDirect );
 	int isContinueStart(double& stepPersent);
 
 	void init(double minStepValuePersent, double retrcementValue, double retrcementSpead);

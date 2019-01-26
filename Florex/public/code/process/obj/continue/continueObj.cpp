@@ -6,7 +6,7 @@ CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup )
 	this->pJudgeGroup  = pJudgeGroup;
 }
 
-void CContinueObj::init( CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, int& judegLevel )
+void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel )
 {
 	this->startValue = startValue;
 	this->tryEndValue = tryEndValue;
@@ -14,7 +14,7 @@ void CContinueObj::init( CRateValue& startValue, CRateValue& tryEndValue, int& c
 	this->judegLevel = judegLevel;
 }
 
-bool CContinueObj::isContinueGoOn(CRateValue& curValue )
+bool CContinueObj::isContinueGoOn(PRateValue curValue )
 {
 	bool bRes = pJudgeGroup->isContinueGoOn(judegLevel, curValue, startValue, tryEndValue, curDirect);
 	if (!bRes)

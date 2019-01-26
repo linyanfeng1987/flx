@@ -9,7 +9,7 @@ class CContinueAnalysis
 public:
 	CContinueAnalysis();
 
-	void add(CRateValue& value);
+	void add(PRateValue value);
 
 protected:
 	// ≥ı ºªØfinder
@@ -20,3 +20,5 @@ protected:
 // 	double minContinueStep;
 // 	double persentStep;
 };
+typedef shared_ptr<CContinueAnalysis> PContinueAnalysis;
+#define newContinueAnalysis() make_shared<CContinueAnalysis>()

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "baseProcess.h"
-#include "process/calculation/averageCalc.h"
+#include "process/obj/continue/continueAnalysis.h"
 #include "db/dataStruct/curRateStruct.h"
 
 using namespace std;
@@ -17,8 +17,7 @@ protected:
 	int cycle;
 	int timeStepType;
 	double lastPrice;
-	shared_ptr<CAverageCalc> calcBuyObj;
-	shared_ptr<CAverageCalc> calcSellObj;
+	PContinueAnalysis pContinueAnalysis;
 };
 typedef shared_ptr<CContinueProcess> PContinueProcess;
 #define newContinueProcess(T) make_shared<CContinueProcess>(T)

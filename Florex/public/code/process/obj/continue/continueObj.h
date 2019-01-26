@@ -36,12 +36,12 @@ class CContinueObj
 {
 public:
 	CContinueObj(PContinueJudgeGroup pJudgeGroup);
-	void init(CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, int& judegLevel);
+	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
 
 	void setId(long objId){this->objId = objId;}
 	long getId(){ return objId;}
 
-	bool isContinueGoOn(CRateValue& curValue);
+	bool isContinueGoOn(PRateValue curValue);
 
 	PContinueValue getContinueValue(){return pContinueValue;}
 protected:
@@ -49,9 +49,9 @@ protected:
 
 	// 方向 +1 或 -1
 	int curDirect;
-	CRateValue startValue;
+	PRateValue startValue;
 	// 同方向最远的值
-	CRateValue tryEndValue;
+	PRateValue tryEndValue;
 	// 连续等级 
 	int judegLevel;
 	// 上次上报的值

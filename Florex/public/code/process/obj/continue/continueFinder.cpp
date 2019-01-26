@@ -10,29 +10,29 @@ CContinueFinder::CContinueFinder( PContinueJudgeGroup pJudgeGroup )
 
 
 // 只记录生成最小连续的起始信息即可
-bool CContinueFinder::add(CRateValue& curValue)
+bool CContinueFinder::add(PRateValue curValue)
 {
 	addToObj(curValue);
 	tryFindNew(curValue);
 	return true;
 }
 
-void CContinueFinder::tryFindNew( CRateValue& curValue )
+void CContinueFinder::tryFindNew( PRateValue curValue )
 {
-	if (!startValue.isValid())
+	if (!startValue->isValid())
 	{
 		startValue = curValue;
 	}
 	else
 	{
 		// 确定方向
-		double stepValue = startValue.value - curValue.value;
+		double stepValue = startValue->value - curValue->value;
 		int curDirect = stepValue > 0 ? 1 : -1;
 		auto curContinueObjIter = curObjs.find(curDirect);
 		if (curObjs.end() == curContinueObjIter)
 		{
 			// 当前容器内没有同方向的连续对象的时候，尝试判断是否生成新的
-			double stepPersent = abs(stepValue / curValue.value * 1000);
+			double stepPersent = abs(stepValue / curValue->value * 1000);
 			int continueLevel = pJudgeGroup->isContinueStart(stepPersent);
 			if (-1 != continueLevel)
 			{
@@ -49,7 +49,7 @@ void CContinueFinder::tryFindNew( CRateValue& curValue )
 	}
 }
 
-void CContinueFinder::addToObj( CRateValue& curValue )
+void CContinueFinder::addToObj( PRateValue curValue )
 {
 	static list<int> rmObjs;
 	for (auto objPair : curObjs)

@@ -7,7 +7,7 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 	this->stepLevelPersent = stepLevelPersent;
 }
 
-bool CContinueJudgeGroup::isContinueGoOn( int& level, CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int curDirect )
+bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int curDirect )
 {
 	bool bIsContinue = true;
 	auto pCurJudge = judgeGroup.find(level)->second;

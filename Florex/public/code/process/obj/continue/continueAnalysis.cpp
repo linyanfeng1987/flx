@@ -7,7 +7,7 @@ CContinueAnalysis::CContinueAnalysis()
 	init();
 }
 
-void CContinueAnalysis::add(CRateValue& value )
+void CContinueAnalysis::add(PRateValue value )
 {
 	for (auto conPair : continueFinders)
 	{
@@ -20,7 +20,7 @@ void CContinueAnalysis::add(CRateValue& value )
 void CContinueAnalysis::init( )
 {
 	PContinueJudgeGroup pGroup = newContinueJudgeGroup(100, goldenSection);
-	pGroup->init(0.1, goldenSection, goldenSection);
+	pGroup->init(basePoint, goldenSection, goldenSection);
 	PContinueFinder pFinder = newContinueFinder(pGroup);
 	pFinder->setId(finderIndex++);
 	continueFinders.insert(make_pair(pFinder->getId(), pFinder));

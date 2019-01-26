@@ -36,6 +36,17 @@ CCurRateStruct::~CCurRateStruct()
 	
 }
 
+PRateValue CCurRateStruct::getRateValue( PRow pCurRateRow )
+{
+	long curTime = pCurRateRow->getIntValue(CCurRateStruct::curTime);
+	long curMsec = pCurRateRow->getIntValue(CCurRateStruct::curMsec);
+	double curDTime = PubFun::timeConvert(curTime, curMsec);
+	double priceBuy = pCurRateRow->getDoubleValue(CCurRateStruct::priceBuy);
+
+	PRateValue pValue = newRateValueP(curDTime, priceBuy);
+	return pValue;
+}
+
 
 
 

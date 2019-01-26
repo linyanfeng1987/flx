@@ -5,8 +5,6 @@ CContinueJudgeObj::CContinueJudgeObj( int continueLevel )
 	this->continueLevel = continueLevel;
 }
 
-
-
 void CContinueJudgeObj::init( double minStepValuePersent, double retrcementValue, double retrcementSpead)
 {
 	//this->minStepSpeedPersent = minStepSpeedPersent;
@@ -16,14 +14,14 @@ void CContinueJudgeObj::init( double minStepValuePersent, double retrcementValue
 	//this->stopSpead = stopSpead;
 }
 
-emumContinueStatus CContinueJudgeObj::isContinueGoOn(CRateValue& curValue, CRateValue& startValue, CRateValue& tryEndValue, int& curDirect, double& curRetrcementSpead )
+emumContinueStatus CContinueJudgeObj::isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect, double& curRetrcementSpead )
 {
 	emumContinueStatus conStatus = continue_keep;
-	double tryEndStepValue = (startValue.value - tryEndValue.value)*curDirect;
-	double tryEndStepTime = tryEndValue.time - startValue.time;
+	double tryEndStepValue = (startValue->value - tryEndValue->value)*curDirect;
+	double tryEndStepTime = tryEndValue->time - startValue->time;
 	double tryEndSpead = tryEndStepValue / tryEndStepTime;
 
-	double curStepValue = (startValue.value - curValue.value)*curDirect;
+	double curStepValue = (startValue->value - curValue->value)*curDirect;
 	double curRetrcementValue = curStepValue / tryEndStepValue;
 	if (1 < curRetrcementValue)
 	{
@@ -35,7 +33,7 @@ emumContinueStatus CContinueJudgeObj::isContinueGoOn(CRateValue& curValue, CRate
 	}
 	else
 	{
-		double curStepTime = curValue.time - startValue.time;
+		double curStepTime = curValue->time - startValue->time;
 		double curSpead = curStepValue / curStepTime;
 		curRetrcementSpead = curSpead / tryEndSpead;
 		conStatus = isLowDown(curRetrcementSpead) ? continue_lowDown : continue_keep;
@@ -44,9 +42,9 @@ emumContinueStatus CContinueJudgeObj::isContinueGoOn(CRateValue& curValue, CRate
 	return conStatus;
 }
 
-bool CContinueJudgeObj::isContinueStart_s(const CRateValue& curValue, CRateValue& startValue )
+bool CContinueJudgeObj::isContinueStart_s(const PRateValue curValue, PRateValue startValue )
 {
-	double stepValue = curValue.value - startValue.value;
+	double stepValue = curValue->value - startValue->value;
 	return false;
 }
 
@@ -55,10 +53,10 @@ bool CContinueJudgeObj::isContinueStart( double& stepPersent )
 	return stepPersent > minStepValuePersent;
 }
 
-double CContinueJudgeObj::getStepPersent(CRateValue& curValue, CRateValue& startValue)
+double CContinueJudgeObj::getStepPersent(PRateValue curValue, PRateValue startValue)
 {
-	double stepValue = startValue.value - curValue.value;
-	double stepPersent = abs(stepValue / curValue.value * 1000);
+	double stepValue = startValue->value - curValue->value;
+	double stepPersent = abs(stepValue / curValue->value * basePersentStep);
 	return stepPersent;
 }
 
@@ -71,7 +69,7 @@ bool CContinueJudgeObj::isLowDown( double& curRetrcementSpead )
 
 
 
-// bool CContinueJudgeObj::stopContinue(CRateValue& stopValue, CRateValue& startValue, CRateValue& tryEndValue )
+// bool CContinueJudgeObj::stopContinue(PRateValue stopValue, PRateValue startValue, PRateValue tryEndValue )
 // {
 // 	CContinueValue curContinueValue;
 // 	curContinueValue.startValue = startValue;

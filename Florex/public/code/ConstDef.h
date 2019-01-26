@@ -30,3 +30,6 @@ const double g_priveSetp1 = 0.1;
 const double g_priveSetp2 = 0.0001;
 
 const double goldenSection = 0.618;
+
+const int basePoint = 1;
+const int basePersentStep = 10000;

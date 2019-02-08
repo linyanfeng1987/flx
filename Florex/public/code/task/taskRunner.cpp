@@ -1,5 +1,6 @@
 #include "taskRunner.h"
 #include "process/averageProcess.h"
+#include "process/continueProcess.h"
 #include "db/DbFunc.h"
 #include "task/dbTestTask.h"
 
@@ -106,9 +107,13 @@ void CtaskRunner::rangTaskList()
 PBaseProcess CtaskRunner::getProcess( PRow taskInfo )
 {
 	PBaseProcess process = nullptr;
-	if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find("average"))
+	if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_average))
 	{
 		process = newAverageProcess(taskInfo); 
+	}
+	else if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_continue))
+	{
+		process = newContinueProcess(taskInfo); 
 	}
 	return process;
 }

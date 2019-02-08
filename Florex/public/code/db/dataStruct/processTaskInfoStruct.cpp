@@ -16,28 +16,28 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	this->setName(tableName);
 	CField field;
 	//taskId
-	field.load(key_taskId, "string", true);
+	field.load(key_taskId, typeString, true);
 	this->insert(make_pair(field.strName, field));
 	//processName
-	field.load(key_processTypeName, "string");
+	field.load(key_processTypeName, typeString);
 	this->insert(make_pair(field.strName, field));
 	//rateName
-	field.load(key_rate, "string");
+	field.load(key_rate, typeString);
 	this->insert(make_pair(field.strName, field));
 	//rateType
-	field.load(key_rateType, "int");
+	field.load(key_rateType, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//startTime
-	field.load(key_startTime, "int");
+	field.load(key_startTime, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//endTime
-	field.load(key_endTime, "int");
+	field.load(key_endTime, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//paramter
-	field.load(key_paramter, "string");
+	field.load(key_paramter, typeString);
 	this->insert(make_pair(field.strName, field));
 	//status
-	field.load(key_status, "int");
+	field.load(key_status, typeInt);
 	this->insert(make_pair(field.strName, field));
 }
 

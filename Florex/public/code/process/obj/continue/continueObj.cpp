@@ -6,23 +6,33 @@ CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup )
 	this->pJudgeGroup  = pJudgeGroup;
 }
 
-void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel )
+void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& curLevel )
 {
 	this->startValue = startValue;
 	this->tryEndValue = tryEndValue;
 	this->curDirect = curDirect;
-	this->judegLevel = judegLevel;
+	this->curLevel = curLevel;
+	this->maxLevel = curLevel;
 }
 
 bool CContinueObj::isContinueGoOn(PRateValue curValue )
 {
-	bool bRes = pJudgeGroup->isContinueGoOn(judegLevel, curValue, startValue, tryEndValue, curDirect);
+	int tmpLevel = curLevel;
+	bool bRes = pJudgeGroup->isContinueGoOn(tmpLevel, curValue, startValue, tryEndValue, curDirect);
 	if (!bRes)
 	{
 		pContinueValue = newContinueValue();
-		pContinueValue->startValue = startValue;
-		pContinueValue->endValue = tryEndValue;
-		pContinueValue->stopValue = curValue;
+		pContinueValue->setValue(startValue, tryEndValue, curValue, curDirect);
+		pContinueValue->setLevels(levelStep);
+	}
+	else
+	{
+		if ( curLevel != tmpLevel )
+		{
+			maxLevel = tmpLevel > maxLevel ? tmpLevel : maxLevel;
+			levelStep.push_back(tmpLevel);
+			curLevel = tmpLevel;
+		}
 	}
 
 	return bRes;

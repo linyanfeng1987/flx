@@ -55,6 +55,9 @@
     <Filter Include="public\process\obj\continue">
       <UniqueIdentifier>{cb8111c1-188c-4ab8-93a5-7823593b23c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\process\obj\function">
+      <UniqueIdentifier>{c5c9eb5e-f169-48e9-a98f-d9b9c842c9e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -219,6 +222,15 @@
     <ClInclude Include="..\public\code\table\Value.h">
       <Filter>public\table</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\function\fun1.h">
+      <Filter>public\process\obj\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\function\baseFun.h">
+      <Filter>public\process\obj\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\continueValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -382,6 +394,15 @@
     </ClCompile>
     <ClCompile Include="..\public\code\table\Value.cpp">
       <Filter>public\table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\function\fun1.cpp">
+      <Filter>public\process\obj\function</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\function\baseFun.cpp">
+      <Filter>public\process\obj\function</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

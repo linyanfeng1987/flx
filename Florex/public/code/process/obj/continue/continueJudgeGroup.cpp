@@ -1,10 +1,11 @@
 #include "continueJudgeGroup.h"
 
 
-CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPersent )
+CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPersent, PBaseFun retrcementCalcFun )
 {
 	this->maxObjNumber = maxObjNumber;
 	this->stepLevelPersent = stepLevelPersent;
+	this->retrcementCalcFun = retrcementCalcFun;
 }
 
 bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int curDirect )
@@ -60,18 +61,19 @@ bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRate
 	return bIsContinue;
 }
 
-void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementValue, double retrcementSpead )
+void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementSpead )
 {
 	this->minStepValuePersent = minStepValuePersent;
 	this->retrcementSpead = retrcementSpead;
-	this->retrcementValue = retrcementValue;
-
+	double retrcementValue = 0;
 	for (int nLevelIndex = 0; nLevelIndex <= maxObjNumber ; nLevelIndex++)
 	{
 		PContinueJudgeObj pObj = newContinueJudgeObj(nLevelIndex);
+		// 回撤值需要动态变更，暂定函数 0.618*(1-0.4^x)
+		retrcementValue = retrcementCalcFun->calc(nLevelIndex);
 		pObj->init(minStepValuePersent, retrcementValue, retrcementSpead);
+
 		minStepValuePersent /= stepLevelPersent;
-		retrcementValue /= stepLevelPersent;
 		retrcementSpead /= stepLevelPersent;
 
 		judgeGroup.insert(make_pair(nLevelIndex, pObj));

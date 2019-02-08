@@ -12,13 +12,13 @@ CBaseCurRateStruct::CBaseCurRateStruct(string pureRateName)
 	setPureRateName(pureRateName);
 	CField field;
 
-	field.load(curTime, "int", true);
+	field.load(curTime, typeInt, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(curMsec, "int", true);
+	field.load(curMsec, typeInt, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(timeFormat, "string");
+	field.load(timeFormat, typeString);
 	this->insert(make_pair(field.strName, field));
 }
 

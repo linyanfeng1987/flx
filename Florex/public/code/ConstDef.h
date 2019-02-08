@@ -21,6 +21,7 @@ const int timeStepStep_ww = 6;
 
 const string florexDbName = "florex";
 const string coreDbName = "core";
+const string calcDbName = "calc";
 
 const static int maxLineRead = 10000;
 
@@ -33,3 +34,10 @@ const double goldenSection = 0.618;
 
 const int basePoint = 1;
 const int basePersentStep = 10000;
+
+const string processType_average = "average";
+const string processType_continue = "continue";
+
+const string typeInt = "int";
+const string typeDouble = "double";
+const string typeString = "string";

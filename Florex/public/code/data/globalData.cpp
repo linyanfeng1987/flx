@@ -39,18 +39,22 @@ void CGlobalData::loadConfig()
 
 void CGlobalData::initDataInCode()
 {
+	list<string> tmpList;
 	CProcessType tmpType;
-	string tmpName = "average";
-	tmpType.processTypeName = tmpName;
-	//tmpType.porcessFlag = 1;
+
+// 	tmpType.processTypeName = processType_average;
+// 	tmpType.timeStep = 900;
+// 	tmpType.dependOnTypeList.push_back("");
+// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+// 	tmpList.push_back(tmpType.processTypeName);
+
+	tmpType.processTypeName = processType_continue;
 	tmpType.timeStep = 900;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	tmpList.push_back(tmpType.processTypeName);
 
-	list<string> tmpList;
-	tmpList.push_back(tmpName);
-
-	processRates.insert(make_pair("xauusd", tmpList));
+	processRates.insert(make_pair(rateNames[3], tmpList));
 }
 
 CProcessType* CGlobalData::getProcessType( string processId )

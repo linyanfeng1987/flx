@@ -87,6 +87,7 @@
     <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\data\globalData.h" />
     <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\continueValueStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
@@ -114,6 +115,8 @@
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeObj.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueObj.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueValue.h" />
+    <ClInclude Include="..\public\code\process\obj\function\baseFun.h" />
+    <ClInclude Include="..\public\code\process\obj\function\fun1.h" />
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h" />
     <ClInclude Include="..\public\code\process\obj\rateValue.h" />
     <ClInclude Include="..\public\code\process\obj\sum.h" />
@@ -141,6 +144,7 @@
     <ClCompile Include="..\public\code\AutoMutex.cpp" />
     <ClCompile Include="..\public\code\data\globalData.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
@@ -167,6 +171,8 @@
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeObj.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueObj.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueValue.cpp" />
+    <ClCompile Include="..\public\code\process\obj\function\baseFun.cpp" />
+    <ClCompile Include="..\public\code\process\obj\function\fun1.cpp" />
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp" />
     <ClCompile Include="..\public\code\process\obj\rateValue.cpp" />
     <ClCompile Include="..\public\code\process\obj\sum.cpp" />

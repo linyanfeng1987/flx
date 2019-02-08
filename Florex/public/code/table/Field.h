@@ -2,6 +2,7 @@
 #include <string>
 #include <list>
 #include <memory>
+#include "ConstDef.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ public:
 	}
 
 	
-	void load(string strName, string strType="string", bool bIsPk = false);
+	void load(string strName, string strType=typeString, bool bIsPk = false);
 	
 	bool isNumberType();
 	string strType;

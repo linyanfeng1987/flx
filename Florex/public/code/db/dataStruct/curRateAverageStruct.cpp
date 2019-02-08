@@ -29,7 +29,7 @@ void CCurRateAverageStruct::init()
 {
 	CField field;
 
-	field.load(price, "double");
+	field.load(price, typeDouble);
 	this->insert(make_pair(field.strName, field));
 }
 

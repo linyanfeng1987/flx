@@ -1,3 +1,4 @@
+#pragma once
 #include "PubFun.h"
 #include "ConstDef.h"
 // 连续的校正数据，返回连续的值，在step中

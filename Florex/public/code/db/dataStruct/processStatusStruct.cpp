@@ -15,19 +15,19 @@ CProcessStatusStruct::CProcessStatusStruct()
 	this->setName(tableName);
 	CField field;
 	//processName
-	field.load(key_processName, "string", true);
+	field.load(key_processName, typeString, true);
 	this->insert(make_pair(field.strName, field));
 	//processStatus
-	field.load(key_processStatus, "int");
+	field.load(key_processStatus, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//step
-// 	field.load(key_step, "int");
+// 	field.load(key_step, typeInt);
 // 	this->insert(make_pair(field.strName, field));
 	//buildTaskLastTime
-	field.load(key_buildTaskLastTime, "int");
+	field.load(key_buildTaskLastTime, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//completeTaskLastTime
-	field.load(key_completeTaskLastTime, "int");
+	field.load(key_completeTaskLastTime, typeInt);
 	this->insert(make_pair(field.strName, field));
 }
 

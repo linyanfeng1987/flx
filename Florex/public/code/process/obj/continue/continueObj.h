@@ -52,11 +52,12 @@ protected:
 	PRateValue startValue;
 	// 同方向最远的值
 	PRateValue tryEndValue;
+	int maxLevel;
 	// 连续等级 
-	int judegLevel;
+	int curLevel;
 	// 上次上报的值
 	//CRateValue lastValue;
-
+	list<int> levelStep;
 	PContinueValue pContinueValue;
 	PContinueJudgeGroup pJudgeGroup;
 };

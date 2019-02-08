@@ -11,9 +11,9 @@ CTestDbInfoStruct::CTestDbInfoStruct()
 	this->setName(tableName);
 	CField field;
 	//taskId
-	field.load(key_id, "string", true);
+	field.load(key_id, typeString, true);
 	this->insert(make_pair(field.strName, field));
-	field.load(key_value, "int");
+	field.load(key_value, typeInt);
 	this->insert(make_pair(field.strName, field));
 }
 

@@ -2,7 +2,7 @@
 
 
 
-void CField::load( string strName, string strType/*="string"*/, bool bIsPk /*= false*/ )
+void CField::load( string strName, string strType/*=typeString*/, bool bIsPk /*= false*/ )
 {
 	this->strName = strName;
 	this->strType = strType;
@@ -11,7 +11,7 @@ void CField::load( string strName, string strType/*="string"*/, bool bIsPk /*= f
 
 bool CField::isNumberType()
 {
-	if("int" == strType || "double" == strType || "float" == strType){
+	if(typeInt == strType || typeDouble == strType || "float" == strType){
 		return true;
 	}
 	else{

@@ -15,19 +15,12 @@ CContinueProcess::~CContinueProcess()
 void CContinueProcess::calc( PTable& table )
 {
 	string pureRateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
-	string timeName = PubFun::getStepNameByType(timeStepType);
-	PCurRateAverageStruct curRateAverageStruct = newCurRateAverageStruct(pureRateName, timeName);
-	curRateAverageStruct->ensureExist();
-	
-	PTable resTable = newTable(curRateAverageStruct);
-
-	// @@@@@这里应该是历史记录的那种表
+	PContinueValueStruct pTableStruct = newContinueValueStruct(pureRateName);
 	for (auto rowIter : *table)
 	{
 		PRateValue pRateValue = CCurRateStruct::getRateValue(rowIter.second);
-		pContinueAnalysis->add(pRateValue);
+		pContinueAnalysis->add(pRateValue, pTableStruct);
 	}
-	resTable->save();
 }
 
 void CContinueProcess::init( PRow pTaskInfo )

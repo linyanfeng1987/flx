@@ -17,16 +17,16 @@ void CCurRateStruct::init()
 {
 	CField field;
 
-	field.load(priceBuy, "double");
+	field.load(priceBuy, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(priceSell, "double");
+	field.load(priceSell, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(volume, "double");
+	field.load(volume, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(percentSpead_s, "double");
+	field.load(percentSpead_s, typeDouble);
 	this->insert(make_pair(field.strName, field));
 }
 

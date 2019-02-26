@@ -43,7 +43,7 @@ PRateValue CCurRateStruct::getRateValue( PRow pCurRateRow )
 	double curDTime = PubFun::timeConvert(curTime, curMsec);
 	double priceBuy = pCurRateRow->getDoubleValue(CCurRateStruct::priceBuy);
 
-	PRateValue pValue = newRateValueP(curDTime, priceBuy);
+	PRateValue pValue = newRateValueP3(curDTime, priceBuy, pCurRateRow->getStringValue(CCurRateStruct::timeFormat));
 	return pValue;
 }
 

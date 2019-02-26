@@ -1,5 +1,5 @@
 #pragma once
-#include "continueObj.h"
+#include "continueSubsection.h"
 #include <map>
 using namespace std;
 // 连续有个起点A
@@ -19,32 +19,17 @@ class CContinueFinder
 {
 public:
 	CContinueFinder(PContinueJudgeGroup pJudgeGroup);
-
-	bool add(PRateValue curValue, PContinueValueStruct pTableStruct);
-	
-	void init();
+	void setStart(PRateValue curValue, int expDir){this->startValue = curValue; this->expDir = expDir;}
+	PContinueSubsection tryFindNew(PRateValue curValue);
+	bool isStart(){return nullptr != startValue;}
 
 	void setId(long finderId){this->finderId = finderId;}
 	long getId(){ return finderId;}
 protected:
-
 	long finderId;
-
-	void saveHisObj(PContinueValueStruct pTableStruct);
-	void tryFindNew(PRateValue curValue);
-	void addToObj(PRateValue curValue, PContinueValueStruct pTableStruct);
-	// 方向 +1 或 -1
-	//map<int, CRateValue> flagValue;
-	//int curContinueDirect;
+	int expDir;
 	PRateValue startValue;
-
-	long objIndex;
-
-	// 只存在两个连续对象，一个方向一个
-	map<int, PContinueObj> curObjs;
-	map<long, PContinueObj> hisObjs;
 	PContinueJudgeGroup pJudgeGroup;
-	
 };
 
 typedef shared_ptr<CContinueFinder> PContinueFinder;

@@ -10,7 +10,7 @@ class CContinueJudgeGroup
 public:
 	CContinueJudgeGroup(int maxObjNumber, double stepLevelPersent, PBaseFun retrcementCalcFun);
 
-	bool isContinueGoOn(int& level, PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int curDirect );
+	emumContinueStatus isContinueGoOn(int& level, PRateValue curValue, PRateValue startValue, PRateValue& tryEndValue, int curDirect );
 	int isContinueStart(double& stepPersent);
 
 	void init(double minStepValuePersent, double retrcementSpead);

@@ -35,9 +35,11 @@ std::string CTableStruct::getCreateTableSql()
 		if(typeInt == field.second.strType){
 			fieldType = "int";
 		}else if(typeDouble == field.second.strType){
-			fieldType = "float";
+			fieldType = "double";
 		}else if(typeString == field.second.strType){
-			fieldType = "VARCHAR(45)";
+			fieldType = "CHAR(45)";
+		}else if(type512String == field.second.strType){
+			fieldType = "VARCHAR";
 		}
 		string fieldDefSql = PubFun::strFormat("%s %s NOT NULL", strField.c_str(), fieldType.c_str());
 		if(!fields.empty())

@@ -6,9 +6,12 @@ string CContinueValueStruct::direct = "direct";
 string CContinueValueStruct::startValue = "startValue";
 string CContinueValueStruct::endValue = "endValue";
 string CContinueValueStruct::stopValue = "stopValue";
+string CContinueValueStruct::stepValue = "stepValue";
 
 string CContinueValueStruct::startTime = "startTime";
 string CContinueValueStruct::stepTime = "stepTime";
+
+string CContinueValueStruct::startTimeDesc = "startTimeDesc";
 
 string CContinueValueStruct::startLevel = "startLevel";
 string CContinueValueStruct::maxLevel = "maxLevel";
@@ -33,16 +36,20 @@ CContinueValueStruct::~CContinueValueStruct()
 void CContinueValueStruct::init()
 {
 	CField field;
-	field.load(groupId, typeInt, true);
-	this->insert(make_pair(field.strName, field));
-
+	
 	field.load(startTime, typeDouble, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(stepTime, typeDouble);
+	field.load(direct, typeInt, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(direct, typeInt);
+	field.load(groupId, typeInt, true);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(startTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(stepTime, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(startValue, typeDouble);
@@ -54,6 +61,9 @@ void CContinueValueStruct::init()
 	field.load(stopValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
+	field.load(stepValue, typeDouble);
+	this->insert(make_pair(field.strName, field));
+	
 	field.load(startLevel, typeInt);
 	this->insert(make_pair(field.strName, field));
 
@@ -63,6 +73,6 @@ void CContinueValueStruct::init()
 	field.load(stopLevel, typeInt);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(levels, typeString);
+	field.load(levels, typeString2);
 	this->insert(make_pair(field.strName, field));
 }

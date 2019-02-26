@@ -40,4 +40,12 @@ const string processType_continue = "continue";
 
 const string typeInt = "int";
 const string typeDouble = "double";
-const string typeString = "string";
+const string typeString = "char";
+const string typeString2 = "string";
+
+// (前值-后置)*方向 要求为正
+const int direct_up = -1;
+const int direct_down = 1;
+
+// lowDown level
+const int lowDownLevel = 2;

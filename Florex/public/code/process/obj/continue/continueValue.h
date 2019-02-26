@@ -29,6 +29,7 @@ public:
 	double startValue;
 	double endValue;
 	double stopValue;
+	double stepValue;
 
 	double minValue;
 

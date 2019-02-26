@@ -1,5 +1,5 @@
 #pragma once
-#include "continueFinder.h"
+#include "continueKeeper.h"
 
 using namespace std;
 
@@ -14,8 +14,8 @@ public:
 protected:
 	// ≥ı ºªØfinder
 	void init();
-	map<long, PContinueFinder> continueFinders;
-	long finderIndex;
+	map<long, PContinueKeeper> continueKeepers;
+	long keeperIndex;
 // 	unsigned int maxMemberSize;
 // 	double minContinueStep;
 // 	double persentStep;

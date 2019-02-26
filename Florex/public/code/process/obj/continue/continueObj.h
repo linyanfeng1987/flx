@@ -6,6 +6,8 @@
 #include "LinkedHashMap.h"
 #include <memory>
 #include "continueJudgeGroup.h"
+#include "continueSubsection.h"
+#include "continueFinder.h"
 
 using namespace std;
 // 连续有个起点A
@@ -35,32 +37,28 @@ using namespace std;
 class CContinueObj
 {
 public:
-	CContinueObj(PContinueJudgeGroup pJudgeGroup);
-	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
+	CContinueObj(PContinueSubsection pCurSubsection, int curDir);
 
 	void setId(long objId){this->objId = objId;}
 	long getId(){ return objId;}
 
-	bool isContinueGoOn(PRateValue curValue);
+	emumContinueStatus isContinueGoOn(PRateValue curValue);
 
-	PContinueValue getContinueValue(){return pContinueValue;}
+	list<PContinueSubsection>& getSubsections(){return subsections;}
+
 protected:
-	long objId;
+	void curLowDown(PRateValue curValue, emumContinueStatus curContinueStatus );
+	void curKeep(PRateValue curValue, emumContinueStatus curContinueStatus );
 
-	// 方向 +1 或 -1
-	int curDirect;
-	PRateValue startValue;
-	// 同方向最远的值
-	PRateValue tryEndValue;
-	int maxLevel;
-	// 连续等级 
-	int curLevel;
-	// 上次上报的值
-	//CRateValue lastValue;
-	list<int> levelStep;
-	PContinueValue pContinueValue;
-	PContinueJudgeGroup pJudgeGroup;
+	PContinueSubsection pCurSubsection;
+	PContinueSubsection pReserveSubsecton;
+
+	PContinueFinder pFinder;
+	list<PContinueSubsection> subsections;
+	long objId;
+	emumContinueStatus curObjStatus;
+	int curDir;
 };
 
 typedef shared_ptr<CContinueObj> PContinueObj;
-#define newContinueObj(T) make_shared<CContinueObj>(T)
+#define newContinueObj(T1,T2) make_shared<CContinueObj>(T1,T2)

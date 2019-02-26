@@ -8,9 +8,8 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 	this->retrcementCalcFun = retrcementCalcFun;
 }
 
-bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int curDirect )
+emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, PRateValue& tryEndValue, int curDirect )
 {
-	bool bIsContinue = true;
 	auto pCurJudge = judgeGroup.find(level)->second;
 	double curRetrcementSpead = 0;
 	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue,startValue,tryEndValue,curDirect, curRetrcementSpead);
@@ -21,6 +20,7 @@ bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRate
 		while (nextLevel <= maxObjNumber)
 		{
 			// 尝试成长
+			// 成长的目的是保持连续承受的风险，是之统计不容易中断
 			auto pNextJudge = judgeGroup.find(nextLevel)->second;
 			double stepPersent = CContinueJudgeObj::getStepPersent(curValue, startValue);
 			bool bIsGroupUp = pNextJudge->isContinueStart(stepPersent);
@@ -35,13 +35,16 @@ bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRate
 			++nextLevel;
 		}
 	}
+	/*
 	else if (continue_lowDown == conStatus)
-	{
+	{  
 		int nextLevel = level - 1;
 		while (nextLevel >= 0)
 		{
 			// 尝试降级
+			// 降低的目的，是易于中断，和成长的目的冲突，抉择点在哪？方向？
 			auto pNextJudge = judgeGroup.find(nextLevel)->second;
+			@@@降速的抉择有问题，需要重新思考, 降级的目的是更换更小的度量
 			bool isLowDown = pNextJudge->isLowDown(curRetrcementSpead);
 			if (isLowDown)
 			{
@@ -57,8 +60,8 @@ bool CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRate
 	else if (continue_stop == conStatus)
 	{
 		bIsContinue = false;
-	}
-	return bIsContinue;
+	}*/
+	return conStatus;
 }
 
 void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementSpead )
@@ -74,7 +77,6 @@ void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementSpe
 		pObj->init(minStepValuePersent, retrcementValue, retrcementSpead);
 
 		minStepValuePersent /= stepLevelPersent;
-		retrcementSpead /= stepLevelPersent;
 
 		judgeGroup.insert(make_pair(nLevelIndex, pObj));
 	}

@@ -13,11 +13,14 @@ public:
 	static string startTime;
 	static string stepTime;
 
+	static string startTimeDesc;
+
 	static string direct;
 
 	static string startValue;
 	static string endValue;
 	static string stopValue;
+	static string stepValue;
 
 	static string startLevel;
 	static string maxLevel;

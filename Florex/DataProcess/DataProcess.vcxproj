@@ -113,7 +113,9 @@
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeObj.h" />
+    <ClInclude Include="..\public\code\process\obj\continue\continueKeeper.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueObj.h" />
+    <ClInclude Include="..\public\code\process\obj\continue\continueSubsection.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueValue.h" />
     <ClInclude Include="..\public\code\process\obj\function\baseFun.h" />
     <ClInclude Include="..\public\code\process\obj\function\fun1.h" />
@@ -169,7 +171,9 @@
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeObj.cpp" />
+    <ClCompile Include="..\public\code\process\obj\continue\continueKeeper.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueObj.cpp" />
+    <ClCompile Include="..\public\code\process\obj\continue\continueSubsection.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueValue.cpp" />
     <ClCompile Include="..\public\code\process\obj\function\baseFun.cpp" />
     <ClCompile Include="..\public\code\process\obj\function\fun1.cpp" />

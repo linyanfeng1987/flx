@@ -20,6 +20,10 @@ string CContinueValueStruct::stopLevel = "stopLevel";
 string CContinueValueStruct::levels = "levels";
 string CContinueValueStruct::groupId = "groupId";
 
+string CContinueValueStruct::curRetrcementValue = "curRetrcementValue";
+string CContinueValueStruct::retrcementValue = "retrcementValue";
+string CContinueValueStruct::judgeRetrcementValue = "judgeRetrcementValue";
+
 CContinueValueStruct::CContinueValueStruct(string rateName)
 {
 	string tableName = PubFun::strFormat("%s.%s_continueValue", calcDbName.c_str(), rateName.c_str());
@@ -62,6 +66,15 @@ void CContinueValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 
 	field.load(stepValue, typeDouble);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(curRetrcementValue, typeDouble);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(retrcementValue, typeDouble);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(judgeRetrcementValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
 	
 	field.load(startLevel, typeInt);

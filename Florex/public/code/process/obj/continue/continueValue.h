@@ -13,6 +13,12 @@ class CContinueValue
 public:
 	CContinueValue();
 	void setValue(PRateValue startRateValue, PRateValue endRateValue, PRateValue stopRateValue, int direct);
+	void setJudgeValue(double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue)
+	{
+		curRetrcementValue = _curRetrcementValue;
+		retrcementValue = _retrcementValue;
+		judgeRetrcementValue = _judgeRetrcementValue;
+	}
 	void setLevels(list<int> &nLevels);
 	
 	PRow buildDbRow(int groupId, PContinueValueStruct pSt);
@@ -44,6 +50,10 @@ public:
 	string levels;
 
 	string groupId;
+
+	double curRetrcementValue;
+	double retrcementValue;
+	double judgeRetrcementValue;
 protected:
 	void calc();
 };

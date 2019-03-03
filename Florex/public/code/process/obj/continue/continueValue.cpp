@@ -13,10 +13,10 @@ void CContinueValue::calc()
 	startValue = startRateValue->value;
 	endValue = endRateValue->value;
 	stopValue = stopRateValue->value;
-	stepValue = (startRateValue->value - stopRateValue->value)*direct;
+	stepValue = (startRateValue->value - endRateValue->value)*direct;
 
 	startTime = startRateValue->time;
-	stepTime = stopRateValue->time - startRateValue->time;
+	stepTime = endRateValue->time - startRateValue->time;
 }
 
 void CContinueValue::setValue( PRateValue startRateValue, PRateValue endRateValue, PRateValue stopRateValue, int direct )
@@ -46,6 +46,10 @@ PRow CContinueValue::buildDbRow(int groupId, PContinueValueStruct pSt)
 	pRow->setIntValue(CContinueValueStruct::startLevel, startLevel);
 	pRow->setIntValue(CContinueValueStruct::maxLevel, maxLevel);
 	pRow->setIntValue(CContinueValueStruct::stopLevel, stopLevel);
+
+	pRow->setDoubleValue(CContinueValueStruct::curRetrcementValue, curRetrcementValue);
+	pRow->setDoubleValue(CContinueValueStruct::retrcementValue, retrcementValue);
+	pRow->setDoubleValue(CContinueValueStruct::judgeRetrcementValue, judgeRetrcementValue);
 
 	pRow->setStringValue(CContinueValueStruct::levels, levels);
 

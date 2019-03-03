@@ -26,11 +26,7 @@ bool CContinueKeeper::add(PRateValue curValue, PContinueValueStruct pTableStruct
 		}
 		else
 		{
-			PContinueSubsection pSubsection = pFinder->tryFindNew(curValue);
-			if (nullptr != pSubsection)
-			{
-				pCurObj = newContinueObj(pSubsection, curDir);
-			}
+			 pCurObj = pFinder->tryFindNew(curValue);
 		}
 	}
 	else
@@ -57,11 +53,8 @@ void CContinueKeeper::saveHisObj(PContinueValueStruct pTableStruct)
 	PTable pTable = newTable(pTableStruct);
 	for (auto pHisObj : hisObjs)
 	{
-		for (auto pSubSection : pHisObj->getSubsections())
-		{
-			PRow pRow = pSubSection->getContinueValue()->buildDbRow(finderId, pTableStruct);
-			pTable->addRow(pRow);
-		}
+		PRow pRow = pHisObj->getContinueValue()->buildDbRow(finderId, pTableStruct);
+		pTable->addRow(pRow);
 	}
 
 	pTable->save();

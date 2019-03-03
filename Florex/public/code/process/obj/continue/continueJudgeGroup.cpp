@@ -8,11 +8,16 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 	this->retrcementCalcFun = retrcementCalcFun;
 }
 
-emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, PRateValue& tryEndValue, int curDirect )
+emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, 
+													   PRateValue& tryEndValue, int curDirect, PContinueValue& pContinueValue )
 {
+	//int correcteLevel=0;@@@@
+	// 计算简化的可能性，讲时间作为中断计算的一部分，随着时间的增长，中断比例越少，时间趋于0，则中断校正系数趋于1
+	// level越高，时效性越长，衰减越慢，反之衰减越快
+	// 0.618(1-0.4^x)^t
 	auto pCurJudge = judgeGroup.find(level)->second;
 	double curRetrcementSpead = 0;
-	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue,startValue,tryEndValue,curDirect, curRetrcementSpead);
+	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue,startValue,tryEndValue,curDirect, curRetrcementSpead, pContinueValue);
 	if (continue_groupUp == conStatus)
 	{
 		tryEndValue =  curValue;

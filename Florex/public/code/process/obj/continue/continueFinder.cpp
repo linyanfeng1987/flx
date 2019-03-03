@@ -8,10 +8,10 @@ CContinueFinder::CContinueFinder( PContinueJudgeGroup pJudgeGroup)
 	this->pJudgeGroup = pJudgeGroup;
 }
 
-PContinueSubsection CContinueFinder::tryFindNew( PRateValue curValue )
+PContinueObj CContinueFinder::tryFindNew( PRateValue curValue )
 {
 	// 确定方向
-	PContinueSubsection pSection = nullptr;
+	PContinueObj pSection = nullptr;
 	double stepValue = startValue->value - curValue->value;
 	int curDirect = stepValue > 0 ? direct_down : direct_up;
 	if (curDirect  == expDir)
@@ -23,7 +23,7 @@ PContinueSubsection CContinueFinder::tryFindNew( PRateValue curValue )
 		if (-1 != continueLevel)
 		{
 			// 连续达成
-			pSection = newContinueSubsection(pJudgeGroup);
+			pSection = newContinueObj(pJudgeGroup);
 			pSection->init(startValue, curValue, curDirect, continueLevel);
 
 			// 重置起点

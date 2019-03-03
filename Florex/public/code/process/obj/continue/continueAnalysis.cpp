@@ -29,21 +29,20 @@ void CContinueAnalysis::init()
 	pGroup = newContinueJudgeGroup(15, goldenSection, retrcementCalcFun);
 	pGroup->init(basePoint, goldenSection);
 	pKeeper = newContinueKeeper(pGroup, direct_up);
-	pKeeper->setId(keeperIndex);
+	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 	pKeeper = newContinueKeeper(pGroup, direct_down);
-	pKeeper->setId(keeperIndex);
+	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 
-	keeperIndex++;
 	double testPersent = 0.9;
-	retrcementCalcFun = newCFun1(testPersent, testParam2);
+	retrcementCalcFun = newCFun1(testPersent, 0.95);
 	pGroup = newContinueJudgeGroup(70, testPersent, retrcementCalcFun);
 	pGroup->init(basePoint, testPersent);
 	pKeeper = newContinueKeeper(pGroup, direct_up);
-	pKeeper->setId(keeperIndex);
+	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 	pKeeper = newContinueKeeper(pGroup, direct_down);
-	pKeeper->setId(keeperIndex);
+	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 }

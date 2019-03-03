@@ -1,83 +1,45 @@
 #include "continueObj.h"
 
-CContinueObj::CContinueObj(PContinueSubsection pCurSubsection, int curDir)
+CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup )
 {
-	pReserveSubsecton = nullptr;
-	curObjStatus = continue_keep;
-	this->curDir = curDir;
-	this->pCurSubsection = pCurSubsection;
-	pFinder = newContinueFinder(pCurSubsection->getJudgeGroup());
+	pContinueValue = nullptr;
+	this->pJudgeGroup  = pJudgeGroup;
+	curStatus = continue_keep;
 }
 
-
-
-// 不是连续最高值，则尝试查找新的连续
-// 当新的连续有了更高的值
-// 切换连续段
-// 当前连续段中断则，中断
-
-//似乎需要一个对象，封装一个翻转连续查找的，这个过程中，查找器重复被重置，小连续不断被中断，直到替换成功
+void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& curLevel )
+{
+	this->startValue = startValue;
+	this->tryEndValue = tryEndValue;
+	this->curDirect = curDirect;
+	this->curLevel = curLevel;
+	this->maxLevel = curLevel;
+	levelStep.push_back(curLevel);
+	curStatus = continue_keep;
+}
 
 emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 {
-	emumContinueStatus curContinueStatus = pCurSubsection->isContinueGoOn(curValue);
-
-	if (continue_stop != curContinueStatus)
+	int tmpLevel = curLevel;
+	curStatus = pJudgeGroup->isContinueGoOn(tmpLevel, curValue, startValue, tryEndValue, curDirect, pContinueValue);
+	if ( continue_stop == curStatus )
 	{
-		if (continue_lowDown == curObjStatus)
-		{
-			curLowDown(curValue, curContinueStatus);
-		}
-		else if(continue_keep <= curObjStatus)
-		{
-			curKeep(curValue, curContinueStatus);
-		}
+		stopContinue(curValue);
 	}
 	else
 	{
-		subsections.push_back(pCurSubsection);
+		if ( curLevel != tmpLevel )
+		{
+			maxLevel = tmpLevel > maxLevel ? tmpLevel : maxLevel;
+			levelStep.push_back(tmpLevel);
+			curLevel = tmpLevel;
+		}
 	}
-	return curContinueStatus;
+
+	return curStatus;
 }
 
-
-
-void CContinueObj::curLowDown(PRateValue curValue, emumContinueStatus curContinueStatus )
+void CContinueObj::stopContinue(PRateValue curValue)
 {
-	emumContinueStatus resStatus = continue_stop;
-	if (nullptr != pReserveSubsecton)
-	{
-		resStatus = pReserveSubsecton->isContinueGoOn(curValue);
-		if (continue_keep <= resStatus 
-			&& (pCurSubsection->getCurLevel() - lowDownLevel <= pReserveSubsecton->getCurLevel()
-			|| continue_groupUp <= curContinueStatus))
-		{
-			pCurSubsection->stopContinue(curValue);
-			subsections.push_back(pCurSubsection);
-			pCurSubsection = pReserveSubsecton;
-			pReserveSubsecton = nullptr;
-			curObjStatus = continue_keep;
-		}
-	}
-	else
-	{
-		if (!pFinder->isStart())
-		{
-			pFinder->setStart(curValue, curDir);
-		}
-		else
-		{
-			pReserveSubsecton = pFinder->tryFindNew(curValue);
-		}
-	}
+	pContinueValue->setLevels(levelStep);
 }
-
-void CContinueObj::curKeep( PRateValue curValue, emumContinueStatus curContinueStatus  )
-{
-	if (continue_lowDown == curContinueStatus)
-	{
-		curObjStatus = continue_lowDown;
-		curLowDown(curValue, curContinueStatus);
-	}
-}
-

@@ -111,11 +111,13 @@ void CLogObj::ext( string& msg, string extTag )
 
 void CLogObj::test( string& msg, string id )
 {
+	/*
 	string logMsg = makeLogStr("test", msg);
 	auto pLogInfo = getLogInfo();
 
 	string fileName = makeFileName(debugTag, *pLogInfo);
 	writeLog(fileName, logMsg);
+	*/
 }
 
 std::string CLogObj::makeFileName( string tag, CLogInfo &logInfo, string id/*=""*/ )

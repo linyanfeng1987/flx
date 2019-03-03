@@ -231,9 +231,6 @@
     <ClInclude Include="..\public\code\db\dataStruct\continueValueStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\obj\continue\continueSubsection.h">
-      <Filter>public\process\obj\continue</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\obj\continue\continueKeeper.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
@@ -409,9 +406,6 @@
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\process\obj\continue\continueSubsection.cpp">
-      <Filter>public\process\obj\continue</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\continue\continueKeeper.cpp">
       <Filter>public\process\obj\continue</Filter>

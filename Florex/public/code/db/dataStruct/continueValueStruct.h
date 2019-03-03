@@ -26,6 +26,10 @@ public:
 	static string maxLevel;
 	static string stopLevel;
 
+	static string curRetrcementValue;
+	static string retrcementValue;
+	static string judgeRetrcementValue;
+
 	static string levels;
 	
 protected:

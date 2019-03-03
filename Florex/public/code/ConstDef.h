@@ -49,3 +49,6 @@ const int direct_down = 1;
 
 // lowDown level
 const int lowDownLevel = 2;
+
+// 随时间衰减系数 单位s
+const double timeAttenuation = 0.9998;

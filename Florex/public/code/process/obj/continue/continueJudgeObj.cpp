@@ -14,7 +14,8 @@ void CContinueJudgeObj::init( double minStepValuePersent, double retrcementValue
 	//this->stopSpead = stopSpead;
 }
 
-emumContinueStatus CContinueJudgeObj::isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect, double& curRetrcementSpead )
+emumContinueStatus CContinueJudgeObj::isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue,
+													 int& curDirect, double& curRetrcementSpead, PContinueValue& pContinueValue )
 {
 	emumContinueStatus conStatus = continue_keep;
 	double tryEndStepValue = (startValue->value - tryEndValue->value)*curDirect;
@@ -23,20 +24,29 @@ emumContinueStatus CContinueJudgeObj::isContinueGoOn(PRateValue curValue, PRateV
 
 	double curStepValue = (startValue->value - curValue->value)*curDirect;
 	double curRetrcementValue = curStepValue / tryEndStepValue;
+	double curStepTime = curValue->time - startValue->time;
+	// 0.618*(1-0.4^x)*(0.9998^t) tµ¥Î»4h
+	double judgeRetrcementValue = 1-retrcementValue * pow(timeAttenuation, curStepTime);
 	if (1 < curRetrcementValue)
 	{
 		conStatus = continue_groupUp;
 	}
-	else if (curRetrcementValue < retrcementValue)
+	else if (curRetrcementValue < judgeRetrcementValue)
 	{
 		conStatus = continue_stop;
+		pContinueValue = newContinueValue();
+		pContinueValue->setValue(startValue, tryEndValue, curValue, curDirect);
+		pContinueValue->setJudgeValue(curRetrcementValue, retrcementValue,judgeRetrcementValue);
+		
 	}
 	else
 	{
-		double curStepTime = curValue->time - startValue->time;
+		conStatus = continue_keep;
+		/*
 		double curSpead = curStepValue / curStepTime;
 		curRetrcementSpead = curSpead / tryEndSpead;
 		conStatus = isLowDown(curRetrcementSpead) ? continue_lowDown : continue_keep;
+		*/
 	}
 
 	return conStatus;

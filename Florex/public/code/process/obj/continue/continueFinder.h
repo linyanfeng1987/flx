@@ -1,5 +1,5 @@
 #pragma once
-#include "continueSubsection.h"
+#include "continueObj.h"
 #include <map>
 using namespace std;
 // 连续有个起点A
@@ -20,7 +20,7 @@ class CContinueFinder
 public:
 	CContinueFinder(PContinueJudgeGroup pJudgeGroup);
 	void setStart(PRateValue curValue, int expDir){this->startValue = curValue; this->expDir = expDir;}
-	PContinueSubsection tryFindNew(PRateValue curValue);
+	PContinueObj tryFindNew(PRateValue curValue);
 	bool isStart(){return nullptr != startValue;}
 
 	void setId(long finderId){this->finderId = finderId;}

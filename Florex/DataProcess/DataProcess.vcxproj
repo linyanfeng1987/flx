@@ -83,6 +83,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\public\code\account\flxOpt.h" />
+    <ClInclude Include="..\public\code\account\monitor.h" />
+    <ClInclude Include="..\public\code\account\optAccount.h" />
     <ClInclude Include="..\public\code\AutoMutex.h" />
     <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\data\globalData.h" />
@@ -90,6 +93,7 @@
     <ClInclude Include="..\public\code\db\dataStruct\continueValueStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\monitorValueStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\testDbInfoStruct.h" />
@@ -142,12 +146,16 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\public\code\account\flxOpt.cpp" />
+    <ClCompile Include="..\public\code\account\monitor.cpp" />
+    <ClCompile Include="..\public\code\account\optAccount.cpp" />
     <ClCompile Include="..\public\code\AutoMutex.cpp" />
     <ClCompile Include="..\public\code\data\globalData.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\monitorValueStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\testDbInfoStruct.cpp" />

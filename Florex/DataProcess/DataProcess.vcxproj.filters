@@ -58,6 +58,9 @@
     <Filter Include="public\process\obj\function">
       <UniqueIdentifier>{c5c9eb5e-f169-48e9-a98f-d9b9c842c9e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\account">
+      <UniqueIdentifier>{847979eb-e939-4315-8a48-32dd9296c1a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -234,6 +237,18 @@
     <ClInclude Include="..\public\code\process\obj\continue\continueKeeper.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\account\optAccount.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\account\monitor.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\account\flxOpt.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\monitorValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -409,6 +424,18 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\continue\continueKeeper.cpp">
       <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\optAccount.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\monitor.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\flxOpt.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\monitorValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

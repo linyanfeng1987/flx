@@ -19,7 +19,7 @@ using namespace std;
 class CContinueKeeper
 {
 public:
-	CContinueKeeper(PContinueJudgeGroup pJudgeGroup, int curDir);
+	CContinueKeeper(PContinueJudgeGroup pJudgeGroup, int curDir, list<PContinueDecision> &_decisions);
 
 	bool add(PRateValue curValue, PContinueValueStruct pTableStruct);
 	
@@ -46,8 +46,8 @@ protected:
 	//map<int, PContinueFinder> finders;
 	list<PContinueObj> hisObjs;
 	PContinueJudgeGroup pJudgeGroup;
-	
+	list<PContinueDecision> decisions;
 };
 
 typedef shared_ptr<CContinueKeeper> PContinueKeeper;
-#define newContinueKeeper(T1,T2) make_shared<CContinueKeeper>(T1,T2)
+#define newContinueKeeper(T1,T2,T3) make_shared<CContinueKeeper>(T1,T2,T3)

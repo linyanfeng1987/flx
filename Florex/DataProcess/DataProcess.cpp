@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <thread>
+#include <memory>
 
 #include "process/processType.h"
 #include "data/globalData.h"
@@ -11,25 +12,39 @@
 #include "task/taskRunner.h"
 #include "db/dataStruct/curRateStruct.h"
 
-CGlobalData& gData = CGlobalData::instance();
-CTaskBuilder taskBuilder;
-CtaskRunner taskRunner;
+CGlobalData* gData;
+shared_ptr<CTaskBuilder> taskBuilder = nullptr;
+shared_ptr<CtaskRunner> taskRunner = nullptr;
 
 void buildTask(int value)
 {
 	//CTaskBuilder taskBuilder;
-	taskBuilder.run();
-	int a = 0;
-	a++;
+	
+	try
+	{
+		taskBuilder->run();
+	}
+	catch (CStrException &e)
+	{
+		printf("error:%s\n",e.what());
+		int a = 0;
+		a++;
+	}
 }
 
 void runTask(int value)
 {
 	//CtaskRunner taskRunner;
-	taskRunner.run();
-
-	int a = 0;
-	a++;
+	try
+	{
+		taskRunner->run();
+	}
+	catch (CStrException &e)
+	{
+		printf("error:%s\n",e.what());
+		int a = 0;
+		a++;
+	}
 }
 
 void threadRun()
@@ -43,6 +58,11 @@ void threadRun()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	gData = &CGlobalData::instance();
+
+	taskBuilder = make_shared<CTaskBuilder>();
+	taskRunner = make_shared<CtaskRunner>();
+
 	CDbObj &db = CDbObj::instance();
 	db.initMySQL();
 	string strSqlFormat = "insert into core.newTable ( name, value ) value ( '%s', '%s');";
@@ -56,7 +76,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	db.SelectData(strSqlTest.c_str(), table);
 	*/
 
-	gData.init();
+	gData->init();
 
 	threadRun();
 

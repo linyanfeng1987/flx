@@ -34,6 +34,8 @@ public:
 
 	void setDataStatus(DATA_STATUS status);
 
+	PValue emptyFind(string key);
+
 	string getSql();
 	string getInsertSql();
 	string getUpdateSql();

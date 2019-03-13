@@ -39,6 +39,6 @@ void CContinueProcess::init( PRow pTaskInfo )
 	cycle =  PubFun::stringToInt(strTimeStep);
 	timeStepType = PubFun::getStepType(cycle);
 
-	pContinueAnalysis = newContinueAnalysis();
+	pContinueAnalysis = newContinueAnalysis(pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType));
 	lastPrice = 0;
 }

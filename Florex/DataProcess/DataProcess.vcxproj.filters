@@ -61,6 +61,9 @@
     <Filter Include="public\account">
       <UniqueIdentifier>{847979eb-e939-4315-8a48-32dd9296c1a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\process\decision">
+      <UniqueIdentifier>{cf10d0ee-3e02-4f41-bd64-189521893fe1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -177,9 +180,6 @@
     <ClInclude Include="..\public\code\Exception.h">
       <Filter>public</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\AutoMutex.h">
-      <Filter>public\table</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\LogObj.h">
       <Filter>public</Filter>
     </ClInclude>
@@ -247,6 +247,15 @@
       <Filter>public\account</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\monitorValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\decision\continueDecision.h">
+      <Filter>public\process\decision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\AutoMutex.h">
+      <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\optValueStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
   </ItemGroup>
@@ -368,9 +377,6 @@
     <ClCompile Include="..\public\code\Exception.cpp">
       <Filter>public</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\AutoMutex.cpp">
-      <Filter>public\table</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\LogObj.cpp">
       <Filter>public</Filter>
     </ClCompile>
@@ -435,6 +441,15 @@
       <Filter>public\account</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\monitorValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\decision\continueDecision.cpp">
+      <Filter>public\process\decision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\AutoMutex.cpp">
+      <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\optValueStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@ using namespace std;
 class CMonitor
 {
 public:
-	CMonitor(string _name, string _rateName):endRes(0),rateName(_rateName){monitorStruct = CMonitorValueStruct::instence();}
+	CMonitor(string _name, string _rateName);
 
 	void addOpt(PFlxOpt flxOpt);
 	void endOpt(double key, PRateValue endValue);

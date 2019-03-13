@@ -6,7 +6,7 @@
 
 // 查找数据库，开启对应线程处理数据
 
-CGlobalData& CtaskRunner::gData = CGlobalData::instance();
+//CGlobalData& CtaskRunner::gData = CGlobalData::instance();
 
 void processRun(int value)
 {
@@ -14,7 +14,7 @@ void processRun(int value)
 	taskRunner.run();
 }
 
-CtaskRunner::CtaskRunner():log(CLogObj::instance())
+CtaskRunner::CtaskRunner():log(CLogObj::instance()),gData(CGlobalData::instance())
 {
 	maxProcessCount = 10;
 }

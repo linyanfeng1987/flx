@@ -240,22 +240,22 @@ void CRow::setValue( string& strKey, double dValue )
 
 std::string CRow::getStringValue(string& strKey)
 {
-	return  this->find(strKey)->second->getStrValue();
+	return  emptyFind(strKey)->getStrValue();
 }
 
 long CRow::getIntValue(string& strKey)
 {
-	return this->find(strKey)->second->getIntValue();
+	return emptyFind(strKey)->getIntValue();
 }
 
 time_t CRow::getTimeValue(string& strKey)
 {
-	return this->find(strKey)->second->getSizeTValue();
+	return emptyFind(strKey)->getSizeTValue();
 }
 
 double CRow::getDoubleValue(string& strKey)
 {
-	return this->find(strKey)->second->getDoubleValue();
+	return emptyFind(strKey)->getDoubleValue();
 }
 
 void CRow::setStringValue(string& strKey, string& strValue )
@@ -290,5 +290,18 @@ bool CRow::save()
 void CRow::setDataStatus( DATA_STATUS status )
 {
 	m_dataStatus = status;
+}
+
+PValue CRow::emptyFind( string key )
+{
+	auto iter = find(key);
+	if (this->end() != iter)
+	{
+		return iter->second;
+	}
+	else
+	{
+		return newValue();
+	}	 
 }
 

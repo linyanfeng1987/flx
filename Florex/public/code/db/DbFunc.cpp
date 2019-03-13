@@ -2,7 +2,7 @@
 #include "DbObj.h"
 
 
-CGlobalData& CDbFunc::gData = CGlobalData::instance();
+//CGlobalData& CDbFunc::gData = CGlobalData::instance();
 CDbFunc::CDbFunc(void)
 {
 }

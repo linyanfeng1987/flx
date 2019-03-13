@@ -1,7 +1,7 @@
 #include "taskBuilder.h"
 #include "db/DbFunc.h"
 
-CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
+//CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 
 // 思路整理
 // 获取一个配置的process信息，获取这个process对应的rate或rates
@@ -9,7 +9,7 @@ CGlobalData& CTaskBuilder::gData = CGlobalData::instance();
 // 根据porcess的基础信息，在porcessStatus表中获取历史的最新处理时间，根据这个时间，以及step判断是否需要新建task
 // 若要建立新的task则讲任务放入porcessTask表中
 // 布置任务后重写processStatus表的时间，防止重新布置任务
-CTaskBuilder::CTaskBuilder():log(CLogObj::instance())
+CTaskBuilder::CTaskBuilder():log(CLogObj::instance()),gData(CGlobalData::instance())
 {
 	
 }
@@ -79,8 +79,10 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
 		taskInfo->setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
 		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_startTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
 		time_t endTime = processBuildLastTime + timeStep/processType.timeStep * processType.timeStep;
 		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_endTimeDesc, PubFun::getTimeFormat(endTime));
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
 		string strParam = PubFun::strFormat("timeStep=%d", processType.timeStep);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, strParam);
@@ -88,6 +90,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		taskInfo->save();
 
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
+		//processStatusInfo->setStringValue(CProcessStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
 		processStatusInfo->save();
 	}
 }

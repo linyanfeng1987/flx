@@ -27,8 +27,9 @@ int CProcessTask::completeTask()
 		porcessTaskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
 		porcessTaskInfo->save();
 
-		string completeTime = porcessStatus->getStringValue(CProcessStatusStruct::key_buildTaskLastTime);
-		porcessStatus->setStringValue(CProcessStatusStruct::key_completeTaskLastTime, completeTime);
+		time_t completeTime = porcessStatus->getTimeValue(CProcessStatusStruct::key_buildTaskLastTime);
+		porcessStatus->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, completeTime);
+		porcessStatus->setStringValue(CProcessStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
 		porcessStatus->save();
 	}
 	catch (CStrException& e)

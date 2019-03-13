@@ -6,6 +6,7 @@
 #include "LinkedHashMap.h"
 #include <memory>
 #include "continueJudgeGroup.h"
+#include "process/decision/continueDecision.h"
 
 using namespace std;
 // 连续有个起点A
@@ -35,7 +36,7 @@ using namespace std;
 class CContinueObj
 {
 public:
-	CContinueObj(PContinueJudgeGroup pJudgeGroup);
+	CContinueObj(PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions);
 	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
 
 	void setSectionId(long sectionId){this->sectionId = sectionId;}
@@ -51,6 +52,7 @@ public:
 
 	int getCurLevel(){return curLevel;}
 protected:
+	void levelChange(int newLevel, PRateValue curValue);
 	long sectionId;
 
 	// 方向 +1 或 -1
@@ -58,6 +60,7 @@ protected:
 	PRateValue startValue;
 	// 同方向最远的值
 	PRateValue tryEndValue;
+
 	int maxLevel;
 	// 连续等级 
 	int curLevel;
@@ -68,7 +71,9 @@ protected:
 
 	PContinueValue pContinueValue;
 	PContinueJudgeGroup pJudgeGroup;
+	list<PContinueDecision> *decisions;
+	int keepCount;
 };
 
 typedef shared_ptr<CContinueObj> PContinueObj;
-#define newContinueObj(T) make_shared<CContinueObj>(T)
+#define newContinueObj(T,T2) make_shared<CContinueObj>(T,T2)

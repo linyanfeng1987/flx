@@ -1,6 +1,7 @@
 #pragma once
 #include "baseCurRateStruct.h" 
 #include "table/TableStruct.h"
+#include <mutex>
 
 class CMonitorValueStruct;
 typedef shared_ptr<CMonitorValueStruct> PMonitorValueStruct;
@@ -24,6 +25,5 @@ public:
 	static const int monitorDataType_recordOpt = 1;
 protected:
 	void init();
-private:
-	static PMonitorValueStruct gp;
+	static mutex initMutex;
 }; 

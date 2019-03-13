@@ -22,6 +22,6 @@ public:
 	static PRow getProcessStatusLine(string processName);
 
 private:
-	static CGlobalData& gData; 
+	//static CGlobalData& gData; 
 };
 

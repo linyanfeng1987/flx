@@ -94,6 +94,7 @@
     <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\monitorValueStruct.h" />
+    <ClInclude Include="..\public\code\db\dataStruct\optValueStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h" />
     <ClInclude Include="..\public\code\db\dataStruct\testDbInfoStruct.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\process\continueProcess.h" />
+    <ClInclude Include="..\public\code\process\decision\continueDecision.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h" />
@@ -156,6 +158,7 @@
     <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\monitorValueStruct.cpp" />
+    <ClCompile Include="..\public\code\db\dataStruct\optValueStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\testDbInfoStruct.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\process\continueProcess.cpp" />
+    <ClCompile Include="..\public\code\process\decision\continueDecision.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp" />

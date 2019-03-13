@@ -3,7 +3,7 @@
 
 CValue::CValue()
 {
-	init();
+	setValue(string(""));
 }
 
 CValue::CValue( string strValue )

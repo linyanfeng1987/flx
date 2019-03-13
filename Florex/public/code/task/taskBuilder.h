@@ -25,6 +25,6 @@ protected:
 
 	CLogObj& log;
 	CDbObj* pDb; 
-	static CGlobalData& gData; 
+	CGlobalData& gData; 
 };
 

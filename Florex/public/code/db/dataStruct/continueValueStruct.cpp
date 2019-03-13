@@ -88,4 +88,6 @@ void CContinueValueStruct::init()
 
 	field.load(levels, typeString2);
 	this->insert(make_pair(field.strName, field));
+
+	ensureExist();
 }

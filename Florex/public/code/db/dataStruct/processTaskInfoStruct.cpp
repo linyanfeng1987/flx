@@ -5,7 +5,9 @@ string CProcessTaskInfoStruct::key_taskId = "taskId";
 string CProcessTaskInfoStruct::key_rate = "rate"; 
 string CProcessTaskInfoStruct::key_rateType = "rateType"; 
 string CProcessTaskInfoStruct::key_startTime = "startTime"; 
+string CProcessTaskInfoStruct::key_startTimeDesc = "startTimeDesc"; 
 string CProcessTaskInfoStruct::key_endTime = "endTime"; 
+string CProcessTaskInfoStruct::key_endTimeDesc = "endTimeDesc"; 
 string CProcessTaskInfoStruct::key_processTypeName = "processTypeName"; 
 string CProcessTaskInfoStruct::key_paramter = "paramter"; 
 string CProcessTaskInfoStruct::key_status = "status"; 
@@ -25,13 +27,19 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	field.load(key_rate, typeString);
 	this->insert(make_pair(field.strName, field));
 	//rateType
-	field.load(key_rateType, typeInt);
+	field.load(key_rateType, typeString);
 	this->insert(make_pair(field.strName, field));
 	//startTime
 	field.load(key_startTime, typeInt);
 	this->insert(make_pair(field.strName, field));
+
+	field.load(key_startTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
 	//endTime
 	field.load(key_endTime, typeInt);
+	this->insert(make_pair(field.strName, field));
+	//endTime
+	field.load(key_endTimeDesc, typeString);
 	this->insert(make_pair(field.strName, field));
 	//paramter
 	field.load(key_paramter, typeString);
@@ -39,6 +47,8 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	//status
 	field.load(key_status, typeInt);
 	this->insert(make_pair(field.strName, field));
+
+	this->ensureExist();
 }
 
 CProcessTaskInfoStruct::~CProcessTaskInfoStruct()

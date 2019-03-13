@@ -19,7 +19,9 @@ public:
 	// 普通rate
 	static string key_rateType; 
 	static string key_startTime; 
+	static string key_startTimeDesc; 
 	static string key_endTime; 
+	static string key_endTimeDesc; 
 	// 处理器类型
 	static string key_processTypeName; 
 	static string key_paramter; 

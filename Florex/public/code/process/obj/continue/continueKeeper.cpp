@@ -2,19 +2,19 @@
 #include <list>
 #include "table/Table.h"
 
-CContinueKeeper::CContinueKeeper( PContinueJudgeGroup pJudgeGroup, int curDir)
+CContinueKeeper::CContinueKeeper( PContinueJudgeGroup pJudgeGroup, int curDir, list<PContinueDecision> &_decisions)
 {
 	objIndex = 0;
 	this->pJudgeGroup = pJudgeGroup;
 	this->curDir = curDir;
-
-	pFinder = newContinueFinder(pJudgeGroup);
+	decisions = _decisions;
+	pFinder = newContinueFinder(pJudgeGroup, &decisions);
 	//finders.insert(make_pair(direct_up, newContinueFinder(pJudgeGroup)));
 	//finders.insert(make_pair(direct_down, newContinueFinder(pJudgeGroup)));
 }
 
 
-// 只记录生成最小连续的起始信息即可
+// 只记录生成最小连续的起始信息即可.
 bool CContinueKeeper::add(PRateValue curValue, PContinueValueStruct pTableStruct)
 {
 	if (nullptr == pCurObj)

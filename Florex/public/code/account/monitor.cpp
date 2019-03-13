@@ -1,6 +1,11 @@
 #include "monitor.h"
 #include "table/Row.h"
 
+CMonitor::CMonitor( string _name, string _rateName ):endRes(0),name(_name),rateName(_rateName)
+{
+	monitorStruct = CMonitorValueStruct::instence();
+}
+
 void CMonitor::addOpt( PFlxOpt flxOpt )
 {
 	curOpts.insert(make_pair(flxOpt->getStartTime(), flxOpt));
@@ -63,3 +68,4 @@ void CMonitor::saveToDb( int dataType, double curTime, double sumValue )
 
 	row->save();
 }
+

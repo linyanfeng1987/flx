@@ -7,7 +7,7 @@ string CMonitorValueStruct::monitorName = "monitorName";
 string CMonitorValueStruct::curTime = "curTime";
 string CMonitorValueStruct::sumValue = "sumValue";
 string CMonitorValueStruct::dataType = "dataType";
-PMonitorValueStruct CMonitorValueStruct::gp = newMonitorValueStruct();
+mutex CMonitorValueStruct::initMutex;
 
 CMonitorValueStruct::CMonitorValueStruct()
 {
@@ -46,6 +46,9 @@ void CMonitorValueStruct::init()
 
 PMonitorValueStruct CMonitorValueStruct::instence()
 {
+	initMutex.lock();
+	static PMonitorValueStruct gp = newMonitorValueStruct();
+	initMutex.unlock();
 	return gp;
 }
 

@@ -17,7 +17,9 @@ public:
 	static string key_processStatus; 
 	//static string key_step; 
 	static string key_buildTaskLastTime; 
+	static string key_buildTaskLastTimeDesc; 
 	static string key_completeTaskLastTime; 
+	static string key_completeTaskLastTimeDesc; 
 
 };
 

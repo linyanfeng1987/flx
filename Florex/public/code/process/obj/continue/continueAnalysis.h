@@ -7,7 +7,7 @@ using namespace std;
 class CContinueAnalysis
 {
 public:
-	CContinueAnalysis();
+	CContinueAnalysis(string _rateName);
 
 	void add(PRateValue value, PContinueValueStruct pTableStruct);
 
@@ -16,9 +16,10 @@ protected:
 	void init();
 	map<long, PContinueKeeper> continueKeepers;
 	long keeperIndex;
+	string rateName;
 // 	unsigned int maxMemberSize;
 // 	double minContinueStep;
 // 	double persentStep;
 };
 typedef shared_ptr<CContinueAnalysis> PContinueAnalysis;
-#define newContinueAnalysis() make_shared<CContinueAnalysis>()
+#define newContinueAnalysis(T) make_shared<CContinueAnalysis>(T)

@@ -6,8 +6,9 @@ string CProcessStatusStruct::key_processName = "processName";
 string CProcessStatusStruct::key_processStatus = "processStatus"; 
 //string CProcessStatusStruct::key_step = "step"; 
 string CProcessStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
+string CProcessStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
 string CProcessStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
-
+string CProcessStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc"; 
 
 CProcessStatusStruct::CProcessStatusStruct()
 {
@@ -26,9 +27,18 @@ CProcessStatusStruct::CProcessStatusStruct()
 	//buildTaskLastTime
 	field.load(key_buildTaskLastTime, typeInt);
 	this->insert(make_pair(field.strName, field));
+
+	field.load(key_buildTaskLastTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
+
 	//completeTaskLastTime
 	field.load(key_completeTaskLastTime, typeInt);
 	this->insert(make_pair(field.strName, field));
+
+	field.load(key_completeTaskLastTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
+
+	this->ensureExist();
 }
 
 CProcessStatusStruct::~CProcessStatusStruct()

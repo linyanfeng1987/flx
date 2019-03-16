@@ -15,6 +15,8 @@ protected:
 	int completeTask();
 	
 	int step;
+	static const string logTag;
+	PLogInfo logInfo;
 };
 typedef shared_ptr<CDbTestTask> PDbTestTask;
 #define newDbTestTask(T1, T2) make_shared<CDbTestTask>(T1, T2)

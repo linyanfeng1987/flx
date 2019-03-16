@@ -19,6 +19,9 @@ protected:
 	PRow porcessTaskInfo;
 	PRow porcessStatus;
 	PBaseProcess process;
+
+	static const string logTag;
+	PLogInfo logInfo;
 };
 typedef shared_ptr<CProcessTask> PProcessTask;
 #define newProcessTask(T1,T2,T3) make_shared<CProcessTask>(T1,T2,T3)

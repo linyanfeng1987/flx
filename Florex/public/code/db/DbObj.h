@@ -5,7 +5,7 @@
 #include <mutex>
 #include "mysql.h"
 
-using   namespace   std;
+using namespace   std;
 class CDbObj
 {
 
@@ -47,6 +47,11 @@ protected:
 	bool isMySqlInit;
 	MYSQL mysql;
 	CLogObj& log;
+
+	PLogInfo testLogInfo;
+	PLogInfo dbLogInfo;
+
+	const static string logTag;
 
 	//static recursive_mutex dbMutex;
 };

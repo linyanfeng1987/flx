@@ -27,8 +27,6 @@ int CBaseTask::run(const char* argv)
 
 void CBaseTask::baseRunInThread( const char* argv )
 {
-	CLogInfo logInfo(taskName);
-	log.addLogInfo(logInfo);
 	runInThread(argv);
 }
 

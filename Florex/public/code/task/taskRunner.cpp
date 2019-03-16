@@ -7,6 +7,7 @@
 // 查找数据库，开启对应线程处理数据
 
 //CGlobalData& CtaskRunner::gData = CGlobalData::instance();
+const string CtaskRunner::logTag = "taskRunner";
 
 void processRun(int value)
 {
@@ -16,6 +17,7 @@ void processRun(int value)
 
 CtaskRunner::CtaskRunner():log(CLogObj::instance()),gData(CGlobalData::instance())
 {
+	logInfo = newLogInfo(logTag);
 	maxProcessCount = 10;
 }
 
@@ -28,8 +30,6 @@ CtaskRunner::~CtaskRunner()
 
 void CtaskRunner::run()
 {
-	CLogInfo logInfo("taskRunner");
-	log.addLogInfo(logInfo);
 	while (true)
 	{
 		rangTaskList();
@@ -72,7 +72,7 @@ bool CtaskRunner::reloadTaskList()
 	}
 	catch (CStrException& e)
 	{
-		log.error(string("reloadTaskList 失败！msg:").append(e.what()));
+		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
 	}
 	
 	return hasData;

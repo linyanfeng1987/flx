@@ -17,8 +17,9 @@ void CMonitor::endOpt( double key, PRateValue endValue )
 	if (curOpts.end() != optIter)
 	{
 		optIter->second->setEnd(endValue);
-		curOpts.erase(key);
 		addEndOpt(*optIter);
+		curOpts.erase(key);
+		saveToDb(CMonitorValueStruct::monitorDataType_endOpt, endValue->time, endRes);
 	}
 }
 
@@ -29,7 +30,12 @@ void CMonitor::endOpt( PRateValue endValue )
 		optPair.second->setEnd(endValue);
 		addEndOpt(optPair);
 	}
-	curOpts.clear();
+
+	if (0 < curOpts.size())
+	{
+		saveToDb(CMonitorValueStruct::monitorDataType_endOpt, endValue->time, endRes);
+		curOpts.clear();
+	}
 }
 
 double CMonitor::getCurRes( PRateValue curValue )
@@ -53,7 +59,6 @@ void CMonitor::addEndOpt( pair<double, PFlxOpt> pr )
 {
 	endOpts.insert(pr);
 	endRes += pr.second->getEndResValue();
-	saveToDb(CMonitorValueStruct::monitorDataType_endOpt, pr.second->getEnd()->time, endRes);
 }
 
 void CMonitor::saveToDb( int dataType, double curTime, double sumValue )

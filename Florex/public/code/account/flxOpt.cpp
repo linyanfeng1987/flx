@@ -1,7 +1,7 @@
 #include "flxOpt.h"
 #include "table/Row.h"
 
-CFlxOpt::CFlxOpt(string _rateName, PRateValue _beginValue, int _direct ):rateName(_rateName),beginValue(_beginValue),direct(_direct)
+CFlxOpt::CFlxOpt(string _tagName,string _rateName, PRateValue _beginValue, int _direct ):tagName(_tagName),rateName(_rateName),beginValue(_beginValue),direct(_direct)
 {
 	endValue = nullptr;
 	endRes = 0;
@@ -29,6 +29,7 @@ void CFlxOpt::saveToDb()
 {
 	PRow row = newRow(optStruct);
 
+	row->setStringValue(COptValueStruct::tagName, tagName);
 	row->setStringValue(COptValueStruct::rateName, rateName);
 	row->setDoubleValue(COptValueStruct::startTime, beginValue->time);
 	row->setStringValue(COptValueStruct::startTimeDesc, beginValue->timeDesc);

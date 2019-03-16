@@ -17,6 +17,7 @@ protected:
 	string monitorName;
 	string decisionName;
 	string tagName;
+	bool isIn;
 	static POptAccount optAccountr;
 };
 typedef shared_ptr<CContinueDecision> PContinueDecision;

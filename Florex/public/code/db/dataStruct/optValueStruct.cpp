@@ -3,6 +3,7 @@
 #include "ConstDef.h"
 
 
+string COptValueStruct::tagName = "tagName";
 string COptValueStruct::rateName = "rateName";
 string COptValueStruct::startTime = "startTime";
 string COptValueStruct::startTimeDesc = "startTimeDesc";
@@ -30,6 +31,9 @@ COptValueStruct::~COptValueStruct()
 void COptValueStruct::init()
 {
 	CField field;
+
+	field.load(tagName, typeString, true);
+	this->insert(make_pair(field.strName, field));
 	
 	field.load(rateName, typeString, true);
 	this->insert(make_pair(field.strName, field));

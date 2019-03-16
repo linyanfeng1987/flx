@@ -26,5 +26,8 @@ protected:
 	CLogObj& log;
 	CDbObj* pDb; 
 	CGlobalData& gData; 
+
+	static const string logTag;
+	PLogInfo logInfo;
 };
 

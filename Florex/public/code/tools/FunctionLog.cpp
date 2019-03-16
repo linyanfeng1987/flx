@@ -1,12 +1,12 @@
 #include "FunctionLog.h"
 #include "PubFun.h"
 
-CFunctionLog::CFunctionLog( string funName, long line):log(CLogObj::instance())
+CFunctionLog::CFunctionLog(PLogInfo _logInfo, string funName, long line):log(CLogObj::instance()),logInfo(_logInfo)
 {
-	log.debug(PubFun::strFormat("function in, thisId:%d, name:%s, line:%d.", this, funName.c_str(), line));
+	log.debug(logInfo, PubFun::strFormat("function in, thisId:%d, name:%s, line:%d.", this, funName.c_str(), line));
 }
 
 CFunctionLog::~CFunctionLog( void )
 {
-	log.debug(PubFun::strFormat("function out, thisId:%d.", this));
+	log.debug(logInfo, PubFun::strFormat("function out, thisId:%d.", this));
 }

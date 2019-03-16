@@ -4,8 +4,11 @@
 #include "db/DbObj.h"
 #include "PubFun.h"
 
+const string CDbTestTask::logTag = "dbTestTask";
+
 CDbTestTask::CDbTestTask( int step, string name): CBaseTask(name)
 {
+	logInfo = newLogInfo(logTag);
 	this->step = step;
 }
 
@@ -21,11 +24,10 @@ int CDbTestTask::completeTask()
 
 void CDbTestTask::runInThread( const char* argv )
 {
-	static string className = "CDbTestTask";
 	status = 1;
 	try
 	{
-		log.test(PubFun::strFormat("test db begin"), className);
+		log.ext(logInfo, PubFun::strFormat("test db begin"));
 		PTestDbInfoStruct testDbStruct = CTestDbInfoStruct::instence();
 		PTable resTable = newTable(testDbStruct);
 
@@ -44,7 +46,7 @@ void CDbTestTask::runInThread( const char* argv )
 				row->setStringValue(CTestDbInfoStruct::key_id, baseId);
 				row->setIntValue(CTestDbInfoStruct::key_value, 0);
 
-				log.test(PubFun::strFormat("insert new"), className);
+				log.ext(logInfo, PubFun::strFormat("insert new"));
 			}
 			else{
 				int nSrcValue = row->getIntValue(CTestDbInfoStruct::key_value);
@@ -56,21 +58,21 @@ void CDbTestTask::runInThread( const char* argv )
 				}
 				else
 				{
-					log.info(string("testDb end!"));
+					log.info(logInfo, string("testDb end!"));
 					break;
 				}
-				log.test(PubFun::strFormat("update,srcValue:%d, destValue:%d.", nSrcValue, nDestValue), className);
+				log.ext(logInfo, PubFun::strFormat("update,srcValue:%d, destValue:%d.", nSrcValue, nDestValue));
 			}
 			row->save();
 		}
 		
 		completeTask();
-		log.test(PubFun::strFormat("test db succ end"), className);
+		log.ext(logInfo, PubFun::strFormat("test db succ end"));
 	}
 	catch (CStrException& e)
 	{
-		log.error(string("runInThread Ê§°Ü£¡msg:").append(e.what()));
-		log.test(PubFun::strFormat("test db error:%s", e.what()), className);
+		log.error(logInfo, string("runInThread Ê§°Ü£¡msg:").append(e.what()));
+		log.ext(logInfo, PubFun::strFormat("test db error:%s", e.what()));
 	}
-	log.test(PubFun::strFormat("test db end"), className);
+	log.ext(logInfo, PubFun::strFormat("test db end"));
 }

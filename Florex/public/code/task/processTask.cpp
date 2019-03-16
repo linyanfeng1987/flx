@@ -8,16 +8,18 @@
 #include "tools/FunctionLog.h"
 
 const int timeStep = 3600;
+const string CProcessTask::logTag = "processTask";
 
 CProcessTask::CProcessTask( PRow status, PBaseProcess process, string name ):porcessTaskInfo(process->getTaskInfo()),porcessStatus(status),CBaseTask(name)
 {
-	log.debug(PubFun::strFormat("CProcessTask build, %d\n", this));
+	logInfo = newLogInfo(logTag);
+	log.debug(logInfo, PubFun::strFormat("CProcessTask build, %d\n", this));
 	this->process = process;
 }
 
 CProcessTask::~CProcessTask()
 {
-	log.debug(PubFun::strFormat("CProcessTask end, %d\n", this));
+	log.debug(logInfo, PubFun::strFormat("CProcessTask end, %d\n", this));
 }
 
 int CProcessTask::completeTask()
@@ -34,7 +36,7 @@ int CProcessTask::completeTask()
 	}
 	catch (CStrException& e)
 	{
-		log.error(string("completeTask Ê§°Ü£¡msg:").append(e.what()));
+		log.error(logInfo, string("completeTask Ê§°Ü£¡msg:").append(e.what()));
 	}
 
 	return 0;
@@ -44,7 +46,7 @@ void CProcessTask::runInThread( const char* argv )
 {
 	try
 	{
-		CFunctionLog funLog(__FUNCTION__, __LINE__);
+		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
 		string rateName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
 		string startTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_startTime);
 		string endTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_endTime);
@@ -71,7 +73,7 @@ void CProcessTask::runInThread( const char* argv )
 	}
 	catch (CStrException& e)
 	{
-		log.error(string("runInThread Ê§°Ü£¡msg:").append(e.what()));
+		log.error(logInfo, string("runInThread Ê§°Ü£¡msg:").append(e.what()));
 	}
 }
 

@@ -14,6 +14,7 @@ public:
 	~COptValueStruct();
 	static POptValueStruct instence();
 
+	static string tagName;
 	static string rateName;
 	static string startTime;
 	static string startTimeDesc;

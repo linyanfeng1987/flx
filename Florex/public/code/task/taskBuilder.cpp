@@ -9,9 +9,12 @@
 // 根据porcess的基础信息，在porcessStatus表中获取历史的最新处理时间，根据这个时间，以及step判断是否需要新建task
 // 若要建立新的task则讲任务放入porcessTask表中
 // 布置任务后重写processStatus表的时间，防止重新布置任务
+
+const string CTaskBuilder::logTag = "taskBuilder";
+
 CTaskBuilder::CTaskBuilder():log(CLogObj::instance()),gData(CGlobalData::instance())
 {
-	
+	logInfo = newLogInfo(logTag);
 }
 
 CTaskBuilder::~CTaskBuilder()
@@ -23,8 +26,6 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
-	CLogInfo logInfo("taskBuilder");
-	log.addLogInfo(logInfo);
 	while (true)
 	{
 		for (auto& rateIter : gData.processRates)

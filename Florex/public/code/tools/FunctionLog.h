@@ -5,9 +5,10 @@ using namespace std;
 class CFunctionLog
 {
 public:
-	CFunctionLog(string funName, long line);
+	CFunctionLog(PLogInfo _logInfo, string funName, long line);
 	~CFunctionLog(void);
 
 protected:
+	PLogInfo logInfo;
 	CLogObj& log;
 };

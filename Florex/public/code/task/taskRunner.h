@@ -28,5 +28,8 @@ protected:
 	CLogObj& log;
 	map<string, PProcessTask> runingTasks;
 	CGlobalData& gData; 
+
+	static const string logTag;
+	PLogInfo logInfo;
 };
 

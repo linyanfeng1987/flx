@@ -5,7 +5,7 @@ POptAccount COptAccount::gp = newOptAccount();
 void COptAccount::optIn( string& tagName, string& rateName, PRateValue curValue, int direct)
 {
 	PMonitor monitor = getMonitor(tagName, rateName);
-	monitor->addOpt(newFlxOptr(rateName, curValue, direct));
+	monitor->addOpt(newFlxOptr(tagName, rateName, curValue, direct));
 }
 
 void COptAccount::optOut( string& tagName, string& rateName, PRateValue curValue )

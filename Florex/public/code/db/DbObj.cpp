@@ -9,6 +9,7 @@
 CDbObj* CDbObj::g_db = nullptr;
 map<size_t,CDbObj*>* CDbObj::pDbMap = nullptr;
 //recursive_mutex CDbObj::dbMutex;
+const string CDbObj::logTag = "db";
 
 CDbObj& CDbObj::instance()
 {
@@ -42,12 +43,14 @@ void CDbObj::release()
 
 CDbObj::CDbObj(void):log(CLogObj::instance())
 {
+	testLogInfo = newLogInfo2(logTag, log_ext);
+	dbLogInfo = newLogInfo(logTag);
 	isMySqlInit = false;
 }
 
 CDbObj::~CDbObj(void)
 {
-	CFunctionLog funLog(__FUNCTION__, __LINE__);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
 	mysql_close(&mysql);
 }
 
@@ -68,7 +71,7 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 	PubFun::log(strLog);
 	{
 		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(__FUNCTION__, __LINE__);
+		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
 		tryConnect();
 
 		int nRes = mysql_query(&mysql,sql);
@@ -110,32 +113,32 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 void CDbObj::selectData( const char * sql, PTable resTable)
 {
 	string strLog = "selectData:" + string(sql);
-	log.debug(strLog);
+	log.debug(dbLogInfo, strLog);
 	{
 		resTable->clear();
 		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(__FUNCTION__, __LINE__);
-		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
+		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
+		log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
 		tryConnect();
 		
-		log.test(PubFun::strFormat("%s::mysql_query", __FUNCTION__), "dbObj");
+		log.ext(testLogInfo, PubFun::strFormat("%s::mysql_query", __FUNCTION__));
 		int nRes = mysql_query(&mysql,sql);
 		string strMsg = "";
 		if(0 == nRes)
 		{
 			MYSQL_ROW pRow = nullptr;
 			MYSQL_RES *pRes = nullptr;
-			log.test(PubFun::strFormat("%s::mysql_store_result", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_store_result", __FUNCTION__));
 			pRes = mysql_store_result(&mysql);
 			if(pRes==nullptr)
 			{
 				throwSqlError(sql);
 			}
-			log.test(PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo,PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__));
 			long nCount = 0;
 			while(pRow = mysql_fetch_row(pRes))
 			{
-				log.test(PubFun::strFormat("%s::mysql_fetch_row count %d", __FUNCTION__, nCount++), "dbObj");
+				log.ext(testLogInfo, PubFun::strFormat("%s::mysql_fetch_row count %d", __FUNCTION__, nCount++));
 				PRow row = newRow(resTable->tableStruct);
 				char* pDataValue = *pRow;
 				auto fieldIter = resTable->tableStruct->begin();
@@ -148,12 +151,12 @@ void CDbObj::selectData( const char * sql, PTable resTable)
 				row->setDataStatus(DATA_SAME);
 				resTable->addRow(row);
 			}
-			log.test(PubFun::strFormat("%s::mysql_free_result", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_free_result", __FUNCTION__));
 			mysql_free_result(pRes);
 		}
 		else
 		{
-			log.test(PubFun::strFormat("%s::throwSqlError", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo, PubFun::strFormat("%s::throwSqlError", __FUNCTION__));
 			throwSqlError(sql);
 		}
 	}
@@ -163,13 +166,13 @@ void CDbObj::executeSql( const char * sql )
 {
 	string strLog = "excecuteSql:";
 	strLog += sql;
-	PubFun::log(strLog);
+	log.debug(dbLogInfo, strLog);
 	{
 		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(__FUNCTION__, __LINE__);
-		log.test(PubFun::strFormat("%s::tryConnect", __FUNCTION__), "dbObj");
+		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
+		log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
 		tryConnect();
-		log.test(PubFun::strFormat("%s::baseExecuteSql", __FUNCTION__), "dbObj");
+		log.ext(testLogInfo, PubFun::strFormat("%s::baseExecuteSql", __FUNCTION__));
 		baseExecuteSql(sql);
 	}
 }
@@ -184,7 +187,6 @@ void CDbObj::baseExecuteSql( const char * sql )
 		{
 			mysql_free_result(pRes);
 		}
-		
 	}
 	else
 	{
@@ -202,7 +204,7 @@ void CDbObj::tryConnect()
 	// 0为链接正常
 	int pinRes = mysql_ping(&mysql);
 	string strMsg = mysql_error(&mysql);
-	log.test(PubFun::strFormat("%s::mysql_ping, res:%d", __FUNCTION__, pinRes), "dbObj");
+	log.ext(testLogInfo, PubFun::strFormat("%s::mysql_ping, res:%d", __FUNCTION__, pinRes));
 	if (0 != pinRes)
 	{
 		connectDefDb();
@@ -226,7 +228,7 @@ void CDbObj::connectDefDb()
 
 void CDbObj::connectMySQL(char *host,unsigned int port ,char * Db,char * user,char* passwd,char * charset, string &strMsg)
 {
-	log.test(PubFun::strFormat("%s::connectMySQL", __FUNCTION__), "dbObj");
+	log.ext(testLogInfo, PubFun::strFormat("%s::connectMySQL", __FUNCTION__));
 	if ( nullptr == mysql_real_connect(&mysql,host,user,passwd,NULL,port,NULL,0))
 	{
 		throwSqlError();
@@ -236,17 +238,17 @@ void CDbObj::connectMySQL(char *host,unsigned int port ,char * Db,char * user,ch
 void CDbObj::initMySQL()
 {
 	//CAutoMutex localMutex(&dbMutex);
-	CFunctionLog funLog(__FUNCTION__, __LINE__);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
 	bool bRes = false;
-	log.test(PubFun::strFormat("%s::mysql_library_init", __FUNCTION__), "dbObj");
+	log.ext(testLogInfo, PubFun::strFormat("%s::mysql_library_init", __FUNCTION__));
 	int nRes =mysql_library_init(0, NULL, NULL);
 	if (0 == nRes) {
-		log.test(PubFun::strFormat("%s::mysql_init", __FUNCTION__), "dbObj");
+		log.ext(testLogInfo, PubFun::strFormat("%s::mysql_init", __FUNCTION__));
 		if( NULL != mysql_init(&mysql) )
 		{
-			log.test(PubFun::strFormat("%s::connectDefDb", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo, PubFun::strFormat("%s::connectDefDb", __FUNCTION__));
 			connectDefDb();
-			log.test(PubFun::strFormat("%s::mysql_set_character_set", __FUNCTION__), "dbObj");
+			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_set_character_set", __FUNCTION__));
 			if(0 == mysql_set_character_set(&mysql,"GBK"))
 			{
 				bRes  = true;
@@ -257,7 +259,7 @@ void CDbObj::initMySQL()
 
 	if (!bRes)
 	{
-		log.test(PubFun::strFormat("%s::throwSqlError", __FUNCTION__), "dbObj");
+		log.ext(testLogInfo, PubFun::strFormat("%s::throwSqlError", __FUNCTION__));
 		throwSqlError();
 	}
 }
@@ -265,7 +267,7 @@ void CDbObj::initMySQL()
 void CDbObj::insertDatas( list<string> sqls )
 {
 	//CAutoMutex localMutex(&dbMutex);
-	CFunctionLog funLog(__FUNCTION__, __LINE__);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
 	tryConnect();
 
 	startTransaction();
@@ -311,7 +313,7 @@ void CDbObj::baseInsert( string sql )
 void CDbObj::throwSqlError(string sql)
 {
 	string strMsg = mysql_error(&mysql);
-	log.error(PubFun::strFormat("执行sql失败:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
+	log.error(dbLogInfo, PubFun::strFormat("执行sql失败:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
 	throw CStrException(strMsg);
 }
 

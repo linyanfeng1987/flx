@@ -6,19 +6,20 @@ CMonitor::CMonitor( string _name, string _rateName ):endRes(0),name(_name),rateN
 	monitorStruct = CMonitorValueStruct::instence();
 }
 
-void CMonitor::addOpt( PFlxOpt flxOpt )
+indexType CMonitor::addOpt( PFlxOpt flxOpt )
 {
-	curOpts.insert(make_pair(flxOpt->getStartTime(), flxOpt));
+	curOpts.insert(make_pair(flxOpt->getTagId(), flxOpt));
+	return flxOpt->getTagId();
 }
 
-void CMonitor::endOpt( double key, PRateValue endValue )
+void CMonitor::endOpt( indexType optTagId, PRateValue endValue )
 {
-	auto optIter = curOpts.find(key);
+	auto optIter = curOpts.find(optTagId);
 	if (curOpts.end() != optIter)
 	{
 		optIter->second->setEnd(endValue);
 		addEndOpt(*optIter);
-		curOpts.erase(key);
+		curOpts.erase(optTagId);
 		saveToDb(CMonitorValueStruct::monitorDataType_endOpt, endValue->time, endValue->timeDesc, endRes);
 	}
 }
@@ -55,7 +56,7 @@ double CMonitor::getEndRes()
 	return endRes;
 }
 
-void CMonitor::addEndOpt( pair<double, PFlxOpt> pr )
+void CMonitor::addEndOpt( pair<indexType, PFlxOpt> pr )
 {
 	endOpts.insert(pr);
 	endRes += pr.second->getEndResValue();

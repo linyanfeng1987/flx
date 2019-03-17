@@ -2,6 +2,7 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
+string COptValueStruct::optTagId = "optTagId";
 string COptValueStruct::srcTagId = "srcTagId";
 string COptValueStruct::tagName = "tagName";
 string COptValueStruct::rateName = "rateName";
@@ -31,6 +32,9 @@ COptValueStruct::~COptValueStruct()
 void COptValueStruct::init()
 {
 	CField field;
+
+	field.load(optTagId, typeIndex, false, true);
+	this->insert(make_pair(field.strName, field));
 
 	field.load(tagName, typeString, true);
 	this->insert(make_pair(field.strName, field));

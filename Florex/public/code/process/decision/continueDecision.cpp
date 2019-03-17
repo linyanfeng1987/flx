@@ -1,31 +1,40 @@
 #include "continueDecision.h"
 #include "PubFun.h"
 
-POptAccount CContinueDecision::optAccountr = COptAccount::instence();
-
-CContinueDecision::CContinueDecision( int _startLevel, string _rateName, string _monitorName, string _decisionName ):startLevel(_startLevel),rateName(_rateName),monitorName(_monitorName),decisionName(_decisionName),isIn(false)
+CContinueDecision::CContinueDecision( int _startLevel):startLevel(_startLevel),optTagId(0)
 {
+	optAccountr = COptAccount::instence();
+	decisionName = PubFun::strFormat("continue_%d", startLevel);
+}
+
+void CContinueDecision::init( string _monitorName, PRateInfo _rateInfo )
+{
+	rateInfo = _rateInfo;
+	monitorName = _monitorName;
+
 	tagName = PubFun::strFormat("%s_%s", monitorName.c_str(), decisionName.c_str());
 }
 
 
 void CContinueDecision::levelUp( int curLevel, PRateValue curValue, indexType srcTagId, int direct )
 {
-	if (!isIn && curLevel >= startLevel)
+	if (0 == optTagId && curLevel >= startLevel)
 	{
-		optAccountr->optIn(tagName, rateName, srcTagId, curValue, direct);
-		isIn = true;
+		optTagId = optAccountr->optIn(tagName, rateInfo->rateName, srcTagId, curValue, direct);
 	}
 }
 
 void CContinueDecision::continueStop( PRateValue curValue )
 {
-	optAccountr->optOut(tagName, rateName, curValue);
-	isIn = false;
+	if (0 != optTagId)
+	{
+		optAccountr->optOut(tagName, rateInfo->rateName, optTagId, curValue);
+	}
 }
 
 void CContinueDecision::record( PRateValue curValue )
 {
-	optAccountr->record(tagName, rateName, curValue);
+	optAccountr->record(tagName, rateInfo->rateName, curValue);
 }
+
 

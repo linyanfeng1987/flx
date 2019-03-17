@@ -132,6 +132,7 @@
     <ClInclude Include="..\public\code\PubFun.h" />
     <ClInclude Include="..\public\code\rate\CurRate.h" />
     <ClInclude Include="..\public\code\rate\HisRate.h" />
+    <ClInclude Include="..\public\code\rate\rateInfo.h" />
     <ClInclude Include="..\public\code\table\Field.h" />
     <ClInclude Include="..\public\code\table\Row.h" />
     <ClInclude Include="..\public\code\table\Table.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="..\public\code\PubFun.cpp" />
     <ClCompile Include="..\public\code\rate\CurRate.cpp" />
     <ClCompile Include="..\public\code\rate\HisRate.cpp" />
+    <ClCompile Include="..\public\code\rate\rateInfo.cpp" />
     <ClCompile Include="..\public\code\table\Field.cpp" />
     <ClCompile Include="..\public\code\table\Row.cpp" />
     <ClCompile Include="..\public\code\table\Table.cpp" />

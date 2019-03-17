@@ -7,6 +7,7 @@
 #include <memory>
 #include "continueJudgeGroup.h"
 #include "process/decision/continueDecision.h"
+#include "rate/rateInfo.h"
 
 using namespace std;
 // 连续有个起点A
@@ -36,7 +37,7 @@ using namespace std;
 class CContinueObj
 {
 public:
-	CContinueObj(PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions);
+	CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions);
 	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
 
 	unsigned long long getTagId(){ return tagId;}
@@ -54,6 +55,7 @@ protected:
 	void levelChange(int newLevel, PRateValue curValue);
 	indexType tagId;
 	static indexType tagIdCount;
+	PRateInfo rateInfo;
 
 	// 方向 +1 或 -1
 	//int curDirect;
@@ -71,9 +73,9 @@ protected:
 
 	PContinueValue pContinueValue;
 	PContinueJudgeGroup pJudgeGroup;
-	list<PContinueDecision> *decisions;
+	list<PContinueDecision> decisions;
 	int keepCount;
 };
 
 typedef shared_ptr<CContinueObj> PContinueObj;
-#define newContinueObj(T,T2) make_shared<CContinueObj>(T,T2)
+#define newContinueObj(T,T2,T3) make_shared<CContinueObj>(T,T2,T3)

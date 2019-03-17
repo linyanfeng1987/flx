@@ -1,5 +1,6 @@
 #include "continueProcess.h"
 #include "db/dataStruct/curRateAverageStruct.h"
+#include "rate/rateInfo.h"
 #include "PubFun.h"
 
 CContinueProcess::CContinueProcess( PRow pTaskInfo ):CBaseProcess(pTaskInfo)
@@ -38,7 +39,8 @@ void CContinueProcess::init( PRow pTaskInfo )
 	}
 	cycle =  PubFun::stringToInt(strTimeStep);
 	timeStepType = PubFun::getStepType(cycle);
-
-	pContinueAnalysis = newContinueAnalysis(pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType));
+	PRateInfo rateInfo = newRateInfo();
+	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	pContinueAnalysis = newContinueAnalysis(rateInfo);
 	lastPrice = 0;
 }

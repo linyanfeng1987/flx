@@ -1,8 +1,11 @@
 #include "flxOpt.h"
 #include "table/Row.h"
 
+indexType CFlxOpt::optTagIdCount = 0;
+
 CFlxOpt::CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateValue _beginValue, int _direct ):tagName(_tagName),srcTagId(_srcTagId),rateName(_rateName),beginValue(_beginValue),direct(_direct)
 {
+	optTagId = ++optTagIdCount;
 	endValue = nullptr;
 	endRes = 0;
 	optStruct = COptValueStruct::instence();
@@ -29,6 +32,7 @@ void CFlxOpt::saveToDb()
 {
 	PRow row = newRow(optStruct);
 
+	row->setIndexValue(COptValueStruct::optTagId, optTagId);
 	row->setStringValue(COptValueStruct::tagName, tagName);
 	row->setIndexValue(COptValueStruct::srcTagId, srcTagId);
 	row->setStringValue(COptValueStruct::rateName, rateName);

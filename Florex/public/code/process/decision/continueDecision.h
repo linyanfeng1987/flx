@@ -2,24 +2,27 @@
 #include <string>
 #include <memory>
 
+#include "rate/rateInfo.h"
+
 #include "account/optAccount.h"
 using namespace std;
 class CContinueDecision
 {
 public:
-	CContinueDecision(int _startLevel, string _rateName, string _monitorName, string _decisionName);
+	CContinueDecision(int _startLevel);
+	void init(string _monitorName, PRateInfo _rateInfo);
 	void levelUp(int curLevel, PRateValue curValue, indexType srcTagId, int direct);
 	void continueStop(PRateValue curValue);
 	void record(PRateValue curValue);
 protected:
+	PRateInfo rateInfo;
 	int startLevel;
-	string rateName;
 	string monitorName;
 	string decisionName;
 	string tagName;
-	bool isIn;
-	static POptAccount optAccountr;
+	indexType optTagId;
+	POptAccount optAccountr;
 };
 typedef shared_ptr<CContinueDecision> PContinueDecision;
-#define newContinueDecision(T1,T2,T3,T4) make_shared<CContinueDecision>(T1,T2,T3,T4)
+#define newContinueDecision(T1) make_shared<CContinueDecision>(T1)
 

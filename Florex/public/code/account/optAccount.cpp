@@ -2,16 +2,16 @@
 
 POptAccount COptAccount::gp = newOptAccount();
 
-void COptAccount::optIn( string& tagName, string& rateName, indexType srcTagId, PRateValue curValue, int direct)
+indexType COptAccount::optIn( string& tagName, string& rateName, indexType srcTagId, PRateValue curValue, int direct)
 {
 	PMonitor monitor = getMonitor(tagName, rateName);
-	monitor->addOpt(newFlxOptr(tagName, srcTagId, rateName, curValue, direct));
+	return monitor->addOpt(newFlxOptr(tagName, srcTagId, rateName, curValue, direct));
 }
 
-void COptAccount::optOut( string& tagName, string& rateName, PRateValue curValue )
+void COptAccount::optOut( string& tagName, string& rateName, indexType optTagId, PRateValue curValue )
 {
 	PMonitor monitor = getMonitor(tagName, rateName);
-	monitor->endOpt(curValue);
+	monitor->endOpt(optTagId, curValue);
 }
 
 void COptAccount::record( string& tagName, string& rateName, PRateValue curValue )

@@ -4,9 +4,8 @@
 #include "process/decision/continueDecision.h"
 #include "PubFun.h"
 
-CContinueAnalysis::CContinueAnalysis(string _rateName)
+CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):rateInfo(_rateInfo)
 {
-	rateName = _rateName;
 	keeperIndex = 0;
 	init();
 }
@@ -31,16 +30,17 @@ void CContinueAnalysis::init()
 	double testParam2 = 0.8;
 	for (int i = 3; i <= 5; i++)
 	{
-		PContinueDecision decision = newContinueDecision(i, rateName, "goldenSection", PubFun::intToString(i));
+		PContinueDecision decision = newContinueDecision(i);
 		decisions.push_back(decision);
 	}
 	retrcementCalcFun = newCFun1(goldenSection, testParam2);
 	pGroup = newContinueJudgeGroup(15, goldenSection, retrcementCalcFun);
 	pGroup->init(basePoint, goldenSection);
-	pKeeper = newContinueKeeper(pGroup, direct_up, decisions);
+	pGroup->name = "61.8%";
+	pKeeper = newContinueKeeper(rateInfo, pGroup, direct_up, decisions);
 	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
-	pKeeper = newContinueKeeper(pGroup, direct_down, decisions);
+	pKeeper = newContinueKeeper(rateInfo, pGroup, direct_down, decisions);
 	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 
@@ -48,17 +48,20 @@ void CContinueAnalysis::init()
 	decisions.clear();
 	for (int i = 9; i <= 15; i++)
 	{
-		decisions.push_back(newContinueDecision(i, rateName, "90persent", PubFun::intToString(i)));
+		//decisions.push_back(newContinueDecision(i, rateInfo, "90persent", PubFun::intToString(i)));
+		decisions.push_back(newContinueDecision(i));
 	}
-	decisions.push_back(newContinueDecision(20, rateName, "90persent", PubFun::intToString(20)));
-	decisions.push_back(newContinueDecision(22, rateName, "90persent", PubFun::intToString(22)));
+	decisions.push_back(newContinueDecision(20));
+	decisions.push_back(newContinueDecision(22));
+	decisions.push_back(newContinueDecision(30));
 	retrcementCalcFun = newCFun1(testPersent, 0.95);
 	pGroup = newContinueJudgeGroup(70, testPersent, retrcementCalcFun);
 	pGroup->init(basePoint, testPersent);
-	pKeeper = newContinueKeeper(pGroup, direct_up, decisions);
+	pGroup->name = "90%";
+	pKeeper = newContinueKeeper(rateInfo, pGroup, direct_up, decisions);
 	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
-	pKeeper = newContinueKeeper(pGroup, direct_down, decisions);
+	pKeeper = newContinueKeeper(rateInfo, pGroup, direct_down, decisions);
 	pKeeper->setId(keeperIndex++);
 	continueKeepers.insert(make_pair(pKeeper->getId(), pKeeper));
 }

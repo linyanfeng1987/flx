@@ -9,21 +9,21 @@ class CMonitor
 public:
 	CMonitor(string _name, string _rateName);
 
-	void addOpt(PFlxOpt flxOpt);
-	void endOpt(double key, PRateValue endValue);
+	indexType addOpt(PFlxOpt flxOpt);
+	void endOpt(indexType optTagId, PRateValue endValue);
 	void endOpt(PRateValue endValue);
 
 	double getCurRes(PRateValue curValue);
 	double getEndRes();
 protected:
 	void saveToDb(int dataType, double curTime, string curTimeDesc, double sumValue);
-	void addEndOpt(pair<double, PFlxOpt> pr);
-	map<double, PFlxOpt> curOpts;
+	void addEndOpt(pair<indexType, PFlxOpt> pr);
+	map<indexType, PFlxOpt> curOpts;
 
 	string name;
 	string rateName;
 	double endRes;
-	map<double, PFlxOpt> endOpts;
+	map<indexType, PFlxOpt> endOpts;
 
 	PMonitorValueStruct monitorStruct;
 };

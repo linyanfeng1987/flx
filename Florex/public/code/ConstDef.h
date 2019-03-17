@@ -57,4 +57,4 @@ const double timeAttenuation = 0.9998;
 typedef unsigned long indexType;
 
 const size_t longSleepTime = 60000;
-const size_t shortSleepTime = 60000;
+const size_t shortSleepTime = 1000;

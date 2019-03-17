@@ -1,13 +1,13 @@
 #pragma once
 #include "continueKeeper.h"
-
+#include "rate/rateInfo.h"
 using namespace std;
 
 // 连续分析器，拥有多个finder
 class CContinueAnalysis
 {
 public:
-	CContinueAnalysis(string _rateName);
+	CContinueAnalysis(PRateInfo _rateInfo);
 
 	void add(PRateValue value, PContinueValueStruct pTableStruct);
 
@@ -16,7 +16,7 @@ protected:
 	void init();
 	map<long, PContinueKeeper> continueKeepers;
 	long keeperIndex;
-	string rateName;
+	PRateInfo rateInfo;
 // 	unsigned int maxMemberSize;
 // 	double minContinueStep;
 // 	double persentStep;

@@ -40,6 +40,7 @@ void CTaskBuilder::run()
 		if (!hasTask)
 		{
 			::Sleep(longSleepTime);
+			//::Sleep(shortSleepTime);
 		}
 	}
 }

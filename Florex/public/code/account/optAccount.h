@@ -13,8 +13,8 @@ public:
 	~COptAccount(){}
 	static POptAccount instence();
 	
-	void optIn(string& tagName, string& rateName, indexType srcTagId, PRateValue curValue, int direct);
-	void optOut(string& tagName, string& rateName, PRateValue curValue);
+	indexType optIn(string& tagName, string& rateName, indexType srcTagId, PRateValue curValue, int direct);
+	void optOut(string& tagName, string& rateName, indexType optTagId, PRateValue curValue);
 	void record(string& tagName, string& rateName, PRateValue curValue);
 protected:
 	

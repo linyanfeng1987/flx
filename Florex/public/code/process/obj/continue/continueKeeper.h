@@ -2,6 +2,7 @@
 #include "continueObj.h"
 #include "continueFinder.h"
 #include <map>
+#include "rate/rateInfo.h"
 using namespace std;
 // 连续有个起点A
 // 连续有方向 
@@ -19,7 +20,7 @@ using namespace std;
 class CContinueKeeper
 {
 public:
-	CContinueKeeper(PContinueJudgeGroup pJudgeGroup, int curDir, list<PContinueDecision> &_decisions);
+	CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, int _curDir, list<PContinueDecision> &_decisions);
 
 	bool add(PRateValue curValue, PContinueValueStruct pTableStruct);
 	
@@ -47,7 +48,8 @@ protected:
 	list<PContinueObj> hisObjs;
 	PContinueJudgeGroup pJudgeGroup;
 	list<PContinueDecision> decisions;
+	PRateInfo rateInfo;
 };
 
 typedef shared_ptr<CContinueKeeper> PContinueKeeper;
-#define newContinueKeeper(T1,T2,T3) make_shared<CContinueKeeper>(T1,T2,T3)
+#define newContinueKeeper(T1,T2,T3,T4) make_shared<CContinueKeeper>(T1,T2,T3,T4)

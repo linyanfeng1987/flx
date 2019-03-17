@@ -261,6 +261,9 @@
     <ClInclude Include="..\public\code\tools\twiceLog.h">
       <Filter>public\tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\rate\rateInfo.h">
+      <Filter>public\rate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -457,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\tools\twiceLog.cpp">
       <Filter>public\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\rate\rateInfo.cpp">
+      <Filter>public\rate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

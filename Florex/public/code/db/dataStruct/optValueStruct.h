@@ -13,6 +13,7 @@ public:
 	COptValueStruct();
 	~COptValueStruct();
 	static POptValueStruct instence();
+	static string optTagId;
 
 	static string srcTagId;
 	static string tagName;

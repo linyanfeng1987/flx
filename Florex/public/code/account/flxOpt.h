@@ -17,7 +17,10 @@ public:
 	double getCurResValue(PRateValue curValue);
 	double getEndResValue();
 	void saveToDb();
+	indexType getTagId(){return optTagId;}
 protected:
+	static indexType optTagIdCount;
+	indexType optTagId;
 	int direct;
 	string tagName;
 	indexType srcTagId;

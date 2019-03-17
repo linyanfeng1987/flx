@@ -18,7 +18,7 @@ using namespace std;
 class CContinueFinder
 {
 public:
-	CContinueFinder(PContinueJudgeGroup pJudgeGroup,  list<PContinueDecision> *_decisions);
+	CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup,  list<PContinueDecision> *_decisions);
 	void setStart(PRateValue curValue, int expDir){this->startValue = curValue; this->expDir = expDir;}
 	PContinueObj tryFindNew(PRateValue curValue);
 	bool isStart(){return nullptr != startValue;}
@@ -31,7 +31,8 @@ protected:
 	PRateValue startValue;
 	PContinueJudgeGroup pJudgeGroup;
 	list<PContinueDecision> *decisions;
+	PRateInfo rateInfo;
 };
 
 typedef shared_ptr<CContinueFinder> PContinueFinder;
-#define newContinueFinder(T,T2) make_shared<CContinueFinder>(T,T2)
+#define newContinueFinder(T,T2,T3) make_shared<CContinueFinder>(T,T2,T3)

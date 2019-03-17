@@ -2,13 +2,14 @@
 #include <list>
 #include "table/Table.h"
 
-CContinueKeeper::CContinueKeeper( PContinueJudgeGroup pJudgeGroup, int curDir, list<PContinueDecision> &_decisions)
+CContinueKeeper::CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, int _curDir, list<PContinueDecision> &_decisions)
 {
+	rateInfo = _rateInfo;
 	objIndex = 0;
-	this->pJudgeGroup = pJudgeGroup;
-	this->curDir = curDir;
+	pJudgeGroup = _pJudgeGroup;
+	curDir = _curDir;
 	decisions = _decisions;
-	pFinder = newContinueFinder(pJudgeGroup, &decisions);
+	pFinder = newContinueFinder(rateInfo, pJudgeGroup, &decisions);
 	//finders.insert(make_pair(direct_up, newContinueFinder(pJudgeGroup)));
 	//finders.insert(make_pair(direct_down, newContinueFinder(pJudgeGroup)));
 }

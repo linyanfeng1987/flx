@@ -2,8 +2,9 @@
 #include <list>
 #include "table/Table.h"
 
-CContinueFinder::CContinueFinder( PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions)
+CContinueFinder::CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions)
 {
+	rateInfo = _rateInfo;
 	startValue = nullptr;
 	this->pJudgeGroup = pJudgeGroup;
 	decisions = _decisions;
@@ -24,7 +25,7 @@ PContinueObj CContinueFinder::tryFindNew( PRateValue curValue )
 		if (-1 != continueLevel)
 		{
 			// 连续达成
-			pSection = newContinueObj(pJudgeGroup, decisions);
+			pSection = newContinueObj(rateInfo, pJudgeGroup, decisions);
 			pSection->init(startValue, curValue, curDirect, continueLevel);
 
 			// 重置起点

@@ -1,12 +1,22 @@
 #include "continueObj.h"
+#include "PubFun.h"
 
 indexType CContinueObj::tagIdCount = 0;
-CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions):tagId(++tagIdCount)
+CContinueObj::CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions):tagId(++tagIdCount)
 {
+	rateInfo = _rateInfo;
 	pContinueValue = nullptr;
-	this->pJudgeGroup  = pJudgeGroup;
+	pJudgeGroup  = _pJudgeGroup;
 	curStatus = continue_keep;
-	decisions = _decisions;
+
+	for (PContinueDecision decison : *_decisions)
+	{
+		// 拷贝构造， 使用副本
+		PContinueDecision newDecison = newContinueDecision(*decison);
+		string monitorName = PubFun::strFormat("continue_%s", pJudgeGroup->name.c_str());
+		newDecison->init(monitorName, rateInfo);
+		decisions.push_back(newDecison);
+	}
 }
 
 void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& _curLevel )
@@ -36,7 +46,7 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 	{
 		if (++keepCount >= 1000)
 		{
-			for (PContinueDecision decision: *decisions)
+			for (PContinueDecision decision: decisions)
 			{
 				decision->record(curValue);
 				keepCount = 0;
@@ -53,7 +63,7 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 
 void CContinueObj::stopContinue(PRateValue curValue)
 {
-	for (PContinueDecision decision: *decisions)
+	for (PContinueDecision decision: decisions)
 	{
 		decision->continueStop(curValue);
 	}
@@ -61,7 +71,7 @@ void CContinueObj::stopContinue(PRateValue curValue)
 
 void CContinueObj::levelChange( int newLevel, PRateValue curValue )
 {
-	for (PContinueDecision decision: *decisions)
+	for (PContinueDecision decision: decisions)
 	{
 		decision->levelUp(newLevel, curValue, tagId, pContinueValue->direct);
 	}

@@ -21,6 +21,7 @@ std::string CTableStruct::getCreateTableSql()
 {
 	string fields = "";
 	string pkFields = "";
+	string indexFields = "";
 	for(auto field : *this){
 		string strField = PubFun::strFormat("`%s`", field.first.c_str());
 		if(field.second.bIsPk){
@@ -31,9 +32,19 @@ std::string CTableStruct::getCreateTableSql()
 			pkFields.append(strField);
 		}
 
+		if(field.second.isIndex){
+			if (!indexFields.empty())
+			{
+				indexFields.append(",");
+			}
+			indexFields.append(strField);
+		}
+		
 		string fieldType = "";
 		if(typeInt == field.second.strType){
 			fieldType = "int";
+		}else if(typeIndex == field.second.strType){
+			fieldType = "bigint unsigned";
 		}else if(typeDouble == field.second.strType){
 			fieldType = "double";
 		}else if(typeString == field.second.strType){
@@ -54,7 +65,13 @@ std::string CTableStruct::getCreateTableSql()
 		pkSql = PubFun::strFormat(",\nPRIMARY KEY (%s)", pkFields.c_str());
 	}
 
-	string strSql = PubFun::strFormat("create table %s \n(%s%s);", tableName.c_str(), fields.c_str(), pkSql.c_str());
+	string indexSql = "";
+	if (!indexFields.empty())
+	{
+		indexSql = PubFun::strFormat(",\nUNIQUE INDEX UniqIdx(%s)", indexFields.c_str());
+	}
+
+	string strSql = PubFun::strFormat("create table %s \n(%s%s%s);", tableName.c_str(), fields.c_str(), indexSql.c_str(), pkSql.c_str());
 
 	return strSql;
 }

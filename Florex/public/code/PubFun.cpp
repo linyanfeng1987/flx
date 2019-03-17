@@ -83,6 +83,13 @@ std::string PubFun::intToString(long nValue)
 	return tmpCh;
 }
 
+std::string PubFun::indexToString( indexType nValue )
+{
+	char tmpCh[255] = {0};  
+	_itoa_s(nValue, tmpCh, 10);
+	return tmpCh;
+}
+
 std::string PubFun::doubleToString( double dValue )
 {
 	char str[256] = {0};
@@ -499,6 +506,57 @@ std::string PubFun::getStepNameBySecond( time_t second )
 	int stepType = getStepType(second);
 	return getStepNameByType(stepType);
 }
+
+void PubFun::removeDir(string dirPath)
+{
+    struct _finddata_t fb;   //find the storage structure of the same properties file.
+    string path;
+    long    handle;
+    //int  resultone;
+    int   noFile;            // the tag for the system's hidden files
+
+    noFile = 0;
+    handle = 0;
+
+    path = dirPath + "/*";
+
+	//string tempPath = "F:/gitCode/*";
+    handle = _findfirst(path.c_str(), &fb);
+
+    //find the first matching file
+    if (handle != -1)
+    {
+        //find next matching file
+        while (0 == _findnext(handle, &fb))
+        {
+            // "." and ".." are not processed
+            noFile = strcmp(fb.name, "..");
+
+            if (0 != noFile)
+            {    
+                path.clear();
+                path = dirPath + "/" + fb.name;
+
+                //fb.attrib == 16 means folder
+                if (fb.attrib == 16)
+                {
+                    removeDir(path);
+                }                
+                else
+                {
+                    //not folder, delete it. if empty folder, using _rmdir istead.
+                    remove(path.c_str());
+                }
+            }
+        }
+        // close the folder and delete it only if it is closed. For standard c, using closedir instead(findclose -> closedir).
+        // when Handle is created, it should be closed at last.  
+		_rmdir(dirPath.c_str());
+        _findclose(handle);
+    }
+}
+
+
 
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  

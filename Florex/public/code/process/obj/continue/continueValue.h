@@ -12,35 +12,42 @@ class CContinueValue
 {
 public:
 	CContinueValue();
-	void setValue(PRateValue startRateValue, PRateValue endRateValue, PRateValue stopRateValue, int direct);
-	void setJudgeValue(double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue)
-	{
-		curRetrcementValue = _curRetrcementValue;
-		retrcementValue = _retrcementValue;
-		judgeRetrcementValue = _judgeRetrcementValue;
-	}
-	void setLevels(list<int> &nLevels);
+	void setBaseValue(indexType _tagId, PRateValue _startRateValue, PRateValue _tryEndRateValue, int _direct, int _curLevel);
+	//void setValue(PRateValue startRateValue, PRateValue tryEndRateValue, PRateValue stopRateValue, int direct);
+	void setEndValue(PRateValue _stopRateValue, double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue);
+	void buildLevels();
+
+	int getCurLevel(){return curLevel;}
+	void setCurLevel(int _curLevel);
 	
 	PRow buildDbRow(int groupId, PContinueValueStruct pSt);
 	
 	PRateValue startRateValue;
-	PRateValue endRateValue;
+	PRateValue tryEndRateValue;
 	// 停止相关信息
 	PRateValue stopRateValue;
 	
 	// 停止的判断信息，类型暂定
 	string stopType;
 
+	// 上次上报的值
+	//CRateValue lastValue;
+	list<int> levelStep;
+
+	indexType tagId;
+
 	// 存表数据 
-	double startValue;
-	double endValue;
-	double stopValue;
+	//double startValue;
+	//double startTime;
+
+	//double endValue;
+	double stepTime;
 	double stepValue;
 
-	double minValue;
+	//double stopValue;
+	//double stopTime;
 
-	double startTime;
-	double stepTime;
+	double minValue;
 	
 	int direct;
 
@@ -56,6 +63,7 @@ public:
 	double judgeRetrcementValue;
 protected:
 	void calc();
+	int curLevel;
 };
 
 typedef shared_ptr<CContinueValue> PContinueValue;

@@ -8,18 +8,21 @@ class CContinueValueStruct : public CTableStruct
 public:
 	CContinueValueStruct(string rateName);
 	~CContinueValueStruct();
-
-	static string groupId;
-	static string startTime;
-	static string stepTime;
-
-	static string startTimeDesc;
-
+	static string tagId;
 	static string direct;
 
+	static string groupId;
+
 	static string startValue;
-	static string endValue;
+	static string startTime;
+	static string startTimeDesc;
+
 	static string stopValue;
+	static string stopTime;
+	static string stopTimeDesc;
+
+	static string endValue;
+	static string stepTime;
 	static string stepValue;
 
 	static string startLevel;

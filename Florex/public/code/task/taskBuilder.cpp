@@ -26,30 +26,44 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
+	bool hasTask = false;
 	while (true)
 	{
+		hasTask = false;
 		for (auto& rateIter : gData.processRates)
 		{
-			runOneRate(rateIter.first, rateIter.second);
+			if(runOneRate(rateIter.first, rateIter.second) && !hasTask)
+			{
+				hasTask = true;
+			}
 		}
-		::Sleep(1000);
+		if (!hasTask)
+		{
+			::Sleep(longSleepTime);
+		}
 	}
 }
 
-void CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
+bool CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 {
+	bool hasTask = false;
 	for(string& processTypeName :processTypeNames)
 	{
 		CProcessType* pPorcessType = gData.getProcessType(processTypeName);
 		if(pPorcessType != nullptr)
 		{
-			runOneProcessType(rateName, *pPorcessType);
+			if (runOneProcessType(rateName, *pPorcessType) && !hasTask)
+			{
+				hasTask = true;
+			}
 		}	
 	}
+	return hasTask;
 }
 
-void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType )
+bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType )
 {
+	bool hasTask = false;
 	string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessName = processType.getProcessName();
@@ -74,6 +88,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	time_t timeStep = rateLastTime - processBuildLastTime;
 	if (timeStep > processType.timeStep )
 	{
+		hasTask = true;
 		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
 		PRow taskInfo = newRow(taskInfoStruct);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
@@ -94,6 +109,7 @@ void CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		//processStatusInfo->setStringValue(CProcessStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
 		processStatusInfo->save();
 	}
+	return hasTask;
 }
 
 /*

@@ -39,8 +39,7 @@ public:
 	CContinueObj(PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions);
 	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
 
-	void setSectionId(long sectionId){this->sectionId = sectionId;}
-	long getSectionId(){ return sectionId;}
+	unsigned long long getTagId(){ return tagId;}
 
 	emumContinueStatus isContinueGoOn(PRateValue curValue);
 
@@ -50,23 +49,24 @@ public:
 
 	PContinueJudgeGroup getJudgeGroup(){return pJudgeGroup;}
 
-	int getCurLevel(){return curLevel;}
+	int getCurLevel(){return pContinueValue->direct;}
 protected:
 	void levelChange(int newLevel, PRateValue curValue);
-	long sectionId;
+	indexType tagId;
+	static indexType tagIdCount;
 
 	// 方向 +1 或 -1
-	int curDirect;
-	PRateValue startValue;
+	//int curDirect;
+	//PRateValue startValue;
 	// 同方向最远的值
-	PRateValue tryEndValue;
+	//PRateValue tryEndValue;
 
-	int maxLevel;
+	//int maxLevel;
 	// 连续等级 
-	int curLevel;
+	//int curLevel;
 	// 上次上报的值
 	//CRateValue lastValue;
-	list<int> levelStep;
+	//list<int> levelStep;
 	emumContinueStatus curStatus;
 
 	PContinueValue pContinueValue;

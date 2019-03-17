@@ -16,7 +16,7 @@ public:
 	double getCurRes(PRateValue curValue);
 	double getEndRes();
 protected:
-	void saveToDb(int dataType, double curTime, double sumValue);
+	void saveToDb(int dataType, double curTime, string curTimeDesc, double sumValue);
 	void addEndOpt(pair<double, PFlxOpt> pr);
 	map<double, PFlxOpt> curOpts;
 

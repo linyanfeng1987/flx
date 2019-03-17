@@ -49,7 +49,8 @@ public:
 
 	bool isContinueStart_s(const PRateValue curValue, PRateValue startValue);
 	bool isContinueStart(double& stepPersent);
-	emumContinueStatus isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect, double& curRetrcementSpead, PContinueValue& pContinueValue);
+	//emumContinueStatus isContinueGoOn(PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect, double& curRetrcementSpead, PContinueValue& pContinueValue);
+	emumContinueStatus isContinueGoOn(PRateValue curValue, PContinueValue pContinueValue);
 
 	bool isLowDown(double& curRetrcementSpead);
 	int getLevel(){return continueLevel;}

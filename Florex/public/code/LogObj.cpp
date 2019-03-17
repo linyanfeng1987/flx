@@ -31,92 +31,36 @@ CLogObj::CLogObj()
 	{
 		strPathBase = strPath.substr(0, nIndex);
 	}
+	strPathBase.append("/log");
 
+	PubFun::removeDir(strPathBase);
+	PubFun::makePath(strPathBase);
 	logInfo = newLogInfo(logTag);
-
-// 	logBasePathFormat = strPathBase + "/log/%s";
-// 	logBaseTastPathFormat = strPathBase + "/log/%u";
-// 
-// 	baseErrorlogFile = "processError_%d%02d%02d.log";
-// 	baseInfologFile = "processInfo_%d%02d%02d.log";
-// 	baseWarnlogFile = "processWarn_%d%02d%02d.log";
-// 	baseDebuglogFile = "processDebug_%d%02d%02d.log";
-// 	baseTestlogFile = "processTest_%d%02d%02d_%s.log";
 }
 
 void CLogObj::error(PLogInfo logInfo, string& msg )
 {
-	string logMsg = makeLogStr("error", msg);
-	logString(logInfo, log_error, logMsg);
-// 	auto pLogInfo = getLogInfo();
-// 
-// 	string fileName = "";
-// 	fileName = makeFileName(errorTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(infoTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(warnTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(debugTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
+	logString(logInfo, log_error, msg);
 }
 
 void CLogObj::info(PLogInfo logInfo, string& msg )
 {
-	string logMsg = makeLogStr(string("info"), msg);
-	logString(logInfo, log_info, logMsg);
-// 	auto pLogInfo = getLogInfo();
-// 
-// 	string fileName = "";
-// 	fileName = makeFileName(infoTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(warnTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(debugTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
+	logString(logInfo, log_info, msg);
 }
 
 void CLogObj::warn(PLogInfo logInfo, string& msg )
 {
-	string logMsg = makeLogStr("warn", msg);
-	logString(logInfo, log_warn, logMsg);
-// 	auto pLogInfo = getLogInfo();
-// 
-// 	string fileName = "";
-// 	fileName = makeFileName(warnTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
-// 
-// 	fileName = makeFileName(debugTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
+	logString(logInfo, log_warn, msg);
 }
 
 void CLogObj::debug(PLogInfo logInfo, string& msg )
 {
-	string logMsg = makeLogStr("debug", msg);
-	logString(logInfo, log_debug, logMsg);
-//	auto pLogInfo = getLogInfo();
-
-	
-// 	string fileName = "";
-// 	fileName = makeFileName(debugTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
+	logString(logInfo, log_debug, msg);
 }
 
 void CLogObj::ext(PLogInfo logInfo, string& msg)
 {
-	string logMsg = makeLogStr("test", msg);
-	logString(logInfo, log_ext, logMsg);
-//	auto pLogInfo = getLogInfo();
-
-	
-// 	string fileName = "";
-// 	fileName = makeFileName(extTag, *pLogInfo);
-// 	writeLog(fileName, logMsg);
+	logString(logInfo, log_ext, msg);
 }
 
 
@@ -200,28 +144,29 @@ std::string CLogObj::makeLogStr( string levelTag, string& userMsg )
 	return logMsg;
 }
 
-// void CLogObj::writeLog( string fileName, string& str )
-// {
-// 	ofstream ofile;
-// 	ofile.open(fileName, std::ios_base::app);
-// 	if (ofile.is_open())
-// 	{	
-// 		ofile<<str<<endl;
-// 		ofile.close();  
-// 	}
-// }
-
-void CLogObj::writeLog( PWriteInfo writeInfo, string& str )
-{
-	if (writeInfo->logFile->is_open())
-	{
-		*(writeInfo->logFile)<<str<<endl;
-		writeInfo->lineCount++;
-	}
-}
 
 void CLogObj::logString( PLogInfo logInfo, int logType, string& str )
 {
+	string levelTag = "";
+	switch (logType)
+	{
+	case log_debug:
+		levelTag = debugTag;
+		break;
+	case log_warn:
+		levelTag = warnTag;
+		break;
+	case log_info:
+		levelTag = infoTag;
+		break;
+	case log_error:
+		levelTag = errorTag;
+		break;
+	case log_ext:
+		levelTag = extTag;
+		break;
+	}
+	string logMsg = makeLogStr(levelTag, str);
 	static int writeFlags[] = {write_error, write_info, write_warn, write_debug, write_ext};
 	for (int writeFlag : writeFlags)
 	{
@@ -229,7 +174,7 @@ void CLogObj::logString( PLogInfo logInfo, int logType, string& str )
 		{
 			if (writeFlag <= logInfo->maxLogType && writeFlag <= globlaLogType)
 			{
-				writeLog(logInfo, writeFlag, str);
+				writeLog(logInfo, writeFlag, logMsg);
 			}
 		}
 	}
@@ -242,7 +187,7 @@ void CLogObj::writeLog( PLogInfo logInfo, int writeType, string& str )
 	if (logInfo->logObjs.end() == logObjIter)
 	{
 		//根据logType 新建writeInfo
-		writeInfo = newWriteInfo();
+		writeInfo = newWriteInfo(writeType);
 		logInfo->logObjs.insert(make_pair(writeType, writeInfo));
 	}
 	else
@@ -261,6 +206,20 @@ void CLogObj::writeLog( PLogInfo logInfo, int writeType, string& str )
 		openNewFile(logInfo, writeInfo,writeType);
 	}
 	writeLog(writeInfo, str);
+}
+
+void CLogObj::writeLog( PWriteInfo writeInfo, string& str )
+{
+	if (write_debug == writeInfo->writeType)
+	{
+		printf("%s\n", str.c_str());
+	}
+
+	if (writeInfo->logFile->is_open())
+	{
+		*(writeInfo->logFile)<<str<<endl;
+		writeInfo->lineCount++;
+	}
 }
 
 void CLogObj::openNewFile( PLogInfo logInfo, PWriteInfo writeInfo, int writeType )
@@ -290,7 +249,7 @@ void CLogObj::openNewFile( PLogInfo logInfo, PWriteInfo writeInfo, int writeType
 	}
 
 	// module, type, threadid, fileId
-	string logPath = PubFun::strFormat("%s/log/%s/%s/",strPathBase.c_str(), strLogType.c_str(), logInfo->name.c_str());
+	string logPath = PubFun::strFormat("%s/%s/%s/",strPathBase.c_str(), strLogType.c_str(), logInfo->name.c_str());
 	string fileName = PubFun::strFormat("%s_%u_%u.log", strLogType.c_str(), logInfo->threadId, writeInfo->fileCount++);
 	PubFun::makeNewFile(logPath, fileName);
 	string filePath = PubFun::strFormat("%s/%s",logPath.c_str(), fileName.c_str());
@@ -299,44 +258,6 @@ void CLogObj::openNewFile( PLogInfo logInfo, PWriteInfo writeInfo, int writeType
 	writeInfo->logFile->open(filePath, std::ios_base::app);
 	writeInfo->lineCount = 0;
 }
-
-
-// void CLogObj::addLogInfo( size_t id, CLogInfo &info )
-// {
-// 	map<size_t, CLogInfo>::iterator logInfoIter = logInfoMap.find(id);
-// 	if (logInfoMap.end() != logInfoIter)
-// 	{
-// 		logInfoIter->second = info;
-// 	}
-// 	else
-// 	{
-// 		logInfoMap.insert(make_pair(id, info));
-// 	}
-// }
-
-// void CLogObj::addLogInfo( CLogInfo &info )
-// {
-// 	size_t threadId = std::this_thread::get_id().hash();
-// 	addLogInfo(threadId, info);
-// }
-
-// CLogInfo* CLogObj::getLogInfo()
-// {
-// 	CLogInfo* pLogInfo = nullptr;
-// 	size_t threadId = std::this_thread::get_id().hash();
-// 	map<size_t, CLogInfo>::iterator logInfoIter = logInfoMap.find(threadId);
-// 	if (logInfoMap.end() != logInfoIter)
-// 	{
-// 		pLogInfo = &(logInfoIter->second);
-// 	}
-// 	else
-// 	{
-// 		CLogInfo logInfo(threadId, "def");
-// 		auto res = logInfoMap.insert(make_pair(threadId, logInfo));
-// 		pLogInfo = &(res.first->second);
-// 	}
-// 	return pLogInfo;
-// }
 
 
 CLogInfo::CLogInfo( string _name, int _maxLogType ):name(_name), maxLogType(_maxLogType),threadId(0)

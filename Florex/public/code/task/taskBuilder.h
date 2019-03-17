@@ -14,8 +14,8 @@ public:
 	//bool reloadTaskList_delete();
 	void run();
 protected:
-	void runOneRate(string rateName, list<string>& processTypeNames);
-	void runOneProcessType(string rateName, CProcessType& processType);
+	bool runOneRate(string rateName, list<string>& processTypeNames);
+	bool runOneProcessType(string rateName, CProcessType& processType);
 
 
 	time_t getRateLastTime(string rateName);

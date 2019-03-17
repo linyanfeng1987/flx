@@ -1,6 +1,7 @@
 #include "continueObj.h"
 
-CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions)
+indexType CContinueObj::tagIdCount = 0;
+CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup, list<PContinueDecision> *_decisions):tagId(++tagIdCount)
 {
 	pContinueValue = nullptr;
 	this->pJudgeGroup  = pJudgeGroup;
@@ -10,20 +11,23 @@ CContinueObj::CContinueObj( PContinueJudgeGroup pJudgeGroup, list<PContinueDecis
 
 void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& _curLevel )
 {
-	this->startValue = startValue;
-	this->tryEndValue = tryEndValue;
-	this->curDirect = curDirect;
-	//this->curLevel = curLevel;
+	pContinueValue = newContinueValue();
+	pContinueValue->setBaseValue(tagId, startValue, tryEndValue, curDirect, _curLevel);
 	levelChange(_curLevel, tryEndValue);
-	this->maxLevel = curLevel;
-	levelStep.push_back(curLevel);
 	curStatus = continue_keep;
+
+// 	this->startValue = startValue;
+// 	this->tryEndValue = tryEndValue;
+// 	this->curDirect = curDirect;
+// 	//this->curLevel = curLevel;
+// 	this->maxLevel = curLevel;
+// 	levelStep.push_back(curLevel);	
 }
 
 emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 {
-	int tmpLevel = curLevel;
-	curStatus = pJudgeGroup->isContinueGoOn(tmpLevel, curValue, startValue, tryEndValue, curDirect, pContinueValue);
+	int tmpLevel = pContinueValue->getCurLevel();
+	curStatus = pJudgeGroup->isContinueGoOn(curValue, pContinueValue);
 	if ( continue_stop == curStatus )
 	{
 		stopContinue(curValue);
@@ -38,11 +42,8 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 				keepCount = 0;
 			}
 		}
-		if ( curLevel != tmpLevel )
+		if ( pContinueValue->getCurLevel() != tmpLevel )
 		{
-			maxLevel = tmpLevel > maxLevel ? tmpLevel : maxLevel;
-			levelStep.push_back(tmpLevel);
-			curLevel = tmpLevel;
 			levelChange(tmpLevel, curValue);
 		}
 	}
@@ -52,7 +53,6 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 
 void CContinueObj::stopContinue(PRateValue curValue)
 {
-	pContinueValue->setLevels(levelStep);
 	for (PContinueDecision decision: *decisions)
 	{
 		decision->continueStop(curValue);
@@ -61,9 +61,8 @@ void CContinueObj::stopContinue(PRateValue curValue)
 
 void CContinueObj::levelChange( int newLevel, PRateValue curValue )
 {
-	curLevel = newLevel;
 	for (PContinueDecision decision: *decisions)
 	{
-		decision->levelUp(newLevel, curValue, curDirect);
+		decision->levelUp(newLevel, curValue, tagId, pContinueValue->direct);
 	}
 }

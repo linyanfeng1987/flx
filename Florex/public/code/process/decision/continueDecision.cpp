@@ -9,11 +9,11 @@ CContinueDecision::CContinueDecision( int _startLevel, string _rateName, string 
 }
 
 
-void CContinueDecision::levelUp( int curLevel, PRateValue curValue, int direct )
+void CContinueDecision::levelUp( int curLevel, PRateValue curValue, indexType srcTagId, int direct )
 {
 	if (!isIn && curLevel >= startLevel)
 	{
-		optAccountr->optIn(tagName, rateName, curValue, direct);
+		optAccountr->optIn(tagName, rateName, srcTagId, curValue, direct);
 		isIn = true;
 	}
 }

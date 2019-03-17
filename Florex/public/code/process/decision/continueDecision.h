@@ -8,7 +8,7 @@ class CContinueDecision
 {
 public:
 	CContinueDecision(int _startLevel, string _rateName, string _monitorName, string _decisionName);
-	void levelUp(int curLevel, PRateValue curValue, int direct);
+	void levelUp(int curLevel, PRateValue curValue, indexType srcTagId, int direct);
 	void continueStop(PRateValue curValue);
 	void record(PRateValue curValue);
 protected:

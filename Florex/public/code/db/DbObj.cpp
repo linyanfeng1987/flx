@@ -4,6 +4,7 @@
 #include <regex>
 //#include "AutoMutex.h"
 #include "tools/FunctionLog.h"
+#include "tools/twiceLog.h"
 #pragma comment(lib, "libmysql.lib")  
 
 CDbObj* CDbObj::g_db = nullptr;
@@ -43,7 +44,7 @@ void CDbObj::release()
 
 CDbObj::CDbObj(void):log(CLogObj::instance())
 {
-	testLogInfo = newLogInfo2(logTag, log_ext);
+	testLogInfo = newLogInfo2(logTag, log_noLog);
 	dbLogInfo = newLogInfo(logTag);
 	isMySqlInit = false;
 }
@@ -68,97 +69,94 @@ PRow CDbObj::selectOneData( const char * sql, PTableStruct tableStruct )
 {
 	string strLog = "selectData:" + string(sql);
 	PRow row = nullptr;
-	PubFun::log(strLog);
-	{
-		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
-		tryConnect();
+	CTwiceLog logAgent(dbLogInfo, log_debug, strLog, string("select end"));
+	//CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
+	tryConnect();
 
-		int nRes = mysql_query(&mysql,sql);
-		string strMsg = "";
-		if(0 == nRes)
-		{
-			MYSQL_ROW pRow = nullptr;
-			MYSQL_RES *pRes = nullptr;
-			pRes = mysql_store_result(&mysql);
-			if(pRes==nullptr)
-			{
-				throwSqlError(sql);
-			}
-			while(pRow = mysql_fetch_row(pRes))
-			{
-				row = newRow(tableStruct);
-				char* pDataValue = *pRow;
-				auto fieldIter = tableStruct->begin();
-				while (tableStruct->end() != fieldIter)
-				{
-					row->setAndaddValue(fieldIter->first, string(pDataValue));
-					pDataValue = *(++pRow);
-					fieldIter++;
-				}
-				
-				row->setDataStatus(DATA_SAME);
-				break;
-			}
-			mysql_free_result(pRes);
-		}
-		else
+	int nRes = mysql_query(&mysql,sql);
+	string strMsg = "";
+	if(0 == nRes)
+	{
+		MYSQL_ROW pRow = nullptr;
+		MYSQL_RES *pRes = nullptr;
+		pRes = mysql_store_result(&mysql);
+		if(pRes==nullptr)
 		{
 			throwSqlError(sql);
 		}
+		while(pRow = mysql_fetch_row(pRes))
+		{
+			row = newRow(tableStruct);
+			char* pDataValue = *pRow;
+			auto fieldIter = tableStruct->begin();
+			while (tableStruct->end() != fieldIter)
+			{
+				row->setAndaddValue(fieldIter->first, string(pDataValue));
+				pDataValue = *(++pRow);
+				fieldIter++;
+			}
+				
+			row->setDataStatus(DATA_SAME);
+			break;
+		}
+		mysql_free_result(pRes);
 	}
+	else
+	{
+		throwSqlError(sql);
+	}
+	
 	return row;
 }
 
 void CDbObj::selectData( const char * sql, PTable resTable)
 {
 	string strLog = "selectData:" + string(sql);
-	log.debug(dbLogInfo, strLog);
-	{
-		resTable->clear();
-		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
-		log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
-		tryConnect();
+	CTwiceLog logAgent(dbLogInfo, log_debug, strLog, string("select end"));
+	resTable->clear();
+	//CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
+	log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
+	tryConnect();
 		
-		log.ext(testLogInfo, PubFun::strFormat("%s::mysql_query", __FUNCTION__));
-		int nRes = mysql_query(&mysql,sql);
-		string strMsg = "";
-		if(0 == nRes)
+	log.ext(testLogInfo, PubFun::strFormat("%s::mysql_query", __FUNCTION__));
+	int nRes = mysql_query(&mysql,sql);
+	string strMsg = "";
+	if(0 == nRes)
+	{
+		MYSQL_ROW pRow = nullptr;
+		MYSQL_RES *pRes = nullptr;
+		log.ext(testLogInfo, PubFun::strFormat("%s::mysql_store_result", __FUNCTION__));
+		pRes = mysql_store_result(&mysql);
+		if(pRes==nullptr)
 		{
-			MYSQL_ROW pRow = nullptr;
-			MYSQL_RES *pRes = nullptr;
-			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_store_result", __FUNCTION__));
-			pRes = mysql_store_result(&mysql);
-			if(pRes==nullptr)
-			{
-				throwSqlError(sql);
-			}
-			log.ext(testLogInfo,PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__));
-			long nCount = 0;
-			while(pRow = mysql_fetch_row(pRes))
-			{
-				log.ext(testLogInfo, PubFun::strFormat("%s::mysql_fetch_row count %d", __FUNCTION__, nCount++));
-				PRow row = newRow(resTable->tableStruct);
-				char* pDataValue = *pRow;
-				auto fieldIter = resTable->tableStruct->begin();
-				while (resTable->tableStruct->end() != fieldIter)
-				{
-					row->setAndaddValue(fieldIter->first, string(pDataValue));
-					pDataValue = *(++pRow);
-					fieldIter++;
-				}
-				row->setDataStatus(DATA_SAME);
-				resTable->addRow(row);
-			}
-			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_free_result", __FUNCTION__));
-			mysql_free_result(pRes);
-		}
-		else
-		{
-			log.ext(testLogInfo, PubFun::strFormat("%s::throwSqlError", __FUNCTION__));
 			throwSqlError(sql);
 		}
+		log.ext(testLogInfo,PubFun::strFormat("%s::mysql_fetch_row", __FUNCTION__));
+		long nCount = 0;
+		while(pRow = mysql_fetch_row(pRes))
+		{
+			log.ext(testLogInfo, PubFun::strFormat("%s::mysql_fetch_row count %d", __FUNCTION__, nCount++));
+			PRow row = newRow(resTable->tableStruct);
+			char* pDataValue = *pRow;
+			auto fieldIter = resTable->tableStruct->begin();
+			while (resTable->tableStruct->end() != fieldIter)
+			{
+				row->setAndaddValue(fieldIter->first, string(pDataValue));
+				pDataValue = *(++pRow);
+				fieldIter++;
+			}
+			row->setDataStatus(DATA_SAME);
+			resTable->addRow(row);
+		}
+		log.ext(testLogInfo, PubFun::strFormat("%s::mysql_free_result", __FUNCTION__));
+		mysql_free_result(pRes);
+	}
+	else
+	{
+		log.ext(testLogInfo, PubFun::strFormat("%s::throwSqlError", __FUNCTION__));
+		throwSqlError(sql);
 	}
 }
 
@@ -166,15 +164,13 @@ void CDbObj::executeSql( const char * sql )
 {
 	string strLog = "excecuteSql:";
 	strLog += sql;
-	log.debug(dbLogInfo, strLog);
-	{
-		//CAutoMutex localMutex(&dbMutex);
-		CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
-		log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
-		tryConnect();
-		log.ext(testLogInfo, PubFun::strFormat("%s::baseExecuteSql", __FUNCTION__));
-		baseExecuteSql(sql);
-	}
+	CTwiceLog logAgent(dbLogInfo, log_debug, strLog, string("excecuteSql end"));
+	//CAutoMutex localMutex(&dbMutex);
+	CFunctionLog funLog(testLogInfo, __FUNCTION__, __LINE__);
+	log.ext(testLogInfo, PubFun::strFormat("%s::tryConnect", __FUNCTION__));
+	tryConnect();
+	log.ext(testLogInfo, PubFun::strFormat("%s::baseExecuteSql", __FUNCTION__));
+	baseExecuteSql(sql);
 }
 
 void CDbObj::baseExecuteSql( const char * sql )
@@ -314,7 +310,15 @@ void CDbObj::throwSqlError(string sql)
 {
 	string strMsg = mysql_error(&mysql);
 	log.error(dbLogInfo, PubFun::strFormat("÷¥––sql ß∞‹:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
-	throw CStrException(strMsg);
+	if (-1 == strMsg.find("for key 'PRIMARY'"))
+	{
+		throw CStrException(strMsg);
+	}
+	else
+	{
+		int a = 0;
+		a++;
+	}
 }
 
 

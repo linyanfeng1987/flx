@@ -5,6 +5,7 @@
 string CMonitorValueStruct::rateName = "rateName";
 string CMonitorValueStruct::monitorName = "monitorName";
 string CMonitorValueStruct::curTime = "curTime";
+string CMonitorValueStruct::curTimeDesc = "curTimeDesc";
 string CMonitorValueStruct::sumValue = "sumValue";
 string CMonitorValueStruct::dataType = "dataType";
 mutex CMonitorValueStruct::initMutex;
@@ -33,6 +34,9 @@ void CMonitorValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 
 	field.load(curTime, typeDouble, true);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(curTimeDesc, typeString);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(dataType, typeInt);

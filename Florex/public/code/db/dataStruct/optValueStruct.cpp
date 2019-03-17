@@ -2,7 +2,7 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-
+string COptValueStruct::srcTagId = "srcTagId";
 string COptValueStruct::tagName = "tagName";
 string COptValueStruct::rateName = "rateName";
 string COptValueStruct::startTime = "startTime";
@@ -39,6 +39,9 @@ void COptValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 
 	field.load(startTime, typeDouble, true);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(srcTagId, typeString);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(startTimeDesc, typeString);

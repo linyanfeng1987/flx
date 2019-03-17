@@ -7,7 +7,7 @@ using namespace std;
 class CFlxOpt
 {
 public:
-	CFlxOpt(string _tagName, string _rateName, PRateValue _beginValue, int _direct);
+	CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateValue _beginValue, int _direct);
 
 	bool isEnd(){return nullptr != endValue;}
 	void setEnd(PRateValue _endValue);
@@ -20,6 +20,7 @@ public:
 protected:
 	int direct;
 	string tagName;
+	indexType srcTagId;
 	string rateName;
 	PRateValue beginValue;
 	PRateValue endValue;
@@ -29,4 +30,4 @@ protected:
 };
 
 typedef shared_ptr<CFlxOpt> PFlxOpt;
-#define newFlxOptr(T1,T2,T3,T4) make_shared<CFlxOpt>(T1,T2,T3,T4)
+#define newFlxOptr(T1,T2,T3,T4,T5) make_shared<CFlxOpt>(T1,T2,T3,T4,T5)

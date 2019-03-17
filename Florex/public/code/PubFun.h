@@ -23,6 +23,7 @@ public:
 	static long stringToInt(string str);
 	static double stringToDouble(string str);
 	static string intToString(long nValue);
+	static string indexToString(indexType nValue);
 	static string doubleToString(double dValue);
 	static void log(string str);
 	static void logFormat(const char * strFormat, ...);
@@ -40,6 +41,7 @@ public:
 
 	static void makeNewFile(string filePath, string fileName);
 	static void makePath(string filePath);
+	static void removeDir(string dirPath);
 
 	static time_t HisRateStringToDatetime(const char *str);
 
@@ -63,6 +65,7 @@ public:
 	static void buildValueList(long startValue, long endValue, long step, map<long, long>& resValueMap);
 
 	static void splitParamStr(string paramters, map<string, string> &resMap); 
+
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

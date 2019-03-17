@@ -258,6 +258,9 @@
     <ClInclude Include="..\public\code\db\dataStruct\optValueStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\tools\twiceLog.h">
+      <Filter>public\tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\optValueStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tools\twiceLog.cpp">
+      <Filter>public\tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

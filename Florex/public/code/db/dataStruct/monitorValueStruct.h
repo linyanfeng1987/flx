@@ -17,6 +17,7 @@ public:
 	static string rateName;
 	static string monitorName;
 	static string curTime;
+	static string curTimeDesc;
 
 	static string sumValue;
 	static string dataType;

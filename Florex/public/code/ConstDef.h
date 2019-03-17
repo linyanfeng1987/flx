@@ -39,6 +39,7 @@ const string processType_average = "average";
 const string processType_continue = "continue";
 
 const string typeInt = "int";
+const string typeIndex = "index";
 const string typeDouble = "double";
 const string typeString = "char";
 const string typeString2 = "string";
@@ -52,3 +53,8 @@ const int lowDownLevel = 2;
 
 // 随时间衰减系数 单位s
 const double timeAttenuation = 0.9998;
+
+typedef unsigned long indexType;
+
+const size_t longSleepTime = 60000;
+const size_t shortSleepTime = 60000;

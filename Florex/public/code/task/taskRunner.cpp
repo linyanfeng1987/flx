@@ -81,6 +81,7 @@ bool CtaskRunner::reloadTaskList()
 void CtaskRunner::rangTaskList()
 {
 	// Ö´ÐÐÈÎÎñ
+	static bool isFirstRun = false;
 	PRow processTaskInfo = gData.popProcessTaskInfo();
 	int count = -1;
 	if(nullptr != processTaskInfo)
@@ -89,6 +90,7 @@ void CtaskRunner::rangTaskList()
 		count = task.use_count();
 		if(nullptr != task)
 		{
+			isFirstRun = true;
 			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
 			task->run(param.c_str());
 		}
@@ -98,7 +100,15 @@ void CtaskRunner::rangTaskList()
 	else
 	{	if (!reloadTaskList())
 		{
-			::Sleep(1000);
+			if (isFirstRun)
+			{
+				
+				::Sleep(longSleepTime);
+			}
+			else
+			{
+				::Sleep(shortSleepTime);
+			}
 		}
 	}
 }

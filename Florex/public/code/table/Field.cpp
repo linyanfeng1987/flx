@@ -1,12 +1,11 @@
 #include "Field.h"
 
-
-
-void CField::load( string strName, string strType/*=typeString*/, bool bIsPk /*= false*/ )
+void CField::load( string _strName, string _strType/*=typeString*/, bool _bIsPk /*= false*/, bool _isIndex /*= false*/ )
 {
-	this->strName = strName;
-	this->strType = strType;
-	this->bIsPk = bIsPk;
+	strName = _strName;
+	strType = _strType;
+	bIsPk = _bIsPk;
+	isIndex = _isIndex;
 }
 
 bool CField::isNumberType()

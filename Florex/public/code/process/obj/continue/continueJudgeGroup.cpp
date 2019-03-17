@@ -8,6 +8,7 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 	this->retrcementCalcFun = retrcementCalcFun;
 }
 
+/*
 emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, 
 													   PRateValue& tryEndValue, int curDirect, PContinueValue& pContinueValue )
 {
@@ -32,6 +33,68 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue c
 			if (bIsGroupUp)
 			{
 				level = nextLevel;
+			}
+			else
+			{
+				break;
+			}
+			++nextLevel;
+		}
+	}
+	
+	else if (continue_lowDown == conStatus)
+	{  
+		int nextLevel = level - 1;
+		while (nextLevel >= 0)
+		{
+			// 尝试降级
+			// 降低的目的，是易于中断，和成长的目的冲突，抉择点在哪？方向？
+			auto pNextJudge = judgeGroup.find(nextLevel)->second;
+			@@@降速的抉择有问题，需要重新思考, 降级的目的是更换更小的度量
+			bool isLowDown = pNextJudge->isLowDown(curRetrcementSpead);
+			if (isLowDown)
+			{
+				level = nextLevel;
+			}
+			else
+			{
+				break;
+			}
+			--nextLevel;
+		}
+	}
+	else if (continue_stop == conStatus)
+	{
+		bIsContinue = false;
+	}
+	return conStatus;
+}
+*/
+
+emumContinueStatus CContinueJudgeGroup::isContinueGoOn( PRateValue curValue, PContinueValue pContinueValue )
+{
+	//int correcteLevel=0;@@@@
+	// 计算简化的可能性，讲时间作为中断计算的一部分，随着时间的增长，中断比例越少，时间趋于0，则中断校正系数趋于1
+	// level越高，时效性越长，衰减越慢，反之衰减越快
+	// 0.618(1-0.4^x)^t
+	int curLevel = pContinueValue->getCurLevel();
+	auto pCurJudge = judgeGroup.find(curLevel)->second;
+	double curRetrcementSpead = 0;
+	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue, pContinueValue);
+	if (continue_groupUp == conStatus)
+	{
+		pContinueValue->tryEndRateValue =  curValue;
+		int nextLevel = curLevel + 1;
+		while (nextLevel <= maxObjNumber)
+		{
+			// 尝试成长
+			// 成长的目的是保持连续承受的风险，是之统计不容易中断
+			auto pNextJudge = judgeGroup.find(nextLevel)->second;
+			double stepPersent = CContinueJudgeObj::getStepPersent(curValue, pContinueValue->startRateValue);
+			bool bIsGroupUp = pNextJudge->isContinueStart(stepPersent);
+			if (bIsGroupUp)
+			{
+				pContinueValue->setCurLevel(nextLevel);
 			}
 			else
 			{

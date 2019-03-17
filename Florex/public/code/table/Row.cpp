@@ -268,6 +268,11 @@ void CRow::setIntValue(string& strKey, long lValue )
 	this->setValue(strKey, lValue);
 }
 
+void CRow::setIndexValue( string& strKey, indexType iValue )
+{
+	this->setValue(strKey, PubFun::indexToString(iValue));
+}
+
 void CRow::setTimeValue(string& strKey, time_t tValue )
 {
 	this->setValue(strKey, (double)tValue);
@@ -277,7 +282,6 @@ void CRow::setDoubleValue(string& strKey, double dValue )
 {
 	this->setValue(strKey, dValue);
 }
-
 
 bool CRow::save()
 {
@@ -304,4 +308,5 @@ PValue CRow::emptyFind( string key )
 		return newValue();
 	}	 
 }
+
 

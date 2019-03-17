@@ -26,6 +26,7 @@ const int log_error = 15;
 const int log_info = 14;
 const int log_warn = 12;
 const int log_debug = 8;
+const int log_noLog = 0;
 
 const int logByThreadId = 1;
 const int logByModule = 2;
@@ -40,14 +41,15 @@ typedef shared_ptr<ofstream> POfstream;
 class CWriteInfo
 {
 public:
-	CWriteInfo():logFile(nullptr),lineCount(0),fileCount(0){}
+	CWriteInfo(int _writeType):writeType(_writeType),logFile(nullptr),lineCount(0),fileCount(0){}
 	POfstream logFile;
 	unsigned int lineCount;
 	unsigned int fileCount;
 	string filePath;
+	int writeType;
 };
 typedef shared_ptr<CWriteInfo> PWriteInfo;
-#define newWriteInfo() make_shared<CWriteInfo>()
+#define newWriteInfo(T) make_shared<CWriteInfo>(T)
 
 class CLogInfo
 {
@@ -92,6 +94,8 @@ public:
 	void debug(string& msg){debug(logInfo, msg);}
 	void ext(string& msg){ext(logInfo, msg);}
 
+	void logString(PLogInfo logInfo, int logType, string& str);
+
 	static string errorTag;
 	static string infoTag;
 	static string warnTag;
@@ -104,7 +108,7 @@ protected:
 // 	string makeFileName( string tag, CLogInfo &logInfo, string id="");
 	string makeLogStr(string levelTag, string& userMsg);
 //	void writeLog(string fileName, string& str);
-	void logString(PLogInfo logInfo, int logType, string& str);
+	
 	void writeLog(PLogInfo logInfo, int logType, string& str);
 	void writeLog(PWriteInfo writeInfo, string& str);
 	void openNewFile(PLogInfo logInfo, PWriteInfo writeInfo, int logType);

@@ -55,6 +55,7 @@ public:
 
 	void setStringValue(string& strKey, string& strValue);
 	void setIntValue(string& strKey, long lValue);
+	void setIndexValue(string& strKey, indexType iValue);
 	void setTimeValue(string& strKey, time_t tValue);
 	void setDoubleValue(string& strKey, double dValue);
 

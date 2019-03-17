@@ -6,7 +6,7 @@ CContinueFinder::CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudg
 {
 	rateInfo = _rateInfo;
 	startValue = nullptr;
-	this->pJudgeGroup = pJudgeGroup;
+	pJudgeGroup = _pJudgeGroup;
 	decisions = _decisions;
 }
 

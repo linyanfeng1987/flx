@@ -309,16 +309,10 @@ void CDbObj::baseInsert( string sql )
 void CDbObj::throwSqlError(string sql)
 {
 	string strMsg = mysql_error(&mysql);
+	unsigned int errorNo = mysql_errno(&mysql);
 	log.error(dbLogInfo, PubFun::strFormat("÷¥––sql ß∞‹:sql:\"%s\", errorMsg=\"%s\"", sql.c_str(), strMsg.c_str()));
-	if (-1 == strMsg.find("for key 'PRIMARY'"))
-	{
-		throw CStrException(strMsg);
-	}
-	else
-	{
-		int a = 0;
-		a++;
-	}
+	throw CStrException((int)errorNo, strMsg);
+	
 }
 
 

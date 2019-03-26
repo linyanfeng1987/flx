@@ -3,10 +3,12 @@
 #include "ConstDef.h"
 
 string CCurRateAverageStruct::price = "price"; 
+string CCurRateAverageStruct::curTime = "curTime"; 
+string CCurRateAverageStruct::timeFormat = "timeFormat"; 
 
-CCurRateAverageStruct::CCurRateAverageStruct(string rateName,string timeName):CBaseCurRateStruct(rateName)
+CCurRateAverageStruct::CCurRateAverageStruct(string rateName,string timeName) 
 {
-	setTimeName(timeName);	
+	buildTableName(rateName, timeName);	
 	init();
 }
 
@@ -16,20 +18,25 @@ CCurRateAverageStruct::~CCurRateAverageStruct()
 	
 }
 
-void CCurRateAverageStruct::setTimeName(string timeName)
-{
-	tableName.append("_average");
-	if (!timeName.empty())
-	{
-		tableName.append(timeName);
-	}
-}
-
 void CCurRateAverageStruct::init()
 {
 	CField field;
 
+	field.load(curTime, typeDouble, true);
+	this->insert(make_pair(field.strName, field));
+
 	field.load(price, typeDouble);
 	this->insert(make_pair(field.strName, field));
+
+	field.load(timeFormat, typeString);
+	this->insert(make_pair(field.strName, field));
+
+	this->ensureExist();
+}
+
+void CCurRateAverageStruct::buildTableName( string rateName,string timeName )
+{
+	string str = PubFun::strFormat("%s.currency_pair_%s_average%s", calcDbName.c_str(), rateName.c_str(), timeName.c_str());
+	this->setName(str);
 }
 

@@ -23,5 +23,5 @@ typedef shared_ptr<CRateValue> PRateValue;
 #define newRateValue() make_shared<CRateValue>()
 #define newRateValueP2(T1,T2) make_shared<CRateValue>(T1,T2)
 #define newRateValueP3(T1,T2,T3) make_shared<CRateValue>(T1,T2,T3)
-
+#define newRateValueCopy(T1) make_shared<CRateValue>(T1)
 //const CRateValue zeroRateValue;

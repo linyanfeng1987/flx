@@ -7,6 +7,7 @@
 #include "TableStruct.h"
 #include "Field.h"
 #include "Value.h"
+#include "LogObj.h"
 
 using namespace std;
 
@@ -62,7 +63,7 @@ public:
 	DATA_STATUS m_dataStatus;
 
 protected:
-	
+	CLogObj &log;
 	string getCondition();
 	PTableStruct tableStruct;
 };

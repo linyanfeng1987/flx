@@ -15,7 +15,7 @@ std::string trim(std::string s)
 	return s;
 }
 
-CRow::CRow(PTableStruct tableStruct)
+CRow::CRow(PTableStruct tableStruct):log(CLogObj::instance())
 {
 	setDataStatus(DATA_NEW);
 	init(tableStruct);
@@ -286,8 +286,22 @@ void CRow::setDoubleValue(string& strKey, double dValue )
 bool CRow::save()
 {
 	string strSql = getSql();
-	CDbObj::instance().executeSql(strSql.c_str());
-	setDataStatus(DATA_SAME);
+	try
+	{
+		CDbObj::instance().executeSql(strSql.c_str());
+		setDataStatus(DATA_SAME);
+	}
+	catch (CStrException &e)
+	{
+		string strMsg = e.what();
+		if (-1 == strMsg.find("for key 'PRIMARY'"))
+		{
+			log.info(PubFun::strFormat("插入失败，使用修改方式,sql:%s",strSql.c_str()));
+			setDataStatus(DATA_CHANGE);
+			save();
+		}
+	}
+
 	return true;
 }
 

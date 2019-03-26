@@ -3,16 +3,19 @@
 #include "table/TableStruct.h"
 
 
-class CCurRateAverageStruct : public CBaseCurRateStruct
+class CCurRateAverageStruct : public CTableStruct
 {
 public:
 	CCurRateAverageStruct(string rateName,string timeName);
 	~CCurRateAverageStruct();
 
-	void setTimeName(string timeName);
+	void buildTableName(string rateName,string timeName);
 
 	string timeName;
 	static string price; 
+	static string curTime; 
+	static string timeFormat;
+
 protected:
 	void init();
 }; 

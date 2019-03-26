@@ -1,12 +1,9 @@
 #include "sumByTime.h"
 
-CSumByTime::CSumByTime( double maxTimeStep )
+CSumByTime::CSumByTime( double _maxTimeStep )
 {
-	this->maxTimeStep = maxTimeStep;
-	lastTime = 0;
-	sumTime = 0;
+	maxTimeStep = _maxTimeStep;
 	sumValue = 0;
-	firstTime = 0;
 	clear();
 }
 
@@ -14,45 +11,35 @@ CSumByTime::~CSumByTime()
 {
 }
 
-double CSumByTime::add( double time, double value )
+double CSumByTime::add( PRateValue curValue )
 {
-	if(0 == firstTime){
-		firstTime = time;
-		lastTime = time;
-	}
-	double tagTime = time - firstTime;
-	CStepValue stepValue;
-	stepValue.stepTime = time - lastTime;
-	stepValue.stepValue = value;
-	auto inserRes = valueMap.insert(make_pair(tagTime, stepValue));
-	if (inserRes.second)
-	{
-		sumTime += stepValue.stepTime;
-		sumValue += value;
-		tryPop();
-		lastTime = time;
-	}
-	
-	return getAverage();
-}
+	values.push_back(curValue);
+	sumValue += curValue->value;
 
-void CSumByTime::tryPop()
-{
-	if(sumTime > maxTimeStep)
+	double lastTime = curValue->time - maxTimeStep;
+	bool isEnd = false;
+	while (!isEnd)
 	{
-		auto firstIter = valueMap.begin();
-		sumTime -= firstIter->second.stepTime;
-		sumValue -= firstIter->second.stepValue;
-		valueMap.erase(firstIter->first);
-		tryPop();
+		isEnd = true;
+		list<PRateValue>::iterator iter = values.begin();
+		if (iter != values.end())
+		{
+			PRateValue rateValue = *iter;
+			if (rateValue->time < lastTime)
+			{
+				values.pop_front();
+				sumValue -= rateValue->value;
+				isEnd = false;
+			}
+		}
 	}
+	return getAverage();
 }
 
 void CSumByTime::clear()
 {
-	valueMap.clear();
+	values.clear();
 	sumValue = 0;
-	sumTime = 0;
 }
 
 double CSumByTime::getAverage()

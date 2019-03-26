@@ -5,14 +5,15 @@
 
 class CMonitorValueStruct;
 typedef shared_ptr<CMonitorValueStruct> PMonitorValueStruct;
-#define newMonitorValueStruct() make_shared<CMonitorValueStruct>()
+
 
 class CMonitorValueStruct : public CTableStruct
 {
 public:
-	CMonitorValueStruct();
+	CMonitorValueStruct(bool _isTop);
 	~CMonitorValueStruct();
 	static PMonitorValueStruct instence();
+	static PMonitorValueStruct instenceTop();
 
 	static string rateName;
 	static string monitorName;
@@ -27,4 +28,9 @@ public:
 protected:
 	void init();
 	static mutex initMutex;
+
+	bool isTop;
 }; 
+
+#define newMonitorValueStruct() make_shared<CMonitorValueStruct>(false)
+#define newMonitorTopValueStruct() make_shared<CMonitorValueStruct>(true)

@@ -10,9 +10,18 @@ string CMonitorValueStruct::sumValue = "sumValue";
 string CMonitorValueStruct::dataType = "dataType";
 mutex CMonitorValueStruct::initMutex;
 
-CMonitorValueStruct::CMonitorValueStruct()
+CMonitorValueStruct::CMonitorValueStruct(bool _isTop):isTop(_isTop)
 {
-	string tableName = PubFun::strFormat("%s.monitorValue", calcDbName.c_str());
+	string tableName;
+	if (isTop)
+	{
+		tableName = PubFun::strFormat("%s.monitorTopValue", calcDbName.c_str());
+	}
+	else
+	{
+		tableName = PubFun::strFormat("%s.monitorValue", calcDbName.c_str());
+	}
+	
 	setName(tableName);
 	init();
 }
@@ -33,7 +42,7 @@ void CMonitorValueStruct::init()
 	field.load(monitorName, typeString, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(curTime, typeDouble, true);
+	field.load(curTime, typeDouble, !isTop);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(curTimeDesc, typeString);
@@ -52,6 +61,14 @@ PMonitorValueStruct CMonitorValueStruct::instence()
 {
 	initMutex.lock();
 	static PMonitorValueStruct gp = newMonitorValueStruct();
+	initMutex.unlock();
+	return gp;
+}
+
+PMonitorValueStruct CMonitorValueStruct::instenceTop()
+{
+	initMutex.lock();
+	static PMonitorValueStruct gp = newMonitorTopValueStruct();
 	initMutex.unlock();
 	return gp;
 }

@@ -1,7 +1,8 @@
 #pragma once
 #include <list>
 #include <map>
-#include "LinkedHashMap.h"
+
+#include "process/obj/rateValue.h"
 
 using namespace std;
 
@@ -19,24 +20,25 @@ public:
 class CSumByTime
 {
 public:
-	CSumByTime(double maxTimeStep);
+	CSumByTime(double _maxTimeStep);
 	~CSumByTime();
 
-	double add(double time, double value);
+	double add(PRateValue rateValue);
 	
 	void clear();
 	double getSum(){return sumValue;}
-	int getSize(){return valueMap.size();}
+	int getSize(){return values.size();}
 
 	double getAverage();
 protected:
 	void tryPop();
 
-	Linked_map<double, CStepValue> valueMap;
+	list<PRateValue> values;
 	double maxTimeStep;
 	double sumValue;
-	double sumTime;
-	double lastTime;
-	double firstTime;
+// 	double lastTime;
+// 	double firstTime;
 };
 
+typedef shared_ptr<CSumByTime> PSumByTime;
+#define newSumByTime(T) make_shared<CSumByTime>(T)

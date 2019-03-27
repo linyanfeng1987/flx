@@ -2,7 +2,7 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-string CCurRateAverageStruct::price = "price"; 
+string CCurRateAverageStruct::curValue = "curValue"; 
 string CCurRateAverageStruct::curTime = "curTime"; 
 string CCurRateAverageStruct::timeFormat = "timeFormat"; 
 
@@ -25,7 +25,7 @@ void CCurRateAverageStruct::init()
 	field.load(curTime, typeDouble, true);
 	this->insert(make_pair(field.strName, field));
 
-	field.load(price, typeDouble);
+	field.load(curValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(timeFormat, typeString);

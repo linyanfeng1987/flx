@@ -64,6 +64,9 @@
     <Filter Include="public\process\decision">
       <UniqueIdentifier>{cf10d0ee-3e02-4f41-bd64-189521893fe1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\process\obj\average">
+      <UniqueIdentifier>{b2421547-a448-4338-afae-13d3ad2cce8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -149,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="..\public\code\process\averageProcess.h">
       <Filter>public\process</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\process\calculation\averageCalc.h">
-      <Filter>public\process\calculation</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\obj\sum.h">
       <Filter>public\process\obj</Filter>
@@ -264,6 +264,12 @@
     <ClInclude Include="..\public\code\rate\rateInfo.h">
       <Filter>public\rate</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h">
+      <Filter>public\process\obj\average</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\average\averageObj.h">
+      <Filter>public\process\obj\average</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -352,9 +358,6 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\averageProcess.cpp">
       <Filter>public\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\process\calculation\averageCalc.cpp">
-      <Filter>public\process\calculation</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\sum.cpp">
       <Filter>public\process\obj</Filter>
@@ -463,6 +466,12 @@
     </ClCompile>
     <ClCompile Include="..\public\code\rate\rateInfo.cpp">
       <Filter>public\rate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp">
+      <Filter>public\process\obj\average</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp">
+      <Filter>public\process\obj\average</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

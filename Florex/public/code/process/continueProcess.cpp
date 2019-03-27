@@ -13,32 +13,31 @@ CContinueProcess::~CContinueProcess()
 
 }
 
-void CContinueProcess::calc( PTable& table )
+void CContinueProcess::calc( list<PRateValue> &values )
 {
-	string pureRateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
-	PContinueValueStruct pTableStruct = newContinueValueStruct(pureRateName);
-	for (auto rowIter : *table)
+	for (PRateValue rateValue : values)
 	{
-		PRateValue pRateValue = CCurRateStruct::getRateValue(rowIter.second);
-		pContinueAnalysis->add(pRateValue, pTableStruct);
+		pContinueAnalysis->add(rateValue);
 	}
 }
 
 void CContinueProcess::init( PRow pTaskInfo )
 {
 	//@@@ 这里需要获取时间跨度值
-	string paramter = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+// 	string paramter = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+// 
+// 	map<string, string> resMap;
+// 	PubFun::splitParamStr(paramter, resMap);
+// 	auto iter = resMap.find("timeStep");
+// 	string strTimeStep = "";
+// 	if (resMap.end() != iter )
+// 	{
+// 		strTimeStep = iter->second;
+// 	}
+// 	cycle =  PubFun::stringToInt(strTimeStep);
+// 	timeStepType = PubFun::getStepType(cycle);
 
-	map<string, string> resMap;
-	PubFun::splitParamStr(paramter, resMap);
-	auto iter = resMap.find("timeStep");
-	string strTimeStep = "";
-	if (resMap.end() != iter )
-	{
-		strTimeStep = iter->second;
-	}
-	cycle =  PubFun::stringToInt(strTimeStep);
-	timeStepType = PubFun::getStepType(cycle);
+
 	PRateInfo rateInfo = newRateInfo();
 	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
 	pContinueAnalysis = newContinueAnalysis(rateInfo);

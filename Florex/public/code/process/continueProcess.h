@@ -11,7 +11,7 @@ public:
 	CContinueProcess(PRow pTaskInfo);
 	~CContinueProcess();
 
-	void calc(PTable& table);
+	void calc(list<PRateValue> &values);
 	void init(PRow pTaskInfo);
 protected:
 	int cycle;

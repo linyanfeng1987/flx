@@ -66,8 +66,24 @@ void CProcessTask::runInThread( const char* argv )
 			condition.append(" and ");
 			condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
 			string sql = rateStruct->getSelectSql(condition);
+
+			list<PRateValue> values;
 			CDbObj::instance().selectData(sql.c_str(), rateTable);
-			process->calc(rateTable);
+
+			for (auto rowPair : *rateTable)
+			{
+				PRow row = rowPair.second;
+
+				long curTime = row->getIntValue(CCurRateStruct::curTime);
+				long curMsec = row->getIntValue(CCurRateStruct::curMsec);
+				double curDTime = PubFun::timeConvert(curTime, curMsec);
+				double priceBuy = row->getDoubleValue(CCurRateStruct::priceBuy);
+				string timeDesc = row->getStringValue(CCurRateStruct::timeFormat);
+
+				PRateValue rateValue = newRateValueP3(curDTime, priceBuy, timeDesc);
+				values.push_back(rateValue);
+			}
+			process->calc(values);
 		}
 		completeTask();
 	}

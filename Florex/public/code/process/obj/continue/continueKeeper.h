@@ -22,7 +22,7 @@ class CContinueKeeper
 public:
 	CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, int _curDir, list<PContinueDecision> &_decisions);
 
-	bool add(PRateValue curValue, PContinueValueStruct pTableStruct);
+	bool add(PRateValue curValue);
 	
 	void init();
 
@@ -32,7 +32,7 @@ protected:
 
 	long finderId;
 
-	void saveHisObj(PContinueValueStruct pTableStruct);
+	void saveHisObj();
 
 	//void addToObj(PRateValue curValue, PContinueValueStruct pTableStruct);
 
@@ -49,6 +49,7 @@ protected:
 	PContinueJudgeGroup pJudgeGroup;
 	list<PContinueDecision> decisions;
 	PRateInfo rateInfo;
+	PContinueValueStruct tableStruct;
 };
 
 typedef shared_ptr<CContinueKeeper> PContinueKeeper;

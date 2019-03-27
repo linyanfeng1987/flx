@@ -9,7 +9,7 @@ class CContinueAnalysis
 public:
 	CContinueAnalysis(PRateInfo _rateInfo);
 
-	void add(PRateValue value, PContinueValueStruct pTableStruct);
+	void add(PRateValue value);
 
 protected:
 	// ≥ı ºªØfinder

@@ -107,7 +107,6 @@
     <ClInclude Include="..\public\code\LogObj.h" />
     <ClInclude Include="..\public\code\process\averageProcess.h" />
     <ClInclude Include="..\public\code\process\baseProcess.h" />
-    <ClInclude Include="..\public\code\process\calculation\averageCalc.h" />
     <ClInclude Include="..\public\code\process\calculation\baseCalc.h" />
     <ClInclude Include="..\public\code\process\cap\additionCap.h" />
     <ClInclude Include="..\public\code\process\cap\baseCap.h" />
@@ -115,6 +114,8 @@
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\process\continueProcess.h" />
     <ClInclude Include="..\public\code\process\decision\continueDecision.h" />
+    <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h" />
+    <ClInclude Include="..\public\code\process\obj\average\averageObj.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h" />
@@ -172,7 +173,6 @@
     <ClCompile Include="..\public\code\LogObj.cpp" />
     <ClCompile Include="..\public\code\process\averageProcess.cpp" />
     <ClCompile Include="..\public\code\process\baseProcess.cpp" />
-    <ClCompile Include="..\public\code\process\calculation\averageCalc.cpp" />
     <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp" />
     <ClCompile Include="..\public\code\process\cap\additionCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\baseCap.cpp" />
@@ -180,6 +180,8 @@
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\process\continueProcess.cpp" />
     <ClCompile Include="..\public\code\process\decision\continueDecision.cpp" />
+    <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp" />
+    <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp" />

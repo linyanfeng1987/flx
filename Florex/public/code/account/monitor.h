@@ -26,6 +26,7 @@ protected:
 	map<indexType, PFlxOpt> endOpts;
 
 	PMonitorValueStruct monitorStruct;
+	PMonitorValueStruct monitorTopStruct;
 };
 
 typedef shared_ptr<CMonitor> PMonitor;

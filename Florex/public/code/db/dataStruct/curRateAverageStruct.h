@@ -12,7 +12,7 @@ public:
 	void buildTableName(string rateName,string timeName);
 
 	string timeName;
-	static string price; 
+	static string curValue; 
 	static string curTime; 
 	static string timeFormat;
 

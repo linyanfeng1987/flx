@@ -4,6 +4,7 @@
 CMonitor::CMonitor( string _name, string _rateName ):endRes(0),name(_name),rateName(_rateName)
 {
 	monitorStruct = CMonitorValueStruct::instence();
+	monitorTopStruct = CMonitorValueStruct::instenceTop();
 }
 
 indexType CMonitor::addOpt( PFlxOpt flxOpt )
@@ -73,6 +74,10 @@ void CMonitor::saveToDb( int dataType, double curTime, string curTimeDesc, doubl
 	row->setDoubleValue(CMonitorValueStruct::sumValue, sumValue);
 	row->setIntValue(CMonitorValueStruct::dataType, dataType);
 
+	row->save();
+
+	// ´æ´¢topĞÅÏ¢
+	row->setTableStruct(monitorTopStruct);
 	row->save();
 }
 

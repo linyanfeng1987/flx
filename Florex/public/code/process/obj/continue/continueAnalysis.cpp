@@ -10,11 +10,11 @@ CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):rateInfo(_rateInfo)
 	init();
 }
 
-void CContinueAnalysis::add(PRateValue value, PContinueValueStruct pTableStruct)
+void CContinueAnalysis::add(PRateValue value)
 {
 	for (auto conPair : continueKeepers)
 	{
-		conPair.second->add(value, pTableStruct);
+		conPair.second->add(value);
 	}
 
 	// 连续查找的意义在哪里，如果没有预测和几率就没有意义

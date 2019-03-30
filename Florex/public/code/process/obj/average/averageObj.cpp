@@ -6,7 +6,7 @@ CAverageObj::CAverageObj(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo 
 {
 	rateInfo = _rateInfo;
 	averCalcObj = newSumByTime(_stepTime);
-	averageStruct = newCurRateAverageStruct(rateInfo->rateName, PubFun::doubleToString(stepTime));
+	averageStruct = newCurRateAverageStruct(rateInfo->rateName, PubFun::intToString((long)stepTime));
 
 	for (PAverageDecisionTemplate dTemplate: _dTemplates)
 	{

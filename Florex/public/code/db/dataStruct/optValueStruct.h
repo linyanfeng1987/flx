@@ -26,6 +26,7 @@ public:
 	static string endTimeDesc;
 	static string endValue;
 
+	static string stepTime;
 	static string resValue;
 	
 	static string direct;

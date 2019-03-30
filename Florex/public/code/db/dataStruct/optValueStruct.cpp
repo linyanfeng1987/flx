@@ -12,6 +12,7 @@ string COptValueStruct::startValue = "startValue";
 string COptValueStruct::endTime = "endTime";
 string COptValueStruct::endTimeDesc = "endTimeDesc";
 string COptValueStruct::endValue = "endValue";
+string COptValueStruct::stepTime = "stepTime";
 string COptValueStruct::resValue = "resValue";
 string COptValueStruct::direct = "direct";
 mutex COptValueStruct::initMutex;
@@ -61,6 +62,9 @@ void COptValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 
 	field.load(endValue, typeDouble);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(stepTime, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(resValue, typeDouble);

@@ -78,6 +78,7 @@ void CMonitor::saveToDb( int dataType, double curTime, string curTimeDesc, doubl
 
 	// ´æ´¢topĞÅÏ¢
 	row->setTableStruct(monitorTopStruct);
+	row->setDataStatus(DATA_NEW);
 	row->save();
 }
 

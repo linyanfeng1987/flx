@@ -42,6 +42,7 @@ void CFlxOpt::saveToDb()
 	row->setDoubleValue(COptValueStruct::endTime, endValue->time);
 	row->setStringValue(COptValueStruct::endTimeDesc, endValue->timeDesc);
 	row->setDoubleValue(COptValueStruct::endValue, endValue->value);
+	row->setDoubleValue(COptValueStruct::stepTime, endValue->time - beginValue->time);
 	row->setDoubleValue(COptValueStruct::resValue, endRes);
 	row->setIntValue(COptValueStruct::direct, direct);
 	row->save();

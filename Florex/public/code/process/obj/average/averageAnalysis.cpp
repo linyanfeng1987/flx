@@ -23,9 +23,17 @@ void CAverageAnalysis::init()
 {
 	double stepTimes[] = {10, 60, 60*15, 60*60, 60*60*4, 60*60*4};
 
+	list<PAverageDecisionTemplate> dTemplates;
+	double decisionPersents[] = {0.2, 0.4, 0.6, 0.8, 1};
+	for (double decisionPersent : decisionPersents)
+	{
+		PAverageDecisionTemplate dTemplate = newAverageDecisionTemplate(decisionPersent);
+		dTemplates.push_back(dTemplate);
+	}
+
 	for (double stepTime : stepTimes)
 	{
-		PAverageObj obj = newAverageObj(rateInfo, stepTime);
+		PAverageObj obj = newAverageObj(dTemplates, rateInfo, stepTime);
 		averageObjs.insert(make_pair(obj->getTagId(), obj));
 	}
 }

@@ -2,11 +2,18 @@
 #include "PubFun.h"
 
 indexType CAverageObj::tagIdCount = 0;
-CAverageObj::CAverageObj(PRateInfo _rateInfo, double _stepTime):tagId(++tagIdCount),stepTime(_stepTime)
+CAverageObj::CAverageObj(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo _rateInfo, double _stepTime):tagId(++tagIdCount),stepTime(_stepTime)
 {
 	rateInfo = _rateInfo;
 	averCalcObj = newSumByTime(_stepTime);
 	averageStruct = newCurRateAverageStruct(rateInfo->rateName, PubFun::doubleToString(stepTime));
+
+	for (PAverageDecisionTemplate dTemplate: _dTemplates)
+	{
+		string objTag = PubFun::strFormat("average_%s_%d", rateInfo->rateName.c_str(), (int)stepTime);
+		PAverageDecision decision = newAverageDecision(dTemplate, stepTime, objTag, rateInfo);
+		decisions.push_back(decision);
+	}
 }
 
 void CAverageObj::add( PRateValue curValue )
@@ -15,6 +22,11 @@ void CAverageObj::add( PRateValue curValue )
 	averValue->value = averCalcObj->add(curValue);
 
 	saveToDb(averValue);
+
+	for (PAverageDecision decision : decisions)
+	{
+		decision->add(curValue, averValue);
+	}
 }
 
 void CAverageObj::saveToDb( PRateValue averageValue )

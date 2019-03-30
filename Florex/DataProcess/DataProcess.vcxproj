@@ -113,6 +113,7 @@
     <ClInclude Include="..\public\code\process\cap\speadCap.h" />
     <ClInclude Include="..\public\code\process\cap\threshold.h" />
     <ClInclude Include="..\public\code\process\continueProcess.h" />
+    <ClInclude Include="..\public\code\process\decision\averageDecision.h" />
     <ClInclude Include="..\public\code\process\decision\continueDecision.h" />
     <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h" />
     <ClInclude Include="..\public\code\process\obj\average\averageObj.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="..\public\code\process\cap\speadCap.cpp" />
     <ClCompile Include="..\public\code\process\cap\threshold.cpp" />
     <ClCompile Include="..\public\code\process\continueProcess.cpp" />
+    <ClCompile Include="..\public\code\process\decision\averageDecision.cpp" />
     <ClCompile Include="..\public\code\process\decision\continueDecision.cpp" />
     <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp" />
     <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp" />

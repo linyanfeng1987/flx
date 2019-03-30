@@ -270,6 +270,9 @@
     <ClInclude Include="..\public\code\process\obj\average\averageObj.h">
       <Filter>public\process\obj\average</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\decision\averageDecision.h">
+      <Filter>public\process\decision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp">
       <Filter>public\process\obj\average</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\decision\averageDecision.cpp">
+      <Filter>public\process\decision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

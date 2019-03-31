@@ -27,7 +27,7 @@ void CAverageAnalysis::init()
 	double decisionPersents[] = {0.2, 0.4, 0.6, 0.8, 1};
 	for (double decisionPersent : decisionPersents)
 	{
-		PAverageDecisionTemplate dTemplate = newAverageDecisionTemplate(decisionPersent);
+		PAverageDecisionTemplate dTemplate = newAverageDecisionTemplate(decisionPersent, decisionPersent*0.5);
 		dTemplates.push_back(dTemplate);
 	}
 

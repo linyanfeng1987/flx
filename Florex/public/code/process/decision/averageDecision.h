@@ -9,16 +9,14 @@ using namespace std;
 class CAverageDecisionTemplate
 {
 public:
-	CAverageDecisionTemplate(double _optPersent);
+	CAverageDecisionTemplate(double _optInPersent, double _optOutPersent);
 	~CAverageDecisionTemplate(){}
 
-	
 	double optInPersent;
 	double optOutPersent;
-
 };
 typedef shared_ptr<CAverageDecisionTemplate> PAverageDecisionTemplate;
-#define newAverageDecisionTemplate(T1) make_shared<CAverageDecisionTemplate>(T1)
+#define newAverageDecisionTemplate(T1,T2) make_shared<CAverageDecisionTemplate>(T1,T2)
 
 class CAverageDecision
 {
@@ -62,7 +60,8 @@ protected:
 	PAverageDecisionTemplate decisionTemplate;
 
 	double averageStepTime;
-	double optTime;
+	double optInTime;
+	double optOutTime;
 
 	PRateInfo rateInfo;
 	string monitorName;

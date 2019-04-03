@@ -26,6 +26,7 @@ protected:
 
 	int maxProcessCount;
 	CLogObj& log;
+	map<string, PProcessTask> allTasks;
 	map<string, PProcessTask> runingTasks;
 	CGlobalData& gData; 
 

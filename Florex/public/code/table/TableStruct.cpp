@@ -2,16 +2,15 @@
 #include "PubFun.h"
 #include <regex>
 
-CTableStruct::CTableStruct(string strName)
+CTableStruct::CTableStruct(string strName):log(CLogObj::instance())
 {
 	setName(strName);
 }
 
-CTableStruct::CTableStruct()
+CTableStruct::CTableStruct():log(CLogObj::instance())
 {
 
 }
-
 
 CTableStruct::~CTableStruct(void)
 {
@@ -51,8 +50,15 @@ std::string CTableStruct::getCreateTableSql()
 			fieldType = "CHAR(45)";
 		}else if(typeString2 == field.second.strType){
 			fieldType = "VARCHAR(4096)";
+		}else if(typeCount == field.second.strType){
+			fieldType = "bigint unsigned";
 		}
-		string fieldDefSql = PubFun::strFormat("%s %s NOT NULL", strField.c_str(), fieldType.c_str());
+
+		string fieldDefSql = PubFun::strFormat("%s %s", strField.c_str(), fieldType.c_str());
+		if (!field.second.alowedEmpyt)
+		{
+			fieldDefSql.append(" NOT NULL");
+		}
 		if(!fields.empty())
 		{
 			fields.append(",\n");
@@ -147,13 +153,19 @@ bool CTableStruct::tableExist()
 	catch (CStrException& e)
 	{
 		// 这里要处理表不存在的情况
+		if (1146 == e.errorNo)
+		{
+			return false;
+		}
 		string msg = e.what();
+		log.error(string(e.what()));
+		/*
 		regex reg1("Table '[\\w\\.]+' doesn't exist");
 		smatch r1;
 		if(regex_match(msg, r1, reg1))
 		{
 			return false;
-		}
+		}*/
 	}
 	
 	return true;

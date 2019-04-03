@@ -30,21 +30,20 @@ protected:
 
 	// 起始混乱状态，反复尝试定位方向
 	// 方向确定后进入清晰状态， 偶尔触发方向转折
-	static const int status_confusion = 0;
-	static const int status_confusion_tryIn = 2;
-	static const int status_clear = 1;
-	static const int status_clear_tryOut = 3;
-
-	void fun_confusion(PRateValue curValue, PRateValue averageValue);
-	void fun_confusion_tryIn(PRateValue curValue, PRateValue averageValue);
-	void fun_status_clear(PRateValue curValue, PRateValue averageValue);
-	void fun_status_clear_tryOut(PRateValue curValue, PRateValue averageValue);
-
+	static const int status_wait = 0;
 	static const int status_tryIn = 2;
-	static const int status_tryOut = -2;
-	static const int status_dirTrySet = 1;
-	static const int status_find = 2;
-	
+	static const int status_keep = 1;
+	static const int status_tryOut = 3;
+
+	void wait(PRateValue curValue, PRateValue averageValue);
+	void tryIn(PRateValue curValue, PRateValue averageValue);
+	void keep(PRateValue curValue, PRateValue averageValue);
+	void tryOut(PRateValue curValue, PRateValue averageValue);
+
+	//static const int status_tryIn = 2;
+	//static const int status_tryOut = -2;
+	//static const int status_dirTrySet = 1;
+	//static const int status_find = 2;
 
 	void setTryDirect(double nowTime, int nowDirect);
 	void setTryStart(double nowTime);
@@ -67,10 +66,13 @@ protected:
 	string monitorName;
 	string decisionName;
 	string tagName;
+
 	indexType optTagId;
+	list<double> records;
 	POptAccount optAccountr;
 
 	int tryDirect;
+	int optDirect;
 	int nowStatus;
 	double trySetStartTime;
 };

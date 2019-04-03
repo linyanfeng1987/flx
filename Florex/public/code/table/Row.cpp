@@ -73,7 +73,15 @@ std::string CRow::getInsertSql()
 		{
 			strTmp += ",";
 		}
-		strTmp +="'" + strValue + "'";	
+		//strTmp +="'" + strValue + "'";	
+		if (typeCount == field.second.strType)
+		{
+			strTmp.append("0");
+		}
+		else
+		{
+			strTmp.append(PubFun::strFormat("'%s'", strValue.c_str()));
+		}
 	}
 
 	memset(chSql, 0, sizeof(chSql));
@@ -96,10 +104,17 @@ std::string CRow::getUpdateSql()
 		strValue = getStringValue(field.first);
 		if (!strTmp.empty())
 		{
-			strTmp += ",";
-			strTmp += " ";
+			strTmp.append(", ");
 		}
-		strTmp += field.first + "='" + strValue + "'";
+		//strTmp += field.first + "='" + strValue + "'";
+		if (typeCount == field.second.strType)
+		{
+			strTmp.append(PubFun::strFormat("%s=%s+1",field.first.c_str(), field.first.c_str()));
+		}
+		else
+		{
+			strTmp.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+		}
 	}
 	string strCondition = getCondition();
 	memset(chSql, 0, sizeof(chSql));
@@ -283,7 +298,58 @@ void CRow::setDoubleValue(string& strKey, double dValue )
 	this->setValue(strKey, dValue);
 }
 
+bool CRow::isExit()
+{
+	bool bIsExit = false;
+	string strValue = "";
+	string conditicon = "";
+	for(auto field : *tableStruct){
+		if (field.second.bIsPk)
+		{
+			strValue = getStringValue(field.first);
+			if (!conditicon.empty())
+			{
+				conditicon += "and ";
+			}
+			//conditicon +="'" + strValue + "'";	
+			conditicon.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+		}
+	}
+
+	string strSql = tableStruct->getSelectSql(conditicon);
+	CDbObj& dbObj = CDbObj::instance();
+	try
+	{
+		PRow row = dbObj.selectOneData(strSql.c_str(), tableStruct);
+		if (nullptr != row)
+		{
+			bIsExit = true;
+		}
+	}
+	catch (CStrException& e)
+	{
+		log.error(string(e.what()));
+	}
+	return bIsExit;
+}
+
 bool CRow::save()
+{
+	string strSql = getSql();
+	try
+	{
+		CDbObj::instance().executeSql(strSql.c_str());
+		setDataStatus(DATA_SAME);
+	}
+	catch (CStrException &e)
+	{
+		log.error(string(e.what()));
+	}
+
+	return true;
+}
+
+bool CRow::save2()
 {
 	string strSql = getSql();
 	try
@@ -322,5 +388,6 @@ PValue CRow::emptyFind( string key )
 		return newValue();
 	}	 
 }
+
 
 

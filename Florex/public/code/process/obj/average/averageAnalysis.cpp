@@ -21,10 +21,13 @@ void CAverageAnalysis::add(PRateValue value)
 
 void CAverageAnalysis::init()
 {
-	double stepTimes[] = {10, 60, 60*15, 60*60, 60*60*4, 60*60*24};
+	//double stepTimes[] = {10, 60, 60*15, 60*60, 60*60*4, 60*60*24};
+	//double stepTimes[] = {60*60*4, 60*60*24};
+	double stepTimes[] = {60*60*4};
 
 	list<PAverageDecisionTemplate> dTemplates;
-	double decisionPersents[] = {0.2, 0.4, 0.6, 0.8, 1};
+	//double decisionPersents[] = {0.2, 0.4, 0.6, 0.8, 0.99};
+	double decisionPersents[] = {0.6};
 	for (double decisionPersent : decisionPersents)
 	{
 		PAverageDecisionTemplate dTemplate = newAverageDecisionTemplate(decisionPersent, decisionPersent*0.5);

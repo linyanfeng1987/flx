@@ -8,6 +8,7 @@ string CMonitorValueStruct::curTime = "curTime";
 string CMonitorValueStruct::curTimeDesc = "curTimeDesc";
 string CMonitorValueStruct::sumValue = "sumValue";
 string CMonitorValueStruct::dataType = "dataType";
+string CMonitorValueStruct::optCount = "optCount";
 mutex CMonitorValueStruct::initMutex;
 
 CMonitorValueStruct::CMonitorValueStruct(bool _isTop):isTop(_isTop)
@@ -54,6 +55,12 @@ void CMonitorValueStruct::init()
 	field.load(sumValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
 
+	if (isTop)
+	{
+		field.load(optCount, typeCount, false, false, true);
+		this->insert(make_pair(field.strName, field));
+	}
+	
 	ensureExist();
 }
 

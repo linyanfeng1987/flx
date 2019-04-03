@@ -32,6 +32,9 @@ public:
 	PTableStruct getTableStruct(){return tableStruct;}
 
 	bool save();
+	bool save2();
+
+	bool isExit();
 
 	void setDataStatus(DATA_STATUS status);
 

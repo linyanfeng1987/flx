@@ -82,20 +82,31 @@ void CtaskRunner::rangTaskList()
 {
 	// Ö´ÐÐÈÎÎñ
 	static bool isFirstRun = false;
+	static int paramCount = 0;
 	PRow processTaskInfo = gData.popProcessTaskInfo();
 	int count = -1;
 	if(nullptr != processTaskInfo)
 	{
-		PProcessTask task = getProcessTask(processTaskInfo);
-		count = task.use_count();
-		if(nullptr != task)
+		string processTypeName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+		if (runingTasks.find(processTypeName) == runingTasks.end())
 		{
-			isFirstRun = true;
-			string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
-			task->run(param.c_str());
+			PProcessTask task = getProcessTask(processTaskInfo);
+			count = task.use_count();
+			if(nullptr != task)
+			{
+				isFirstRun = true;
+				string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+				string testParam = PubFun::intToString(paramCount++);
+				task->run(testParam.c_str());
+			}
+			allTasks.insert(make_pair(task->getTaskId(), task));
+			runingTasks.insert(make_pair(processTypeName, task));
+			count = task.use_count();
 		}
-		runingTasks.insert(make_pair(task->getTaskId(), task));
-		count = task.use_count();
+		else
+		{
+			log.error(string("drop task!!!!!!!"));
+		}
 	}
 	else
 	{	if (!reloadTaskList())

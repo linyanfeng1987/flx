@@ -22,7 +22,8 @@ public:
 
 	static string sumValue;
 	static string dataType;
-	
+	static string optCount;
+
 	static const int monitorDataType_endOpt = 0;
 	static const int monitorDataType_recordOpt = 1;
 protected:

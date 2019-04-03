@@ -3,6 +3,7 @@
 #include "Field.h"
 #include "LinkedHashMap.h"
 #include "ConstDef.h"
+#include "LogObj.h"
 /*
 记录表字段信息，作为表结构处理的sql生成
 
@@ -56,7 +57,7 @@ public:
 
 protected:
 	//KeyList m_keyFiled;
-
+	CLogObj &log;
 	string strInsertSqlFormat;
 	string strUpdateSqlFormat;
 };

@@ -52,8 +52,10 @@ std::string CTableStruct::getCreateTableSql()
 			fieldType = "VARCHAR(4096)";
 		}else if(typeCount == field.second.strType){
 			fieldType = "bigint unsigned";
+		}else if(typeBigString == field.second.strType){
+			fieldType = "mediumtext";
 		}
-
+		
 		string fieldDefSql = PubFun::strFormat("%s %s", strField.c_str(), fieldType.c_str());
 		if (!field.second.alowedEmpyt)
 		{

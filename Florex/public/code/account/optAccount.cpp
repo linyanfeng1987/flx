@@ -10,8 +10,13 @@ indexType COptAccount::optIn( string& tagName, string& rateName, indexType srcTa
 
 void COptAccount::optOut( string& tagName, string& rateName, indexType optTagId, PRateValue curValue )
 {
+	optOut(tagName, rateName, optTagId, curValue, string(""));
+}
+
+void COptAccount::optOut( string& tagName, string& rateName, indexType optTagId, PRateValue curValue, string& desc )
+{
 	PMonitor monitor = getMonitor(tagName, rateName);
-	monitor->endOpt(optTagId, curValue);
+	monitor->endOpt(optTagId, curValue, desc);
 }
 
 void COptAccount::record( string& tagName, string& rateName, PRateValue curValue )

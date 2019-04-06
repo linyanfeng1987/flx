@@ -68,8 +68,9 @@ protected:
 	string tagName;
 
 	indexType optTagId;
-	list<double> records;
+	//list<double> records;
 	POptAccount optAccountr;
+	string recordValue;
 
 	int tryDirect;
 	int optDirect;

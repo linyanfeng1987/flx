@@ -31,6 +31,7 @@ public:
 	
 	static string direct;
 
+	static string optDesc;
 protected:
 	void init();
 	static mutex initMutex;

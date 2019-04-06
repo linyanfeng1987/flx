@@ -23,7 +23,13 @@ double CFlxOpt::getEndResValue()
 
 void CFlxOpt::setEnd( PRateValue _endValue )
 {
+	setEnd(_endValue, string(""));
+}
+
+void CFlxOpt::setEnd( PRateValue _endValue, string& _desc )
+{
 	endValue = _endValue;
+	desc = _desc;
 	endRes = (beginValue->value-endValue->value)*direct;
 	saveToDb();
 }
@@ -45,5 +51,6 @@ void CFlxOpt::saveToDb()
 	row->setDoubleValue(COptValueStruct::stepTime, endValue->time - beginValue->time);
 	row->setDoubleValue(COptValueStruct::resValue, endRes);
 	row->setIntValue(COptValueStruct::direct, direct);
+	row->setStringValue(COptValueStruct::optDesc, desc);
 	row->save();
 }

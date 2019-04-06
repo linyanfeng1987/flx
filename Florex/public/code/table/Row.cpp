@@ -64,7 +64,6 @@ std::string CRow::getSql()
 std::string CRow::getInsertSql()
 {
 	string strBaseSqlFormat = tableStruct->getBaseInsertSqlFormat();
-	char chSql[2048] = {0};
 	string strTmp = "";
 	string strValue = "";
 	for(auto field : *tableStruct){
@@ -84,10 +83,9 @@ std::string CRow::getInsertSql()
 		}
 	}
 
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str());
+	string strSql = PubFun::strFormat(strBaseSqlFormat.c_str(), strTmp.c_str());
 
-	return string(chSql);
+	return strSql;
 }
 
 
@@ -96,7 +94,6 @@ std::string CRow::getUpdateSql()
 {
 	string strBaseSqlFormat = tableStruct->getBaseUpdateSqlFormat();
 
-	char chSql[2048] = {0};
 	string strTmp = "";
 	strTmp.clear();
 	string strValue;
@@ -117,10 +114,8 @@ std::string CRow::getUpdateSql()
 		}
 	}
 	string strCondition = getCondition();
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
-
-	return string(chSql);
+	string strSql = PubFun::strFormat(strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
+	return strSql;
 }
 
 std::string CRow::getDeleteSql()

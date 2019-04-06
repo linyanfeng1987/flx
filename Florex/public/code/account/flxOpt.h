@@ -11,6 +11,7 @@ public:
 
 	bool isEnd(){return nullptr != endValue;}
 	void setEnd(PRateValue _endValue);
+	void setEnd(PRateValue _endValue, string &_desc);
 	PRateValue getEnd(){return endValue;}
 	double getStartTime(){return beginValue->time;}
 
@@ -27,6 +28,7 @@ protected:
 	string rateName;
 	PRateValue beginValue;
 	PRateValue endValue;
+	string desc;
 
 	double endRes;
 	POptValueStruct optStruct;

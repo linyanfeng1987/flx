@@ -38,13 +38,17 @@ void CAverageDecision::setTryDirect( double nowTime, int nowDirect )
 {
 	tryDirect = nowDirect;
 	trySetStartTime = nowTime;
-	records.clear();
 	//nowStatus = status_confusion;
 }
 
 
 void CAverageDecision::add( PRateValue curValue, PRateValue averageValue )
 {
+	if (recordValue.empty())
+	{
+		recordValue.append("begin");
+	}
+	recordValue.append(PubFun::strFormat(",%.4lf/%.4lf", curValue->value,averageValue->value));
 	switch (nowStatus)
 	{
 	case status_wait:
@@ -54,7 +58,7 @@ void CAverageDecision::add( PRateValue curValue, PRateValue averageValue )
 		keep(curValue, averageValue);
 		break;
 	}
-	trySetDir(curValue, averageValue);
+	//trySetDir(curValue, averageValue);
 }
 
 void CAverageDecision::trySetDir( PRateValue curValue, PRateValue averageValue )
@@ -115,6 +119,7 @@ void CAverageDecision::wait( PRateValue curValue, PRateValue averageValue )
 			if (0 == optTagId)
 			{
 				optDirect = nowDirect;
+				recordValue.append(",optIn");
 				optTagId = optAccountr->optIn(tagName, rateInfo->rateName, 0, curValue, optDirect);
 				nowStatus = status_keep;
 				tryDirect = 0;
@@ -128,8 +133,8 @@ void CAverageDecision::wait( PRateValue curValue, PRateValue averageValue )
 	else
 	{
 		setTryDirect(curValue->time, nowDirect);
+		recordValue.clear();
 	}
-	records.push_back(curValue->value);
 }
 
 void CAverageDecision::tryIn( PRateValue curValue, PRateValue averageValue )
@@ -168,11 +173,12 @@ void CAverageDecision::keep( PRateValue curValue, PRateValue averageValue )
 			{
 				if (0 != optTagId)
 				{
-					optAccountr->optOut(tagName, rateInfo->rateName, optTagId, curValue);
+					recordValue.append(",optOut;");
+					optAccountr->optOut(tagName, rateInfo->rateName, optTagId, curValue, recordValue);
 					optTagId = 0;
 					optDirect = 0;
 					nowStatus = status_wait;
-					records.clear();
+					recordValue.clear();
 				}
 				else
 				{
@@ -186,7 +192,6 @@ void CAverageDecision::keep( PRateValue curValue, PRateValue averageValue )
 		}		
 	}
 	
-	records.push_back(curValue->value);
 }
 
 void CAverageDecision::tryOut( PRateValue curValue, PRateValue averageValue )

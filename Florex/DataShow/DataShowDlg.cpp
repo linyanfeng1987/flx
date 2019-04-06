@@ -7,7 +7,7 @@
 #include "DataShowDlg.h"
 #include "afxdialogex.h"
 
-#ifdef _DEBUG
+#ifdef _DEBUGshowSpace
 #define new DEBUG_NEW
 #endif
 
@@ -56,6 +56,8 @@ CDataShowDlg::CDataShowDlg(CWnd* pParent /*=NULL*/)
 void CDataShowDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO1, showTypeBox);
+	DDX_Control(pDX, IDC_EDIT2, showSpace);
 }
 
 BEGIN_MESSAGE_MAP(CDataShowDlg, CDialogEx)
@@ -63,6 +65,7 @@ BEGIN_MESSAGE_MAP(CDataShowDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDOK, &CDataShowDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDC_BUTTON1, &CDataShowDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -98,7 +101,7 @@ BOOL CDataShowDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-
+	//MoveWindow(100, 100, 1200, 600);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -121,10 +124,9 @@ void CDataShowDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CDataShowDlg::OnPaint()
 {
+	CPaintDC dc(this); // 用于绘制的设备上下文
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // 用于绘制的设备上下文
-
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
 		// 使图标在工作区矩形中居中
@@ -137,11 +139,16 @@ void CDataShowDlg::OnPaint()
 
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
+
+		
 	}
 	else
 	{
+		
 		CDialogEx::OnPaint();
 	}
+
+	
 }
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
@@ -156,5 +163,12 @@ HCURSOR CDataShowDlg::OnQueryDragIcon()
 void CDataShowDlg::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	%%%%
+	//%%%%
+}
+
+
+void CDataShowDlg::OnBnClickedButton1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	OnPaint();
 }

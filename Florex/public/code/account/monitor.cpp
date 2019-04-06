@@ -13,12 +13,12 @@ indexType CMonitor::addOpt( PFlxOpt flxOpt )
 	return flxOpt->getTagId();
 }
 
-void CMonitor::endOpt( indexType optTagId, PRateValue endValue )
+void CMonitor::endOpt( indexType optTagId, PRateValue endValue, string& desc )
 {
 	auto optIter = curOpts.find(optTagId);
 	if (curOpts.end() != optIter)
 	{
-		optIter->second->setEnd(endValue);
+		optIter->second->setEnd(endValue, desc);
 		addEndOpt(*optIter);
 		curOpts.erase(optTagId);
 		saveToDb(CMonitorValueStruct::monitorDataType_endOpt, endValue->time, endValue->timeDesc, endRes);

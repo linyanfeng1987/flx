@@ -43,6 +43,7 @@ const string typeIndex = "index";
 const string typeDouble = "double";
 const string typeString = "char";
 const string typeString2 = "string";
+const string typeBigString = "bigString";
 const string typeCount = "count";
 
 // (前值-后置)*方向 要求为正

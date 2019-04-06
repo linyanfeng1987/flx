@@ -10,7 +10,7 @@ public:
 	CMonitor(string _name, string _rateName);
 
 	indexType addOpt(PFlxOpt flxOpt);
-	void endOpt(indexType optTagId, PRateValue endValue);
+	void endOpt(indexType optTagId, PRateValue endValue, string& desc);
 	void endOpt(PRateValue endValue);
 
 	double getCurRes(PRateValue curValue);

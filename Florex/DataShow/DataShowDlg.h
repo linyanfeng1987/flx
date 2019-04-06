@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "afxwin.h"
+#include "ShowSpace.h"
 
 // CDataShowDlg ¶Ô»°¿ò
 class CDataShowDlg : public CDialogEx
@@ -31,4 +32,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+	CComboBox showTypeBox;
+	afx_msg void OnBnClickedButton1();
+	ShowSpace showSpace;
 };

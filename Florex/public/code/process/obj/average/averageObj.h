@@ -3,7 +3,7 @@
 #include <map>
 #include <memory>
 
-
+#include "table/Table.h"
 #include "ConstDef.h"
 #include "rate/rateInfo.h"
 #include "process/obj/rateValue.h"
@@ -19,6 +19,7 @@ class CAverageObj
 {
 public:
 	CAverageObj(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo _rateInfo, double _stepTime);
+	~CAverageObj();
 
 	void add(PRateValue curValue);
 	indexType getTagId(){return tagId;}
@@ -32,6 +33,8 @@ protected:
 	PSumByTime averCalcObj;
 	PCurRateAverageStruct averageStruct;
 	list<PAverageDecision> decisions;
+
+	PTable resTable;
 };
 
 typedef shared_ptr<CAverageObj> PAverageObj;

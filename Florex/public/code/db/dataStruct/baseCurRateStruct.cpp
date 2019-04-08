@@ -10,6 +10,21 @@ string CBaseCurRateStruct::timeFormat = "timeFormat";
 CBaseCurRateStruct::CBaseCurRateStruct(string pureRateName)
 {
 	setPureRateName(pureRateName);
+	addField();
+}
+
+CBaseCurRateStruct::CBaseCurRateStruct()
+{
+	addField();
+}
+
+CBaseCurRateStruct::~CBaseCurRateStruct()
+{
+	
+}
+
+void CBaseCurRateStruct::addField()
+{
 	CField field;
 
 	field.load(curTime, typeInt, true);
@@ -22,10 +37,6 @@ CBaseCurRateStruct::CBaseCurRateStruct(string pureRateName)
 	this->insert(make_pair(field.strName, field));
 }
 
-CBaseCurRateStruct::~CBaseCurRateStruct()
-{
-	
-}
 
 void CBaseCurRateStruct::setPureRateName(string pureRateName)
 {
@@ -41,3 +52,4 @@ void CBaseCurRateStruct::setTableName( string rateName)
 
 	this->setName(curTableName);
 }
+

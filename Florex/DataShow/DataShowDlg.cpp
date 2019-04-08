@@ -7,13 +7,19 @@
 #include "DataShowDlg.h"
 #include "afxdialogex.h"
 
+#include <afxpriv.h>
+#include "windows.h"
+
+
 #ifdef _DEBUGshowSpace
 #define new DEBUG_NEW
 #endif
 
+#include "PubFun.h"
+#include "db/DbObj.h"
+#include "LogObj.h"
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
-
 class CAboutDlg : public CDialogEx
 {
 public:
@@ -51,6 +57,7 @@ CDataShowDlg::CDataShowDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDataShowDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	showSpace.SetReadOnly(TRUE);
 }
 
 void CDataShowDlg::DoDataExchange(CDataExchange* pDX)
@@ -58,6 +65,7 @@ void CDataShowDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO1, showTypeBox);
 	DDX_Control(pDX, IDC_EDIT2, showSpace);
+	DDX_Control(pDX, IDC_EDIT1, SqlEdit);
 }
 
 BEGIN_MESSAGE_MAP(CDataShowDlg, CDialogEx)
@@ -144,11 +152,8 @@ void CDataShowDlg::OnPaint()
 	}
 	else
 	{
-		
 		CDialogEx::OnPaint();
 	}
-
-	
 }
 
 //当用户拖动最小化窗口时系统调用此函数取得光标
@@ -157,8 +162,6 @@ HCURSOR CDataShowDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
-
-
 
 void CDataShowDlg::OnBnClickedOk()
 {
@@ -170,5 +173,49 @@ void CDataShowDlg::OnBnClickedOk()
 void CDataShowDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	USES_CONVERSION;
+	CString cstr;
+	SqlEdit.GetWindowTextW(cstr);
+	
+	string userStr = T2A(cstr);	
+
+	list<string> strRows = PubFun::split(userStr, string("\n"));
+	PTableStruct tableStruct = nullptr;
+	for (string strRow : strRows)
+	{
+		list<string> oneInfo = PubFun::split(strRow, string(";"));
+		auto iter = oneInfo.begin();
+		string tagName = *iter;
+		iter++;
+		string strType = *iter;
+		iter++;
+		string sql = *iter;
+		if (strType == "average")
+		{
+			tableStruct = CCurRateAverageStruct::instence();
+		}
+		else
+		{
+			tableStruct = CCurRateStruct::instence();
+		}
+		getSqlData(sql.c_str(), tagName, tableStruct);
+	}
+
 	OnPaint();
+}
+
+void CDataShowDlg::getSqlData( const char* sql, string tagName, PTableStruct tableStruct )
+{
+	PTable resTable = newTable();
+	CDbObj& db = CDbObj::instance();
+	try
+	{
+		db.selectData(sql, resTable);
+		showSpace.addRateValueTable(tagName, resTable);
+	}
+	catch (CStrException &e)
+	{
+		CLogObj::instance().error(string(e.what()));	
+		//MessageBox(_T(e.what),NULL,MB_OK); //显示消息框
+	}
 }

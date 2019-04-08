@@ -5,6 +5,9 @@
 
 #include "table/Row.h"
 
+class CCurRateStruct;
+typedef shared_ptr<CCurRateStruct> PCurRateStruct;
+
 class CCurRateStruct : public CBaseCurRateStruct
 {
 public:
@@ -13,6 +16,8 @@ public:
 	~CCurRateStruct();
 	static PRateValue getRateValue(PRow pCurRateRow);
 
+	static PCurRateStruct instence();
+
 	static string priceBuy; 
 	static string priceSell; 
 	static string volume; 
@@ -20,7 +25,9 @@ public:
 	static string percentSpead_s; 
 
 protected:
+	CCurRateStruct();
 	void init();
+	void addField();
 };
-typedef shared_ptr<CCurRateStruct> PCurRateStruct;
+
 #define newCurRateStruct(T) make_shared<CCurRateStruct>(T)

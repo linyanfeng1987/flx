@@ -18,6 +18,10 @@ public:
 	static string timeFormat; 
 
 	string pureRateName;
+
+protected:
+	CBaseCurRateStruct();
+	void addField();
 };
 typedef shared_ptr<CBaseCurRateStruct> PBaseCurRateStruct;
 #define newBaseCurRateStruct(T1) make_shared<CBaseCurRateStruct>(T1)

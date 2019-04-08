@@ -12,6 +12,11 @@ CCurRateAverageStruct::CCurRateAverageStruct(string rateName,string timeName)
 	init();
 }
 
+CCurRateAverageStruct::CCurRateAverageStruct()
+{
+	addField();
+}
+
 
 CCurRateAverageStruct::~CCurRateAverageStruct()
 {
@@ -19,6 +24,12 @@ CCurRateAverageStruct::~CCurRateAverageStruct()
 }
 
 void CCurRateAverageStruct::init()
+{
+	addField();
+	this->ensureExist();
+}
+
+void CCurRateAverageStruct::addField()
 {
 	CField field;
 
@@ -30,13 +41,19 @@ void CCurRateAverageStruct::init()
 
 	field.load(timeFormat, typeString);
 	this->insert(make_pair(field.strName, field));
-
-	this->ensureExist();
 }
+
 
 void CCurRateAverageStruct::buildTableName( string rateName,string timeName )
 {
 	string str = PubFun::strFormat("%s.currency_pair_%s_average%s", calcDbName.c_str(), rateName.c_str(), timeName.c_str());
 	this->setName(str);
 }
+
+PCurRateAverageStruct CCurRateAverageStruct::instence()
+{
+	static PCurRateAverageStruct p = make_shared<CCurRateAverageStruct>();
+	return p;
+}
+
 

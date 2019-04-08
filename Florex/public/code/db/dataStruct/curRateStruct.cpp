@@ -13,7 +13,17 @@ CCurRateStruct::CCurRateStruct(string rateName):CBaseCurRateStruct(rateName)
 	init();
 }
 
+CCurRateStruct::CCurRateStruct()
+{
+	addField();
+}
+
 void CCurRateStruct::init()
+{
+	addField();
+}
+
+void CCurRateStruct::addField()
 {
 	CField field;
 
@@ -30,7 +40,6 @@ void CCurRateStruct::init()
 	this->insert(make_pair(field.strName, field));
 }
 
-
 CCurRateStruct::~CCurRateStruct()
 {
 	
@@ -45,6 +54,12 @@ PRateValue CCurRateStruct::getRateValue( PRow pCurRateRow )
 
 	PRateValue pValue = newRateValueP3(curDTime, priceBuy, pCurRateRow->getStringValue(CCurRateStruct::timeFormat));
 	return pValue;
+}
+
+PCurRateStruct CCurRateStruct::instence()
+{
+	static PCurRateStruct p = make_shared<CCurRateStruct>();
+	return p;
 }
 
 

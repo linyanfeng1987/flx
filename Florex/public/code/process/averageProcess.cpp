@@ -1,5 +1,5 @@
 #include "averageProcess.h"
-#include "db/dataStruct/curRateAverageStruct.h"
+#include "db/dataStruct/calcRateStruct.h"
 #include "PubFun.h"
 
 CAverageProcess::CAverageProcess( PRow pTaskInfo ):CBaseProcess(pTaskInfo)

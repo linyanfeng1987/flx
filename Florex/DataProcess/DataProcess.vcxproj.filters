@@ -171,9 +171,6 @@
     <ClInclude Include="..\public\code\db\DbFunc.h">
       <Filter>public\db</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h">
-      <Filter>public\db\dataStruct</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
@@ -272,6 +269,15 @@
     </ClInclude>
     <ClInclude Include="..\public\code\process\decision\averageDecision.h">
       <Filter>public\process\decision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\calcDataProcess.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\task\calcDataProcessTask.h">
+      <Filter>public\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\calcRateStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -380,9 +386,6 @@
     <ClCompile Include="..\public\code\db\DbFunc.cpp">
       <Filter>public\db</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp">
-      <Filter>public\db\dataStruct</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
@@ -478,6 +481,15 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\decision\averageDecision.cpp">
       <Filter>public\process\decision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\calcDataProcess.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\task\calcDataProcessTask.cpp">
+      <Filter>public\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\calcRateStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

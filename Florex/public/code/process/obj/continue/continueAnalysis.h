@@ -1,22 +1,22 @@
 #pragma once
+#include "../baseAnalysis.h"
 #include "continueKeeper.h"
 #include "rate/rateInfo.h"
 using namespace std;
 
 // 连续分析器，拥有多个finder
-class CContinueAnalysis
+class CContinueAnalysis : public CBaseAnalysis
 {
 public:
 	CContinueAnalysis(PRateInfo _rateInfo);
 
-	void add(PRateValue value);
+	virtual void add(PRateValue value);
 
 protected:
 	// 初始化finder
 	void init();
 	map<long, PContinueKeeper> continueKeepers;
 	long keeperIndex;
-	PRateInfo rateInfo;
 // 	unsigned int maxMemberSize;
 // 	double minContinueStep;
 // 	double persentStep;

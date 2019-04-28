@@ -2,16 +2,16 @@
 #include <thread>
 
 
-CBaseProcess::CBaseProcess( PRow pTaskInfo )
+CBaseProcess::CBaseProcess()
 {
-	init(pTaskInfo);
+	//init(pTaskInfo);
 }
 
 CBaseProcess::~CBaseProcess()
 {
 }
 
-void CBaseProcess::init( PRow pTaskInfo )
-{
-	this->pTaskInfo = pTaskInfo;
-}
+// void CBaseProcess::init( PRow pTaskInfo )
+// {
+// 	this->pTaskInfo = pTaskInfo;
+// }

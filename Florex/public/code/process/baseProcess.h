@@ -9,18 +9,18 @@ using namespace std;
 class CBaseProcess
 {
 public:
-	CBaseProcess(PRow pTaskInfo);
+	CBaseProcess();
 	~CBaseProcess();
 
 	virtual void calc(list<PRateValue> &values) = 0;
-	virtual void init(PRow pTaskInfo);
+	//virtual void init(PRow pTaskInfo);
 
-	PRow getTaskInfo(){return pTaskInfo;}
+	//PRow getTaskInfo(){return pTaskInfo;}
 protected:
 	string procssName;
 	int processByte;
 	int calculateStepSecond;
-	PRow pTaskInfo;
+	//PRow pTaskInfo;
 };
-typedef shared_ptr<CBaseProcess> PBaseProcess;
+
 

@@ -6,7 +6,7 @@ CAverageObj::CAverageObj(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo 
 {
 	rateInfo = _rateInfo;
 	averCalcObj = newSumByTime(_stepTime);
-	averageStruct = newCurRateAverageStruct(rateInfo->rateName, PubFun::intToString((long)stepTime));
+	averageStruct = newCalcRateAverageStruct(rateInfo->rateName, PubFun::intToString((long)stepTime));
 	resTable = newTable(averageStruct);
 
 	for (PAverageDecisionTemplate dTemplate: _dTemplates)
@@ -33,9 +33,9 @@ void CAverageObj::add( PRateValue curValue )
 void CAverageObj::saveToDb( PRateValue averageValue )
 {
 	PRow row = newRow(averageStruct);
-	row->setDoubleValue(CCurRateAverageStruct::curValue, averageValue->value);
-	row->setDoubleValue(CCurRateAverageStruct::curTime, averageValue->time);
-	row->setStringValue(CCurRateAverageStruct::timeFormat, averageValue->timeDesc);
+	row->setDoubleValue(CCalcRateStruct::curValue, averageValue->value);
+	row->setDoubleValue(CCalcRateStruct::curTime, averageValue->time);
+	row->setStringValue(CCalcRateStruct::timeFormat, averageValue->timeDesc);
 
 	resTable->addRow(row);
 

@@ -4,7 +4,7 @@
 #include "process/decision/continueDecision.h"
 #include "PubFun.h"
 
-CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):rateInfo(_rateInfo)
+CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInfo)
 {
 	keeperIndex = 0;
 	init();

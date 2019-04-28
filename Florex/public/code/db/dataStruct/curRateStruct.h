@@ -23,9 +23,8 @@ public:
 	static string volume; 
 
 	static string percentSpead_s; 
-
-protected:
 	CCurRateStruct();
+protected:
 	void init();
 	void addField();
 };

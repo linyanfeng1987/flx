@@ -4,7 +4,7 @@
 #include "process/decision/continueDecision.h"
 #include "PubFun.h"
 
-CAverageAnalysis::CAverageAnalysis(PRateInfo _rateInfo):rateInfo(_rateInfo)
+CAverageAnalysis::CAverageAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInfo)
 {
 	init();
 }

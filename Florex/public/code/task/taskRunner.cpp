@@ -3,6 +3,7 @@
 #include "process/continueProcess.h"
 #include "db/DbFunc.h"
 #include "task/dbTestTask.h"
+#include "ConstDef.h"
 
 // 查找数据库，开启对应线程处理数据
 
@@ -150,6 +151,13 @@ PProcessTask CtaskRunner::getProcessTask( PRow taskInfo )
 	PProcessTask task = newProcessTask(processStatus, pProcess, taskName);
 
 	return task;
+}
+
+void CtaskRunner::runFixTask()
+{
+	for (string rateName : rateNames)
+	{
+	}
 }
 
 

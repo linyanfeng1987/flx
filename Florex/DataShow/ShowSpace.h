@@ -22,12 +22,15 @@ public:
 	ShowSpace();
 	virtual ~ShowSpace();
 
+	void setShowRect(int x, int y){maxShowW = x; maxShowH = y;}
+	void spOnPaint();
 protected:
 	DECLARE_MESSAGE_MAP()
 
 	void loadValueBorder(string rateValueField, string timeField, PTable table);
 	void paintRateValue(string rateValueField, string timeField, PTable rateValueTable, CPaintDC &dc, CPen &pen);
 
+	bool borderInit;
 	double maxRateValue;
 	double minRateValue;
 	double bigValueStep;

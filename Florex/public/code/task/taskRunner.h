@@ -21,6 +21,8 @@ protected:
 
 	void buildTestDbTask();
 
+	void runFixTask();
+
 	PProcessTask getProcessTask(PRow taskInfo);
 	PBaseProcess getProcess( PRow taskInfo );
 

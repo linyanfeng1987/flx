@@ -57,7 +57,6 @@ CDataShowDlg::CDataShowDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDataShowDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	showSpace.SetReadOnly(TRUE);
 }
 
 void CDataShowDlg::DoDataExchange(CDataExchange* pDX)
@@ -107,6 +106,11 @@ BOOL CDataShowDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+	showSpace.SetReadOnly(TRUE);
+
+	//CRect rect;
+	//showSpace.GetRect(&rect);
+	//showSpace.setShowRect(rect.Width(), rect.Height());
 
 	// TODO: 在此添加额外的初始化代码
 	//MoveWindow(100, 100, 1200, 600);
@@ -147,8 +151,6 @@ void CDataShowDlg::OnPaint()
 
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
-
-		
 	}
 	else
 	{
@@ -201,12 +203,12 @@ void CDataShowDlg::OnBnClickedButton1()
 		getSqlData(sql.c_str(), tagName, tableStruct);
 	}
 
-	OnPaint();
+	showSpace.spOnPaint();
 }
 
 void CDataShowDlg::getSqlData( const char* sql, string tagName, PTableStruct tableStruct )
 {
-	PTable resTable = newTable();
+	PTable resTable = newTable(tableStruct);
 	CDbObj& db = CDbObj::instance();
 	try
 	{

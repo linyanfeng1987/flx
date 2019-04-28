@@ -2,14 +2,9 @@
 #include <thread>
 
 using namespace std;
-CBaseTask::CBaseTask(string taskName):log(CLogObj::instance())
+CBaseTask::CBaseTask(PTaskInfo _taskInfo):log(CLogObj::instance())
 {
-	if(taskName == "")
-	{
-		int a = 0;
-		a++;
-	}
-	this->taskName = taskName;
+	taskInfo = _taskInfo;
 	status = 0;
 }
 
@@ -30,3 +25,25 @@ void CBaseTask::baseRunInThread( const char* argv )
 	runInThread(argv);
 }
 
+
+void CTaskInfo::setTaskType( TaskType _taskType )
+{
+	taskType = _taskType;
+	switch (taskType)
+	{
+	case task_calc_map:
+		threadsAble = true;
+		break;
+	case task_calc_stauts:
+		threadsAble = false;
+		break;
+	default:
+		break;
+	}
+}
+
+CTaskInfo::CTaskInfo( string _taskName, TaskType _taskType )
+{
+	taskName = _taskName;
+	setTaskType(_taskType);
+}

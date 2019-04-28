@@ -8,7 +8,7 @@
 #include "rate/rateInfo.h"
 #include "process/obj/rateValue.h"
 #include "process/obj/sumByTime.h"
-#include "db/dataStruct/curRateAverageStruct.h"
+#include "db/dataStruct/calcRateStruct.h"
 #include "table/Row.h"
 
 #include "process/decision/averageDecision.h"
@@ -31,7 +31,7 @@ protected:
 	double stepTime;
 
 	PSumByTime averCalcObj;
-	PCurRateAverageStruct averageStruct;
+	PCalcRateStruct averageStruct;
 	list<PAverageDecision> decisions;
 
 	PTable resTable;

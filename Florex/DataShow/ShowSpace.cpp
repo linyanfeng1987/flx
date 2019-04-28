@@ -16,6 +16,10 @@ ShowSpace::ShowSpace()
 	minRateValue = 0;
 	maxTime = 0;
 	minTime = 0;
+	borderInit = false;
+
+	maxShowW = 800;
+	maxShowH = 250;
 }
 
 ShowSpace::~ShowSpace()
@@ -64,8 +68,11 @@ void ShowSpace::OnPaint()
 // 	NewBrush.DeleteObject();
 		// TODO: 在此处添加消息处理程序代码
 		// 不为绘图消息调用 CEdit::OnPaint()
+	//CEdit::OnPaint();
+}
 
-
+void ShowSpace::spOnPaint()
+{
 	CPaintDC dc(this);
 	if (0 != maxRateValue)
 	{
@@ -83,8 +90,6 @@ void ShowSpace::OnPaint()
 			paintRateValue(CCurRateAverageStruct::curValue, CCurRateAverageStruct::curTime, table, dc, pen2);
 		}
 	}
-	
-	CEdit::OnPaint();
 }
 
 void ShowSpace::clear()
@@ -125,11 +130,24 @@ void ShowSpace::loadValueBorder( string rateValueField, string timeField, PTable
 		PRow row = rowPr.second;
 		double curValue = row->getDoubleValue(rateValueField);
 		double curTime = row->getDoubleValue(timeField);
-
-		maxRateValue = maxRateValue < curValue ? curValue : maxRateValue;
-		minRateValue = minRateValue > curValue ? curValue : minRateValue;
-		maxTime = maxTime < curTime ? curTime : maxTime; 
-		minTime = minTime > curTime ? curTime : minTime;
+		if (!borderInit)
+		{
+			borderInit = true;
+			maxRateValue = minRateValue = curValue;
+			maxTime = minTime = curTime;
+		}
+		else
+		{
+			maxRateValue = maxRateValue < curValue ? curValue : maxRateValue;
+			minRateValue = minRateValue > curValue ? curValue : minRateValue;
+			maxTime = maxTime < curTime ? curTime : maxTime; 
+			minTime = minTime > curTime ? curTime : minTime;
+		}
+	}
+	if (borderInit)
+	{
+		bigValueStep = maxRateValue - minRateValue;
+		bigTimeStep = maxTime - minTime;
 	}
 }
 
@@ -144,7 +162,7 @@ void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable 
 		double curTime = row->getDoubleValue(timeField);
 
 		int x = (curTime - minTime)/bigTimeStep * maxShowW;
-		int y = (curValue - minRateValue)/bigValueStep * maxShowH;
+		int y = (1-(curValue - minRateValue)/bigValueStep) * maxShowH;
 		
 		if (nullptr == point)
 		{
@@ -157,4 +175,14 @@ void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable 
 			dc.LineTo(*point);
 		}
 	}
+
+// 	int w = (maxTime - minTime)/bigTimeStep * maxShowW;
+// 	int h = (1-(maxRateValue - minRateValue)/bigValueStep) * maxShowH;
+// 
+// 	CPoint t1(0, h);
+// 	CPoint t2(w, 0);
+// 	dc.MoveTo(t1);
+// 	dc.LineTo(t2);
 }
+
+

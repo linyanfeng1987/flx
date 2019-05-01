@@ -1,13 +1,13 @@
 #pragma once
 #include "table/Row.h"
 #include "baseTask.h"
-#include "process/baseProcess.h"
+#include "process/calcProcess.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
 class CProcessTask : public CBaseTask
 {
 public:
-	CProcessTask( PRow porcessStatus, PBaseProcess pProcess, string name);
+	CProcessTask( PTaskInfo _porcessTaskInfo, PRow _porcessStatus, PCalcProcess _process );
 	~CProcessTask();
 
 	string getTaskId();
@@ -16,9 +16,9 @@ protected:
 	void runInThread(const char* argv);
 	int completeTask();
 	
-	PRow porcessTaskInfo;
+	PTaskInfo porcessTaskInfo;
 	PRow porcessStatus;
-	PBaseProcess process;
+	PCalcProcess process;
 
 	static const string logTag;
 	PLogInfo logInfo;

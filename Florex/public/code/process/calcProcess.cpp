@@ -3,7 +3,7 @@
 #include "rate/rateInfo.h"
 #include "PubFun.h"
 
-CCalcProcess::CCalcProcess()
+CCalcProcess::CCalcProcess(PRateInfo _rateInfo):CBaseProcess(_rateInfo)
 {
 	init();
 }
@@ -11,6 +11,17 @@ CCalcProcess::CCalcProcess()
 CCalcProcess::~CCalcProcess()
 {
 
+}
+
+void CCalcProcess::calc( PTable rateTable )
+{
+	list<PRateValue> values;
+	for (auto rowPair : *rateTable)
+	{
+		PRateValue rateValue = calcProData->calcRateValue(rowPair.second);
+		values.push_back(rateValue);
+	}
+	calc(values);
 }
 
 void CCalcProcess::calc( list<PRateValue> &values )
@@ -24,8 +35,9 @@ void CCalcProcess::calc( list<PRateValue> &values )
 	}
 }
 
-void CCalcProcess::init(  )
+void CCalcProcess::init()
 {
+	calcProData = newCalcProData(rateInfo);
 // 	PRateInfo rateInfo = newRateInfo();
 // 	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
 }

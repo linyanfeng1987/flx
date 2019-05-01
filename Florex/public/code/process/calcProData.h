@@ -6,16 +6,17 @@
 #include "obj/rateValue.h"
 #include "rate/rateInfo.h"
 #include "table/Row.h"
+#include "table/Table.h"
 
 using namespace std;
 class CCalcProData
 {
 public:
-	CCalcProData(PRow pTaskInfo);
+	CCalcProData(PRateInfo rateInfo);
 	~CCalcProData();
 
 	PRateValue calcRateValue(PRow rateRow);
-	void init(PRow pTaskInfo);
+	void init(PRateInfo rateInfo);
 	PTableStruct calcRateStruct;
 	PTable resTable;
 

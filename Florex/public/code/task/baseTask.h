@@ -2,6 +2,7 @@
 #include <memory>
 #include "LogObj.h"
 #include "db/DbObj.h"
+#include "db/dataStruct/processTaskInfoStruct.h"
 
 using namespace std;
 
@@ -16,19 +17,21 @@ enum TaskType
 class CTaskInfo
 {
 public:
-	CTaskInfo(string _taskName, TaskType _taskType);
+	CTaskInfo(PRow _porcessTaskInfo, TaskType _taskType);
+	//CTaskInfo(string _taskName, TaskType _taskType);
 	~CTaskInfo(){};
 	void setTaskType(TaskType _taskType);
 	bool threadAble(){return threadsAble;}
-	string getTaskName(){return taskName;}
+	PRow getRowData(){return porcessTaskInfo;}
 private:
 	bool threadsAble;
 	TaskType taskType; 
-	string taskName;
+	PRow porcessTaskInfo;
 };
 
 typedef shared_ptr<CTaskInfo> PTaskInfo;
 #define newTaskInfo(T1,T2) make_shared<CTaskInfo>(T1,T2)
+//#define newTaskInfo(T1) make_shared<CTaskInfo>(T1)
 
 //任务基础类 可能被多线程调用
 class CBaseTask

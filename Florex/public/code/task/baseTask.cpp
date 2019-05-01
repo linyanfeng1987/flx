@@ -42,8 +42,7 @@ void CTaskInfo::setTaskType( TaskType _taskType )
 	}
 }
 
-CTaskInfo::CTaskInfo( string _taskName, TaskType _taskType )
+CTaskInfo::CTaskInfo( PRow _porcessTaskInfo, TaskType _taskType ):porcessTaskInfo(_porcessTaskInfo)
 {
-	taskName = _taskName;
 	setTaskType(_taskType);
 }

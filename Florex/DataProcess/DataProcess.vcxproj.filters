@@ -150,9 +150,6 @@
     <ClInclude Include="..\public\code\process\calculation\baseCalc.h">
       <Filter>public\process\calculation</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\averageProcess.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\obj\sum.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
@@ -216,9 +213,6 @@
     <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\continueProcess.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\table\Value.h">
       <Filter>public\table</Filter>
     </ClInclude>
@@ -270,14 +264,17 @@
     <ClInclude Include="..\public\code\process\decision\averageDecision.h">
       <Filter>public\process\decision</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\calcDataProcess.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\task\calcDataProcessTask.h">
-      <Filter>public\task</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\calcRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\calcProcess.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\baseAnalysis.h">
+      <Filter>public\process\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\calcProData.h">
+      <Filter>public\process</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +362,6 @@
     <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp">
       <Filter>public\process\calculation</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\averageProcess.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\process\obj\sum.cpp">
       <Filter>public\process\obj</Filter>
     </ClCompile>
@@ -428,9 +422,6 @@
     <ClCompile Include="..\public\code\process\obj\continue\continueValue.cpp">
       <Filter>public\process\obj\continue</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\continueProcess.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\table\Value.cpp">
       <Filter>public\table</Filter>
     </ClCompile>
@@ -482,14 +473,17 @@
     <ClCompile Include="..\public\code\process\decision\averageDecision.cpp">
       <Filter>public\process\decision</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\calcDataProcess.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\task\calcDataProcessTask.cpp">
-      <Filter>public\task</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\calcRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\calcProcess.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\baseAnalysis.cpp">
+      <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\calcProData.cpp">
+      <Filter>public\process</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

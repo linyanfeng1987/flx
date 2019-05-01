@@ -3,7 +3,7 @@
 #include "data/globalData.h"
 #include "PubFun.h"
 #include "ConstDef.h"
-#include "process/baseProcess.h"
+#include "process/calcProcess.h"
 #include "task/processTask.h"
 
 class CtaskRunner
@@ -24,7 +24,7 @@ protected:
 	void runFixTask();
 
 	PProcessTask getProcessTask(PRow taskInfo);
-	PBaseProcess getProcess( PRow taskInfo );
+	PCalcProcess getProcess( PRow taskInfo );
 
 	int maxProcessCount;
 	CLogObj& log;

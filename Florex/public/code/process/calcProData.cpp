@@ -1,14 +1,18 @@
 #include "calcProData.h"
 #include "PubFun.h"
 
-CCalcProData::CCalcProData( PRow pTaskInfo )
+CCalcProData::CCalcProData( PRateInfo rateInfo )
 {
-	init(pTaskInfo);
+	init(rateInfo);
 }
 
 CCalcProData::~CCalcProData()
 {
-
+	if (resTable->size() >= 0)
+	{
+		resTable->save();
+		resTable->clear();
+	}
 }
 
 PRateValue CCalcProData::calcRateValue( PRow rateRow )
@@ -40,11 +44,11 @@ void CCalcProData::saveToDb( PRateValue rateValue )
 	}
 }
 
-void CCalcProData::init( PRow pTaskInfo )
+void CCalcProData::init( PRateInfo rateInfo )
 {
-	PRateInfo rateInfo = newRateInfo();
-	string rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
-	calcRateStruct = newCalcRateStruct(rateName);
+// 	PRateInfo rateInfo = newRateInfo();
+// 	string rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	calcRateStruct = newCalcRateStruct(rateInfo->rateName);
 	resTable = newTable(calcRateStruct);
 }
 

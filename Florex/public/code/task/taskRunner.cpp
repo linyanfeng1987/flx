@@ -1,6 +1,6 @@
 #include "taskRunner.h"
-#include "process/averageProcess.h"
-#include "process/continueProcess.h"
+#include "process/obj/average/averageAnalysis.h"
+#include "process/obj/continue/continueAnalysis.h"
 #include "db/DbFunc.h"
 #include "task/dbTestTask.h"
 #include "ConstDef.h"
@@ -40,16 +40,16 @@ void CtaskRunner::run()
 
 void CtaskRunner::buildTestDbTask()
 {
-	PDbTestTask ptask1 = newDbTestTask(-1, "DBTask1");
-	PDbTestTask ptask2 = newDbTestTask(2, "DBTask2");
-
-	ptask1->run(nullptr);
-	ptask2->run(nullptr);
-
-	while (2 != ptask1->getStatus() || 2 != ptask2->getStatus())
-	{
-		::Sleep(1000);
-	}
+// 	PDbTestTask ptask1 = newDbTestTask(-1, "DBTask1");
+// 	PDbTestTask ptask2 = newDbTestTask(2, "DBTask2");
+// 
+// 	ptask1->run(nullptr);
+// 	ptask2->run(nullptr);
+// 
+// 	while (2 != ptask1->getStatus() || 2 != ptask2->getStatus())
+// 	{
+// 		::Sleep(1000);
+// 	}
 }
 
 bool CtaskRunner::reloadTaskList()
@@ -126,29 +126,35 @@ void CtaskRunner::rangTaskList()
 }
 
 // 通过info生成对应处理的process
-PBaseProcess CtaskRunner::getProcess( PRow taskInfo )
+PCalcProcess CtaskRunner::getProcess( PRow taskInfo )
 {
-	PBaseProcess process = nullptr;
+	PRateInfo rateInfo = newRateInfo();
+	rateInfo->rateName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	PCalcProcess process = newCalcProcess(rateInfo);
 	if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_average))
 	{
-		process = newAverageProcess(taskInfo); 
+		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+		process->addAnalysis(processType_average, averageAnalysis);
 	}
 	else if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_continue))
 	{
-		process = newContinueProcess(taskInfo); 
+		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+		process->addAnalysis(processType_continue, continueAnalysis);
 	}
 	return process;
 }
 
-PProcessTask CtaskRunner::getProcessTask( PRow taskInfo )
+PProcessTask CtaskRunner::getProcessTask( PRow processTaskInfoRow )
 {
-	PBaseProcess pProcess = getProcess(taskInfo);
-	PRow processStatus = CDbFunc::getProcessStatusLine(taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName));
+	PCalcProcess process = getProcess(processTaskInfoRow);
+	PRow processStatus = CDbFunc::getProcessStatusLine(processTaskInfoRow->getStringValue(CProcessTaskInfoStruct::key_processTypeName));
 
-	string rateName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
-	string processTypeName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
-	string taskName = rateName + "_" + processTypeName;
-	PProcessTask task = newProcessTask(processStatus, pProcess, taskName);
+// 	string rateName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
+// 	string processTypeName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+// 	string taskName = rateName + "_" + processTypeName;
+
+	PTaskInfo processTaskInfo = newTaskInfo(processTaskInfoRow, task_calc_stauts);
+	PProcessTask task = newProcessTask(processTaskInfo, processStatus, process);
 
 	return task;
 }

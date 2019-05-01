@@ -10,7 +10,7 @@
 const int timeStep = 3600;
 const string CProcessTask::logTag = "processTask";
 
-CProcessTask::CProcessTask( PRow status, PBaseProcess process, string name ):porcessTaskInfo(process->getTaskInfo()),porcessStatus(status),CBaseTask(name)
+CProcessTask::CProcessTask( PTaskInfo _porcessTaskInfo, PRow _porcessStatus, PCalcProcess _process ):porcessTaskInfo(_porcessTaskInfo),porcessStatus(_porcessStatus),CBaseTask(_porcessTaskInfo)
 {
 	logInfo = newLogInfo(logTag);
 	log.debug(logInfo, PubFun::strFormat("CProcessTask build, %d\n", this));
@@ -26,8 +26,8 @@ int CProcessTask::completeTask()
 {
 	try
 	{
-		porcessTaskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
-		porcessTaskInfo->save();
+		porcessTaskInfo->getRowData()->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
+		porcessTaskInfo->getRowData()->save();
 
 		time_t completeTime = porcessStatus->getTimeValue(CProcessStatusStruct::key_buildTaskLastTime);
 		porcessStatus->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, completeTime);
@@ -47,11 +47,11 @@ void CProcessTask::runInThread( const char* argv )
 	try
 	{
 		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
-		string rateName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
-		string startTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_startTime);
-		string endTime = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_endTime);
-		string rateType = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
-		string processTypeName = porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+		string rateName = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_rate);
+		string startTime = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_startTime);
+		string endTime = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_endTime);
+		string rateType = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_rateType);
+		string processTypeName = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
 		PCurRateStruct rateStruct = newCurRateStruct(rateName);
 		PTable rateTable = newTable(rateStruct);
 		string logName = rateName + "_" + processTypeName;
@@ -95,5 +95,5 @@ void CProcessTask::runInThread( const char* argv )
 
 std::string CProcessTask::getTaskId()
 {
-	return porcessTaskInfo->getStringValue(CProcessTaskInfoStruct::key_taskId);
+	return porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_taskId);
 }

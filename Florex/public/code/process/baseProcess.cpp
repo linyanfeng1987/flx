@@ -2,7 +2,7 @@
 #include <thread>
 
 
-CBaseProcess::CBaseProcess()
+CBaseProcess::CBaseProcess(PRateInfo _rateInfo):rateInfo(_rateInfo)
 {
 	//init(pTaskInfo);
 }

@@ -7,7 +7,7 @@
 class CDbTestTask : public CBaseTask
 {
 public:
-	CDbTestTask(int step, string name);
+	CDbTestTask(int step, PTaskInfo taskInfo);
 	~CDbTestTask();
 
 protected:

@@ -18,13 +18,14 @@ protected:
 
 	bool reloadTaskList();
 	void rangTaskList();
+	void rangTaskList_save();
 
 	void buildTestDbTask();
 
 	void runFixTask();
 
 	PProcessTask getProcessTask(PRow taskInfo);
-	PCalcProcess getProcess( PRow taskInfo );
+	PCalcProcess getProcess( PRow taskInfo, bool baseCalc = false);
 
 	int maxProcessCount;
 	CLogObj& log;

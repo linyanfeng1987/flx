@@ -94,7 +94,7 @@ void CTableStruct::setName( string strName )
 	tableName = strName;
 }
 
-std::string CTableStruct::getSelectSql( string conditicon )
+std::string CTableStruct::getSelectSql( string &conditicon )
 {
 	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
 	if(!conditicon.empty())
@@ -102,6 +102,26 @@ std::string CTableStruct::getSelectSql( string conditicon )
 		strSql.append(" where ");
 		strSql.append(conditicon);
 	}
+	strSql.append(";");
+	return strSql;
+}
+
+std::string CTableStruct::getSelectSqlLimit1( string &conditicon, string &order )
+{
+	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
+	if(!conditicon.empty())
+	{
+		strSql.append(" where ");
+		strSql.append(conditicon);
+	}
+
+	if(!order.empty())
+	{
+		strSql.append(" ");
+		strSql.append(order);
+	}
+
+	strSql.append(" limit 1");
 	strSql.append(";");
 	return strSql;
 }

@@ -556,8 +556,6 @@ void PubFun::removeDir(string dirPath)
     }
 }
 
-
-
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  
 { 

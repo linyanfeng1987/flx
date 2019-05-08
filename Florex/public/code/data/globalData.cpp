@@ -42,17 +42,24 @@ void CGlobalData::initDataInCode()
 	list<string> tmpList;
 	CProcessType tmpType;
 
-	tmpType.processTypeName = processType_average;
+	tmpType.processTypeName = processType_baseCalc;
 	tmpType.timeStep = 900;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
 	tmpList.push_back(tmpType.processTypeName);
+
+// 	tmpType.processTypeName = processType_average;
+// 	tmpType.timeStep = 900;
+// 	tmpType.dependOnTypeList.push_back("");
+// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+// 	tmpList.push_back(tmpType.processTypeName);
 
 // 	tmpType.processTypeName = processType_continue;
 // 	tmpType.timeStep = 900;
 // 	tmpType.dependOnTypeList.push_back("");
 // 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
 // 	tmpList.push_back(tmpType.processTypeName);
+
 
 	processRates.insert(make_pair(rateNames[3], tmpList));
 }
@@ -71,22 +78,60 @@ CProcessType* CGlobalData::getProcessType( string processId )
 void CGlobalData::addProcessTaskInfo( PRow cfg )
 {
 	taskMutex.lock();
-	tasks->addRow(cfg);
+	//tasks->addRow(cfg);
+	string processTypeName = cfg->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+	string rateName = cfg->getStringValue(CProcessTaskInfoStruct::key_rate);
+	string strKey = PubFun::strFormat("%s_%s", processTypeName.c_str(), rateName.c_str());
+	auto iter = taskInfos.find(strKey);
+	if (iter == taskInfos.end())
+	{
+		list<PTaskInfo> infos;
+		infos.push_back(newTaskInfo(cfg, task_calc_stauts));
+		auto pr = taskInfos.insert(make_pair(strKey, infos));
+		processKeys.push_back(strKey);
+	}
+	else
+	{
+		iter->second.push_back(newTaskInfo(cfg, task_calc_stauts));
+	}
 	taskMutex.unlock();
 }
 
-PRow CGlobalData::popProcessTaskInfo()
+PTaskInfo CGlobalData::popProcessTaskInfo( string &processKey )
 {
-	PRow pCfg = nullptr;
+	PTaskInfo taskInfo = nullptr;
 	taskMutex.lock();
-	auto it = tasks->begin();
-	if(it != tasks->end())
+// 	auto it = tasks->begin();
+// 	if(it != tasks->end())
+// 	{
+// 		pCfg = it->second;
+// 		tasks->erase(it);
+// 	}
+	auto iter = taskInfos.find(processKey);
+	if (iter != taskInfos.end())
 	{
-		pCfg = it->second;
-		tasks->erase(it);
+		if (!iter->second.empty())
+		{
+			taskInfo = *(iter->second.begin());
+			iter->second.pop_front();
+		}
+	}
+
+	taskMutex.unlock();
+	return taskInfo;
+}
+
+std::string CGlobalData::popProcessKey()
+{
+	string processKey = "";
+	taskMutex.lock();
+	if (!processKeys.empty())
+	{
+		processKey = *(processKeys.begin());
+		processKeys.pop_front();
 	}
 	taskMutex.unlock();
-	return pCfg;
+	return processKey;
 }
 
 void CGlobalData::init()

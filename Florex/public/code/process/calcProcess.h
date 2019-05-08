@@ -16,6 +16,7 @@ public:
 	void calc(PTable rateTable);
 	void calc(list<PRateValue> &values);
 	void init();
+	bool isBaseCalc();
 protected:
 	map<string, PBaseAnalysis> analysiss;
 	PCalcProData calcProData;

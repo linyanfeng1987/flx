@@ -37,6 +37,7 @@ const int basePersentStep = 10000;
 
 const string processType_average = "average";
 const string processType_continue = "continue";
+const string processType_baseCalc = "baseCalc";
 
 const string typeInt = "int";
 const string typeIndex = "index";

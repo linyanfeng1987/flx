@@ -12,6 +12,9 @@ public:
 	~CCalcRateStruct();
 
 	static PCalcRateStruct instence();
+	static double getLastRecordTime(PCalcRateStruct calcRateStruct);
+
+	string getLastRecordSql();
 
 	void buildTableName();
 

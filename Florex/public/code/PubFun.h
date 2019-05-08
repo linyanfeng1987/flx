@@ -66,7 +66,6 @@ public:
 
 	static void splitParamStr(string paramters, map<string, string> &resMap); 
 
-
 	//static unsigned long long GetCurrentTimeMsec();
 };
 

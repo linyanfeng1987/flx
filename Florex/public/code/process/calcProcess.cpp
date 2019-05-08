@@ -46,3 +46,8 @@ void CCalcProcess::addAnalysis( string name, PBaseAnalysis analysis )
 {
 	analysiss.insert(make_pair(name, analysis));
 }
+
+bool CCalcProcess::isBaseCalc()
+{
+	return analysiss.size() == 0;
+}

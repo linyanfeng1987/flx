@@ -2,6 +2,7 @@
 #include "db/dataStruct/processTaskInfoStruct.h"
 #include "db/dataStruct/processStatusStruct.h"
 #include "db/dataStruct/curRateStruct.h"
+#include "db/dataStruct/calcRateStruct.h"
 #include "table/Table.h"
 #include "db/DbObj.h"
 #include "PubFun.h"
@@ -14,7 +15,8 @@ CProcessTask::CProcessTask( PTaskInfo _porcessTaskInfo, PRow _porcessStatus, PCa
 {
 	logInfo = newLogInfo(logTag);
 	log.debug(logInfo, PubFun::strFormat("CProcessTask build, %d\n", this));
-	this->process = process;
+	process = _process;
+	isBaseCale = _process->isBaseCalc();
 }
 
 CProcessTask::~CProcessTask()
@@ -52,39 +54,21 @@ void CProcessTask::runInThread( const char* argv )
 		string endTime = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_endTime);
 		string rateType = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_rateType);
 		string processTypeName = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
-		PCurRateStruct rateStruct = newCurRateStruct(rateName);
-		PTable rateTable = newTable(rateStruct);
+		
 		string logName = rateName + "_" + processTypeName;
 
 		map<long, long> resValueMap;
 		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);
 
-		for (auto iter : resValueMap)
+		if (process->isBaseCalc())
 		{
-			string condition = "";
-			condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
-			condition.append(" and ");
-			condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
-			string sql = rateStruct->getSelectSql(condition);
-
-			list<PRateValue> values;
-			CDbObj::instance().selectData(sql.c_str(), rateTable);
-
-			for (auto rowPair : *rateTable)
-			{
-				PRow row = rowPair.second;
-
-				long curTime = row->getIntValue(CCurRateStruct::curTime);
-				long curMsec = row->getIntValue(CCurRateStruct::curMsec);
-				double curDTime = PubFun::timeConvert(curTime, curMsec);
-				double priceBuy = row->getDoubleValue(CCurRateStruct::priceBuy);
-				string timeDesc = row->getStringValue(CCurRateStruct::timeFormat);
-
-				PRateValue rateValue = newRateValueP3(curDTime, priceBuy, timeDesc);
-				values.push_back(rateValue);
-			}
-			process->calc(values);
+			baseCalc(resValueMap, rateName);
 		}
+		else
+		{
+			calcProcess(resValueMap, rateName);
+		}
+		
 		completeTask();
 	}
 	catch (CStrException& e)
@@ -96,4 +80,51 @@ void CProcessTask::runInThread( const char* argv )
 std::string CProcessTask::getTaskId()
 {
 	return porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_taskId);
+}
+
+void CProcessTask::baseCalc( map<long, long>& resValueMap, string& rateName )
+{
+	PCurRateStruct rateStruct = newCurRateStruct(rateName);
+	PTable rateTable = newTable(rateStruct);
+	for (auto iter : resValueMap)
+	{
+		string condition = "";
+		condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
+		condition.append(" and ");
+		condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
+		string sql = rateStruct->getSelectSql(condition);
+
+		CDbObj::instance().selectData(sql.c_str(), rateTable);
+		process->calc(rateTable);
+	}
+}
+
+void CProcessTask::calcProcess( map<long, long>& resValueMap, string& rateName )
+{
+	PCalcRateStruct rateStruct = newCalcRateStruct(rateName);
+	PTable rateTable = newTable(rateStruct);
+	for (auto iter : resValueMap)
+	{
+		string condition = "";
+		condition.append(CCalcRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
+		condition.append(" and ");
+		condition.append(CCalcRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
+		string sql = rateStruct->getSelectSql(condition);
+
+		CDbObj::instance().selectData(sql.c_str(), rateTable);
+
+		list<PRateValue> values;
+		for (auto rowPair : *rateTable)
+		{
+			PRow row = rowPair.second;;
+			double curDTime = row->getDoubleValue(CCalcRateStruct::curTime);
+			double curValue = row->getDoubleValue(CCalcRateStruct::curValue);
+			string timeDesc = row->getStringValue(CCalcRateStruct::timeFormat);
+
+			PRateValue rateValue = newRateValueP3(curDTime, curValue, timeDesc);
+			values.push_back(rateValue);
+		}
+		
+		process->calc(rateTable);
+	}
 }

@@ -68,4 +68,30 @@ PCalcRateStruct CCalcRateStruct::instence()
 	return p;
 }
 
+std::string CCalcRateStruct::getLastRecordSql()
+{
+	string order = PubFun::strFormat("order by %s desc", curTime.c_str());
+	return getSelectSqlLimit1(string(""), order);
+}
+
+double CCalcRateStruct::getLastRecordTime( PCalcRateStruct calcRateStruct )
+{
+	double lastTime = -1;
+	try
+	{
+		CDbObj &dbObj = CDbObj::instance();
+		string sql = calcRateStruct->getLastRecordSql();
+		PRow row = dbObj.selectOneData(sql.c_str(), calcRateStruct);
+		if (nullptr != row)
+		{
+			lastTime = row->getDoubleValue(CCalcRateStruct::curTime);
+		}
+	}
+	catch (CStrException &e)
+	{
+		e.what();
+	}
+
+	return lastTime;
+}
 

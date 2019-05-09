@@ -2,8 +2,11 @@
 #include "PubFun.h"
 
 
-string CProcessStatusStruct::key_processName = "processName"; 
+string CProcessStatusStruct::key_processId = "processId"; 
+string CProcessStatusStruct::key_rateName = "rateName"; 
+string CProcessStatusStruct::key_processTypeName = "processTypeName"; 
 string CProcessStatusStruct::key_processStatus = "processStatus"; 
+
 //string CProcessStatusStruct::key_step = "step"; 
 string CProcessStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
 string CProcessStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
@@ -12,11 +15,19 @@ string CProcessStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTim
 
 CProcessStatusStruct::CProcessStatusStruct()
 {
+	idCount = 0;
 	tableName = "core.processstatus" ;
 	this->setName(tableName);
 	CField field;
+
+	field.load(key_processId, typeInt, true, true);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(key_rateName, typeString);
+	this->insert(make_pair(field.strName, field));
+
 	//processName
-	field.load(key_processName, typeString, true);
+	field.load(key_processTypeName, typeString);
 	this->insert(make_pair(field.strName, field));
 	//processStatus
 	field.load(key_processStatus, typeInt);

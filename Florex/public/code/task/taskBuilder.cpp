@@ -67,8 +67,8 @@ bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	bool hasTask = false;
 	string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
 	time_t rateLastTime = getRateLastTime(rateName);
-	string porcessName = processType.getProcessName();
-	PRow processStatusInfo = CDbFunc::getProcessStatusLine(porcessName);
+	string porcessTypeName = processType.getProcessName();
+	PRow processStatusInfo = CDbFunc::getProcessStatusLine(rateName, porcessTypeName);
 	//获取第一行的值
 	time_t processBuildLastTime = 0;
 	if(nullptr != processStatusInfo)
@@ -77,13 +77,17 @@ bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	}
 	else
 	{
-		processStatusInfo = newRow(CProcessStatusStruct::instence());
-		processStatusInfo->setStringValue(CProcessStatusStruct::key_processName, porcessName);
+		auto tableSt = CProcessStatusStruct::instence();
+		processStatusInfo = newRow(tableSt);
+		processStatusInfo->setIntValue(CProcessStatusStruct::key_processId, ++(tableSt->idCount));
+		processStatusInfo->setStringValue(CProcessStatusStruct::key_rateName, rateName);
+		processStatusInfo->setStringValue(CProcessStatusStruct::key_processTypeName, porcessTypeName);
 		processStatusInfo->setIntValue(CProcessStatusStruct::key_processStatus, 0);
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, 0);
 		processStatusInfo->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, 0);
 		// 获取rate的起始时间代替
 		processBuildLastTime = getRateStartTime(rateName);
+		processStatusInfo->save();
 	}
 
 	time_t timeStep = rateLastTime - processBuildLastTime;

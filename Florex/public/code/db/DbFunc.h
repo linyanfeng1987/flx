@@ -19,7 +19,7 @@ public:
 	
 	static CDbFunc& instance();
 
-	static PRow getProcessStatusLine(string processName);
+	static PRow getProcessStatusLine(string rateName, string processTypeName);
 
 private:
 	//static CGlobalData& gData; 

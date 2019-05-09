@@ -13,13 +13,17 @@ public:
 	
 	~CProcessStatusStruct();
 
-	static string key_processName; 
+	static string key_processId; 
+	static string key_rateName; 
+	static string key_processTypeName; 
 	static string key_processStatus; 
+	
 	//static string key_step; 
 	static string key_buildTaskLastTime; 
 	static string key_buildTaskLastTimeDesc; 
 	static string key_completeTaskLastTime; 
 	static string key_completeTaskLastTimeDesc; 
 
+	int idCount;
 };
 

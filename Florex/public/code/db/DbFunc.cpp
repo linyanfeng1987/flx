@@ -14,17 +14,12 @@ CDbFunc::~CDbFunc(void)
 }
 
 
-PRow CDbFunc::getProcessStatusLine( string processName )
+PRow CDbFunc::getProcessStatusLine( string rateName, string processTypeName )
 {
-	string strSqlFormat = "select * from %s where processName = '%s';";
-	string strTableName = coreDbName + ".";
-	strTableName += "processstatus";
-	time_t lastTime = 0;
+	PProcessStatusStruct tableSt = CProcessStatusStruct::instence();
+	string sql = tableSt->getSelectSql(PubFun::strFormat("%s = %s and %s = %s",
+		CProcessStatusStruct::key_rateName.c_str(), rateName.c_str(),
+		CProcessStatusStruct::key_processTypeName.c_str(),  processTypeName.c_str()));
 
-	char chSql[2048] = {0};
-	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), processName.c_str());
-	PTableStruct processStatusStruct = CProcessStatusStruct::instence();
-
-	return CDbObj::instance().selectOneData(chSql, processStatusStruct);;
+	return CDbObj::instance().selectOneData(sql.c_str(), tableSt);;
 }

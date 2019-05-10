@@ -52,19 +52,66 @@ void CtaskRunner::buildTestDbTask()
 // 	}
 }
 
+bool CtaskRunner::reloadProcessList()
+{
+	bool hasData = false;
+	try{
+		// 从数据库中加载未执行的任务
+		PProcessStatusStruct processSt = CProcessStatusStruct::instence();
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CProcessStatusStruct::key_processStatus.c_str(), 0));
+		PTable table = newTable(processSt);
+		CDbObj::instance().selectData(sql.c_str(), table);
+
+		for(auto it : *table)
+		{
+			it.second->setIntValue(CProcessStatusStruct::key_processStatus, 1);
+			it.second->save();
+
+			hasData = true;
+		}
+	}
+	catch (CStrException& e)
+	{
+		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
+	}
+
+	return hasData;
+}
+
+
+void CtaskRunner::runProcess(PRow processInfoRow)
+{
+	PCalcProcess task = getProcessTask(processInfoRow);
+	count = task.use_count();
+	if(nullptr != task)
+	{
+		isFirstRun = true;
+		string param = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_paramter);
+		string testParam = PubFun::intToString(paramCount++);
+		task->run(testParam.c_str());
+	}
+	allTasks.insert(make_pair(task->getTaskId(), task));
+	runingTasks.insert(make_pair(processTypeName, task));
+	count = task.use_count();
+}
+
+
 bool CtaskRunner::reloadTaskList()
 {
 	bool hasData = false;
 	try{
 		// 从数据库中加载未执行的任务
-		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
+		PCalcProcessInfoStruct taskInfoStruct = CCalcProcessInfoStruct::instence();
 		string sql = taskInfoStruct->getSelectSql(string("status = 0"));
 		PTable table = newTable(taskInfoStruct);
 		CDbObj::instance().selectData(sql.c_str(), table);
+		
+		PProcessStatusStruct processSt = CProcessStatusStruct::instence();
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CProcessStatusStruct::key_processStatus.c_str(), 0));
 
 		for(auto it : *table)
 		{
-			it.second->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
+			it.second->setStringValue(CCalcProcessInfoStruct::key_status, string("1"));
 			it.second->save();
 			gData.addProcessTaskInfo(it.second);
 
@@ -84,19 +131,19 @@ void CtaskRunner::rangTaskList_save()
 	// 执行任务
 	static bool isFirstRun = false;
 	static int paramCount = 0;
-	PRow processTaskInfo = gData.popProcessTaskInfo(string(""));
+	PRow processTaskInfo = gData.poPCalcProcessInfo(string(""));
 	int count = -1;
 	if(nullptr != processTaskInfo)
 	{
-		string processTypeName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+		string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);
 		if (runingTasks.find(processTypeName) == runingTasks.end())
 		{
-			PProcessTask task = getProcessTask(processTaskInfo);
+			PCalcProcess task = getProcessTask(processTaskInfo);
 			count = task.use_count();
 			if(nullptr != task)
 			{
 				isFirstRun = true;
-				string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+				string param = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_paramter);
 				string testParam = PubFun::intToString(paramCount++);
 				task->run(testParam.c_str());
 			}
@@ -136,12 +183,12 @@ void CtaskRunner::rangTaskList()
 	{
 		if (runingTasks.find(processKey) == runingTasks.end())
 		{
-			PProcessTask task = getProcessTask(processTaskInfo);
+			PCalcProcess task = getProcessTask(processTaskInfo);
 			count = task.use_count();
 			if(nullptr != task)
 			{
 				isFirstRun = true;
-				string param = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_paramter);
+				string param = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_paramter);
 				string testParam = PubFun::intToString(paramCount++);
 				task->run(testParam.c_str());
 			}
@@ -174,16 +221,16 @@ void CtaskRunner::rangTaskList()
 PCalcProcess CtaskRunner::getProcess( PRow taskInfo, bool baseCalc /*= false*/ )
 {
 	PRateInfo rateInfo = newRateInfo();
-	rateInfo->rateName = taskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	rateInfo->rateName = taskInfo->getStringValue(CCalcProcessInfoStruct::key_rateType);
 	PCalcProcess process = newCalcProcess(rateInfo);
-	if (-1 == taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_baseCalc))
+	if (-1 == taskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName).find(processType_baseCalc))
 	{
-		if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_average))
+		if (-1 != taskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName).find(processType_average))
 		{
 			PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
 			process->addAnalysis(processType_average, averageAnalysis);
 		}
-		else if (-1 != taskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName).find(processType_continue))
+		else if (-1 != taskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName).find(processType_continue))
 		{
 			PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
 			process->addAnalysis(processType_continue, continueAnalysis);
@@ -193,17 +240,17 @@ PCalcProcess CtaskRunner::getProcess( PRow taskInfo, bool baseCalc /*= false*/ )
 	return process;
 }
 
-PProcessTask CtaskRunner::getProcessTask( PRow processTaskInfoRow )
+PCalcProcess CtaskRunner::getProcessTask( PRow processTaskInfoRow )
 {
 	PCalcProcess process = getProcess(processTaskInfoRow);
-	PRow processStatus = CDbFunc::getProcessStatusLine(processTaskInfoRow->getStringValue(CProcessTaskInfoStruct::key_processTypeName));
+	PRow processStatus = CDbFunc::getProcessStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_processTypeName));
 
-// 	string rateName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rate);
-// 	string processTypeName = processTaskInfo->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+// 	string rateName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_rate);
+// 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);
 // 	string taskName = rateName + "_" + processTypeName;
 
-	PTaskInfo processTaskInfo = newTaskInfo(processTaskInfoRow, task_calc_stauts);
-	PProcessTask task = newProcessTask(processTaskInfo, processStatus, process);
+	PThreadInfo processTaskInfo = newThreadInfo(processTaskInfoRow, thread_calc_stauts);
+	PCalcProcess task = newCalcProcess(processTaskInfo, processStatus, process);
 
 	return task;
 }

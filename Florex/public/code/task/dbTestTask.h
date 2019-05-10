@@ -1,13 +1,13 @@
 #pragma once
 #include "table/Row.h"
-#include "baseTask.h"
+#include "baseThread.h"
 #include "process/baseProcess.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
-class CDbTestTask : public CBaseTask
+class CDbTestTask : public CBaseThread
 {
 public:
-	CDbTestTask(int step, PTaskInfo taskInfo);
+	CDbTestTask(int step, PThreadInfo taskInfo);
 	~CDbTestTask();
 
 protected:

@@ -6,7 +6,7 @@
 
 const string CDbTestTask::logTag = "dbTestTask";
 
-CDbTestTask::CDbTestTask( int step, PTaskInfo taskInfo): CBaseTask(taskInfo)
+CDbTestTask::CDbTestTask( int step, PThreadInfo taskInfo): CBaseThread(taskInfo)
 {
 	logInfo = newLogInfo(logTag);
 	this->step = step;

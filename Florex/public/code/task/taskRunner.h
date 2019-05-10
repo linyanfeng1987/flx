@@ -4,7 +4,7 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 #include "process/calcProcess.h"
-#include "task/processTask.h"
+#include "task/calcThread.h"
 
 class CtaskRunner
 {
@@ -17,6 +17,9 @@ public:
 protected:
 
 	bool reloadTaskList();
+	bool reloadProcessList();
+	void runProcess(PRow processInfoRow);
+
 	void rangTaskList();
 	void rangTaskList_save();
 
@@ -24,13 +27,13 @@ protected:
 
 	void runFixTask();
 
-	PProcessTask getProcessTask(PRow taskInfo);
+	PCalcProcess getProcessTask(PRow taskInfo);
 	PCalcProcess getProcess( PRow taskInfo, bool baseCalc = false);
 
 	int maxProcessCount;
 	CLogObj& log;
-	map<string, PProcessTask> allTasks;
-	map<string, PProcessTask> runingTasks;
+	map<string, PCalcProcess> allTasks;
+	map<string, PCalcProcess> runingTasks;
 	CGlobalData& gData; 
 
 	static const string logTag;

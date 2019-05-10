@@ -141,7 +141,7 @@
     <ClInclude Include="..\public\code\table\Table.h" />
     <ClInclude Include="..\public\code\table\TableStruct.h" />
     <ClInclude Include="..\public\code\table\Value.h" />
-    <ClInclude Include="..\public\code\task\baseTask.h" />
+    <ClInclude Include="..\public\code\task\baseThread.h" />
     <ClInclude Include="..\public\code\task\dbTestTask.h" />
     <ClInclude Include="..\public\code\task\processTask.h" />
     <ClInclude Include="..\public\code\task\taskBuilder.h" />
@@ -209,7 +209,7 @@
     <ClCompile Include="..\public\code\table\Table.cpp" />
     <ClCompile Include="..\public\code\table\TableStruct.cpp" />
     <ClCompile Include="..\public\code\table\Value.cpp" />
-    <ClCompile Include="..\public\code\task\baseTask.cpp" />
+    <ClCompile Include="..\public\code\task\baseThread.cpp" />
     <ClCompile Include="..\public\code\task\dbTestTask.cpp" />
     <ClCompile Include="..\public\code\task\processTask.cpp" />
     <ClCompile Include="..\public\code\task\taskBuilder.cpp" />

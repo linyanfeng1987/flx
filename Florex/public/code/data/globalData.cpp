@@ -85,21 +85,21 @@ void CGlobalData::addProcessTaskInfo( PRow cfg )
 	auto iter = taskInfos.find(strKey);
 	if (iter == taskInfos.end())
 	{
-		list<PTaskInfo> infos;
-		infos.push_back(newTaskInfo(cfg, task_calc_stauts));
+		list<PThreadInfo> infos;
+		infos.push_back(newThreadInfo(cfg, thread_calc_stauts));
 		auto pr = taskInfos.insert(make_pair(strKey, infos));
 		processKeys.push_back(strKey);
 	}
 	else
 	{
-		iter->second.push_back(newTaskInfo(cfg, task_calc_stauts));
+		iter->second.push_back(newThreadInfo(cfg, thread_calc_stauts));
 	}
 	taskMutex.unlock();
 }
 
-PTaskInfo CGlobalData::popProcessTaskInfo( string &processKey )
+PThreadInfo CGlobalData::popProcessTaskInfo( string &processKey )
 {
-	PTaskInfo taskInfo = nullptr;
+	PThreadInfo taskInfo = nullptr;
 	taskMutex.lock();
 // 	auto it = tasks->begin();
 // 	if(it != tasks->end())

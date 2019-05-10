@@ -81,9 +81,6 @@
     <ClInclude Include="..\public\code\ConstDef.h">
       <Filter>public</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\task\baseTask.h">
-      <Filter>public\task</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\task\taskRunner.h">
       <Filter>public\task</Filter>
     </ClInclude>
@@ -276,6 +273,9 @@
     <ClInclude Include="..\public\code\process\calcProData.h">
       <Filter>public\process</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\task\baseThread.h">
+      <Filter>public\task</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -283,9 +283,6 @@
     </ClCompile>
     <ClCompile Include="..\public\code\PubFun.cpp">
       <Filter>public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\task\baseTask.cpp">
-      <Filter>public\task</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\task\taskRunner.cpp">
       <Filter>public\task</Filter>
@@ -484,6 +481,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\calcProData.cpp">
       <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\task\baseThread.cpp">
+      <Filter>public\task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

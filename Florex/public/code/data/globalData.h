@@ -13,7 +13,7 @@
 #include "db/dataStruct/processStatusStruct.h"
 #include "db/dataStruct/testDbInfoStruct.h"
 
-#include "task/baseTask.h"
+#include "task/baseThread.h"
 
 class CGlobalData
 {
@@ -41,14 +41,14 @@ public:
 	map<string, list<string> > processRates;
 
 	void addProcessTaskInfo(PRow cfg);
-	PTaskInfo popProcessTaskInfo(string &processKey);
+	PThreadInfo popProcessTaskInfo(string &processKey);
 	string popProcessKey();
 
 	map<string, PRow> porcessInfos;
 protected:
 	//map<string, PTableStruct> 
 	
-	map<string, list<PTaskInfo>> taskInfos;
+	map<string, list<PThreadInfo>> taskInfos;
 	list<string> processKeys;
 	PTable tasks;
 	recursive_mutex taskMutex; 

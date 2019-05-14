@@ -17,16 +17,16 @@ enum CalcThreadType
 class CThreadInfo
 {
 public:
-	CThreadInfo(PRow _porcessTaskInfo, CalcThreadType _ThreadType);
+	CThreadInfo(PRow _threadInfoRow, CalcThreadType _threadType);
 	//CThreadInfo(string _taskName, ThreadType _ThreadType);
 	~CThreadInfo(){};
-	void setThreadType(CalcThreadType _ThreadType);
+	void setThreadType(CalcThreadType _threadType);
 	bool threadAble(){return threadsAble;}
-	PRow getRowData(){return porcessTaskInfo;}
+	PRow getRowData(){return threadInfoRow;}
 private:
 	bool threadsAble;
-	CalcThreadType ThreadType; 
-	PRow porcessTaskInfo;
+	CalcThreadType threadType; 
+	PRow threadInfoRow;
 };
 
 typedef shared_ptr<CThreadInfo> PThreadInfo;
@@ -37,9 +37,9 @@ typedef shared_ptr<CThreadInfo> PThreadInfo;
 class CBaseThread
 {
 public:
-	CBaseThread(PThreadInfo _taskInfo);
+	CBaseThread(PThreadInfo _threadInfo);
 	~CBaseThread();
-	PThreadInfo getTaskInfo(){return taskInfo;}
+	PThreadInfo getThreadInfo(){return threadInfo;}
 	int getStatus(){return status;}
 
 	int run(const char* argv);
@@ -50,7 +50,7 @@ protected:
 
 	int status;
 	CLogObj& log;
-	PThreadInfo taskInfo;
+	PThreadInfo threadInfo;
 private:
 	
 };

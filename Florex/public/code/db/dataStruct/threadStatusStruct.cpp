@@ -1,19 +1,19 @@
-#include "processStatusStruct.h"
+#include "threadStatusStruct.h"
 #include "PubFun.h"
 
 
-string CProcessStatusStruct::key_processId = "processId"; 
-string CProcessStatusStruct::key_rateName = "rateName"; 
-string CProcessStatusStruct::key_processTypeName = "processTypeName"; 
-string CProcessStatusStruct::key_processStatus = "processStatus"; 
+string CThreadStatusStruct::key_processId = "processId"; 
+string CThreadStatusStruct::key_rateName = "rateName"; 
+string CThreadStatusStruct::key_processTypeName = "processTypeName"; 
+string CThreadStatusStruct::key_processStatus = "processStatus"; 
 
-//string CProcessStatusStruct::key_step = "step"; 
-string CProcessStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
-string CProcessStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
-string CProcessStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
-string CProcessStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc"; 
+//string CThreadStatusStruct::key_step = "step"; 
+string CThreadStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
+string CThreadStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
+string CThreadStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
+string CThreadStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc"; 
 
-CProcessStatusStruct::CProcessStatusStruct()
+CThreadStatusStruct::CThreadStatusStruct()
 {
 	idCount = 0;
 	tableName = "core.processstatus" ;
@@ -52,14 +52,14 @@ CProcessStatusStruct::CProcessStatusStruct()
 	this->ensureExist();
 }
 
-CProcessStatusStruct::~CProcessStatusStruct()
+CThreadStatusStruct::~CThreadStatusStruct()
 {
 	
 }
 
-PProcessStatusStruct CProcessStatusStruct::instence()
+PProcessStatusStruct CThreadStatusStruct::instence()
 {
-	static CProcessStatusStruct *p = new CProcessStatusStruct();
+	static CThreadStatusStruct *p = new CThreadStatusStruct();
 	static PProcessStatusStruct g(p);
 	return g;
 }

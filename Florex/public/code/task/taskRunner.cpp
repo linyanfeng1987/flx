@@ -57,14 +57,14 @@ bool CtaskRunner::reloadProcessList()
 	bool hasData = false;
 	try{
 		// 从数据库中加载未执行的任务
-		PProcessStatusStruct processSt = CProcessStatusStruct::instence();
-		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CProcessStatusStruct::key_processStatus.c_str(), 0));
+		PProcessStatusStruct processSt = CThreadStatusStruct::instence();
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
 		for(auto it : *table)
 		{
-			it.second->setIntValue(CProcessStatusStruct::key_processStatus, 1);
+			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 1);
 			it.second->save();
 
 			hasData = true;
@@ -106,8 +106,8 @@ bool CtaskRunner::reloadTaskList()
 		PTable table = newTable(taskInfoStruct);
 		CDbObj::instance().selectData(sql.c_str(), table);
 		
-		PProcessStatusStruct processSt = CProcessStatusStruct::instence();
-		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CProcessStatusStruct::key_processStatus.c_str(), 0));
+		PProcessStatusStruct processSt = CThreadStatusStruct::instence();
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
 
 		for(auto it : *table)
 		{

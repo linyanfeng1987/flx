@@ -150,6 +150,6 @@ void CGlobalData::initDataStruct()
 {
 	PTestDbInfoStruct p1 = CTestDbInfoStruct::instence();
 	PProcessTaskInfoStruct p2 = CProcessTaskInfoStruct::instence();
-	PProcessStatusStruct p3 = CProcessStatusStruct::instence();
+	PThreadStatusStruct p3 = CThreadStatusStruct::instence();
 }
 

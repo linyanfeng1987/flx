@@ -1,17 +1,17 @@
 #pragma once
 #include "table/TableStruct.h"
 
-class CProcessStatusStruct;
-typedef shared_ptr<CProcessStatusStruct> PProcessStatusStruct;
+class CThreadStatusStruct;
+typedef shared_ptr<CThreadStatusStruct> PProcessStatusStruct;
 
-class CProcessStatusStruct : public CTableStruct
+class CThreadStatusStruct : public CTableStruct
 {
 protected:
-	CProcessStatusStruct();
+	CThreadStatusStruct();
 public:
 	static PProcessStatusStruct instence();
 	
-	~CProcessStatusStruct();
+	~CThreadStatusStruct();
 
 	static string key_processId; 
 	static string key_rateName; 

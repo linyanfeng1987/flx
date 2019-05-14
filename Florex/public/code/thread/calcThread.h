@@ -7,7 +7,7 @@
 class CCalcThread : public CBaseThread
 {
 public:
-	CCalcThread( PThreadInfo _porcessTaskInfo, PRow _porcessStatus, PCalcProcess _process );
+	CCalcThread( PThreadInfo _threadInfo, PRow _porcessStatus, PCalcProcess _process );
 	~CCalcThread();
 
 	string getTaskId();
@@ -20,8 +20,8 @@ protected:
 	void baseCalc(map<long, long>& resValueMap, string& rateName);
 	void calcProcess(map<long, long>& resValueMap, string& rateName);
 	
-	PThreadInfo porcessTaskInfo;
-	PRow porcessStatus;
+	//PThreadInfo threadInfo;
+	PRow curTaskStatus;
 	PCalcProcess process;
 
 	static const string logTag;

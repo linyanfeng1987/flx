@@ -2,9 +2,9 @@
 #include <thread>
 
 using namespace std;
-CBaseThread::CBaseThread(PThreadInfo _taskInfo):log(CLogObj::instance())
+CBaseThread::CBaseThread(PThreadInfo _threadInfo):log(CLogObj::instance())
 {
-	taskInfo = _taskInfo;
+	threadInfo = _threadInfo;
 	status = 0;
 }
 
@@ -26,10 +26,10 @@ void CBaseThread::baseRunInThread( const char* argv )
 }
 
 
-void CThreadInfo::setThreadType( CalcThreadType _ThreadType )
+void CThreadInfo::setThreadType( CalcThreadType _threadType )
 {
-	ThreadType = _ThreadType;
-	switch (ThreadType)
+	threadType = _threadType;
+	switch (threadType)
 	{
 	case thread_calc_map:
 		threadsAble = true;
@@ -42,7 +42,7 @@ void CThreadInfo::setThreadType( CalcThreadType _ThreadType )
 	}
 }
 
-CThreadInfo::CThreadInfo( PRow _porcessTaskInfo, CalcThreadType _ThreadType ):porcessTaskInfo(_porcessTaskInfo)
+CThreadInfo::CThreadInfo( PRow _threadInfoRow, CalcThreadType _threadType ):threadInfoRow(_threadInfoRow)
 {
-	setThreadType(_ThreadType);
+	setThreadType(_threadType);
 }

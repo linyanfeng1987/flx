@@ -73,18 +73,18 @@ bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 	time_t processBuildLastTime = 0;
 	if(nullptr != processStatusInfo)
 	{
-		processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CProcessStatusStruct::key_buildTaskLastTime));
+		processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CThreadStatusStruct::key_buildTaskLastTime));
 	}
 	else
 	{
-		auto tableSt = CProcessStatusStruct::instence();
+		auto tableSt = CThreadStatusStruct::instence();
 		processStatusInfo = newRow(tableSt);
-		processStatusInfo->setIntValue(CProcessStatusStruct::key_processId, ++(tableSt->idCount));
-		processStatusInfo->setStringValue(CProcessStatusStruct::key_rateName, rateName);
-		processStatusInfo->setStringValue(CProcessStatusStruct::key_processTypeName, porcessTypeName);
-		processStatusInfo->setIntValue(CProcessStatusStruct::key_processStatus, 0);
-		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, 0);
-		processStatusInfo->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, 0);
+		processStatusInfo->setIntValue(CThreadStatusStruct::key_processId, ++(tableSt->idCount));
+		processStatusInfo->setStringValue(CThreadStatusStruct::key_rateName, rateName);
+		processStatusInfo->setStringValue(CThreadStatusStruct::key_processTypeName, porcessTypeName);
+		processStatusInfo->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+		processStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, 0);
+		processStatusInfo->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, 0);
 		// 获取rate的起始时间代替
 		processBuildLastTime = getRateStartTime(rateName);
 		processStatusInfo->save();
@@ -110,8 +110,8 @@ bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType 
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("0"));
 		taskInfo->save();
 
-		processStatusInfo->setTimeValue(CProcessStatusStruct::key_buildTaskLastTime, endTime);
-		//processStatusInfo->setStringValue(CProcessStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
+		processStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, endTime);
+		//processStatusInfo->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
 		processStatusInfo->save();
 	}
 	return hasTask;

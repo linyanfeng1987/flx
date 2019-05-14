@@ -10,7 +10,7 @@
 
 
 #include "db/dataStruct/processTaskInfoStruct.h"
-#include "db/dataStruct/processStatusStruct.h"
+#include "db/dataStruct/threadStatusStruct.h"
 #include "db/dataStruct/testDbInfoStruct.h"
 
 #include "task/baseThread.h"

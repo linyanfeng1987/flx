@@ -16,10 +16,10 @@ CDbFunc::~CDbFunc(void)
 
 PRow CDbFunc::getProcessStatusLine( string rateName, string processTypeName )
 {
-	PProcessStatusStruct tableSt = CProcessStatusStruct::instence();
+	PThreadStatusStruct tableSt = CThreadStatusStruct::instence();
 	string sql = tableSt->getSelectSql(PubFun::strFormat("%s = %s and %s = %s",
-		CProcessStatusStruct::key_rateName.c_str(), rateName.c_str(),
-		CProcessStatusStruct::key_processTypeName.c_str(),  processTypeName.c_str()));
+		CThreadStatusStruct::key_rateName.c_str(), rateName.c_str(),
+		CThreadStatusStruct::key_processTypeName.c_str(),  processTypeName.c_str()));
 
 	return CDbObj::instance().selectOneData(sql.c_str(), tableSt);;
 }

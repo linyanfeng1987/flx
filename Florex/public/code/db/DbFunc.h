@@ -7,7 +7,7 @@
 
 #include "db/dataStruct/processTaskInfoStruct.h"
 #include "db/dataStruct/curRateStruct.h"
-#include "db/dataStruct/processStatusStruct.h"
+#include "db/dataStruct/threadStatusStruct.h"
 
 class CDbFunc
 {

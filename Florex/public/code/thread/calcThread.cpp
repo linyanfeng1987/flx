@@ -1,6 +1,6 @@
 #include "calcThread.h"
 #include "db/dataStruct/processTaskInfoStruct.h"
-#include "db/dataStruct/processStatusStruct.h"
+#include "db/dataStruct/threadStatusStruct.h"
 #include "db/dataStruct/curRateStruct.h"
 #include "db/dataStruct/calcRateStruct.h"
 #include "table/Table.h"
@@ -11,7 +11,7 @@
 const int timeStep = 3600;
 const string CCalcThread::logTag = "processTask";
 
-CCalcThread::CCalcThread( PThreadInfo _porcessTaskInfo, PRow _porcessStatus, PCalcProcess _process ):porcessTaskInfo(_porcessTaskInfo),porcessStatus(_porcessStatus),CBaseThread(_porcessTaskInfo)
+CCalcThread::CCalcThread( PThreadInfo _threadInfo, PRow _porcessStatus, PCalcProcess _process ):CBaseThread(_threadInfo)
 {
 	logInfo = newLogInfo(logTag);
 	log.debug(logInfo, PubFun::strFormat("CCalcThread build, %d\n", this));
@@ -28,13 +28,13 @@ int CCalcThread::completeTask()
 {
 	try
 	{
-		porcessTaskInfo->getRowData()->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
-		porcessTaskInfo->getRowData()->save();
+		curTaskStatus->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
+		curTaskStatus->save();
 
-		time_t completeTime = porcessStatus->getTimeValue(CProcessStatusStruct::key_buildTaskLastTime);
-		porcessStatus->setTimeValue(CProcessStatusStruct::key_completeTaskLastTime, completeTime);
-		porcessStatus->setStringValue(CProcessStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
-		porcessStatus->save();
+		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
+		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
+		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
+		threadInfo->getRowData()->save();
 	}
 	catch (CStrException& e)
 	{
@@ -49,11 +49,11 @@ void CCalcThread::runInThread( const char* argv )
 	try
 	{
 		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
-		string rateName = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_rate);
-		string startTime = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_startTime);
-		string endTime = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_endTime);
-		string rateType = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_rateType);
-		string processTypeName = porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+		string rateName = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_rate);
+		string startTime = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_startTime);
+		string endTime = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_endTime);
+		string rateType = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_rateType);
+		string processTypeName = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
 		
 		string logName = rateName + "_" + processTypeName;
 
@@ -79,7 +79,7 @@ void CCalcThread::runInThread( const char* argv )
 
 std::string CCalcThread::getTaskId()
 {
-	return porcessTaskInfo->getRowData()->getStringValue(CProcessTaskInfoStruct::key_taskId);
+	return curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_taskId);
 }
 
 void CCalcThread::baseCalc( map<long, long>& resValueMap, string& rateName )

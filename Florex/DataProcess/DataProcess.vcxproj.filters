@@ -67,6 +67,9 @@
     <Filter Include="public\process\obj\average">
       <UniqueIdentifier>{b2421547-a448-4338-afae-13d3ad2cce8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\thread">
+      <UniqueIdentifier>{e9df395b-9517-4c70-9943-59e6cbc7faa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -85,9 +88,6 @@
       <Filter>public\task</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\task\taskBuilder.h">
-      <Filter>public\task</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\task\processTask.h">
       <Filter>public\task</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\tinyXml\tinystr.h">
@@ -152,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h">
       <Filter>public\process\obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h">
-      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
       <Filter>public\db\dataStruct</Filter>
@@ -273,8 +270,14 @@
     <ClInclude Include="..\public\code\process\calcProData.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\task\baseThread.h">
-      <Filter>public\task</Filter>
+    <ClInclude Include="..\public\code\thread\calcThread.h">
+      <Filter>public\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\thread\baseThread.h">
+      <Filter>public\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\threadStatusStruct.h">
+      <Filter>public\db\dataStruct</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +291,6 @@
       <Filter>public\task</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\task\taskBuilder.cpp">
-      <Filter>public\task</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\task\processTask.cpp">
       <Filter>public\task</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\tinyXml\tinyxmlerror.cpp">
@@ -364,9 +364,6 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp">
       <Filter>public\process\obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp">
-      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
@@ -482,8 +479,14 @@
     <ClCompile Include="..\public\code\process\calcProData.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\task\baseThread.cpp">
-      <Filter>public\task</Filter>
+    <ClCompile Include="..\public\code\thread\calcThread.cpp">
+      <Filter>public\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\thread\baseThread.cpp">
+      <Filter>public\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\threadStatusStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

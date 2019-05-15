@@ -7,7 +7,7 @@
 class CCalcThread : public CBaseThread
 {
 public:
-	CCalcThread( PThreadInfo _threadInfo, PRow _porcessStatus, PCalcProcess _process );
+	CCalcThread( PThreadInfo _threadInfo);
 	~CCalcThread();
 
 	string getTaskId();
@@ -15,15 +15,22 @@ public:
 
 protected:
 	void runInThread(const char* argv);
+	void runTask(PRow taskInfoRow);
 	int completeTask();
+
+	bool reloadTaskList();
+	void rangTaskList();
+	PCalcProcess getProcessTask( PRow processTaskInfoRow );
 
 	void baseCalc(map<long, long>& resValueMap, string& rateName);
 	void calcProcess(map<long, long>& resValueMap, string& rateName);
 	
 	//PThreadInfo threadInfo;
 	PRow curTaskStatus;
-	PCalcProcess process;
+	//PCalcProcess process;
+	list<PRow> tasks;
 
+	string getTaskSql;
 	static const string logTag;
 	PLogInfo logInfo;
 	bool isBaseCale;

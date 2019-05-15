@@ -2,14 +2,14 @@
 #include "table/TableStruct.h"
 
 class CThreadStatusStruct;
-typedef shared_ptr<CThreadStatusStruct> PProcessStatusStruct;
+typedef shared_ptr<CThreadStatusStruct> PThreadStatusStruct;
 
 class CThreadStatusStruct : public CTableStruct
 {
 protected:
 	CThreadStatusStruct();
 public:
-	static PProcessStatusStruct instence();
+	static PThreadStatusStruct instence();
 	
 	~CThreadStatusStruct();
 

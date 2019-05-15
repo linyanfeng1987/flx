@@ -57,9 +57,9 @@ CThreadStatusStruct::~CThreadStatusStruct()
 	
 }
 
-PProcessStatusStruct CThreadStatusStruct::instence()
+PThreadStatusStruct CThreadStatusStruct::instence()
 {
 	static CThreadStatusStruct *p = new CThreadStatusStruct();
-	static PProcessStatusStruct g(p);
+	static PThreadStatusStruct g(p);
 	return g;
 }

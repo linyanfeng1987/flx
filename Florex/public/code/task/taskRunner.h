@@ -3,8 +3,7 @@
 #include "data/globalData.h"
 #include "PubFun.h"
 #include "ConstDef.h"
-#include "process/calcProcess.h"
-#include "task/calcThread.h"
+#include "thread/calcThread.h"
 
 class CtaskRunner
 {
@@ -16,24 +15,11 @@ public:
 
 protected:
 
-	bool reloadTaskList();
-	bool reloadProcessList();
-	void runProcess(PRow processInfoRow);
-
-	void rangTaskList();
-	void rangTaskList_save();
-
-	void buildTestDbTask();
-
-	void runFixTask();
-
-	PCalcProcess getProcessTask(PRow taskInfo);
-	PCalcProcess getProcess( PRow taskInfo, bool baseCalc = false);
+	bool reloadThreadList();
 
 	int maxProcessCount;
 	CLogObj& log;
-	map<string, PCalcProcess> allTasks;
-	map<string, PCalcProcess> runingTasks;
+	map<string, PCalcThread> runingThreads;
 	CGlobalData& gData; 
 
 	static const string logTag;

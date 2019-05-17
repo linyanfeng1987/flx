@@ -94,6 +94,11 @@ void CTableStruct::setName( string strName )
 	tableName = strName;
 }
 
+std::string CTableStruct::getSelectSql()
+{
+	return getSelectSql(string(""));
+}
+
 std::string CTableStruct::getSelectSql( string &conditicon )
 {
 	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());

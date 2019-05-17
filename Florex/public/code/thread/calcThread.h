@@ -10,13 +10,16 @@ public:
 	CCalcThread( PThreadInfo _threadInfo);
 	~CCalcThread();
 
-	string getTaskId();
-	void setBaseCale(bool _isBaseCale){isBaseCale = _isBaseCale;}
+	//void setBaseCale(bool _isBaseCale){isBaseCale = _isBaseCale;}
 
 protected:
+	void init();
+
 	void runInThread(const char* argv);
 	void runTask(PRow taskInfoRow);
-	int completeTask();
+	int completeTask(PRow taskInfoRow);
+
+	PCalcProcess getProcess( PRow taskInfo );
 
 	bool reloadTaskList();
 	void rangTaskList();
@@ -25,15 +28,13 @@ protected:
 	void baseCalc(map<long, long>& resValueMap, string& rateName);
 	void calcProcess(map<long, long>& resValueMap, string& rateName);
 	
-	//PThreadInfo threadInfo;
-	PRow curTaskStatus;
-	//PCalcProcess process;
+	PCalcProcess process;
 	list<PRow> tasks;
 
 	string getTaskSql;
 	static const string logTag;
 	PLogInfo logInfo;
-	bool isBaseCale;
+	//bool isBaseCale;
 };
 typedef shared_ptr<CCalcThread> PCalcThread;
-#define newCalcThread(T1,T2,T3) make_shared<CCalcThread>(T1,T2,T3)
+#define newCalcThread(T1) make_shared<CCalcThread>(T1)

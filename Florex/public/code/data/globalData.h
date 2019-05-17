@@ -13,7 +13,6 @@
 #include "db/dataStruct/threadStatusStruct.h"
 #include "db/dataStruct/testDbInfoStruct.h"
 
-#include "task/baseThread.h"
 
 class CGlobalData
 {

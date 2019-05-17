@@ -9,20 +9,15 @@
 #include "PubFun.h"
 #include "tools/FunctionLog.h"
 
+#include "process/obj/average/averageAnalysis.h"
+#include "process/obj/continue/continueAnalysis.h"
+
 const int timeStep = 3600;
-const string CCalcThread::logTag = "processTask";
+const string CCalcThread::logTag = "threadRun";
 
 CCalcThread::CCalcThread( PThreadInfo _threadInfo ):CBaseThread(_threadInfo)
 {
-	logInfo = newLogInfo(logTag);
-	log.debug(logInfo, PubFun::strFormat("CCalcThread build, %d\n", this));
-	//isBaseCale = _process->isBaseCalc();
-
-	// 从数据库中加载未执行的任务
-	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_processId);
-	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSql(PubFun::strFormat("%s=%d and %s=%d", 
-		CProcessTaskInfoStruct::key_processId.c_str(), processId,
-		CProcessTaskInfoStruct::key_status.c_str(), 0));
+	logInfo = newLogInfo(logTag);	
 }
 
 CCalcThread::~CCalcThread()
@@ -30,46 +25,46 @@ CCalcThread::~CCalcThread()
 	log.debug(logInfo, PubFun::strFormat("CCalcThread end, %d\n", this));
 }
 
-int CCalcThread::completeTask()
+void CCalcThread::runInThread( const char* argv )
 {
-	try
+	init();
+	while (true)
 	{
-		curTaskStatus->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
-		curTaskStatus->save();
-
-		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
-		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
-		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
-		threadInfo->getRowData()->save();
+		rangTaskList();
 	}
-	catch (CStrException& e)
-	{
-		log.error(logInfo, string("completeTask 失败！msg:").append(e.what()));
-	}
-
-	return 0;
 }
 
-bool CCalcThread::reloadTaskList()
+void CCalcThread::init()
 {
-	bool hasData = false;
-	try{
-		PTable table = newTable(CProcessTaskInfoStruct::instence());
-		CDbObj::instance().selectData(getTaskSql.c_str(), table);
-		for(auto it : *table)
+	// 从数据库中加载未执行的任务
+	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_processId);
+	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSql(PubFun::strFormat("%s=%d and %s=%d", 
+		CProcessTaskInfoStruct::key_processId.c_str(), processId,
+		CProcessTaskInfoStruct::key_status.c_str(), 0));
+	process = getProcess(threadInfo->getRowData());
+}
+
+PCalcProcess CCalcThread::getProcess( PRow taskInfo )
+{
+	PRateInfo rateInfo = newRateInfo();
+	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
+	PCalcProcess process = newCalcProcess(rateInfo);
+	string processTypeName = taskInfo->getStringValue(CThreadStatusStruct::key_processTypeName);
+	if (-1 == processTypeName.find(processType_baseCalc))
+	{
+		if (-1 != processTypeName.find(processType_average))
 		{
-			it.second->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
-			it.second->save();
-			tasks.push_back(it.second);
-			hasData = true;
+			PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+			process->addAnalysis(processType_average, averageAnalysis);
+		}
+		else if (-1 != processTypeName.find(processType_continue))
+		{
+			PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+			process->addAnalysis(processType_continue, continueAnalysis);
 		}
 	}
-	catch (CStrException& e)
-	{
-		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
-	}
 
-	return hasData;
+	return process;
 }
 
 void CCalcThread::rangTaskList()
@@ -99,29 +94,79 @@ void CCalcThread::rangTaskList()
 	}
 }
 
-PCalcProcess CCalcThread::getProcessTask( PRow processTaskInfoRow )
+bool CCalcThread::reloadTaskList()
 {
-	PCalcProcess process = getProcess(processTaskInfoRow);
-	PRow processStatus = CDbFunc::getProcessStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_processTypeName));
+	bool hasData = false;
+	try{
+		PTable table = newTable(CProcessTaskInfoStruct::instence());
+		CDbObj::instance().selectData(getTaskSql.c_str(), table);
+		for(auto it : *table)
+		{
+			it.second->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
+			it.second->save();
+			tasks.push_back(it.second);
+			hasData = true;
+		}
+	}
+	catch (CStrException& e)
+	{
+		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
+	}
 
-	// 	string rateName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_rate);
-	// 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);
-	// 	string taskName = rateName + "_" + processTypeName;
-
-	PThreadInfo processTaskInfo = newThreadInfo(processTaskInfoRow, thread_calc_stauts);
-	PCalcProcess task = newCalcProcess(processTaskInfo, processStatus, process);
-
-	return task;
+	return hasData;
 }
 
-void CCalcThread::runInThread( const char* argv )
+void CCalcThread::runTask( PRow taskInfoRow )
 {
-	
+	try
+	{
+		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
+		string rateName = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_rate);
+		string startTime = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_startTime);
+		string endTime = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_endTime);
+		string rateType = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_rateType);
+		string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_processTypeName);
+
+		string logName = rateName + "_" + processTypeName;
+
+		map<long, long> resValueMap;
+		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);
+
+		if (process->isBaseCalc())
+		{
+			baseCalc(resValueMap, rateName);
+		}
+		else
+		{
+			calcProcess(resValueMap, rateName);
+		}
+
+		completeTask(taskInfoRow);
+	}
+	catch (CStrException& e)
+	{
+		log.error(logInfo, string("runInThread 失败！msg:").append(e.what()));
+	}
 }
 
-std::string CCalcThread::getTaskId()
+int CCalcThread::completeTask(PRow taskInfoRow)
 {
-	return curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_taskId);
+	try
+	{
+		taskInfoRow->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
+		taskInfoRow->save();
+
+		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
+		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
+		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
+		threadInfo->getRowData()->save();
+	}
+	catch (CStrException& e)
+	{
+		log.error(logInfo, string("completeTask 失败！msg:").append(e.what()));
+	}
+
+	return 0;
 }
 
 void CCalcThread::baseCalc( map<long, long>& resValueMap, string& rateName )
@@ -171,35 +216,6 @@ void CCalcThread::calcProcess( map<long, long>& resValueMap, string& rateName )
 	}
 }
 
-void CCalcThread::runTask( PRow taskInfoRow )
-{
-	try
-	{
-		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
-		string rateName = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_rate);
-		string startTime = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_startTime);
-		string endTime = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_endTime);
-		string rateType = curTaskStatus->getStringValue(CProcessTaskInfoStruct::key_rateType);
-		string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_processTypeName);
 
-		string logName = rateName + "_" + processTypeName;
 
-		map<long, long> resValueMap;
-		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);
 
-		if (process->isBaseCalc())
-		{
-			baseCalc(resValueMap, rateName);
-		}
-		else
-		{
-			calcProcess(resValueMap, rateName);
-		}
-
-		completeTask();
-	}
-	catch (CStrException& e)
-	{
-		log.error(logInfo, string("runInThread 失败！msg:").append(e.what()));
-	}
-}

@@ -32,6 +32,7 @@ public:
 	string getBaseInsertSqlFormat();
 	string getBaseUpdateSqlFormat();
 
+	string getSelectSql();
 	string getSelectSql(string &conditicon);
 	string getSelectSqlLimit1(string &conditicon, string &order);
 

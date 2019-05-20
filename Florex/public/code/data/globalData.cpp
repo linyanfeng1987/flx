@@ -75,6 +75,7 @@ CProcessType* CGlobalData::getProcessType( string processId )
 	return pCfg;
 }
 
+/*
 void CGlobalData::addProcessTaskInfo( PRow cfg )
 {
 	taskMutex.lock();
@@ -132,7 +133,7 @@ std::string CGlobalData::popProcessKey()
 	}
 	taskMutex.unlock();
 	return processKey;
-}
+}*/
 
 void CGlobalData::init()
 {

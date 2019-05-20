@@ -8,7 +8,7 @@ string CProcessTaskInfoStruct::key_startTime = "startTime";
 string CProcessTaskInfoStruct::key_startTimeDesc = "startTimeDesc"; 
 string CProcessTaskInfoStruct::key_endTime = "endTime"; 
 string CProcessTaskInfoStruct::key_endTimeDesc = "endTimeDesc"; 
-string CProcessTaskInfoStruct::key_processId = "processId"; 
+string CProcessTaskInfoStruct::key_threadId = "threadId"; 
 string CProcessTaskInfoStruct::key_paramter = "paramter"; 
 string CProcessTaskInfoStruct::key_status = "status"; 
 
@@ -21,7 +21,7 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 	field.load(key_taskId, typeString, true);
 	this->insert(make_pair(field.strName, field));
 	//processName
-	field.load(key_processId, typeInt);
+	field.load(key_threadId, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//rateName
 	field.load(key_rate, typeString);

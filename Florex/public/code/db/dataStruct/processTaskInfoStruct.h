@@ -23,7 +23,7 @@ public:
 	static string key_endTime; 
 	static string key_endTimeDesc; 
 	// 处理器类型
-	static string key_processId; 
+	static string key_threadId; 
 	static string key_paramter; 
 	// 任务状态：
 	//0：任务被分配

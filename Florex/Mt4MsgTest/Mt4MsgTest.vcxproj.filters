@@ -14,46 +14,61 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{b7852dd1-639f-46dc-a768-70bc9137fb22}</UniqueIdentifier>
+      <UniqueIdentifier>{ff8c1171-1ecc-41fd-ae96-846e1e443a61}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{94d5308e-ae34-446a-b8d4-3c1b0e8ab71b}</UniqueIdentifier>
+      <UniqueIdentifier>{9823fb5e-f8ca-4930-b188-4a40bffa05d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{aaaf432c-87cc-4016-8313-535f338ad67a}</UniqueIdentifier>
+      <UniqueIdentifier>{fe2f9e4a-b86a-4931-be8e-7eb803d65fc1}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{10341d56-edff-4815-add2-287d1dac2727}</UniqueIdentifier>
+      <UniqueIdentifier>{20aa3eee-ba0f-43d6-aba4-b4c6f236dfa0}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{48c27b94-81f0-421c-8480-975a391bcd98}</UniqueIdentifier>
+      <UniqueIdentifier>{75a0df7a-407f-4a35-aba7-0ed82f004c28}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{9447e688-e028-4b5e-9fed-125d5130dd04}</UniqueIdentifier>
+      <UniqueIdentifier>{80fc6801-2f19-404c-a615-28bffd167cb6}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{fb58bb75-4019-4174-a2e0-5777f7fe5603}</UniqueIdentifier>
+      <UniqueIdentifier>{188deaf7-f971-45cc-a713-bac4a2ffa206}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj\continue">
-      <UniqueIdentifier>{4085916b-ed78-4ee4-80bf-8aff282809a4}</UniqueIdentifier>
+      <UniqueIdentifier>{c83fa212-705f-4533-b5b8-71ada864a00f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\process\obj\function">
+      <UniqueIdentifier>{26b4569c-0c6e-4492-933a-3b9db4b4fd9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\process\obj\average">
+      <UniqueIdentifier>{ff75bfb1-fbfd-4974-8cda-5ec18255df55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\process\decision">
+      <UniqueIdentifier>{eaebd45e-7af6-45ca-b2c8-efb38d544f16}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{cf6dc41b-0a69-4206-98e0-0b4e963964d7}</UniqueIdentifier>
+      <UniqueIdentifier>{010a970c-0505-483b-9bec-59b60e562f05}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{5b257b8c-cbfa-4dba-b908-783f8d7f97c6}</UniqueIdentifier>
+      <UniqueIdentifier>{e30ac287-864b-42fc-9d38-dc9240072ac5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{b249f043-7c64-4d74-ad75-ef438cb51e1a}</UniqueIdentifier>
+      <UniqueIdentifier>{5dc32a52-a703-4ab3-8f7a-5d2effdb42f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{f8a10bb5-f893-4f88-bacf-c1b7e18e7a64}</UniqueIdentifier>
+      <UniqueIdentifier>{cdcddac3-6e4d-46d7-9998-b350f422c36d}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{0ff9cc40-5b25-4779-9ce4-c034b82689fc}</UniqueIdentifier>
+      <UniqueIdentifier>{5565b204-8844-48e5-9ae0-e9a5bf6b2b40}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tools">
-      <UniqueIdentifier>{a3424815-a3a7-4592-8324-8843cd5fb389}</UniqueIdentifier>
+      <UniqueIdentifier>{d80084f7-fbab-48a1-ae0c-ae29c4eafa2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\account">
+      <UniqueIdentifier>{3c81021b-a2db-4417-8f4d-23af80e219e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\thread">
+      <UniqueIdentifier>{34344a42-852f-47d6-aa72-81f3e91eeff9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="dllInclude.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\AutoMutex.h">
+      <Filter>public</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\ConstDef.h">
       <Filter>public</Filter>
@@ -81,13 +99,7 @@
     <ClInclude Include="..\public\code\PubFun.h">
       <Filter>public</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\task\baseTask.h">
-      <Filter>public\task</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\task\dbTestTask.h">
-      <Filter>public\task</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\task\processTask.h">
       <Filter>public\task</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\task\taskBuilder.h">
@@ -102,16 +114,16 @@
     <ClInclude Include="..\public\code\tinyXml\tinyxml.h">
       <Filter>public\tinyXml</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\averageProcess.h">
-      <Filter>public\process</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\baseProcess.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\processType.h">
+    <ClInclude Include="..\public\code\process\calcProData.h">
       <Filter>public\process</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\continueProcess.h">
+    <ClInclude Include="..\public\code\process\calcProcess.h">
+      <Filter>public\process</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\processType.h">
       <Filter>public\process</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\cap\additionCap.h">
@@ -126,11 +138,11 @@
     <ClInclude Include="..\public\code\process\cap\threshold.h">
       <Filter>public\process\cap</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\calculation\averageCalc.h">
-      <Filter>public\process\calculation</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\process\calculation\baseCalc.h">
       <Filter>public\process\calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\baseAnalysis.h">
+      <Filter>public\process\obj</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h">
       <Filter>public\process\obj</Filter>
@@ -144,6 +156,9 @@
     <ClInclude Include="..\public\code\process\obj\sumByTime.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
@@ -153,14 +168,32 @@
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeObj.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\continue\continueKeeper.h">
+      <Filter>public\process\obj\continue</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\process\obj\continue\continueObj.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\obj\continue\continueValue.h">
       <Filter>public\process\obj\continue</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h">
-      <Filter>public\process\obj\continue</Filter>
+    <ClInclude Include="..\public\code\process\obj\function\baseFun.h">
+      <Filter>public\process\obj\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\function\fun1.h">
+      <Filter>public\process\obj\function</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h">
+      <Filter>public\process\obj\average</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\average\averageObj.h">
+      <Filter>public\process\obj\average</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\decision\averageDecision.h">
+      <Filter>public\process\decision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\decision\continueDecision.h">
+      <Filter>public\process\decision</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\data\globalData.h">
       <Filter>public\data</Filter>
@@ -180,13 +213,22 @@
     <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataStruct\curRateAverageStruct.h">
+    <ClInclude Include="..\public\code\db\dataStruct\continueValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\calcRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\curRateStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\db\dataStruct\processStatusStruct.h">
+    <ClInclude Include="..\public\code\db\dataStruct\monitorValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\optValueStruct.h">
+      <Filter>public\db\dataStruct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\db\dataStruct\threadStatusStruct.h">
       <Filter>public\db\dataStruct</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\processTaskInfoStruct.h">
@@ -194,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="..\public\code\db\dataStruct\testDbInfoStruct.h">
       <Filter>public\db\dataStruct</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\code\AutoMutex.h">
-      <Filter>public\table</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\table\Field.h">
       <Filter>public\table</Filter>
@@ -219,13 +258,37 @@
     <ClInclude Include="..\public\code\rate\HisRate.h">
       <Filter>public\rate</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\rate\rateInfo.h">
+      <Filter>public\rate</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\tools\FunctionLog.h">
       <Filter>public\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\tools\twiceLog.h">
+      <Filter>public\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\account\flxOpt.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\account\monitor.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\account\optAccount.h">
+      <Filter>public\account</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\thread\baseThread.h">
+      <Filter>public\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\thread\calcThread.h">
+      <Filter>public\thread</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mt4MsgTest.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\AutoMutex.cpp">
+      <Filter>public</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\Exception.cpp">
       <Filter>public</Filter>
@@ -236,13 +299,7 @@
     <ClCompile Include="..\public\code\PubFun.cpp">
       <Filter>public</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\task\baseTask.cpp">
-      <Filter>public\task</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\task\dbTestTask.cpp">
-      <Filter>public\task</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\task\processTask.cpp">
       <Filter>public\task</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\task\taskBuilder.cpp">
@@ -266,16 +323,16 @@
     <ClCompile Include="..\public\code\tinyXml\tinyxmlparser.cpp">
       <Filter>public\tinyXml</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\averageProcess.cpp">
-      <Filter>public\process</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\process\baseProcess.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\processType.cpp">
+    <ClCompile Include="..\public\code\process\calcProData.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\continueProcess.cpp">
+    <ClCompile Include="..\public\code\process\calcProcess.cpp">
+      <Filter>public\process</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\processType.cpp">
       <Filter>public\process</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\cap\additionCap.cpp">
@@ -290,11 +347,11 @@
     <ClCompile Include="..\public\code\process\cap\threshold.cpp">
       <Filter>public\process\cap</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\calculation\averageCalc.cpp">
-      <Filter>public\process\calculation</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp">
       <Filter>public\process\calculation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\baseAnalysis.cpp">
+      <Filter>public\process\obj</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp">
       <Filter>public\process\obj</Filter>
@@ -308,6 +365,9 @@
     <ClCompile Include="..\public\code\process\obj\sumByTime.cpp">
       <Filter>public\process\obj</Filter>
     </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp">
+      <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp">
       <Filter>public\process\obj\continue</Filter>
     </ClCompile>
@@ -317,14 +377,32 @@
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeObj.cpp">
       <Filter>public\process\obj\continue</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\obj\continue\continueObj.cpp">
+    <ClCompile Include="..\public\code\process\obj\continue\continueKeeper.cpp">
       <Filter>public\process\obj\continue</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp">
+    <ClCompile Include="..\public\code\process\obj\continue\continueObj.cpp">
       <Filter>public\process\obj\continue</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\continue\continueValue.cpp">
       <Filter>public\process\obj\continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\function\baseFun.cpp">
+      <Filter>public\process\obj\function</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\function\fun1.cpp">
+      <Filter>public\process\obj\function</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp">
+      <Filter>public\process\obj\average</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp">
+      <Filter>public\process\obj\average</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\decision\averageDecision.cpp">
+      <Filter>public\process\decision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\decision\continueDecision.cpp">
+      <Filter>public\process\decision</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\data\globalData.cpp">
       <Filter>public\data</Filter>
@@ -344,13 +422,22 @@
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataStruct\curRateAverageStruct.cpp">
+    <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\calcRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\curRateStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\db\dataStruct\processStatusStruct.cpp">
+    <ClCompile Include="..\public\code\db\dataStruct\monitorValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\optValueStruct.cpp">
+      <Filter>public\db\dataStruct</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\db\dataStruct\threadStatusStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\processTaskInfoStruct.cpp">
@@ -358,9 +445,6 @@
     </ClCompile>
     <ClCompile Include="..\public\code\db\dataStruct\testDbInfoStruct.cpp">
       <Filter>public\db\dataStruct</Filter>
-    </ClCompile>
-    <ClCompile Include="..\public\code\AutoMutex.cpp">
-      <Filter>public\table</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\table\Field.cpp">
       <Filter>public\table</Filter>
@@ -383,8 +467,29 @@
     <ClCompile Include="..\public\code\rate\HisRate.cpp">
       <Filter>public\rate</Filter>
     </ClCompile>
+    <ClCompile Include="..\public\code\rate\rateInfo.cpp">
+      <Filter>public\rate</Filter>
+    </ClCompile>
     <ClCompile Include="..\public\code\tools\FunctionLog.cpp">
       <Filter>public\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\tools\twiceLog.cpp">
+      <Filter>public\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\flxOpt.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\monitor.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\account\optAccount.cpp">
+      <Filter>public\account</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\thread\baseThread.cpp">
+      <Filter>public\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\thread\calcThread.cpp">
+      <Filter>public\thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

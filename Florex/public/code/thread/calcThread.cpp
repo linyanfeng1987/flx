@@ -37,9 +37,9 @@ void CCalcThread::runInThread( const char* argv )
 void CCalcThread::init()
 {
 	// 从数据库中加载未执行的任务
-	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_processId);
+	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_threadId);
 	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSql(PubFun::strFormat("%s=%d and %s=%d", 
-		CProcessTaskInfoStruct::key_processId.c_str(), processId,
+		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
 		CProcessTaskInfoStruct::key_status.c_str(), 0));
 	process = getProcess(threadInfo->getRowData());
 }

@@ -194,7 +194,7 @@ void CDataShowDlg::OnBnClickedButton1()
 		string sql = *iter;
 		if (strType == "average")
 		{
-			tableStruct = CCurRateAverageStruct::instence();
+			tableStruct = CCalcRateStruct::instence();
 		}
 		else
 		{

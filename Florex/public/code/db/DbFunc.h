@@ -19,7 +19,9 @@ public:
 	
 	static CDbFunc& instance();
 
-	static PRow getProcessStatusLine(string rateName, string processTypeName);
+	static PRow getThreadStatusLine(string rateName, string processTypeName);
+
+	static int getThreadLastId();
 
 private:
 	//static CGlobalData& gData; 

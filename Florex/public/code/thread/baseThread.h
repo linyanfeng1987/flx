@@ -46,7 +46,6 @@ public:
 protected:
 	void baseRunInThread(const char* argv);
 	virtual void runInThread(const char* argv) = 0;
-	virtual int completeTask() = 0;
 
 	int status;
 	CLogObj& log;

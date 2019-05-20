@@ -2,7 +2,7 @@
 #include "PubFun.h"
 
 
-string CThreadStatusStruct::key_processId = "processId"; 
+string CThreadStatusStruct::key_threadId = "threadId"; 
 string CThreadStatusStruct::key_rateName = "rateName"; 
 string CThreadStatusStruct::key_processTypeName = "processTypeName"; 
 string CThreadStatusStruct::key_processStatus = "processStatus"; 
@@ -20,7 +20,7 @@ CThreadStatusStruct::CThreadStatusStruct()
 	this->setName(tableName);
 	CField field;
 
-	field.load(key_processId, typeInt, true, true);
+	field.load(key_threadId, typeInt, true, true);
 	this->insert(make_pair(field.strName, field));
 
 	field.load(key_rateName, typeString);

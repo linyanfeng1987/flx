@@ -37,14 +37,16 @@ void CtaskRunner::run()
 	}
 }
 
+
+
 bool CtaskRunner::reloadThreadList()
 {
 	bool hasData = false;
 	try{
 		// 从数据库中加载未执行的任务
 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
-		//string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
-		string sql = processSt->getSelectSql();
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
+		//string sql = processSt->getSelectSql();
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
@@ -52,8 +54,10 @@ bool CtaskRunner::reloadThreadList()
 		{
 			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 1);
 			it.second->save();
-			PCalcThread calcThread = newCalcThread(*(it.second));
-			runingThreads.insert(make_pair(it.second->getStringValue(CThreadStatusStruct::key_processId), calcThread));
+			PThreadInfo threadInfo = newThreadInfo(it.second, thread_calc_stauts);
+			PCalcThread calcThread = newCalcThread(threadInfo);
+			calcThread->run("");
+			runingThreads.insert(make_pair(it.second->getStringValue(CThreadStatusStruct::key_threadId), calcThread));
 			hasData = true;
 		}
 	}
@@ -64,6 +68,8 @@ bool CtaskRunner::reloadThreadList()
 
 	return hasData;
 }
+
+
 
 // 
 // void CtaskRunner::runProcess(PRow processInfoRow)
@@ -210,7 +216,7 @@ bool CtaskRunner::reloadThreadList()
 // PCalcProcess CtaskRunner::getProcessTask( PRow processTaskInfoRow )
 // {
 // 	PCalcProcess process = getProcess(processTaskInfoRow);
-// 	PRow processStatus = CDbFunc::getProcessStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_processTypeName));
+// 	PRow processStatus = CDbFunc::getThreadStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_processTypeName));
 // 
 // // 	string rateName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_rate);
 // // 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "db/dataStruct/curRateStruct.h"
-#include "db/dataStruct//curRateAverageStruct.h"
+#include "db/dataStruct/calcRateStruct.h"
 #include "db/dataStruct/optValueStruct.h"
 
 #include "process/obj/rateValue.h"

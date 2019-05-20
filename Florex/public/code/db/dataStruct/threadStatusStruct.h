@@ -13,7 +13,7 @@ public:
 	
 	~CThreadStatusStruct();
 
-	static string key_processId; 
+	static string key_threadId; 
 	static string key_rateName; 
 	static string key_processTypeName; 
 	static string key_processStatus; 

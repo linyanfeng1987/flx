@@ -14,7 +14,6 @@ public:
 	void run();
 
 protected:
-
 	bool reloadThreadList();
 
 	int maxProcessCount;

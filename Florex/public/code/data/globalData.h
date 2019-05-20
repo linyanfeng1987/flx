@@ -13,6 +13,7 @@
 #include "db/dataStruct/threadStatusStruct.h"
 #include "db/dataStruct/testDbInfoStruct.h"
 
+#include "thread/baseThread.h"
 
 class CGlobalData
 {
@@ -39,10 +40,11 @@ public:
 	// process类型，对应的rate类型
 	map<string, list<string> > processRates;
 
+	/*
 	void addProcessTaskInfo(PRow cfg);
 	PThreadInfo popProcessTaskInfo(string &processKey);
 	string popProcessKey();
-
+	*/
 	map<string, PRow> porcessInfos;
 protected:
 	//map<string, PTableStruct> 

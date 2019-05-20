@@ -1,6 +1,6 @@
 #pragma once
 #include "table/Row.h"
-#include "baseThread.h"
+#include "thread/baseThread.h"
 #include "process/baseProcess.h"
 
 // taskµÄÔËĞĞÈİÆ÷

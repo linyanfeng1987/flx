@@ -87,7 +87,7 @@ void ShowSpace::spOnPaint()
 		for (auto tablePair : averageRateTables)
 		{
 			PTable table = tablePair.second;
-			paintRateValue(CCurRateAverageStruct::curValue, CCurRateAverageStruct::curTime, table, dc, pen2);
+			paintRateValue(CCalcRateStruct::curValue, CCalcRateStruct::curTime, table, dc, pen2);
 		}
 	}
 }
@@ -114,7 +114,7 @@ void ShowSpace::addAverageRateValueTable( string tagName, PTable rateValueTable 
 	auto pr = averageRateTables.insert(make_pair(tagName, rateValueTable));
 	if (pr.second)
 	{
-		loadValueBorder(CCurRateAverageStruct::curValue, CCurRateAverageStruct::curTime, rateValueTable);
+		loadValueBorder(CCalcRateStruct::curValue, CCalcRateStruct::curTime, rateValueTable);
 	}
 }
 

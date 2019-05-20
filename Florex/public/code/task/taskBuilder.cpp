@@ -26,6 +26,7 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
+	firstRun();
 	bool hasTask = false;
 	while (true)
 	{
@@ -45,6 +46,28 @@ void CTaskBuilder::run()
 	}
 }
 
+void CTaskBuilder::firstRun()
+{
+	try{
+		// 从数据库中加载未执行的任务
+		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
+		string sql = processSt->getSelectSql();
+		PTable table = newTable(processSt);
+		CDbObj::instance().selectData(sql.c_str(), table);
+
+		for(auto it : *table)
+		{
+			// 重置所有线程状态
+			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+		}
+		table->save();
+	}
+	catch (CStrException& e)
+	{
+		log.error(logInfo, string("firstRun 失败！msg:").append(e.what()));
+	}
+}
+
 bool CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 {
 	bool hasTask = false;
@@ -53,7 +76,7 @@ bool CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 		CProcessType* pPorcessType = gData.getProcessType(processTypeName);
 		if(pPorcessType != nullptr)
 		{
-			if (runOneProcessType(rateName, *pPorcessType) && !hasTask)
+			if (runOneThreadType(rateName, *pPorcessType) && !hasTask)
 			{
 				hasTask = true;
 			}
@@ -62,57 +85,58 @@ bool CTaskBuilder::runOneRate( string rateName, list<string>& processTypeNames )
 	return hasTask;
 }
 
-bool CTaskBuilder::runOneProcessType(string rateName, CProcessType& processType )
+bool CTaskBuilder::runOneThreadType(string rateName, CProcessType& processType )
 {
 	bool hasTask = false;
 	string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
 	time_t rateLastTime = getRateLastTime(rateName);
 	string porcessTypeName = processType.getProcessName();
-	PRow processStatusInfo = CDbFunc::getProcessStatusLine(rateName, porcessTypeName);
+	PRow threadStatusInfo = CDbFunc::getThreadStatusLine(rateName, porcessTypeName);
+	int lastThreadId = CDbFunc::getThreadLastId();
 	//获取第一行的值
 	time_t processBuildLastTime = 0;
-	if(nullptr != processStatusInfo)
+	if(nullptr != threadStatusInfo)
 	{
-		processBuildLastTime = PubFun::stringToInt(processStatusInfo->getValue(CThreadStatusStruct::key_buildTaskLastTime));
+		processBuildLastTime = PubFun::stringToInt(threadStatusInfo->getValue(CThreadStatusStruct::key_buildTaskLastTime));
 	}
 	else
 	{
 		auto tableSt = CThreadStatusStruct::instence();
-		processStatusInfo = newRow(tableSt);
-		processStatusInfo->setIntValue(CThreadStatusStruct::key_processId, ++(tableSt->idCount));
-		processStatusInfo->setStringValue(CThreadStatusStruct::key_rateName, rateName);
-		processStatusInfo->setStringValue(CThreadStatusStruct::key_processTypeName, porcessTypeName);
-		processStatusInfo->setIntValue(CThreadStatusStruct::key_processStatus, 0);
-		processStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, 0);
-		processStatusInfo->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, 0);
+		threadStatusInfo = newRow(tableSt);
+		threadStatusInfo->setIntValue(CThreadStatusStruct::key_threadId, ++(lastThreadId));
+		threadStatusInfo->setStringValue(CThreadStatusStruct::key_rateName, rateName);
+		threadStatusInfo->setStringValue(CThreadStatusStruct::key_processTypeName, porcessTypeName);
+		threadStatusInfo->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, 0);
+		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, 0);
 		// 获取rate的起始时间代替
 		processBuildLastTime = getRateStartTime(rateName);
-		processStatusInfo->save();
+		threadStatusInfo->save();
 	}
 
+	PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
 	time_t timeStep = rateLastTime - processBuildLastTime;
-	if (timeStep > processType.timeStep )
+	while (processBuildLastTime + gHisCalcStepTime < rateLastTime)
 	{
 		hasTask = true;
-		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
 		PRow taskInfo = newRow(taskInfoStruct);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
 		taskInfo->setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
 		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_startTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
-		time_t endTime = processBuildLastTime + timeStep/processType.timeStep * processType.timeStep;
-		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_endTime, endTime);
-		taskInfo->setStringValue(CProcessTaskInfoStruct::key_endTimeDesc, PubFun::getTimeFormat(endTime));
-		taskInfo->setStringValue(CProcessTaskInfoStruct::key_processTypeName, processType.getType());
+		processBuildLastTime += gHisCalcStepTime;
+		taskInfo->setTimeValue(CProcessTaskInfoStruct::key_endTime, processBuildLastTime);
+		taskInfo->setStringValue(CProcessTaskInfoStruct::key_endTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
+		taskInfo->setIntValue(CProcessTaskInfoStruct::key_threadId, lastThreadId);
 		string strParam = PubFun::strFormat("timeStep=%d", processType.timeStep);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_paramter, strParam);
 		taskInfo->setStringValue(CProcessTaskInfoStruct::key_status, string("0"));
 		taskInfo->save();
-
-		processStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, endTime);
-		//processStatusInfo->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
-		processStatusInfo->save();
+		
+		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, processBuildLastTime);
+		//threadStatusInfo->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
+		threadStatusInfo->save();
 	}
 	return hasTask;
 }

@@ -26,7 +26,6 @@ CTaskBuilder::~CTaskBuilder()
 
 void CTaskBuilder::run()
 {
-	firstRun();
 	bool hasTask = false;
 	while (true)
 	{
@@ -43,28 +42,6 @@ void CTaskBuilder::run()
 			::Sleep(longSleepTime);
 			//::Sleep(shortSleepTime);
 		}
-	}
-}
-
-void CTaskBuilder::firstRun()
-{
-	try{
-		// 从数据库中加载未执行的任务
-		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
-		string sql = processSt->getSelectSql();
-		PTable table = newTable(processSt);
-		CDbObj::instance().selectData(sql.c_str(), table);
-
-		for(auto it : *table)
-		{
-			// 重置所有线程状态
-			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 0);
-		}
-		table->save();
-	}
-	catch (CStrException& e)
-	{
-		log.error(logInfo, string("firstRun 失败！msg:").append(e.what()));
 	}
 }
 

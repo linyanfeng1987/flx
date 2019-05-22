@@ -30,14 +30,13 @@ CtaskRunner::~CtaskRunner()
 
 void CtaskRunner::run()
 {
+	CDbFunc::zeroThreadStatus();
 	while (true)
 	{
 		reloadThreadList();
 		::Sleep(longSleepTime);
 	}
 }
-
-
 
 bool CtaskRunner::reloadThreadList()
 {

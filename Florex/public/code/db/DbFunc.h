@@ -23,6 +23,8 @@ public:
 
 	static int getThreadLastId();
 
+	static void zeroThreadStatus();
+
 private:
 	//static CGlobalData& gData; 
 };

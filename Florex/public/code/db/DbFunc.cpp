@@ -1,5 +1,6 @@
 #include "DbFunc.h"
 #include "DbObj.h"
+#include "LogObj.h"
 
 
 //CGlobalData& CDbFunc::gData = CGlobalData::instance();
@@ -37,4 +38,26 @@ int CDbFunc::getThreadLastId()
 	}
 
 	return lastThreadId;
+}
+
+void CDbFunc::zeroThreadStatus()
+{
+	try{
+		// 从数据库中加载未执行的任务
+		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
+		string sql = processSt->getSelectSql();
+		PTable table = newTable(processSt);
+		CDbObj::instance().selectData(sql.c_str(), table);
+
+		for(auto it : *table)
+		{
+			// 重置所有线程状态
+			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+		}
+		table->save();
+	}
+	catch (CStrException& e)
+	{
+		CLogObj::instance().error(string("firstRun 失败！msg:").append(e.what()));
+	}
 }

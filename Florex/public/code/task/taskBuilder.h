@@ -14,7 +14,6 @@ public:
 	//bool reloadTaskList_delete();
 	void run();
 protected:
-	void firstRun();
 	bool runOneRate(string rateName, list<string>& processTypeNames);
 	bool runOneThreadType(string rateName, CProcessType& processType);
 

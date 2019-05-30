@@ -101,17 +101,25 @@ std::string CTableStruct::getSelectSql()
 
 std::string CTableStruct::getSelectSql( string &conditicon )
 {
-	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
-	if(!conditicon.empty())
-	{
-		strSql.append(" where ");
-		strSql.append(conditicon);
-	}
+	return getSelectSql(conditicon, string(""));
+}
+
+std::string CTableStruct::getSelectSql( string &conditicon, string &order )
+{
+	string strSql = baseGetSelectSql(conditicon, order);
 	strSql.append(";");
 	return strSql;
 }
 
 std::string CTableStruct::getSelectSqlLimit1( string &conditicon, string &order )
+{
+	string strSql = baseGetSelectSql(conditicon, order);
+	strSql.append(" limit 1");
+	strSql.append(";");
+	return strSql;
+}
+
+std::string CTableStruct::baseGetSelectSql( string &conditicon, string &order )
 {
 	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
 	if(!conditicon.empty())
@@ -126,8 +134,6 @@ std::string CTableStruct::getSelectSqlLimit1( string &conditicon, string &order 
 		strSql.append(order);
 	}
 
-	strSql.append(" limit 1");
-	strSql.append(";");
 	return strSql;
 }
 
@@ -206,6 +212,8 @@ void CTableStruct::ensureExist()
 		CDbObj::instance().executeSql(createTableSql.c_str());
 	}
 }
+
+
 
 // 
 // std::string CTableStruct::getInsertSql()

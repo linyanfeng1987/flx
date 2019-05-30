@@ -31,7 +31,7 @@ const int log_noLog = 0;
 const int logByThreadId = 1;
 const int logByModule = 2;
 
-const int globlaLogType = write_error;
+const int globlaLogType = write_debug;
 
 const unsigned int maxFileLineCount = 20000;
 

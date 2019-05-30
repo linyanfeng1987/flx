@@ -34,6 +34,7 @@ public:
 
 	string getSelectSql();
 	string getSelectSql(string &conditicon);
+	string getSelectSql(string &conditicon, string &order);
 	string getSelectSqlLimit1(string &conditicon, string &order);
 
 	string getFieldsStr(string split = ",");
@@ -62,6 +63,8 @@ protected:
 	CLogObj &log;
 	string strInsertSqlFormat;
 	string strUpdateSqlFormat;
+
+	string baseGetSelectSql(string &conditicon, string &order);
 };
 
 typedef shared_ptr<CTableStruct> PTableStruct;

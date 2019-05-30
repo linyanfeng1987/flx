@@ -21,7 +21,7 @@ protected:
 
 	PCalcProcess getProcess( PRow taskInfo );
 
-	bool reloadTaskList();
+	PRow getOneTask();
 	void rangTaskList();
 	PCalcProcess getProcessTask( PRow processTaskInfoRow );
 

@@ -123,7 +123,7 @@ void PubFun::log( string str )
 
 void PubFun::logFormat( const char * strFormat, ...)
 {
-	static char msgbuffer[2048] = {0};
+	static char msgbuffer[4096] = {0};
 	va_list va_list_ptr;
 	va_start(va_list_ptr, strFormat);  
 	memset(msgbuffer, 0, sizeof(msgbuffer));

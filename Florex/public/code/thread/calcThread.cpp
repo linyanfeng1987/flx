@@ -13,7 +13,7 @@
 #include "process/obj/continue/continueAnalysis.h"
 
 const int timeStep = 3600;
-const string CCalcThread::logTag = "threadRun";
+const string CCalcThread::logTag = "calcThread";
 
 CCalcThread::CCalcThread( PThreadInfo _threadInfo ):CBaseThread(_threadInfo)
 {
@@ -25,22 +25,16 @@ CCalcThread::~CCalcThread()
 	log.debug(logInfo, PubFun::strFormat("CCalcThread end, %d\n", this));
 }
 
-void CCalcThread::runInThread( const char* argv )
-{
-	init();
-	while (true)
-	{
-		rangTaskList();
-	}
-}
-
 void CCalcThread::init()
 {
 	// 从数据库中加载未执行的任务
 	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_threadId);
-	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSql(PubFun::strFormat("%s=%d and %s=%d", 
+	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSqlLimit1(
+		PubFun::strFormat("%s=%d and %s=%d", 
 		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
-		CProcessTaskInfoStruct::key_status.c_str(), 0));
+		CProcessTaskInfoStruct::key_status.c_str(), 0), 
+		PubFun::strFormat("order by %s", 
+		CProcessTaskInfoStruct::key_startTime.c_str()));
 	process = getProcess(threadInfo->getRowData());
 }
 
@@ -67,21 +61,28 @@ PCalcProcess CCalcThread::getProcess( PRow taskInfo )
 	return process;
 }
 
+void CCalcThread::runInThread( const char* argv )
+{
+	init();
+	while (true)
+	{
+		rangTaskList();
+	}
+}
+
 void CCalcThread::rangTaskList()
 {
 	// 执行任务
 	static bool isFirstRun = true;
-	while(!tasks.empty())
+
+	PRow task = getOneTask();
+	if(nullptr != task)
 	{
-		PRow taskInfoRow = *(tasks.begin());
-		//PCalcProcess process = getProcessTask(taskInfoRow);
-		tasks.pop_front();
 		isFirstRun = false;
 		//string param = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_paramter);
-		runTask(taskInfoRow);
+		runTask(task);
 	}
-
-	if (!reloadTaskList())
+	else
 	{
 		if (!isFirstRun)
 		{
@@ -94,18 +95,15 @@ void CCalcThread::rangTaskList()
 	}
 }
 
-bool CCalcThread::reloadTaskList()
+PRow CCalcThread::getOneTask()
 {
-	bool hasData = false;
+	PRow row = nullptr;
 	try{
-		PTable table = newTable(CProcessTaskInfoStruct::instence());
-		CDbObj::instance().selectData(getTaskSql.c_str(), table);
-		for(auto it : *table)
+		row = CDbObj::instance().selectOneData(getTaskSql.c_str(), CProcessTaskInfoStruct::instence());
+		if (nullptr != row)
 		{
-			it.second->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
-			it.second->save();
-			tasks.push_back(it.second);
-			hasData = true;
+			row->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
+			row->save();
 		}
 	}
 	catch (CStrException& e)
@@ -113,7 +111,7 @@ bool CCalcThread::reloadTaskList()
 		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
 	}
 
-	return hasData;
+	return row;
 }
 
 void CCalcThread::runTask( PRow taskInfoRow )
@@ -122,15 +120,20 @@ void CCalcThread::runTask( PRow taskInfoRow )
 	{
 		CFunctionLog funLog(logInfo, __FUNCTION__, __LINE__);
 		string rateName = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_rate);
-		string startTime = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_startTime);
-		string endTime = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_endTime);
+		time_t startTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_startTime);
+		time_t endTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_endTime);
 		string rateType = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_rateType);
 		string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_processTypeName);
+		log.debug(logInfo, PubFun::strFormat("run task rateName:%s, processTypeName:%s, startTime,%s, endTime,%s",
+			rateName.c_str(),
+			processTypeName.c_str(),
+			PubFun::getTimeFormat(startTime).c_str(),
+			PubFun::getTimeFormat(endTime).c_str()));
 
 		string logName = rateName + "_" + processTypeName;
 
 		map<long, long> resValueMap;
-		PubFun::buildValueList(PubFun::stringToInt(startTime), PubFun::stringToInt(endTime), timeStep, resValueMap);
+		PubFun::buildValueList(startTime, endTime, timeStep, resValueMap);
 
 		if (process->isBaseCalc())
 		{
@@ -156,10 +159,10 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 		taskInfoRow->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
 		taskInfoRow->save();
 
-		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
-		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
-		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
-		threadInfo->getRowData()->save();
+		//time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
+		//threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
+		//threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
+		//threadInfo->getRowData()->save();
 	}
 	catch (CStrException& e)
 	{
@@ -179,7 +182,7 @@ void CCalcThread::baseCalc( map<long, long>& resValueMap, string& rateName )
 		condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
 		condition.append(" and ");
 		condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
-		string sql = rateStruct->getSelectSql(condition);
+		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s,%s", CCurRateStruct::curTime.c_str(), CCurRateStruct::curMsec.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);
 		process->calc(rateTable);
@@ -196,7 +199,7 @@ void CCalcThread::calcProcess( map<long, long>& resValueMap, string& rateName )
 		condition.append(CCalcRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
 		condition.append(" and ");
 		condition.append(CCalcRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
-		string sql = rateStruct->getSelectSql(condition);
+		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s", CCalcRateStruct::curTime.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);
 

@@ -14,6 +14,14 @@ const int valueType_double = 3;
 const string emptyString = "";
 const string zeroString = "0";
 
+enum DATA_STATUS
+{
+	DATA_NEW,
+	DATA_SAME,
+	DATA_CHANGE,
+	DATA_DELETE,
+};
+
 class CValue
 {
 public:
@@ -30,6 +38,8 @@ public:
 
 	void setValue(double dValue);
 	void setValue(string &strValue);
+	bool isDataSame(){return DATA_SAME == dataStatus;}
+	void setSame(){ dataStatus = DATA_SAME;}
 protected:
 	void init();
 	void buildDoubleValue();
@@ -42,6 +52,7 @@ protected:
 	shared_ptr<size_t> pSizeTValue;
 	shared_ptr<double> pDoubleValue;
 
+	DATA_STATUS dataStatus;
 };
 
 typedef shared_ptr<CValue> PValue;

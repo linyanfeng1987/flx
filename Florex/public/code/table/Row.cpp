@@ -98,23 +98,32 @@ std::string CRow::getUpdateSql()
 	strTmp.clear();
 	string strValue;
 	for(auto field : *tableStruct){
-		strValue = getStringValue(field.first);
-		if (!strTmp.empty())
+		auto valueIter = find(field.first);
+		if (end() != valueIter && !valueIter->second->isDataSame())
 		{
-			strTmp.append(", ");
-		}
-		//strTmp += field.first + "='" + strValue + "'";
-		if (typeCount == field.second.strType)
-		{
-			strTmp.append(PubFun::strFormat("%s=%s+1",field.first.c_str(), field.first.c_str()));
-		}
-		else
-		{
-			strTmp.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+			strValue = valueIter->second->getStrValue();
+			if (!strTmp.empty())
+			{
+				strTmp.append(", ");
+			}
+			//strTmp += field.first + "='" + strValue + "'";
+			if (typeCount == field.second.strType)
+			{
+				strTmp.append(PubFun::strFormat("%s=%s+1",field.first.c_str(), field.first.c_str()));
+			}
+			else
+			{
+				strTmp.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+			}
 		}
 	}
-	string strCondition = getCondition();
-	string strSql = PubFun::strFormat(strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
+	string strSql = "";
+	if (!strTmp.empty())
+	{
+		string strCondition = getCondition();
+		strSql = PubFun::strFormat(strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
+	}
+	
 	return strSql;
 }
 
@@ -331,14 +340,17 @@ bool CRow::isExit()
 bool CRow::save()
 {
 	string strSql = getSql();
-	try
+	if (!strSql.empty())
 	{
-		CDbObj::instance().executeSql(strSql.c_str());
-		setDataStatus(DATA_SAME);
-	}
-	catch (CStrException &e)
-	{
-		log.error(string(e.what()));
+		try
+		{
+			CDbObj::instance().executeSql(strSql.c_str());
+			setDataStatus(DATA_SAME);
+		}
+		catch (CStrException &e)
+		{
+			log.error(string(e.what()));
+		}
 	}
 
 	return true;
@@ -347,19 +359,22 @@ bool CRow::save()
 bool CRow::save2()
 {
 	string strSql = getSql();
-	try
+	if (!strSql.empty())
 	{
-		CDbObj::instance().executeSql(strSql.c_str());
-		setDataStatus(DATA_SAME);
-	}
-	catch (CStrException &e)
-	{
-		string strMsg = e.what();
-		if (-1 == strMsg.find("for key 'PRIMARY'"))
+		try
 		{
-			log.info(PubFun::strFormat("插入失败，使用修改方式,sql:%s",strSql.c_str()));
-			setDataStatus(DATA_CHANGE);
-			save();
+			CDbObj::instance().executeSql(strSql.c_str());
+			setDataStatus(DATA_SAME);
+		}
+		catch (CStrException &e)
+		{
+			string strMsg = e.what();
+			if (-1 == strMsg.find("for key 'PRIMARY'"))
+			{
+				log.info(PubFun::strFormat("插入失败，使用修改方式,sql:%s",strSql.c_str()));
+				setDataStatus(DATA_CHANGE);
+				save();
+			}
 		}
 	}
 
@@ -368,6 +383,10 @@ bool CRow::save2()
 
 void CRow::setDataStatus( DATA_STATUS status )
 {
+	for (auto valuePair : *this)
+	{
+		valuePair.second->setSame();
+	}
 	m_dataStatus = status;
 }
 

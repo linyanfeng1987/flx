@@ -11,13 +11,6 @@
 
 using namespace std;
 
-enum DATA_STATUS
-{
-	DATA_NEW,
-	DATA_SAME,
-	DATA_CHANGE,
-	DATA_DELETE,
-};
 
 class CRow : public Linked_map<string, PValue>
 {

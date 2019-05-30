@@ -25,11 +25,13 @@ protected:
 	void rangTaskList();
 	PCalcProcess getProcessTask( PRow processTaskInfoRow );
 
-	void baseCalc(map<long, long>& resValueMap, string& rateName);
+	void withBaseCalc(map<long, long>& resValueMap, string& rateName);
 	void calcProcess(map<long, long>& resValueMap, string& rateName);
 	
 	PCalcProcess process;
 	list<PRow> tasks;
+
+	bool needBaseCalc;
 
 	string getTaskSql;
 	static const string logTag;

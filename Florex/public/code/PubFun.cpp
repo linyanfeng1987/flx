@@ -405,7 +405,7 @@ void PubFun::makePath( string filePath )
 	}
 }
 
-void PubFun::buildValueList( long startValue, long endValue, long step, map<long, long>& resValueMap )
+void PubFun::buildValueList( time_t startValue, time_t endValue, long step, map<long, long>& resValueMap )
 {
 	long tmpValue = 0;
 	for (long i = startValue; i < endValue; )

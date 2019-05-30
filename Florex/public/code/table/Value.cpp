@@ -4,21 +4,23 @@
 CValue::CValue()
 {
 	setValue(string(""));
+	dataStatus = DATA_SAME;
 }
 
 CValue::CValue( string strValue )
 {
 	setValue(strValue);
+	dataStatus = DATA_SAME;
 }
 
 CValue::CValue( double dValue )
 {
 	setValue(dValue);
+	dataStatus = DATA_SAME;
 }
 
 void CValue::init()
 {
-	dataType = valueType_str;
 	pIntValue = nullptr;
 	pSizeTValue = nullptr;
 	pStrValue = nullptr;
@@ -77,9 +79,11 @@ string& CValue::getStrValue()
 
 void CValue::setValue( double dValue )
 {
+	// 一旦修改，旧的数据就废掉了
 	init();
 	dataType = valueType_double;
 	pDoubleValue = make_shared<double>(dValue);
+	dataStatus = DATA_CHANGE;
 }
 
 void CValue::setValue( string &strValue )
@@ -87,6 +91,7 @@ void CValue::setValue( string &strValue )
 	init();
 	dataType = valueType_str;
 	pStrValue = make_shared<string>(strValue);
+	dataStatus = DATA_CHANGE;
 }
 
 void CValue::buildDoubleValue()

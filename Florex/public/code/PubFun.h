@@ -62,7 +62,7 @@ public:
 
 	static char* wcharToChar(const wchar_t* wp);
 
-	static void buildValueList(long startValue, long endValue, long step, map<long, long>& resValueMap);
+	static void buildValueList(time_t startValue, time_t endValue, long step, map<long, long>& resValueMap);
 
 	static void splitParamStr(string paramters, map<string, string> &resMap); 
 

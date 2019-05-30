@@ -18,6 +18,7 @@ const string CCalcThread::logTag = "calcThread";
 CCalcThread::CCalcThread( PThreadInfo _threadInfo ):CBaseThread(_threadInfo)
 {
 	logInfo = newLogInfo(logTag);	
+	needBaseCalc = false;
 }
 
 CCalcThread::~CCalcThread()
@@ -43,19 +44,20 @@ PCalcProcess CCalcThread::getProcess( PRow taskInfo )
 	PRateInfo rateInfo = newRateInfo();
 	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
 	PCalcProcess process = newCalcProcess(rateInfo);
-	string processTypeName = taskInfo->getStringValue(CThreadStatusStruct::key_processTypeName);
-	if (-1 == processTypeName.find(processType_baseCalc))
+	string processTypeName = taskInfo->getStringValue(CThreadStatusStruct::key_threadTypeName);
+	if (-1 != processTypeName.find(processType_baseCalc))
 	{
-		if (-1 != processTypeName.find(processType_average))
-		{
-			PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
-			process->addAnalysis(processType_average, averageAnalysis);
-		}
-		else if (-1 != processTypeName.find(processType_continue))
-		{
-			PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
-			process->addAnalysis(processType_continue, continueAnalysis);
-		}
+		needBaseCalc = true;
+	}
+	if (-1 != processTypeName.find(processType_average))
+	{
+		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+		process->addAnalysis(processType_average, averageAnalysis);
+	}
+	if (-1 != processTypeName.find(processType_continue))
+	{
+		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+		process->addAnalysis(processType_continue, continueAnalysis);
 	}
 
 	return process;
@@ -123,7 +125,7 @@ void CCalcThread::runTask( PRow taskInfoRow )
 		time_t startTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_startTime);
 		time_t endTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_endTime);
 		string rateType = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_rateType);
-		string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_processTypeName);
+		string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_threadTypeName);
 		log.debug(logInfo, PubFun::strFormat("run task rateName:%s, processTypeName:%s, startTime,%s, endTime,%s",
 			rateName.c_str(),
 			processTypeName.c_str(),
@@ -135,9 +137,9 @@ void CCalcThread::runTask( PRow taskInfoRow )
 		map<long, long> resValueMap;
 		PubFun::buildValueList(startTime, endTime, timeStep, resValueMap);
 
-		if (process->isBaseCalc())
+		if (needBaseCalc)
 		{
-			baseCalc(resValueMap, rateName);
+			withBaseCalc(resValueMap, rateName);
 		}
 		else
 		{
@@ -172,7 +174,7 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 	return 0;
 }
 
-void CCalcThread::baseCalc( map<long, long>& resValueMap, string& rateName )
+void CCalcThread::withBaseCalc( map<long, long>& resValueMap, string& rateName )
 {
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable rateTable = newTable(rateStruct);
@@ -215,7 +217,7 @@ void CCalcThread::calcProcess( map<long, long>& resValueMap, string& rateName )
 			values.push_back(rateValue);
 		}
 		
-		process->calc(rateTable);
+		process->calc(values);
 	}
 }
 

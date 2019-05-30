@@ -86,8 +86,8 @@ bool CTaskBuilder::runOneThreadType(string rateName, CProcessType& processType )
 		threadStatusInfo = newRow(tableSt);
 		threadStatusInfo->setIntValue(CThreadStatusStruct::key_threadId, ++(lastThreadId));
 		threadStatusInfo->setStringValue(CThreadStatusStruct::key_rateName, rateName);
-		threadStatusInfo->setStringValue(CThreadStatusStruct::key_processTypeName, porcessTypeName);
-		threadStatusInfo->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+		threadStatusInfo->setStringValue(CThreadStatusStruct::key_threadTypeName, porcessTypeName);
+		threadStatusInfo->setIntValue(CThreadStatusStruct::key_threadStatus, 0);
 		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, 0);
 		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, 0);
 		// 获取rate的起始时间代替

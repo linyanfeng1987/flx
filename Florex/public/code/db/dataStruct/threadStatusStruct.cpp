@@ -4,8 +4,8 @@
 
 string CThreadStatusStruct::key_threadId = "threadId"; 
 string CThreadStatusStruct::key_rateName = "rateName"; 
-string CThreadStatusStruct::key_processTypeName = "processTypeName"; 
-string CThreadStatusStruct::key_processStatus = "processStatus"; 
+string CThreadStatusStruct::key_threadTypeName = "processTypeName"; 
+string CThreadStatusStruct::key_threadStatus = "threadStatus"; 
 
 //string CThreadStatusStruct::key_step = "step"; 
 string CThreadStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
@@ -16,7 +16,7 @@ string CThreadStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTime
 CThreadStatusStruct::CThreadStatusStruct()
 {
 	idCount = 0;
-	tableName = "core.processstatus" ;
+	tableName = "core.threadStatus" ;
 	this->setName(tableName);
 	CField field;
 
@@ -27,10 +27,10 @@ CThreadStatusStruct::CThreadStatusStruct()
 	this->insert(make_pair(field.strName, field));
 
 	//processName
-	field.load(key_processTypeName, typeString);
+	field.load(key_threadTypeName, typeString);
 	this->insert(make_pair(field.strName, field));
 	//processStatus
-	field.load(key_processStatus, typeInt);
+	field.load(key_threadStatus, typeInt);
 	this->insert(make_pair(field.strName, field));
 	//step
 // 	field.load(key_step, typeInt);

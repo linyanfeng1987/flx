@@ -20,7 +20,7 @@ PRow CDbFunc::getThreadStatusLine( string rateName, string processTypeName )
 	PThreadStatusStruct tableSt = CThreadStatusStruct::instence();
 	string sql = tableSt->getSelectSql(PubFun::strFormat("%s = '%s' and %s = '%s'",
 		CThreadStatusStruct::key_rateName.c_str(), rateName.c_str(),
-		CThreadStatusStruct::key_processTypeName.c_str(),  processTypeName.c_str()));
+		CThreadStatusStruct::key_threadTypeName.c_str(),  processTypeName.c_str()));
 
 	return CDbObj::instance().selectOneData(sql.c_str(), tableSt);
 }
@@ -52,7 +52,7 @@ void CDbFunc::zeroThreadStatus()
 		for(auto it : *table)
 		{
 			// 重置所有线程状态
-			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 0);
+			it.second->setIntValue(CThreadStatusStruct::key_threadStatus, 0);
 		}
 		table->save();
 	}

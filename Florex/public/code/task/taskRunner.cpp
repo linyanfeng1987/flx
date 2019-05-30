@@ -44,14 +44,14 @@ bool CtaskRunner::reloadThreadList()
 	try{
 		// 从数据库中加载未执行的任务
 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
-		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
+		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_threadStatus.c_str(), 0));
 		//string sql = processSt->getSelectSql();
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
 		for(auto it : *table)
 		{
-			it.second->setIntValue(CThreadStatusStruct::key_processStatus, 1);
+			it.second->setIntValue(CThreadStatusStruct::key_threadStatus, 1);
 			it.second->save();
 			PThreadInfo threadInfo = newThreadInfo(it.second, thread_calc_stauts);
 			PCalcThread calcThread = newCalcThread(threadInfo);
@@ -99,7 +99,7 @@ bool CtaskRunner::reloadThreadList()
 // 		CDbObj::instance().selectData(sql.c_str(), table);
 // 		
 // 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
-// 		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_processStatus.c_str(), 0));
+// 		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_threadStatus.c_str(), 0));
 // 
 // 		for(auto it : *table)
 // 		{
@@ -127,7 +127,7 @@ bool CtaskRunner::reloadThreadList()
 // 	int count = -1;
 // 	if(nullptr != processTaskInfo)
 // 	{
-// 		string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);
+// 		string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_threadTypeName);
 // 		if (runingTasks.find(processTypeName) == runingTasks.end())
 // 		{
 // 			PCalcProcess task = getProcessTask(processTaskInfo);
@@ -215,10 +215,10 @@ bool CtaskRunner::reloadThreadList()
 // PCalcProcess CtaskRunner::getProcessTask( PRow processTaskInfoRow )
 // {
 // 	PCalcProcess process = getProcess(processTaskInfoRow);
-// 	PRow processStatus = CDbFunc::getThreadStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_processTypeName));
+// 	PRow processStatus = CDbFunc::getThreadStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_threadTypeName));
 // 
 // // 	string rateName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_rate);
-// // 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_processTypeName);
+// // 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_threadTypeName);
 // // 	string taskName = rateName + "_" + processTypeName;
 // 
 // 	PThreadInfo processTaskInfo = newThreadInfo(processTaskInfoRow, thread_calc_stauts);

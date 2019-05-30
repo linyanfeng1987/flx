@@ -42,7 +42,13 @@ void CGlobalData::initDataInCode()
 	list<string> tmpList;
 	CProcessType tmpType;
 
-	tmpType.processTypeName = processType_baseCalc;
+// 	tmpType.processTypeName = processType_baseCalc;
+// 	tmpType.timeStep = 900;
+// 	tmpType.dependOnTypeList.push_back("");
+// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+// 	tmpList.push_back(tmpType.processTypeName);
+
+	tmpType.processTypeName = PubFun::strFormat("%s_%s_%s", processType_baseCalc.c_str(),processType_continue.c_str(),processType_average.c_str());
 	tmpType.timeStep = 900;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
@@ -80,7 +86,7 @@ void CGlobalData::addProcessTaskInfo( PRow cfg )
 {
 	taskMutex.lock();
 	//tasks->addRow(cfg);
-	string processTypeName = cfg->getStringValue(CProcessTaskInfoStruct::key_processTypeName);
+	string processTypeName = cfg->getStringValue(CProcessTaskInfoStruct::key_threadTypeName);
 	string rateName = cfg->getStringValue(CProcessTaskInfoStruct::key_rate);
 	string strKey = PubFun::strFormat("%s_%s", processTypeName.c_str(), rateName.c_str());
 	auto iter = taskInfos.find(strKey);

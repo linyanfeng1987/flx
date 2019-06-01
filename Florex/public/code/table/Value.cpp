@@ -3,8 +3,8 @@
 
 CValue::CValue()
 {
-	setValue(string(""));
-	dataStatus = DATA_SAME;
+// 	setValue(string(""));
+ 	dataStatus = DATA_SAME;
 }
 
 CValue::CValue( string strValue )
@@ -19,23 +19,33 @@ CValue::CValue( double dValue )
 	dataStatus = DATA_SAME;
 }
 
+CValue::CValue( int nValue )
+{
+	setValue(nValue);
+	dataStatus = DATA_SAME;
+}
+
+CValue::CValue( time_t tValue )
+{
+	setValue(tValue);
+	dataStatus = DATA_SAME;
+}
+
 void CValue::init()
 {
 	pIntValue = nullptr;
-	pSizeTValue = nullptr;
+	pTimeTValue = nullptr;
 	pStrValue = nullptr;
 	pDoubleValue = nullptr;
+	dataStatus = DATA_SAME;
+	dataType = valueType_def;
 }
 
 int CValue::getIntValue()
 {
 	if (nullptr == pIntValue)
 	{
-		if (valueType_str == dataType)
-		{
-			buildDoubleValue();
-		}
-		pIntValue = make_shared<int>((int)*pDoubleValue);
+		buildIntValue();
 	}
 	return *pIntValue;
 }
@@ -44,35 +54,25 @@ double CValue::getDoubleValue()
 {
 	if (nullptr == pDoubleValue)
 	{
-		if (valueType_str == dataType)
-		{
-			buildDoubleValue();
-		}
+		buildDoubleValue();
 	}
 	return *pDoubleValue;
 }
 
-size_t CValue::getSizeTValue()
+time_t CValue::getTimeTValue()
 {
-	if (nullptr == pSizeTValue)
+	if (nullptr == pTimeTValue)
 	{
-		if (valueType_str == dataType)
-		{
-			buildDoubleValue();
-		}
-		pSizeTValue = make_shared<size_t>((size_t)*pDoubleValue);
+		buildTimeTValue();
 	}
-	return *pSizeTValue;
+	return *pTimeTValue;
 }
 
 string& CValue::getStrValue()
 {
 	if (nullptr == pStrValue)
 	{
-		if (valueType_double == dataType)
-		{
-			buildStringValue();
-		}
+		buildStringValue();
 	}
 	return *pStrValue;
 }
@@ -86,6 +86,14 @@ void CValue::setValue( double dValue )
 	dataStatus = DATA_CHANGE;
 }
 
+void CValue::setValue( int nValue )
+{
+	init();
+	dataType = valueType_int;
+	pIntValue = make_shared<int>(nValue);
+	dataStatus = DATA_CHANGE;
+}
+
 void CValue::setValue( string &strValue )
 {
 	init();
@@ -94,11 +102,27 @@ void CValue::setValue( string &strValue )
 	dataStatus = DATA_CHANGE;
 }
 
+void CValue::setValue( time_t tValue )
+{
+	init();
+	dataType = valueType_timet;
+	pTimeTValue = make_shared<time_t>(tValue);
+	dataStatus = DATA_CHANGE;
+}
+
 void CValue::buildDoubleValue()
 {
-	if (nullptr != pStrValue)
+	if (valueType_str == dataType)
 	{
 		pDoubleValue = make_shared<double>(PubFun::stringToDouble(*pStrValue));
+	}
+	else if (valueType_int == dataType)
+	{
+		pDoubleValue = make_shared<double>(*pIntValue);
+	}
+	else if (valueType_timet == dataType)
+	{
+		pDoubleValue = make_shared<double>((double)(*pTimeTValue));
 	}
 	else
 	{
@@ -108,9 +132,17 @@ void CValue::buildDoubleValue()
 
 void CValue::buildStringValue()
 {
-	if (nullptr != pDoubleValue)
+	if (valueType_double == dataType)
 	{
 		pStrValue = make_shared<string>(PubFun::doubleToString(*pDoubleValue));
+	}
+	else if (valueType_int == dataType)
+	{
+		pStrValue = make_shared<string>(PubFun::intToString(*pIntValue));
+	}
+	else if (valueType_timet == dataType)
+	{
+		pStrValue = make_shared<string>(PubFun::timetToString(*pTimeTValue));
 	}
 	else
 	{
@@ -118,19 +150,49 @@ void CValue::buildStringValue()
 	}
 }
 
+void CValue::buildIntValue()
+{ 
+	if (valueType_str == dataType)
+	{
+		pIntValue = make_shared<int>(PubFun::stringToInt(*pStrValue));
+	}
+	else if (valueType_double == dataType)
+	{
+		pIntValue = make_shared<int>((int)(*pDoubleValue));
+	}
+	else if (valueType_timet == dataType)
+	{
+		pIntValue = make_shared<int>((int)(*pTimeTValue));
+	}
+	else
+	{
+		pIntValue = make_shared<int>(0);
+	}
+}
+
+void CValue::buildTimeTValue()
+{
+	if (valueType_str == dataType)
+	{
+		pTimeTValue = make_shared<time_t>(PubFun::stringToTimet(*pStrValue));
+	}
+	else if (valueType_double == dataType)
+	{
+		pTimeTValue = make_shared<time_t>((time_t)(*pDoubleValue));
+	}
+	else if (valueType_int == dataType)
+	{
+		pTimeTValue = make_shared<time_t>(*pIntValue);
+	}
+	else
+	{
+		pIntValue = make_shared<int>(0);
+	}
+}
+
 bool CValue::empty()
 {
-	bool isEmpty = false;
-	if (valueType_str == dataType && pStrValue->empty())
-	{
-		isEmpty = true;
-	}
-	else if(valueType_double == dataType && 0 == *pDoubleValue)
-	{
-		isEmpty = true;
-	}
-
-	return isEmpty;
+	return valueType_def == dataType;
 }
 
 

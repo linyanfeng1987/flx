@@ -41,8 +41,11 @@ public:
 	void setAndaddValue(string& strKey, string& strValue);
 	void addByList(list<string> valueList);
 	string getValue(string& strKey);
+
 	void setValue(string& strKey, string& strValue);
 	void setValue(string& strKey, double dValue);
+	void setValue(string& strKey, int& nValue);
+	void setValue(string& strKey, time_t tValue);
 
 
 	string getStringValue(string& strKey);
@@ -51,7 +54,7 @@ public:
 	double getDoubleValue(string& strKey);
 
 	void setStringValue(string& strKey, string& strValue);
-	void setIntValue(string& strKey, long lValue);
+	void setIntValue(string& strKey, int nValue);
 	void setIndexValue(string& strKey, indexType iValue);
 	void setTimeValue(string& strKey, time_t tValue);
 	void setDoubleValue(string& strKey, double dValue);

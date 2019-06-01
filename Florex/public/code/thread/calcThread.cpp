@@ -134,7 +134,7 @@ void CCalcThread::runTask( PRow taskInfoRow )
 
 		string logName = rateName + "_" + processTypeName;
 
-		map<long, long> resValueMap;
+		map<time_t, time_t> resValueMap;
 		PubFun::buildValueList(startTime, endTime, timeStep, resValueMap);
 
 		if (needBaseCalc)
@@ -161,10 +161,10 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 		taskInfoRow->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
 		taskInfoRow->save();
 
-		//time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
-		//threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
-		//threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
-		//threadInfo->getRowData()->save();
+		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
+		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
+		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
+		threadInfo->getRowData()->save();
 	}
 	catch (CStrException& e)
 	{
@@ -174,16 +174,16 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 	return 0;
 }
 
-void CCalcThread::withBaseCalc( map<long, long>& resValueMap, string& rateName )
+void CCalcThread::withBaseCalc( map<time_t, time_t>& resValueMap, string& rateName )
 {
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable rateTable = newTable(rateStruct);
 	for (auto iter : resValueMap)
 	{
 		string condition = "";
-		condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
+		condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::timetToString(iter.first));
 		condition.append(" and ");
-		condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
+		condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::timetToString(iter.second));
 		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s,%s", CCurRateStruct::curTime.c_str(), CCurRateStruct::curMsec.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);
@@ -191,16 +191,16 @@ void CCalcThread::withBaseCalc( map<long, long>& resValueMap, string& rateName )
 	}
 }
 
-void CCalcThread::calcProcess( map<long, long>& resValueMap, string& rateName )
+void CCalcThread::calcProcess( map<time_t, time_t>& resValueMap, string& rateName )
 {
 	PCalcRateStruct rateStruct = newCalcRateStruct(rateName);
 	PTable rateTable = newTable(rateStruct);
 	for (auto iter : resValueMap)
 	{
 		string condition = "";
-		condition.append(CCalcRateStruct::curTime).append(">=").append(PubFun::intToString(iter.first));
+		condition.append(CCalcRateStruct::curTime).append(">=").append(PubFun::timetToString(iter.first));
 		condition.append(" and ");
-		condition.append(CCalcRateStruct::curTime).append("<=").append(PubFun::intToString(iter.second));
+		condition.append(CCalcRateStruct::curTime).append("<=").append(PubFun::timetToString(iter.second));
 		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s", CCalcRateStruct::curTime.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);

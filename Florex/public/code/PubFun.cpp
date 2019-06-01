@@ -76,7 +76,17 @@ double PubFun::stringToDouble(string str)
 	return i;
 }
 
-std::string PubFun::intToString(long nValue)
+time_t PubFun::stringToTimet( string str )
+{
+	time_t i = 0;
+	if (!str.empty())
+	{
+		sscanf_s(str.c_str(),"%ld",&i);
+	}
+	return i;
+}
+
+std::string PubFun::intToString(int nValue)
 {
 	char tmpCh[255] = {0};  
 	_itoa_s(nValue, tmpCh, 10);
@@ -88,6 +98,13 @@ std::string PubFun::indexToString( indexType nValue )
 	char tmpCh[255] = {0};  
 	_itoa_s(nValue, tmpCh, 10);
 	return tmpCh;
+}
+
+std::string PubFun::timetToString( time_t tValue )
+{
+	char str[256] = {0};
+	sprintf_s(str, "%ld", tValue);
+	return string(str);
 }
 
 std::string PubFun::doubleToString( double dValue )
@@ -194,7 +211,7 @@ double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double 
 }
 */
 
-double PubFun::calcPercentSpeadProS( long int startTime, long startMscd, double startPrice, long int endTime, long endMscd, double endPrice )
+double PubFun::calcPercentSpeadProS( time_t startTime, int startMscd, double startPrice, time_t endTime, int endMscd, double endPrice )
 {
 	double second = (endTime - startTime) + (endMscd - startMscd)/1000.0;
 	return calcPercentSpeadProS(startPrice, endPrice, second);
@@ -319,13 +336,13 @@ std::string PubFun::get14TimeString( SYSTEMTIME& s_time )
 	return ch;
 }
 
-void PubFun::getIntListByStep( list<long long>& destList, double startValue, double endValue, int step )
+void PubFun::getIntListByStep( list<time_t>& destList, double startValue, double endValue, int step )
 {
 	destList.clear();
 	if(step > 0)
 	{
-		long long startInt = (long long)(startValue +  0.5);
-		long long tempInt = startInt;
+		time_t startInt = (time_t)(startValue +  0.5);
+		time_t tempInt = startInt;
 		while (true)
 		{
 			if(tempInt > endValue)
@@ -405,10 +422,10 @@ void PubFun::makePath( string filePath )
 	}
 }
 
-void PubFun::buildValueList( time_t startValue, time_t endValue, long step, map<long, long>& resValueMap )
+void PubFun::buildValueList( time_t startValue, time_t endValue, long step, map<time_t, time_t>& resValueMap )
 {
-	long tmpValue = 0;
-	for (long i = startValue; i < endValue; )
+	time_t tmpValue = 0;
+	for (time_t i = startValue; i < endValue; )
 	{
 		tmpValue = i + step;
 		tmpValue = tmpValue < endValue ? tmpValue : endValue;
@@ -555,6 +572,9 @@ void PubFun::removeDir(string dirPath)
         _findclose(handle);
     }
 }
+
+
+
 
 /*
 unsigned long long PubFun::GetCurrentTimeMsec()  

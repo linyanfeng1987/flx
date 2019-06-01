@@ -30,7 +30,7 @@ bool CProCorrecting::calc( double tmpTime, double tmpValue, map<double, double>&
 	{
 		double valueDef = curValue - lastValue;
 		double valueSetp = valueDef / timeDef;
-		list<long long> timeList;
+		list<time_t> timeList;
 		PubFun::getIntListByStep(timeList, lastTime, curTime, step);
 		double tempValue = 0;
 		for(long long timePoint : timeList)

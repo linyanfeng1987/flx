@@ -256,6 +256,36 @@ void CRow::setValue( string& strKey, double dValue )
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
 
+void CRow::setValue( string& strKey, int& nValue )
+{
+	auto iter = this->find(strKey);
+	if(iter != this->end())
+	{
+		iter->second->setValue(nValue);
+	}
+	else
+	{
+		this->insert(make_pair(strKey, newValueP(nValue)));
+	}
+
+	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
+}
+
+void CRow::setValue( string& strKey, time_t tValue )
+{
+	auto iter = this->find(strKey);
+	if(iter != this->end())
+	{
+		iter->second->setValue(tValue);
+	}
+	else
+	{
+		this->insert(make_pair(strKey, newValueP(tValue)));
+	}
+
+	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
+}
+
 
 std::string CRow::getStringValue(string& strKey)
 {
@@ -269,7 +299,7 @@ long CRow::getIntValue(string& strKey)
 
 time_t CRow::getTimeValue(string& strKey)
 {
-	return emptyFind(strKey)->getSizeTValue();
+	return emptyFind(strKey)->getTimeTValue();
 }
 
 double CRow::getDoubleValue(string& strKey)
@@ -282,9 +312,9 @@ void CRow::setStringValue(string& strKey, string& strValue )
 	this->setValue(strKey, strValue);
 }
 
-void CRow::setIntValue(string& strKey, long lValue )
+void CRow::setIntValue(string& strKey, int nValue )
 {
-	this->setValue(strKey, lValue);
+	this->setValue(strKey, nValue);
 }
 
 void CRow::setIndexValue( string& strKey, indexType iValue )
@@ -294,7 +324,7 @@ void CRow::setIndexValue( string& strKey, indexType iValue )
 
 void CRow::setTimeValue(string& strKey, time_t tValue )
 {
-	this->setValue(strKey, (double)tValue);
+	this->setValue(strKey, tValue);
 }
 
 void CRow::setDoubleValue(string& strKey, double dValue )
@@ -383,10 +413,14 @@ bool CRow::save2()
 
 void CRow::setDataStatus( DATA_STATUS status )
 {
-	for (auto valuePair : *this)
+	if (DATA_SAME ==  status)
 	{
-		valuePair.second->setSame();
+		for (auto valuePair : *this)
+		{
+			valuePair.second->setSame();
+		}
 	}
+	
 	m_dataStatus = status;
 }
 

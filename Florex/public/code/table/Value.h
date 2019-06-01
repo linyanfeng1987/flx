@@ -5,10 +5,10 @@
 
 using namespace std;
 
-//const int valueType_def = -1;
+const int valueType_def = -1;
 const int valueType_str = 0;
 const int valueType_int = 1;
-const int valueType_sizet  = 2;
+const int valueType_timet  = 2;
 const int valueType_double = 3;
 
 const string emptyString = "";
@@ -28,28 +28,35 @@ public:
 	CValue();
 	CValue(string strValue);
 	CValue(double dValue);
+	CValue(int nValue);
+	CValue(time_t stValue);
 
 	bool empty();
 
 	string& getStrValue();
 	int getIntValue();
-	size_t getSizeTValue();
+	time_t getTimeTValue();
 	double getDoubleValue();
 
 	void setValue(double dValue);
+	void setValue(int nValue);
+	void setValue(time_t tValue);
 	void setValue(string &strValue);
+
 	bool isDataSame(){return DATA_SAME == dataStatus;}
 	void setSame(){ dataStatus = DATA_SAME;}
 protected:
 	void init();
 	void buildDoubleValue();
 	void buildStringValue();
+	void buildIntValue();
+	void buildTimeTValue();
 
 	int dataType;
 
 	shared_ptr<string> pStrValue;
 	shared_ptr<int> pIntValue;
-	shared_ptr<size_t> pSizeTValue;
+	shared_ptr<time_t> pTimeTValue;
 	shared_ptr<double> pDoubleValue;
 
 	DATA_STATUS dataStatus;

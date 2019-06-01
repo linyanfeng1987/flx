@@ -25,8 +25,8 @@ protected:
 	void rangTaskList();
 	PCalcProcess getProcessTask( PRow processTaskInfoRow );
 
-	void withBaseCalc(map<long, long>& resValueMap, string& rateName);
-	void calcProcess(map<long, long>& resValueMap, string& rateName);
+	void withBaseCalc(map<time_t, time_t>& resValueMap, string& rateName);
+	void calcProcess(map<time_t, time_t>& resValueMap, string& rateName);
 	
 	PCalcProcess process;
 	list<PRow> tasks;

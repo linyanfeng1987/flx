@@ -31,7 +31,7 @@ time_t CDataOperation::GetLastTimeFromeRate( string rateName, int nType /*= time
 	try
 	{
 		CDbObj::instance().selectData(chSql, table);
-		curTime = table->begin()->second->find("curTime")->second->getSizeTValue();
+		curTime = table->begin()->second->find("curTime")->second->getTimeTValue();
 	}
 	catch (CStrException& e)
 	{

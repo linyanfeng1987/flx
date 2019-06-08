@@ -161,7 +161,7 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 		taskInfoRow->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
 		taskInfoRow->save();
 
-		time_t completeTime = threadInfo->getRowData()->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
+		time_t completeTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_startTime);
 		threadInfo->getRowData()->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, completeTime);
 		threadInfo->getRowData()->setStringValue(CThreadStatusStruct::key_completeTaskLastTimeDesc, PubFun::getTimeFormat(completeTime));
 		threadInfo->getRowData()->save();

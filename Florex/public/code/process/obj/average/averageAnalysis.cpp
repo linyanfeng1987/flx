@@ -11,9 +11,10 @@ CAverageAnalysis::CAverageAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInfo)
 
 void CAverageAnalysis::add(PRateValue value)
 {
-	for (auto obj : averageObjs)
+	for (auto pipeline : pipelines)
 	{
-		obj.second->add(value);
+		//obj.second->add(value);
+		pipeline->add(value);
 	}
 
 	// 连续查找的意义在哪里，如果没有预测和几率就没有意义
@@ -36,7 +37,13 @@ void CAverageAnalysis::init()
 
 	for (double stepTime : stepTimes)
 	{
-		PAverageObj obj = newAverageObj(dTemplates, rateInfo, stepTime);
-		averageObjs.insert(make_pair(obj->getTagId(), obj));
+		PCalcPipeline pipeline = newCalcPipeline();
+
+		PAverageCalcNode  calcNode = newAverageCalcNode(rateInfo, stepTime);
+		pipeline->puchBack(calcNode);
+		PAverageDecisionNode decisionNode = newAverageDecisionNode(dTemplates, rateInfo, stepTime);
+		pipeline->puchBack(decisionNode);
+
+		pipelines.push_back(pipeline);
 	}
 }

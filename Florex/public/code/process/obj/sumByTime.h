@@ -2,6 +2,8 @@
 #include <list>
 #include <map>
 
+#include "LogObj.h"
+#include "ConstDef.h"
 #include "process/obj/rateValue.h"
 
 using namespace std;
@@ -36,6 +38,8 @@ protected:
 	list<PRateValue> values;
 	double maxTimeStep;
 	double sumValue;
+
+	CLogObj& log;
 // 	double lastTime;
 // 	double firstTime;
 };

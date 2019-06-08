@@ -48,6 +48,7 @@ public:
 	static void removeDir(string dirPath);
 
 	static time_t HisRateStringToDatetime(const char *str);
+	static time_t formartTimeToDatetime(const char *str);
 
 	static string getStepNameByType(int nStepType);
 	static string getStepNameBySecond(time_t second);

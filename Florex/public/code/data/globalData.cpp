@@ -42,17 +42,17 @@ void CGlobalData::initDataInCode()
 	list<string> tmpList;
 	CProcessType tmpType;
 
-// 	tmpType.processTypeName = processType_baseCalc;
-// 	tmpType.timeStep = 900;
-// 	tmpType.dependOnTypeList.push_back("");
-// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-// 	tmpList.push_back(tmpType.processTypeName);
-
-	tmpType.processTypeName = PubFun::strFormat("%s_%s_%s", processType_baseCalc.c_str(),processType_continue.c_str(),processType_average.c_str());
+	tmpType.processTypeName = processType_baseCalc;
 	tmpType.timeStep = 900;
 	tmpType.dependOnTypeList.push_back("");
 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
 	tmpList.push_back(tmpType.processTypeName);
+
+// 	tmpType.processTypeName = PubFun::strFormat("%s_%s_%s", processType_baseCalc.c_str(),processType_continue.c_str(),processType_average.c_str());
+// 	tmpType.timeStep = 900;
+// 	tmpType.dependOnTypeList.push_back("");
+// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+// 	tmpList.push_back(tmpType.processTypeName);
 
 // 	tmpType.processTypeName = processType_average;
 // 	tmpType.timeStep = 900;

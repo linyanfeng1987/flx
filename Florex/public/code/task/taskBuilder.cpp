@@ -66,19 +66,20 @@ bool CTaskBuilder::runOneThreadType(string rateName, CProcessType& processType )
 {
 	bool hasTask = false;
 	string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
-	time_t rateLastTime = getRateLastTime(rateName);
-	string timeStr1 = PubFun::getTimeFormat(rateLastTime);
-	log.debug(logInfo, PubFun::strFormat("get rateLastTime by rate:%s value:%ld", rateName.c_str(),rateLastTime));
 	string porcessTypeName = processType.getProcessName();
 	PRow threadStatusInfo = CDbFunc::getThreadStatusLine(rateName, porcessTypeName);
 	int lastThreadId = CDbFunc::getThreadLastId();
 	//获取第一行的值
 	time_t processBuildLastTime = 0;
+	time_t taskBuildEndTime = 0;
 	if(nullptr != threadStatusInfo)
-
 	{
 		processBuildLastTime = threadStatusInfo->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
 		log.debug(logInfo, PubFun::strFormat("get buildLastTime from threadStatusInfo %ld", processBuildLastTime));
+		// 获取终止时间
+		string formartEndTime = threadStatusInfo->getStringValue(CThreadStatusStruct::key_buildTaskEndTimeDesc);
+		log.debug(logInfo, PubFun::strFormat("get buildTaskEndTimeDesc from threadStatusInfo %%s", formartEndTime.c_str()));
+		taskBuildEndTime = PubFun::formartTimeToDatetime(formartEndTime.c_str());
 	}
 	else
 	{
@@ -96,9 +97,26 @@ bool CTaskBuilder::runOneThreadType(string rateName, CProcessType& processType )
 		log.debug(logInfo, PubFun::strFormat("get buildLastTime from rateStartTime %ld", processBuildLastTime));
 	}
 
+	if (0 == processBuildLastTime)
+	{
+		// 通过外部配置的起始时间，构造processBuildLastTime
+		string formatStartTime = threadStatusInfo->getStringValue(CThreadStatusStruct::key_buildTaskStartTimeDesc);
+		processBuildLastTime = PubFun::formartTimeToDatetime(formatStartTime.c_str());
+		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, processBuildLastTime);
+		threadStatusInfo->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc,  PubFun::getTimeFormat(processBuildLastTime));
+		threadStatusInfo->save();
+	}
+
+	if (0 == taskBuildEndTime)
+	{
+		// 使用rate的时间替换
+		taskBuildEndTime = getRateLastTime(rateName);
+		log.debug(logInfo, PubFun::strFormat("get rateLastTime by rate:%s value:%ld", rateName.c_str(),taskBuildEndTime));
+	}
+
 	PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
-	time_t timeStep = rateLastTime - processBuildLastTime;
-	while (processBuildLastTime + gHisCalcStepTime < rateLastTime)
+	time_t timeStep = taskBuildEndTime - processBuildLastTime;
+	while (processBuildLastTime + gHisCalcStepTime < taskBuildEndTime)
 	{
 		hasTask = true;
 		PRow taskInfo = newRow(taskInfoStruct);

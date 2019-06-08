@@ -17,7 +17,7 @@ CAverageObj::CAverageObj(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo 
 	}
 }
 
-void CAverageObj::add( PRateValue curValue )
+PRateValue CAverageObj::add( PRateValue curValue )
 {
 	PRateValue averValue = newRateValueCopy(*curValue);
 	averValue->value = averCalcObj->add(curValue);

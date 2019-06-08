@@ -10,6 +10,8 @@ string CThreadStatusStruct::key_threadStatus = "threadStatus";
 //string CThreadStatusStruct::key_step = "step"; 
 string CThreadStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
 string CThreadStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
+string CThreadStatusStruct::key_buildTaskStartTimeDesc = "buildTaskStartTimeDesc";
+string CThreadStatusStruct::key_buildTaskEndTimeDesc = "buildTaskEndTimeDesc";
 string CThreadStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
 string CThreadStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc"; 
 
@@ -40,6 +42,12 @@ CThreadStatusStruct::CThreadStatusStruct()
 	this->insert(make_pair(field.strName, field));
 
 	field.load(key_buildTaskLastTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(key_buildTaskStartTimeDesc, typeString);
+	this->insert(make_pair(field.strName, field));
+
+	field.load(key_buildTaskEndTimeDesc, typeString);
 	this->insert(make_pair(field.strName, field));
 
 	//completeTaskLastTime

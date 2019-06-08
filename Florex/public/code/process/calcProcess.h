@@ -22,6 +22,7 @@ protected:
 
 	//PAverageAnalysis averageAnalysis;
 	//PContinueAnalysis continueAnalysis;
+	double timeCheck;
 };
 typedef shared_ptr<CCalcProcess> PCalcProcess;
 #define newCalcProcess(T) make_shared<CCalcProcess>(T)

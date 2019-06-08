@@ -28,6 +28,20 @@ void CCalcProcess::calc( list<PRateValue> &values )
 {
 	for (PRateValue rateValue : values)
 	{
+#ifdef DEBUG_CHECK
+		//时间正向检查
+		if (timeCheck < rateValue->time)
+		{
+			timeCheck = rateValue->time;
+		}
+		else
+		{
+			CLogObj::instance().error(PubFun::strFormat("time error before time:%s, curent time:%s", 
+				PubFun::getTimeFormat((time_t)timeCheck).c_str(),
+				PubFun::getTimeFormat((time_t)rateValue->time).c_str()));
+		}
+#endif // DEBUG_CHECK
+
 		for (auto analyPair:analysiss)
 		{
 			analyPair.second->add(rateValue);
@@ -38,6 +52,7 @@ void CCalcProcess::calc( list<PRateValue> &values )
 void CCalcProcess::init()
 {
 	calcProData = newCalcProData(rateInfo);
+	timeCheck = 0;
 // 	PRateInfo rateInfo = newRateInfo();
 // 	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
 }

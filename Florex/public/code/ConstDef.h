@@ -63,3 +63,5 @@ const size_t longSleepTime = 60000;
 const size_t shortSleepTime = 1000;
 
 const int gHisCalcStepTime = 60*60*4;
+
+#define DEBUG_CHECK

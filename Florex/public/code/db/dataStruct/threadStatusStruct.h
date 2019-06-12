@@ -17,6 +17,7 @@ public:
 	static string key_rateName; 
 	static string key_threadTypeName; 
 	static string key_threadStatus; 
+	static string key_stepTime; 
 	
 	//static string key_step; 
 

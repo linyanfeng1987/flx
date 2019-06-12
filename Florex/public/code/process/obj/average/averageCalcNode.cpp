@@ -17,6 +17,7 @@ PRateValue CAverageCalcNode::add( PRateValue curValue )
 	averValue->value = averCalcObj->add(curValue);
 
 	saveToDb(averValue);
+	return averValue;
 }
 
 void CAverageCalcNode::saveToDb( PRateValue averageValue )

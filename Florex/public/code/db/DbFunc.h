@@ -21,6 +21,8 @@ public:
 
 	static PRow getThreadStatusLine(string rateName, string processTypeName);
 
+	static void getThreadInfos(list<PThreadInfo>& threadInfos);
+
 	static int getThreadLastId();
 
 	static void zeroThreadStatus();

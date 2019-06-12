@@ -30,7 +30,7 @@ void CCalcProcess::calc( list<PRateValue> &values )
 	{
 #ifdef DEBUG_CHECK
 		//时间正向检查
-		if (timeCheck < rateValue->time)
+		if (timeCheck <= rateValue->time)
 		{
 			timeCheck = rateValue->time;
 		}

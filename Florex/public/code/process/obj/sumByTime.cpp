@@ -57,7 +57,7 @@ double CSumByTime::getAverage()
 			debugSum += rateValue->value;
 		}
 		double debugRes = debugSum / values.size();
-		if (debugRes != res)
+		if (debugRes - res > 0.0001)
 		{
 			log.error(PubFun::strFormat("error average value res:%lf, debugRes:%lf", res, debugRes));
 		}

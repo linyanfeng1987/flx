@@ -1,6 +1,6 @@
 #include "calcPipeline.h"
 
-PRateValue CCalcPipeline::add( PRateValue rateValue )
+void CCalcPipeline::add( PRateValue rateValue )
 {
 	PRateValue tempValue = rateValue;
 	for (PBasePipelineNode node : nodes)

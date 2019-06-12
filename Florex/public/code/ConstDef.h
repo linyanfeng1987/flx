@@ -64,4 +64,12 @@ const size_t shortSleepTime = 1000;
 
 const int gHisCalcStepTime = 60*60*4;
 
+const int taskStatus_def = 0;
+const int taskStatus_run = 1;
+const int taskStatus_complate = 2;
+const int taskStatus_error = 3;
+
+
+
+
 #define DEBUG_CHECK

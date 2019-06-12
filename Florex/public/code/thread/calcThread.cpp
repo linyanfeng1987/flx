@@ -30,10 +30,19 @@ void CCalcThread::init()
 {
 	// 从数据库中加载未执行的任务
 	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_threadId);
-	getTaskSql = CProcessTaskInfoStruct::instence()->getSelectSqlLimit1(
+	auto taskTableStruct = CProcessTaskInfoStruct::instence();
+	string updateSql = PubFun::strFormat("update %s set %s=%d where %s=%d and %s=%d;", 
+		taskTableStruct->tableName.c_str(), 
+		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def,
+		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
+		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_run);
+	CDbObj::instance().executeSql(updateSql.c_str());
+
+	// 拼好查询语句
+	getTaskSql = taskTableStruct->getSelectSqlLimit1(
 		PubFun::strFormat("%s=%d and %s=%d", 
 		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
-		CProcessTaskInfoStruct::key_status.c_str(), 0), 
+		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def), 
 		PubFun::strFormat("order by %s", 
 		CProcessTaskInfoStruct::key_startTime.c_str()));
 	process = getProcess(threadInfo->getRowData());
@@ -104,7 +113,7 @@ PRow CCalcThread::getOneTask()
 		row = CDbObj::instance().selectOneData(getTaskSql.c_str(), CProcessTaskInfoStruct::instence());
 		if (nullptr != row)
 		{
-			row->setStringValue(CProcessTaskInfoStruct::key_status, string("1"));
+			row->setIntValue(CProcessTaskInfoStruct::key_status, taskStatus_run);
 			row->save();
 		}
 	}
@@ -158,7 +167,7 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 {
 	try
 	{
-		taskInfoRow->setStringValue(CProcessTaskInfoStruct::key_status, string("3"));
+		taskInfoRow->setIntValue(CProcessTaskInfoStruct::key_status, taskStatus_complate);
 		taskInfoRow->save();
 
 		time_t completeTime = taskInfoRow->getTimeValue(CProcessTaskInfoStruct::key_startTime);
@@ -180,10 +189,11 @@ void CCalcThread::withBaseCalc( map<time_t, time_t>& resValueMap, string& rateNa
 	PTable rateTable = newTable(rateStruct);
 	for (auto iter : resValueMap)
 	{
+		// 这里sql的时间必须是半开半闭区间，否则会有数据重复
 		string condition = "";
 		condition.append(CCurRateStruct::curTime).append(">=").append(PubFun::timetToString(iter.first));
 		condition.append(" and ");
-		condition.append(CCurRateStruct::curTime).append("<=").append(PubFun::timetToString(iter.second));
+		condition.append(CCurRateStruct::curTime).append("<").append(PubFun::timetToString(iter.second));
 		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s,%s", CCurRateStruct::curTime.c_str(), CCurRateStruct::curMsec.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);
@@ -197,10 +207,11 @@ void CCalcThread::calcProcess( map<time_t, time_t>& resValueMap, string& rateNam
 	PTable rateTable = newTable(rateStruct);
 	for (auto iter : resValueMap)
 	{
+		// 这里sql的时间必须是半开半闭区间，否则会有数据重复
 		string condition = "";
 		condition.append(CCalcRateStruct::curTime).append(">=").append(PubFun::timetToString(iter.first));
 		condition.append(" and ");
-		condition.append(CCalcRateStruct::curTime).append("<=").append(PubFun::timetToString(iter.second));
+		condition.append(CCalcRateStruct::curTime).append("<").append(PubFun::timetToString(iter.second));
 		string sql = rateStruct->getSelectSql(condition, PubFun::strFormat("order by %s", CCalcRateStruct::curTime.c_str()));
 
 		CDbObj::instance().selectData(sql.c_str(), rateTable);

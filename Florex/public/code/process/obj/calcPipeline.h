@@ -6,12 +6,13 @@
 using namespace std;
 
 // 计算pipeline
+// 以后可能发展成树形结构，不过要xml读取做完
 class CCalcPipeline
 {
 public:
 	CCalcPipeline(){}
 	virtual ~CCalcPipeline(){}
-	virtual PRateValue add(PRateValue rateValue);
+	virtual void add(PRateValue rateValue);
 
 	void puchBack(PBasePipelineNode node){nodes.push_back(node);}
 	void clear(){nodes.clear();}

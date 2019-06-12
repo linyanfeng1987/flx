@@ -61,3 +61,24 @@ void CDbFunc::zeroThreadStatus()
 		CLogObj::instance().error(string("firstRun 失败！msg:").append(e.what()));
 	}
 }
+
+void CDbFunc::getThreadInfos(list<PThreadInfo>& threadInfos)
+{
+	try{
+		// 从数据库中加载未执行的任务
+		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
+		string sql = processSt->getSelectSql();
+		PTable table = newTable(processSt);
+		CDbObj::instance().selectData(sql.c_str(), table);
+
+		for(auto it : *table)
+		{
+			PThreadInfo info = newThreadInfo(it.second, thread_calc_stauts);
+			threadInfos.push_back(info);
+		}
+	}
+	catch (CStrException& e)
+	{
+		CLogObj::instance().error(string("firstRun 失败！msg:").append(e.what()));
+	}
+}

@@ -67,8 +67,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	db.initMySQL();
 	string strSqlFormat = "insert into core.newTable ( name, value ) value ( '%s', '%s');";
 
-	string sql = PubFun::strFormat(strSqlFormat.c_str(), PubFun::get14CurTimeString().c_str(), "linyanfeng");
-	db.executeSql(sql.c_str());
+	try
+	{
+		string sql = PubFun::strFormat(strSqlFormat.c_str(), PubFun::get14CurTimeString().c_str(), "linyanfeng");
+		db.executeSql(sql.c_str());
+	}
+	catch (CStrException &e)
+	{
+		// ±ØÈ»³ö´í
+		printf("db start!");
+	}
+	
 	/*
 	string strSqlTest = "select * from florex.currency_pair_XAUUSD order by curTime desc, curMsec desc limit 1;";
 	CCurRateStruct rateStruct;

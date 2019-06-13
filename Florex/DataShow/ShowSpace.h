@@ -13,8 +13,8 @@ class ShowSpace : public CEdit
 	DECLARE_DYNAMIC(ShowSpace)
 
 public:
+	//void addRateValueTable(string tagName, PTable rateValueTable);
 	void addRateValueTable(string tagName, PTable rateValueTable);
-	void addAverageRateValueTable(string tagName, PTable rateValueTable);
 	void addOptValueTable(string tagName, PTable optValueTable);
 
 	void clear();

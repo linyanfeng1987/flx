@@ -76,18 +76,15 @@ void ShowSpace::spOnPaint()
 	CPaintDC dc(this);
 	if (0 != maxRateValue)
 	{
-		CPen pen1(PS_SOLID,1,RGB(255,0,0));
-		for (auto tablePair : rateTables)
-		{
-			PTable table = tablePair.second;
-			paintRateValue(CCurRateStruct::priceBuy, CCurRateStruct::curTime, table, dc, pen1);
-		}
-
-		CPen pen2(PS_SOLID,1,RGB(0,255,0));
+		int lineSize = averageRateTables.size();
+		int step = 255/lineSize;
+		int color = 0;
 		for (auto tablePair : averageRateTables)
 		{
+			color += step;
+			CPen pen(PS_SOLID,1,RGB(color,color,color));
 			PTable table = tablePair.second;
-			paintRateValue(CCalcRateStruct::curValue, CCalcRateStruct::curTime, table, dc, pen2);
+			paintRateValue(CCalcRateStruct::curValue, CCalcRateStruct::curTime, table, dc, pen);
 		}
 	}
 }
@@ -99,7 +96,7 @@ void ShowSpace::clear()
 	optTables.clear();
 	OnPaint();
 }
-
+/*
 void ShowSpace::addRateValueTable( string tagName, PTable rateValueTable )
 {
 	auto pr = rateTables.insert(make_pair(tagName, rateValueTable));
@@ -108,8 +105,8 @@ void ShowSpace::addRateValueTable( string tagName, PTable rateValueTable )
 		loadValueBorder(CCurRateStruct::priceBuy, CCurRateStruct::curTime, rateValueTable);
 	}
 }
-
-void ShowSpace::addAverageRateValueTable( string tagName, PTable rateValueTable )
+*/
+void ShowSpace::addRateValueTable( string tagName, PTable rateValueTable )
 {
 	auto pr = averageRateTables.insert(make_pair(tagName, rateValueTable));
 	if (pr.second)

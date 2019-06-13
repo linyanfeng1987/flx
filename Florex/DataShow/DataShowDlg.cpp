@@ -185,25 +185,19 @@ void CDataShowDlg::OnBnClickedButton1()
 	PTableStruct tableStruct = nullptr;
 	for (string strRow : strRows)
 	{
-		list<string> oneInfo = PubFun::split(strRow, string(";"));
+		list<string> oneInfo = PubFun::split(strRow, string(":"));
 		auto iter = oneInfo.begin();
 		string tagName = *iter;
 		iter++;
-		string strType = *iter;
-		iter++;
 		string sql = *iter;
-		if (strType == "average")
-		{
-			tableStruct = CCalcRateStruct::instence();
-		}
-		else
-		{
-			tableStruct = CCurRateStruct::instence();
-		}
+
+		tableStruct = CCalcRateStruct::instence();
+
 		getSqlData(sql.c_str(), tagName, tableStruct);
 	}
 
 	showSpace.spOnPaint();
+	CDialogEx::OnPaint();
 }
 
 void CDataShowDlg::getSqlData( const char* sql, string tagName, PTableStruct tableStruct )

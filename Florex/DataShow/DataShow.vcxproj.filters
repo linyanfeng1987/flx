@@ -14,61 +14,61 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="public">
-      <UniqueIdentifier>{c1277882-59a9-4758-bc77-2e7c9c725c7f}</UniqueIdentifier>
+      <UniqueIdentifier>{c21064d7-4265-4a5c-868e-1b681207197f}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\task">
-      <UniqueIdentifier>{7b659c34-3d5e-4162-b883-7230079029d9}</UniqueIdentifier>
+      <UniqueIdentifier>{0486af59-1ebc-4dfc-b036-16400d9cc042}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tinyXml">
-      <UniqueIdentifier>{820783da-9670-4691-a0d3-1c55194be5c1}</UniqueIdentifier>
+      <UniqueIdentifier>{1bc00c23-3874-4485-8e40-a057f2a658b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process">
-      <UniqueIdentifier>{d1633bd9-be43-4594-9795-52f311c47dbc}</UniqueIdentifier>
+      <UniqueIdentifier>{0fe226aa-5773-48dd-bd46-8cd920b72d48}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\cap">
-      <UniqueIdentifier>{11b1dc0f-93b5-475b-bbad-2f85b8a4cc0c}</UniqueIdentifier>
+      <UniqueIdentifier>{103f1203-362c-4a08-bfb9-58316b69a0bb}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\calculation">
-      <UniqueIdentifier>{046a9151-dffe-4125-a39e-3657dcfebb9f}</UniqueIdentifier>
+      <UniqueIdentifier>{68a6fff4-16ac-4f5d-9ec6-8838ab06b3bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj">
-      <UniqueIdentifier>{45fa898e-7c50-412a-b74d-78512c78b977}</UniqueIdentifier>
+      <UniqueIdentifier>{c4052961-a692-47d2-a394-3afac17370df}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj\continue">
-      <UniqueIdentifier>{85a7befc-9663-44b1-9c8e-e1f3000b9cb4}</UniqueIdentifier>
+      <UniqueIdentifier>{da6f1cae-59ce-44b6-a644-03e7515a43f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj\function">
-      <UniqueIdentifier>{5b9bf42f-2c73-471a-9d16-0c674814074a}</UniqueIdentifier>
+      <UniqueIdentifier>{c91a5fcb-6bd9-4de4-bcd4-cf8e77856f2a}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\obj\average">
-      <UniqueIdentifier>{7476dd14-b16f-4109-93d5-b79e2f18ae0b}</UniqueIdentifier>
+      <UniqueIdentifier>{bb964ae3-0986-4b64-b23d-7d6d60c5156e}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\process\decision">
-      <UniqueIdentifier>{afc0706b-41f8-43a2-b0b5-d84b0e79bb28}</UniqueIdentifier>
+      <UniqueIdentifier>{14462a12-c069-4e70-b3d1-4adc353e6b8b}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\data">
-      <UniqueIdentifier>{90458a02-73f1-4456-9911-3f38485ceab9}</UniqueIdentifier>
+      <UniqueIdentifier>{0ecf2ab1-f3db-4054-a804-f549502963f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db">
-      <UniqueIdentifier>{bfe7b5d0-9de1-4c3e-95f1-a7f81f4b8db8}</UniqueIdentifier>
+      <UniqueIdentifier>{b1713b56-0a51-40da-99f9-bd3fa809c226}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\db\dataStruct">
-      <UniqueIdentifier>{1180befb-d394-4c37-8872-9fffcba541b8}</UniqueIdentifier>
+      <UniqueIdentifier>{fd34ad5a-b9d3-46ae-a5dd-0c4436fcc8b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\table">
-      <UniqueIdentifier>{e24312c2-c9a6-4438-99cf-26a776569c12}</UniqueIdentifier>
+      <UniqueIdentifier>{bf60cf37-6b1f-40d4-a055-813cad9a3a52}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\rate">
-      <UniqueIdentifier>{9e9d6b14-5d78-44dd-a833-0bc070c3dbc5}</UniqueIdentifier>
+      <UniqueIdentifier>{efcdf168-104d-46d5-ab29-8ca7e34b9ada}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\tools">
-      <UniqueIdentifier>{23e75946-94dd-4fe4-9d86-d6388dab3979}</UniqueIdentifier>
+      <UniqueIdentifier>{3cf3b838-3c88-47aa-8aae-df998c2694ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\account">
-      <UniqueIdentifier>{4eba79a5-3b68-4e82-be4a-c1802ab61f4b}</UniqueIdentifier>
+      <UniqueIdentifier>{a8f56241-4b72-4430-8bd4-dceb8da20378}</UniqueIdentifier>
     </Filter>
     <Filter Include="public\thread">
-      <UniqueIdentifier>{25a587a8-da5e-4d99-88f1-1b586a184643}</UniqueIdentifier>
+      <UniqueIdentifier>{903fa1b9-489b-41b7-bbdf-78fe56f3994c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +156,12 @@
     <ClInclude Include="..\public\code\process\obj\baseAnalysis.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\basePipelineNode.h">
+      <Filter>public\process\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\calcPipeline.h">
+      <Filter>public\process\obj</Filter>
+    </ClInclude>
     <ClInclude Include="..\public\code\process\obj\proCorrecting.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
@@ -198,7 +204,10 @@
     <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h">
       <Filter>public\process\obj\average</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\process\obj\average\averageObj.h">
+    <ClInclude Include="..\public\code\process\obj\average\averageCalcNode.h">
+      <Filter>public\process\obj\average</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\process\obj\average\averageDecisionNode.h">
       <Filter>public\process\obj\average</Filter>
     </ClInclude>
     <ClInclude Include="..\public\code\process\decision\averageDecision.h">
@@ -374,6 +383,9 @@
     <ClCompile Include="..\public\code\process\obj\baseAnalysis.cpp">
       <Filter>public\process\obj</Filter>
     </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\calcPipeline.cpp">
+      <Filter>public\process\obj</Filter>
+    </ClCompile>
     <ClCompile Include="..\public\code\process\obj\proCorrecting.cpp">
       <Filter>public\process\obj</Filter>
     </ClCompile>
@@ -416,7 +428,10 @@
     <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp">
       <Filter>public\process\obj\average</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp">
+    <ClCompile Include="..\public\code\process\obj\average\averageCalcNode.cpp">
+      <Filter>public\process\obj\average</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\process\obj\average\averageDecisionNode.cpp">
       <Filter>public\process\obj\average</Filter>
     </ClCompile>
     <ClCompile Include="..\public\code\process\decision\averageDecision.cpp">

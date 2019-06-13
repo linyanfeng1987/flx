@@ -137,8 +137,11 @@
     <ClInclude Include="..\public\code\process\decision\averageDecision.h" />
     <ClInclude Include="..\public\code\process\decision\continueDecision.h" />
     <ClInclude Include="..\public\code\process\obj\average\averageAnalysis.h" />
-    <ClInclude Include="..\public\code\process\obj\average\averageObj.h" />
+    <ClInclude Include="..\public\code\process\obj\average\averageCalcNode.h" />
+    <ClInclude Include="..\public\code\process\obj\average\averageDecisionNode.h" />
     <ClInclude Include="..\public\code\process\obj\baseAnalysis.h" />
+    <ClInclude Include="..\public\code\process\obj\basePipelineNode.h" />
+    <ClInclude Include="..\public\code\process\obj\calcPipeline.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueAnalysis.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueFinder.h" />
     <ClInclude Include="..\public\code\process\obj\continue\continueJudgeGroup.h" />
@@ -210,8 +213,10 @@
     <ClCompile Include="..\public\code\process\decision\averageDecision.cpp" />
     <ClCompile Include="..\public\code\process\decision\continueDecision.cpp" />
     <ClCompile Include="..\public\code\process\obj\average\averageAnalysis.cpp" />
-    <ClCompile Include="..\public\code\process\obj\average\averageObj.cpp" />
+    <ClCompile Include="..\public\code\process\obj\average\averageCalcNode.cpp" />
+    <ClCompile Include="..\public\code\process\obj\average\averageDecisionNode.cpp" />
     <ClCompile Include="..\public\code\process\obj\baseAnalysis.cpp" />
+    <ClCompile Include="..\public\code\process\obj\calcPipeline.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueAnalysis.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueFinder.cpp" />
     <ClCompile Include="..\public\code\process\obj\continue\continueJudgeGroup.cpp" />

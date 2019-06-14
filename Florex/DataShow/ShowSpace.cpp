@@ -6,8 +6,11 @@
 #include "ShowSpace.h"
 
 
-// ShowSpace
 
+// ShowSpace
+const int deviation = 30;
+const int deviationHf = deviation/2;
+	
 IMPLEMENT_DYNAMIC(ShowSpace, CEdit)
 
 ShowSpace::ShowSpace()
@@ -18,7 +21,7 @@ ShowSpace::ShowSpace()
 	minTime = 0;
 	borderInit = false;
 
-	maxShowW = 800;
+	maxShowW = 1000;
 	maxShowH = 250;
 }
 
@@ -29,9 +32,8 @@ ShowSpace::~ShowSpace()
 
 BEGIN_MESSAGE_MAP(ShowSpace, CEdit)
 	ON_WM_PAINT()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
-
-
 
 // ShowSpace 消息处理程序
 void ShowSpace::OnPaint()
@@ -68,25 +70,35 @@ void ShowSpace::OnPaint()
 // 	NewBrush.DeleteObject();
 		// TODO: 在此处添加消息处理程序代码
 		// 不为绘图消息调用 CEdit::OnPaint()
-	//CEdit::OnPaint();
+	spOnPaint();
+	CEdit::OnPaint();
 }
 
 void ShowSpace::spOnPaint()
 {
+	CRect rect;
+	GetWindowRect(&rect);
+	maxShowW = rect.right - rect.left - deviation;
+	maxShowH = rect.bottom - rect.top - deviation;
 	CPaintDC dc(this);
+	CBrush brush(RGB(0, 0, 0));
+	dc.FillRect(&rect, &brush);
 	if (0 != maxRateValue)
 	{
 		int lineSize = averageRateTables.size();
-		int step = 255/lineSize;
+		int step = 30;
 		int color = 0;
 		for (auto tablePair : averageRateTables)
 		{
 			color += step;
-			CPen pen(PS_SOLID,1,RGB(color,color,color));
+			CPen pen(PS_SOLID,1,RGB(color/5,color/4,color));
+			dc.SelectObject(pen);
 			PTable table = tablePair.second;
-			paintRateValue(CCalcRateStruct::curValue, CCalcRateStruct::curTime, table, dc, pen);
+			paintRateValue(CCalcRateStruct::curValue, CCalcRateStruct::curTime, table, dc);
 		}
 	}
+	//InvalidateRect(&rect);
+	//Invalidate(TRUE);
 }
 
 void ShowSpace::clear()
@@ -148,7 +160,7 @@ void ShowSpace::loadValueBorder( string rateValueField, string timeField, PTable
 	}
 }
 
-void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable table, CPaintDC &dc, CPen &pen )
+void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable table, CPaintDC &dc )
 {
 	shared_ptr<CPoint> point = nullptr;
 	shared_ptr<CPoint> pointTo = nullptr;
@@ -158,8 +170,8 @@ void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable 
 		double curValue = row->getDoubleValue(rateValueField);
 		double curTime = row->getDoubleValue(timeField);
 
-		int x = (curTime - minTime)/bigTimeStep * maxShowW;
-		int y = (1-(curValue - minRateValue)/bigValueStep) * maxShowH;
+		int x = deviationHf+(curTime - minTime)/bigTimeStep * maxShowW;
+		int y = deviationHf+(1-(curValue - minRateValue)/bigValueStep) * maxShowH;
 		
 		if (nullptr == point)
 		{
@@ -183,3 +195,19 @@ void ShowSpace::paintRateValue( string rateValueField, string timeField, PTable 
 }
 
 
+// void ShowSpace::OnPaint()
+// {
+// 	CPaintDC dc(this); // device context for painting
+//	spOnPaint();
+// 	CEdit::OnPaint();
+// 		// TODO: 在此处添加消息处理程序代码
+// 		// 不为绘图消息调用 CEdit::OnPaint()
+// }
+
+
+void ShowSpace::OnSize(UINT nType, int cx, int cy)
+{
+	CEdit::OnSize(nType, cx, cy);
+
+	// TODO: 在此处添加消息处理程序代码
+}

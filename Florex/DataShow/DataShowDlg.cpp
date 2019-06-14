@@ -196,8 +196,7 @@ void CDataShowDlg::OnBnClickedButton1()
 		getSqlData(sql.c_str(), tagName, tableStruct);
 	}
 
-	showSpace.spOnPaint();
-	CDialogEx::OnPaint();
+	showSpace.Invalidate(true);
 }
 
 void CDataShowDlg::getSqlData( const char* sql, string tagName, PTableStruct tableStruct )

@@ -28,7 +28,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	void loadValueBorder(string rateValueField, string timeField, PTable table);
-	void paintRateValue(string rateValueField, string timeField, PTable rateValueTable, CPaintDC &dc, CPen &pen);
+	void paintRateValue(string rateValueField, string timeField, PTable rateValueTable, CPaintDC &dc);
 
 	bool borderInit;
 	double maxRateValue;
@@ -46,6 +46,7 @@ protected:
 	map<string, PTable> optTables;
 public:
 	afx_msg void OnPaint();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 

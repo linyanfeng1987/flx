@@ -20,7 +20,6 @@ CCalcRateStruct::CCalcRateStruct()
 	addField();
 }
 
-
 CCalcRateStruct::~CCalcRateStruct()
 {
 	

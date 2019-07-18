@@ -50,6 +50,7 @@ void CCalcThread::init()
 
 PCalcProcess CCalcThread::getProcess( PRow taskInfo )
 {
+	@@@@
 	PRateInfo rateInfo = newRateInfo();
 	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
 	PCalcProcess process = newCalcProcess(rateInfo);

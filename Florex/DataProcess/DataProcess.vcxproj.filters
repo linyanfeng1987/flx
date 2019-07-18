@@ -70,6 +70,9 @@
     <Filter Include="public\thread">
       <UniqueIdentifier>{e9df395b-9517-4c70-9943-59e6cbc7faa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\config">
+      <UniqueIdentifier>{536fe34e-1eae-4636-bf98-3c7e3b91392a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -288,6 +291,24 @@
     <ClInclude Include="..\public\code\process\obj\calcPipeline.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\config\threadCfgInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\baseCfgInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\pipelineNodeInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\analysisInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\dataSrcInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\pipelineInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -502,6 +523,24 @@
     </ClCompile>
     <ClCompile Include="..\public\code\process\obj\calcPipeline.cpp">
       <Filter>public\process\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\threadCfgInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\baseCfgInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\pipelineNodeInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\analysisInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\dataSrcInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\pipelineInfo.cpp">
+      <Filter>public\config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

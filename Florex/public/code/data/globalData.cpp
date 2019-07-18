@@ -34,7 +34,21 @@ CGlobalData& CGlobalData::instance()
 
 void CGlobalData::loadConfig()
 {
+	TiXmlDocument doc;
+	doc.LoadFile("./conf/processInfo.xml");
+	TiXmlElement *root = doc.FirstChildElement(); 
+	TiXmlElement *childNode = root->FirstChildElement();
+	while (nullptr != childNode)
+	{
+		if(PubFun::isNodeNamed(childNode, "thread"))
+		{
+			PThreadCfgInfo threadCfgInfo = newThreadCfgInfo();
+			threadCfgInfo->loadByXml(childNode);
+			threadInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
+		}
 
+		childNode = childNode->NextSiblingElement(); 
+	}
 }
 
 void CGlobalData::initDataInCode()

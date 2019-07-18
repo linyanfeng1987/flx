@@ -38,7 +38,7 @@ class CBaseThread
 {
 public:
 	CBaseThread(PThreadInfo _threadInfo);
-	~CBaseThread();
+	virtual ~CBaseThread();
 	PThreadInfo getThreadInfo(){return threadInfo;}
 	int getStatus(){return status;}
 

@@ -15,6 +15,8 @@
 
 #include "thread/baseThread.h"
 
+#include "config/threadCfgInfo.h"
+
 class CGlobalData
 {
 public:
@@ -48,6 +50,7 @@ public:
 	map<string, PRow> porcessInfos;
 protected:
 	//map<string, PTableStruct> 
+	map<string, PThreadCfgInfo> threadInfos;
 	
 	map<string, list<PThreadInfo>> taskInfos;
 	list<string> processKeys;

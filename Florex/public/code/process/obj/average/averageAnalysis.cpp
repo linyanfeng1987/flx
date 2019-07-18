@@ -41,8 +41,8 @@ void CAverageAnalysis::init()
 
 		PAverageCalcNode  calcNode = newAverageCalcNode(rateInfo, stepTime);
 		pipeline->puchBack(calcNode);
-		//PAverageDecisionNode decisionNode = newAverageDecisionNode(dTemplates, rateInfo, stepTime);
-		//pipeline->puchBack(decisionNode);
+		PAverageDecisionNode decisionNode = newAverageDecisionNode(dTemplates, rateInfo, stepTime);
+		pipeline->puchBack(decisionNode);
 
 		pipelines.push_back(pipeline);
 	}

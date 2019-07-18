@@ -592,6 +592,45 @@ void PubFun::removeDir(string dirPath)
     }
 }
 
+std::string PubFun::getStrAttrFromEle( TiXmlElement *eleNode,  const char* attrName )
+{
+	const char* chValue = eleNode->Attribute(attrName);
+	if (nullptr != chValue)
+	{
+		return string(chValue);
+	}
+	else
+	{
+		return string("");
+	}
+}
+
+time_t PubFun::getNumAttrFromEle( TiXmlElement *eleNode, const char* attrName )
+{
+	const char* chValue = eleNode->Attribute(attrName);
+	if (nullptr != chValue)
+	{
+		return stringToTimet(chValue);
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+bool PubFun::isNodeNamed( TiXmlElement *eleNode, const char* nodeName ) 
+{
+	string nameValue = eleNode->Value();
+	if(nameValue == nodeName)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 
 
 

@@ -10,6 +10,7 @@
 #include "ConstDef.h"
 #include "LogObj.h"
 #include "Exception.h"
+#include "tinyXml/tinyxml.h"
 
 using namespace std;
 class PubFun
@@ -70,6 +71,11 @@ public:
 	static void buildValueList(time_t startValue, time_t endValue, long step, map<time_t, time_t>& resValueMap);
 
 	static void splitParamStr(string paramters, map<string, string> &resMap); 
+
+	static string getStrAttrFromEle(TiXmlElement *eleNode, const char* attrName);
+	static time_t getNumAttrFromEle(TiXmlElement *eleNode, const char* attrName);
+
+	static bool isNodeNamed(TiXmlElement *eleNode, const char* nodeName);
 
 	//static unsigned long long GetCurrentTimeMsec();
 };

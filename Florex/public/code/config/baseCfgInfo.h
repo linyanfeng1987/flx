@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
+#include <list>
+#include <map>
 #include "LogObj.h"
 #include "PubFun.h"
+
 #include "tinyXml/tinyxml.h"
 
 using namespace std;

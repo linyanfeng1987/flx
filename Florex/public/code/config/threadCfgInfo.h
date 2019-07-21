@@ -12,7 +12,6 @@ public:
 
 	void loadByXml(TiXmlElement *node);
 
-protected:
 	time_t step;
 	PDataSrcInfo dataSrcInfo;
 	PAnalysisInfo analysisInfo;

@@ -2,6 +2,7 @@
 #include "table/Row.h"
 #include "baseThread.h"
 #include "process/calcProcess.h"
+#include "config/threadCfgInfo.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
 class CCalcThread : public CBaseThread
@@ -20,6 +21,8 @@ protected:
 	int completeTask(PRow taskInfoRow);
 
 	PCalcProcess getProcess( PRow taskInfo );
+
+	PCalcProcess getProcess( PThreadCfgInfo threadInfo );
 
 	PRow getOneTask();
 	void rangTaskList();

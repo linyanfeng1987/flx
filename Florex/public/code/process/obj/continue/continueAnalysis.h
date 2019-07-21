@@ -8,6 +8,7 @@ using namespace std;
 class CContinueAnalysis : public CBaseAnalysis
 {
 public:
+	using CBaseAnalysis::CBaseAnalysis;
 	CContinueAnalysis(PRateInfo _rateInfo);
 
 	virtual void add(PRateValue value);
@@ -15,8 +16,10 @@ public:
 protected:
 	// ≥ı ºªØfinder
 	void init();
+	virtual void initByInfo();
 	map<long, PContinueKeeper> continueKeepers;
 	long keeperIndex;
+	
 // 	unsigned int maxMemberSize;
 // 	double minContinueStep;
 // 	double persentStep;

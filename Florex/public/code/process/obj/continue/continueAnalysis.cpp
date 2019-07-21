@@ -10,6 +10,11 @@ CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInf
 	init();
 }
 
+void CContinueAnalysis::initByInfo()
+{
+	analysisInfo->pipelineInfo
+}
+
 void CContinueAnalysis::add(PRateValue value)
 {
 	for (auto conPair : continueKeepers)

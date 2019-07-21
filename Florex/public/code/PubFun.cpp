@@ -1,4 +1,7 @@
 #include "PubFun.h"
+
+#include "numCalc.h"
+
 #include "LogObj.h"
 #include <fstream>
 #include <io.h>
@@ -629,6 +632,22 @@ bool PubFun::isNodeNamed( TiXmlElement *eleNode, const char* nodeName )
 	{
 		return false;
 	}
+}
+
+list<double> PubFun::splitNumString(string &str)
+{
+	list<double> numValues;
+	list<string> strValues = split(str, ",");
+	for (string strValue: strValues)
+	{
+		numValues.push_back(calcString(strValue));
+	}
+	return numValues;
+}
+
+double PubFun::calcString( string &str )
+{
+	return countSuxfix(str.c_str());
 }
 
 

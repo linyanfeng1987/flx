@@ -89,6 +89,7 @@
     <ClInclude Include="..\public\code\AutoMutex.h" />
     <ClInclude Include="..\public\code\config\analysisInfo.h" />
     <ClInclude Include="..\public\code\config\baseCfgInfo.h" />
+    <ClInclude Include="..\public\code\config\baseParamInfo.h" />
     <ClInclude Include="..\public\code\config\dataSrcInfo.h" />
     <ClInclude Include="..\public\code\config\pipelineInfo.h" />
     <ClInclude Include="..\public\code\config\pipelineNodeInfo.h" />
@@ -111,6 +112,7 @@
     <ClInclude Include="..\public\code\Exception.h" />
     <ClInclude Include="..\public\code\LinkedHashMap.h" />
     <ClInclude Include="..\public\code\LogObj.h" />
+    <ClInclude Include="..\public\code\numCalc.h" />
     <ClInclude Include="..\public\code\process\baseProcess.h" />
     <ClInclude Include="..\public\code\process\calcProData.h" />
     <ClInclude Include="..\public\code\process\calculation\baseCalc.h" />
@@ -168,6 +170,7 @@
     <ClCompile Include="..\public\code\AutoMutex.cpp" />
     <ClCompile Include="..\public\code\config\analysisInfo.cpp" />
     <ClCompile Include="..\public\code\config\baseCfgInfo.cpp" />
+    <ClCompile Include="..\public\code\config\baseParamInfo.cpp" />
     <ClCompile Include="..\public\code\config\dataSrcInfo.cpp" />
     <ClCompile Include="..\public\code\config\pipelineInfo.cpp" />
     <ClCompile Include="..\public\code\config\pipelineNodeInfo.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="..\public\code\db\VspdCToMySQL.cpp" />
     <ClCompile Include="..\public\code\Exception.cpp" />
     <ClCompile Include="..\public\code\LogObj.cpp" />
+    <ClCompile Include="..\public\code\numCalc.cpp" />
     <ClCompile Include="..\public\code\process\baseProcess.cpp" />
     <ClCompile Include="..\public\code\process\calcProData.cpp" />
     <ClCompile Include="..\public\code\process\calculation\baseCalc.cpp" />

@@ -77,6 +77,9 @@ public:
 
 	static bool isNodeNamed(TiXmlElement *eleNode, const char* nodeName);
 
+	static list<double> splitNumString(string &str);
+	static double calcString(string &str);
+
 	//static unsigned long long GetCurrentTimeMsec();
 };
 

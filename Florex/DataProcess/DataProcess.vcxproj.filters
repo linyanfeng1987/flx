@@ -309,6 +309,12 @@
     <ClInclude Include="..\public\code\config\pipelineInfo.h">
       <Filter>public\config</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\code\config\baseParamInfo.h">
+      <Filter>public\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\numCalc.h">
+      <Filter>public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataProcess.cpp">
@@ -541,6 +547,12 @@
     </ClCompile>
     <ClCompile Include="..\public\code\config\pipelineInfo.cpp">
       <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\baseParamInfo.cpp">
+      <Filter>public\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\numCalc.cpp">
+      <Filter>public</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,7 +50,6 @@ void CCalcThread::init()
 
 PCalcProcess CCalcThread::getProcess( PRow taskInfo )
 {
-	@@@@
 	PRateInfo rateInfo = newRateInfo();
 	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
 	PCalcProcess process = newCalcProcess(rateInfo);
@@ -58,13 +57,32 @@ PCalcProcess CCalcThread::getProcess( PRow taskInfo )
 	if (-1 != processTypeName.find(processType_baseCalc))
 	{
 		needBaseCalc = true;
-	}
+	} 
 	if (-1 != processTypeName.find(processType_average))
 	{
 		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
 		process->addAnalysis(processType_average, averageAnalysis);
 	}
 	if (-1 != processTypeName.find(processType_continue))
+	{
+		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+		process->addAnalysis(processType_continue, continueAnalysis);
+	}
+
+	return process;
+}
+
+PCalcProcess CCalcThread::getProcess( PThreadCfgInfo threadInfo )
+{
+	PCalcProcess process = newCalcProcess(rateInfo);
+
+	if (threadInfo->analysisInfo->analysisType == processType_average)
+	{
+		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+		process->addAnalysis(processType_average, averageAnalysis);
+	}
+	
+	if (threadInfo->analysisInfo->analysisType == processType_continue)
 	{
 		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
 		process->addAnalysis(processType_continue, continueAnalysis);

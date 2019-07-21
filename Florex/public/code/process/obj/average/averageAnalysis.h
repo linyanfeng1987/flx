@@ -17,6 +17,7 @@ public:
 protected:
 	// ≥ı ºªØfinder
 	void init();
+	virtual void initByInfo();
 	//map<long, PAverageObj> averageObjs;
 
 	list<PCalcPipeline> pipelines;

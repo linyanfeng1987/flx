@@ -40,11 +40,11 @@ void CGlobalData::loadConfig()
 	TiXmlElement *childNode = root->FirstChildElement();
 	while (nullptr != childNode)
 	{
-		if(PubFun::isNodeNamed(childNode, "thread"))
+		if(PubFun::isNodeNamed(childNode, "process"))
 		{
-			PThreadCfgInfo threadCfgInfo = newThreadCfgInfo();
+			PProcessCfgInfo threadCfgInfo = newProcessCfgInfo();
 			threadCfgInfo->loadByXml(childNode);
-			threadInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
+			processCfgInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
 		}
 
 		childNode = childNode->NextSiblingElement(); 

@@ -9,14 +9,13 @@ class CContinueAnalysis : public CBaseAnalysis
 {
 public:
 	using CBaseAnalysis::CBaseAnalysis;
-	CContinueAnalysis(PRateInfo _rateInfo);
+	CContinueAnalysis(PAnalysisInfo _analysisInfo, PRateInfo _rateInfo):CBaseAnalysis(_analysisInfo, _rateInfo){}
 
 	virtual void add(PRateValue value);
 
 protected:
 	// ≥ı ºªØfinder
-	void init();
-	virtual void initByInfo();
+	virtual void init();
 	map<long, PContinueKeeper> continueKeepers;
 	long keeperIndex;
 	
@@ -25,4 +24,4 @@ protected:
 // 	double persentStep;
 };
 typedef shared_ptr<CContinueAnalysis> PContinueAnalysis;
-#define newContinueAnalysis(T) make_shared<CContinueAnalysis>(T)
+#define newContinueAnalysis(T1,T2) make_shared<CContinueAnalysis>(T1,T2)

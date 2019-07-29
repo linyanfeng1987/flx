@@ -5,7 +5,7 @@
 #include "dataSrcInfo.h"
 #include "analysisInfo.h"
 using namespace std;
-class CThreadCfgInfo : public CBaseCfgInfo
+class CProcessCfgInfo : public CBaseCfgInfo
 {
 public:
 	using CBaseCfgInfo::CBaseCfgInfo;
@@ -16,5 +16,5 @@ public:
 	PDataSrcInfo dataSrcInfo;
 	PAnalysisInfo analysisInfo;
 };
-typedef shared_ptr<CThreadCfgInfo> PThreadCfgInfo;
-#define newThreadCfgInfo() make_shared<CThreadCfgInfo>()
+typedef shared_ptr<CProcessCfgInfo> PProcessCfgInfo;
+#define newProcessCfgInfo() make_shared<CProcessCfgInfo>()

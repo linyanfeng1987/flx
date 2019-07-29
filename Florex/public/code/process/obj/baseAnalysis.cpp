@@ -2,15 +2,12 @@
 #include "ConstDef.h"
 #include "PubFun.h"
 
-CBaseAnalysis::CBaseAnalysis(PRateInfo _rateInfo):rateInfo(_rateInfo)
-{
-	init();
-}
 
-CBaseAnalysis::CBaseAnalysis( PAnalysisInfo _analysisInfo )
+CBaseAnalysis::CBaseAnalysis( PAnalysisInfo _analysisInfo, PRateInfo _rateInfo )
 {
+	rateInfo = _rateInfo;
 	analysisInfo = _analysisInfo;
-	initByInfo();
+	init();
 }
 
 void CBaseAnalysis::init()

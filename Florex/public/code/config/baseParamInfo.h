@@ -15,8 +15,10 @@ public:
 	string param;
 
 	list<double>& getNumParams();
+	list<string>& getStrParams();
 protected:
 	list<double> numParams;
+	list<string> strParams;
 };
 
 typedef shared_ptr<CBaseParamInfo> PBaseParamInfo;

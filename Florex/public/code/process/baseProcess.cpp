@@ -1,14 +1,19 @@
 #include "baseProcess.h"
 #include <thread>
 
-
-CBaseProcess::CBaseProcess(PRateInfo _rateInfo):rateInfo(_rateInfo)
+CBaseProcess::CBaseProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo):rateInfo(_rateInfo)
 {
-	//init(pTaskInfo);
+	threadInfo = _threadInfo;
+	init();
 }
 
 CBaseProcess::~CBaseProcess()
 {
+}
+
+void CBaseProcess::init()
+{
+
 }
 
 // void CBaseProcess::init( PRow pTaskInfo )

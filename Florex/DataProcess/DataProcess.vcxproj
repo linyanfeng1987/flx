@@ -93,7 +93,7 @@
     <ClInclude Include="..\public\code\config\dataSrcInfo.h" />
     <ClInclude Include="..\public\code\config\pipelineInfo.h" />
     <ClInclude Include="..\public\code\config\pipelineNodeInfo.h" />
-    <ClInclude Include="..\public\code\config\threadCfgInfo.h" />
+    <ClInclude Include="..\public\code\config\processCfgInfo.h" />
     <ClInclude Include="..\public\code\ConstDef.h" />
     <ClInclude Include="..\public\code\data\globalData.h" />
     <ClInclude Include="..\public\code\db\dataStruct\baseCurRateStruct.h" />
@@ -174,7 +174,7 @@
     <ClCompile Include="..\public\code\config\dataSrcInfo.cpp" />
     <ClCompile Include="..\public\code\config\pipelineInfo.cpp" />
     <ClCompile Include="..\public\code\config\pipelineNodeInfo.cpp" />
-    <ClCompile Include="..\public\code\config\threadCfgInfo.cpp" />
+    <ClCompile Include="..\public\code\config\processCfgInfo.cpp" />
     <ClCompile Include="..\public\code\data\globalData.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\baseCurRateStruct.cpp" />
     <ClCompile Include="..\public\code\db\dataStruct\continueValueStruct.cpp" />

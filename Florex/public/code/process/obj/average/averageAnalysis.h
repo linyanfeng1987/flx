@@ -11,13 +11,15 @@ using namespace std;
 class CAverageAnalysis : public CBaseAnalysis
 {
 public:
-	CAverageAnalysis(PRateInfo _rateInfo);
+	using CBaseAnalysis::CBaseAnalysis;
+	CAverageAnalysis(PAnalysisInfo _analysisInfo, PRateInfo _rateInfo):CBaseAnalysis(_analysisInfo, _rateInfo){}
+
 	virtual void add(PRateValue value);
 
 protected:
 	// ≥ı ºªØfinder
-	void init();
-	virtual void initByInfo();
+	virtual void init();
+	void init_s();
 	//map<long, PAverageObj> averageObjs;
 
 	list<PCalcPipeline> pipelines;
@@ -26,4 +28,4 @@ protected:
 // 	double persentStep;
 };
 typedef shared_ptr<CAverageAnalysis> PAverageAnalysis;
-#define newAverageAnalysis(T) make_shared<CAverageAnalysis>(T)
+#define newAverageAnalysis(T1,T2) make_shared<CAverageAnalysis>(T1,T2)

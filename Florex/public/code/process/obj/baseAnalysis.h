@@ -8,13 +8,11 @@ using namespace std;
 class CBaseAnalysis
 {
 public:
-	CBaseAnalysis(PRateInfo _rateInfo);
-	CBaseAnalysis(PAnalysisInfo _analysisInfo);
+	CBaseAnalysis(PAnalysisInfo _analysisInfo, PRateInfo _rateInfo);
 	virtual void add(PRateValue value) = 0;
 
 protected:
-	void init();
-	virtual void initByInfo() = 0;
+	virtual void init();
 	PRateInfo rateInfo;
 	PAnalysisInfo analysisInfo;
 };

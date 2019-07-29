@@ -9,13 +9,13 @@ using namespace std;
 class CCalcProcess : public CBaseProcess
 {
 public:
-	CCalcProcess(PRateInfo _rateInfo);
-	~CCalcProcess();
+	using CBaseProcess::CBaseProcess;
+	CCalcProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo);
 	void addAnalysis(string name, PBaseAnalysis analysis);
 
 	void calc(PTable rateTable);
 	void calc(list<PRateValue> &values);
-	void init();
+	virtual void init();
 protected:
 	map<string, PBaseAnalysis> analysiss;
 	PCalcProData calcProData;
@@ -25,5 +25,5 @@ protected:
 	double timeCheck;
 };
 typedef shared_ptr<CCalcProcess> PCalcProcess;
-#define newCalcProcess(T) make_shared<CCalcProcess>(T)
+#define newCalcProcess(T1,T2) make_shared<CCalcProcess>(T1,T2)
 

@@ -2,7 +2,7 @@
 #include "table/Row.h"
 #include "baseThread.h"
 #include "process/calcProcess.h"
-#include "config/threadCfgInfo.h"
+#include "config/processCfgInfo.h"
 
 // taskµÄÔËÐÐÈÝÆ÷
 class CCalcThread : public CBaseThread
@@ -20,9 +20,9 @@ protected:
 	void runTask(PRow taskInfoRow);
 	int completeTask(PRow taskInfoRow);
 
-	PCalcProcess getProcess( PRow taskInfo );
+	//PCalcProcess getProcess( PRow taskInfo );
 
-	PCalcProcess getProcess( PThreadCfgInfo threadInfo );
+	PCalcProcess getProcess( PProcessCfgInfo processInfo, string& rateName);
 
 	PRow getOneTask();
 	void rangTaskList();
@@ -39,6 +39,7 @@ protected:
 	string getTaskSql;
 	static const string logTag;
 	PLogInfo logInfo;
+	PProcessCfgInfo processCfgInfo;
 	//bool isBaseCale;
 };
 typedef shared_ptr<CCalcThread> PCalcThread;

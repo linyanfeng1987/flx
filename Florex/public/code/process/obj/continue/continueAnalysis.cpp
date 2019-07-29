@@ -4,17 +4,6 @@
 #include "process/decision/continueDecision.h"
 #include "PubFun.h"
 
-CContinueAnalysis::CContinueAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInfo)
-{
-	keeperIndex = 0;
-	init();
-}
-
-void CContinueAnalysis::initByInfo()
-{
-	analysisInfo->pipelineInfo
-}
-
 void CContinueAnalysis::add(PRateValue value)
 {
 	for (auto conPair : continueKeepers)
@@ -27,6 +16,8 @@ void CContinueAnalysis::add(PRateValue value)
 
 void CContinueAnalysis::init()
 {
+	keeperIndex = 0;
+
 	PContinueKeeper pKeeper = nullptr;
 	PContinueJudgeGroup pGroup = nullptr;
 	PBaseFun retrcementCalcFun = nullptr;

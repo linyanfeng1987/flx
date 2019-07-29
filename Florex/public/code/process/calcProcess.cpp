@@ -3,12 +3,7 @@
 #include "rate/rateInfo.h"
 #include "PubFun.h"
 
-CCalcProcess::CCalcProcess(PRateInfo _rateInfo):CBaseProcess(_rateInfo)
-{
-	init();
-}
-
-CCalcProcess::~CCalcProcess()
+CCalcProcess::CCalcProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo ):CBaseProcess(_threadInfo, rateInfo)
 {
 
 }

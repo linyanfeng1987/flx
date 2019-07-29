@@ -15,7 +15,7 @@
 
 #include "thread/baseThread.h"
 
-#include "config/threadCfgInfo.h"
+#include "config/processCfgInfo.h"
 
 class CGlobalData
 {
@@ -47,10 +47,12 @@ public:
 	PThreadInfo popProcessTaskInfo(string &processKey);
 	string popProcessKey();
 	*/
-	map<string, PRow> porcessInfos;
+	//map<string, PRow> porcessInfos;
+
+	PProcessCfgInfo getProcessInfo(string key){return processCfgInfos.find(key)->second;}
 protected:
 	//map<string, PTableStruct> 
-	map<string, PThreadCfgInfo> threadInfos;
+	map<string, PProcessCfgInfo> processCfgInfos;
 	
 	map<string, list<PThreadInfo>> taskInfos;
 	list<string> processKeys;

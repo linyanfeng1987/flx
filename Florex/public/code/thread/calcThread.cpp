@@ -11,6 +11,7 @@
 
 #include "process/obj/average/averageAnalysis.h"
 #include "process/obj/continue/continueAnalysis.h"
+#include "data/globalData.h"
 
 const int timeStep = 3600;
 const string CCalcThread::logTag = "calcThread";
@@ -45,46 +46,54 @@ void CCalcThread::init()
 		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def), 
 		PubFun::strFormat("order by %s", 
 		CProcessTaskInfoStruct::key_startTime.c_str()));
-	process = getProcess(threadInfo->getRowData());
+
+	string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_threadTypeName);
+	processCfgInfo = CGlobalData::instance().getProcessInfo(processTypeName);
+	string rateName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_rateName);
+	process = getProcess(processCfgInfo, rateName);
 }
 
-PCalcProcess CCalcThread::getProcess( PRow taskInfo )
+// PCalcProcess CCalcThread::getProcess( PRow taskInfo )
+// {
+// 	PRateInfo rateInfo = newRateInfo();
+// 	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
+// 	PCalcProcess process = newCalcProcess(rateInfo);
+// 	string processTypeName = taskInfo->getStringValue(CThreadStatusStruct::key_threadTypeName);
+// 	if (-1 != processTypeName.find(processType_baseCalc))
+// 	{
+// 		needBaseCalc = true;
+// 	} 
+// 	if (-1 != processTypeName.find(processType_average))
+// 	{
+// 		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+// 		process->addAnalysis(processType_average, averageAnalysis);
+// 	}
+// 	if (-1 != processTypeName.find(processType_continue))
+// 	{
+// 		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+// 		process->addAnalysis(processType_continue, continueAnalysis);
+// 	}
+// 
+// 	return process;
+// }
+
+PCalcProcess CCalcThread::getProcess( PProcessCfgInfo processInfo, string& rateName)
 {
 	PRateInfo rateInfo = newRateInfo();
-	rateInfo->rateName = taskInfo->getStringValue(CThreadStatusStruct::key_rateName);
-	PCalcProcess process = newCalcProcess(rateInfo);
-	string processTypeName = taskInfo->getStringValue(CThreadStatusStruct::key_threadTypeName);
-	if (-1 != processTypeName.find(processType_baseCalc))
-	{
-		needBaseCalc = true;
-	} 
-	if (-1 != processTypeName.find(processType_average))
-	{
-		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
-		process->addAnalysis(processType_average, averageAnalysis);
-	}
-	if (-1 != processTypeName.find(processType_continue))
-	{
-		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
-		process->addAnalysis(processType_continue, continueAnalysis);
-	}
+	rateInfo->rateName = rateName;
 
-	return process;
-}
+	PCalcProcess process = newCalcProcess(processInfo, rateInfo);
 
-PCalcProcess CCalcThread::getProcess( PThreadCfgInfo threadInfo )
-{
-	PCalcProcess process = newCalcProcess(rateInfo);
-
-	if (threadInfo->analysisInfo->analysisType == processType_average)
+	PAnalysisInfo analysisInfo = processInfo->analysisInfo;
+	if (analysisInfo->analysisType == processType_average)
 	{
-		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
+		PAverageAnalysis averageAnalysis = newAverageAnalysis(analysisInfo,rateInfo);
 		process->addAnalysis(processType_average, averageAnalysis);
 	}
 	
-	if (threadInfo->analysisInfo->analysisType == processType_continue)
+	if (analysisInfo->analysisType == processType_continue)
 	{
-		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
+		PContinueAnalysis continueAnalysis = newContinueAnalysis(analysisInfo,rateInfo);
 		process->addAnalysis(processType_continue, continueAnalysis);
 	}
 
@@ -104,7 +113,6 @@ void CCalcThread::rangTaskList()
 {
 	// Ö´ÐÐÈÎÎñ
 	static bool isFirstRun = true;
-
 	PRow task = getOneTask();
 	if(nullptr != task)
 	{

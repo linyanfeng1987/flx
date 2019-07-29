@@ -25,3 +25,12 @@ list<double>& CBaseParamInfo::getNumParams()
 	}
 	return numParams;
 }
+
+list<string>& CBaseParamInfo::getStrParams()
+{
+	if (strParams.empty())
+	{
+		strParams = PubFun::split(param, ",");
+	}
+	return strParams;
+}

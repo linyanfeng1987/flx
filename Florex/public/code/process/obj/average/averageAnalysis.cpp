@@ -4,11 +4,6 @@
 #include "process/decision/continueDecision.h"
 #include "PubFun.h"
 
-CAverageAnalysis::CAverageAnalysis(PRateInfo _rateInfo):CBaseAnalysis(_rateInfo)
-{
-	init();
-}
-
 void CAverageAnalysis::add(PRateValue value)
 {
 	for (auto pipeline : pipelines)
@@ -20,17 +15,17 @@ void CAverageAnalysis::add(PRateValue value)
 	// 连续查找的意义在哪里，如果没有预测和几率就没有意义
 }
 
-void CAverageAnalysis::initByInfo()
+void CAverageAnalysis::init()
 {
-	PCalcPipeline pipeline = newCalcPipeline();
-
-	double decisionPersents[]
+	list<PAverageDecisionTemplate> dTemplates;
+	list<double> decisionPersents = analysisInfo->paramGroup.find("decisionPersents")->second->getNumParams();
 	for (double decisionPersent : decisionPersents)
 	{
 		PAverageDecisionTemplate dTemplate = newAverageDecisionTemplate(decisionPersent, decisionPersent*0.5);
 		dTemplates.push_back(dTemplate);
 	}
 
+	list<double> stepTimes = analysisInfo->paramGroup.find("stepTimes")->second->getNumParams();
 	for (double stepTime : stepTimes)
 	{
 		PCalcPipeline pipeline = newCalcPipeline();
@@ -44,7 +39,7 @@ void CAverageAnalysis::initByInfo()
 	}
 }
 
-void CAverageAnalysis::init()
+void CAverageAnalysis::init_s()
 {
 	double stepTimes[] = {10, 60, 60*15, 60*60, 60*60*4, 60*60*24};
 	//double stepTimes[] = {60*60*4, 60*60*24};

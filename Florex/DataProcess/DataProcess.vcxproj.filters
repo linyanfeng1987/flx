@@ -291,9 +291,6 @@
     <ClInclude Include="..\public\code\process\obj\calcPipeline.h">
       <Filter>public\process\obj</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\code\config\threadCfgInfo.h">
-      <Filter>public\config</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\code\config\baseCfgInfo.h">
       <Filter>public\config</Filter>
     </ClInclude>
@@ -314,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="..\public\code\numCalc.h">
       <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\code\config\processCfgInfo.h">
+      <Filter>public\config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -530,9 +530,6 @@
     <ClCompile Include="..\public\code\process\obj\calcPipeline.cpp">
       <Filter>public\process\obj</Filter>
     </ClCompile>
-    <ClCompile Include="..\public\code\config\threadCfgInfo.cpp">
-      <Filter>public\config</Filter>
-    </ClCompile>
     <ClCompile Include="..\public\code\config\baseCfgInfo.cpp">
       <Filter>public\config</Filter>
     </ClCompile>
@@ -553,6 +550,9 @@
     </ClCompile>
     <ClCompile Include="..\public\code\numCalc.cpp">
       <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\public\code\config\processCfgInfo.cpp">
+      <Filter>public\config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

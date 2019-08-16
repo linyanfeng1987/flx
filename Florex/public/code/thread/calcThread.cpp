@@ -27,8 +27,9 @@ CCalcThread::~CCalcThread()
 	log.debug(logInfo, PubFun::strFormat("CCalcThread end, %d\n", this));
 }
 
-void CCalcThread::init()
+bool CCalcThread::init()
 {
+	bool bRes = false;
 	// 从数据库中加载未执行的任务
 	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_threadId);
 	auto taskTableStruct = CProcessTaskInfoStruct::instence();
@@ -49,8 +50,17 @@ void CCalcThread::init()
 
 	string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_threadTypeName);
 	processCfgInfo = CGlobalData::instance().getProcessInfo(processTypeName);
-	string rateName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_rateName);
-	process = getProcess(processCfgInfo, rateName);
+	if (nullptr != processCfgInfo)
+	{
+		string rateName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_rateName);
+		process = getProcess(processCfgInfo, rateName);
+		bRes = true;
+	}
+	else
+	{
+		log.error(PubFun::strFormat("错误的process名称%s", processTypeName.c_str()));
+	}
+	return bRes;
 }
 
 // PCalcProcess CCalcThread::getProcess( PRow taskInfo )
@@ -102,10 +112,12 @@ PCalcProcess CCalcThread::getProcess( PProcessCfgInfo processInfo, string& rateN
 
 void CCalcThread::runInThread( const char* argv )
 {
-	init();
-	while (true)
+	if (init())
 	{
-		rangTaskList();
+		while (true)
+		{
+			rangTaskList();
+		}
 	}
 }
 

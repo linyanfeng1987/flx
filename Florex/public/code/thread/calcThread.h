@@ -14,7 +14,7 @@ public:
 	//void setBaseCale(bool _isBaseCale){isBaseCale = _isBaseCale;}
 
 protected:
-	void init();
+	bool init();
 
 	void runInThread(const char* argv);
 	void runTask(PRow taskInfoRow);

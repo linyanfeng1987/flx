@@ -35,19 +35,27 @@ CGlobalData& CGlobalData::instance()
 void CGlobalData::loadConfig()
 {
 	TiXmlDocument doc;
-	doc.LoadFile("./conf/processInfo.xml");
+	doc.LoadFile(".././conf/processInfo.xml");
 	TiXmlElement *root = doc.FirstChildElement(); 
-	TiXmlElement *childNode = root->FirstChildElement();
-	while (nullptr != childNode)
+	if (nullptr == root)
+	{	
+		string errorMsg(doc.ErrorDesc());
+		log.error(errorMsg);
+	}
+	else
 	{
-		if(PubFun::isNodeNamed(childNode, "process"))
+		TiXmlElement *childNode = root->FirstChildElement();
+		while (nullptr != childNode)
 		{
-			PProcessCfgInfo threadCfgInfo = newProcessCfgInfo();
-			threadCfgInfo->loadByXml(childNode);
-			processCfgInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
-		}
+			if(PubFun::isNodeNamed(childNode, "process"))
+			{
+				PProcessCfgInfo threadCfgInfo = newProcessCfgInfo();
+				threadCfgInfo->loadByXml(childNode);
+				processCfgInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
+			}
 
-		childNode = childNode->NextSiblingElement(); 
+			childNode = childNode->NextSiblingElement(); 
+		}
 	}
 }
 
@@ -172,5 +180,16 @@ void CGlobalData::initDataStruct()
 	PTestDbInfoStruct p1 = CTestDbInfoStruct::instence();
 	PProcessTaskInfoStruct p2 = CProcessTaskInfoStruct::instence();
 	PThreadStatusStruct p3 = CThreadStatusStruct::instence();
+}
+
+PProcessCfgInfo CGlobalData::getProcessInfo( string key )
+{
+	PProcessCfgInfo destInfo = nullptr;
+	auto iter = processCfgInfos.find(key);
+	if (iter != processCfgInfos.end())
+	{
+		destInfo = iter->second;
+	}
+	return destInfo;
 }
 

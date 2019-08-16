@@ -49,7 +49,7 @@ public:
 	*/
 	//map<string, PRow> porcessInfos;
 
-	PProcessCfgInfo getProcessInfo(string key){return processCfgInfos.find(key)->second;}
+	PProcessCfgInfo getProcessInfo(string key);
 protected:
 	//map<string, PTableStruct> 
 	map<string, PProcessCfgInfo> processCfgInfos;

@@ -1,0 +1,7 @@
+Debug/
+run/
+ipch/
+*.opensdf
+conf/
+*.sdf
+.vs/

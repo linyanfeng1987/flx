@@ -1,11 +1,10 @@
 #pragma once
-#include "baseCurRateStruct.h" 
+#include "baseCurRateStruct.h"
 #include "table/TableStruct.h"
 #include <mutex>
 
 class CMonitorValueStruct;
 typedef shared_ptr<CMonitorValueStruct> PMonitorValueStruct;
-
 
 class CMonitorValueStruct : public CTableStruct
 {
@@ -31,7 +30,7 @@ protected:
 	static mutex initMutex;
 
 	bool isTop;
-}; 
+};
 
 #define newMonitorValueStruct() make_shared<CMonitorValueStruct>(false)
 #define newMonitorTopValueStruct() make_shared<CMonitorValueStruct>(true)

@@ -3,12 +3,11 @@
 #include "rate/rateInfo.h"
 #include "PubFun.h"
 
-CCalcProcess::CCalcProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo ):CBaseProcess(_threadInfo, rateInfo)
+CCalcProcess::CCalcProcess(PProcessCfgInfo _threadInfo, PRateInfo _rateInfo) :CBaseProcess(_threadInfo, rateInfo)
 {
-
 }
 
-void CCalcProcess::calc( PTable rateTable )
+void CCalcProcess::calc(PTable rateTable)
 {
 	list<PRateValue> values;
 	for (auto rowPair : *rateTable)
@@ -19,7 +18,7 @@ void CCalcProcess::calc( PTable rateTable )
 	calc(values);
 }
 
-void CCalcProcess::calc( list<PRateValue> &values )
+void CCalcProcess::calc(list<PRateValue>& values)
 {
 	for (PRateValue rateValue : values)
 	{
@@ -31,13 +30,13 @@ void CCalcProcess::calc( list<PRateValue> &values )
 		}
 		else
 		{
-			CLogObj::instance().error(PubFun::strFormat("time error before time:%s, curent time:%s", 
+			CLogObj::instance().error(PubFun::strFormat("time error before time:%s, curent time:%s",
 				PubFun::getTimeFormat((time_t)timeCheck).c_str(),
 				PubFun::getTimeFormat((time_t)rateValue->time).c_str()));
 		}
 #endif // DEBUG_CHECK
 
-		for (auto analyPair:analysiss)
+		for (auto analyPair : analysiss)
 		{
 			analyPair.second->add(rateValue);
 		}
@@ -48,12 +47,11 @@ void CCalcProcess::init()
 {
 	calcProData = newCalcProData(rateInfo);
 	timeCheck = 0;
-// 	PRateInfo rateInfo = newRateInfo();
-// 	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	// 	PRateInfo rateInfo = newRateInfo();
+	// 	rateInfo->rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
 }
 
-void CCalcProcess::addAnalysis( string name, PBaseAnalysis analysis )
+void CCalcProcess::addAnalysis(string name, PBaseAnalysis analysis)
 {
 	analysiss.insert(make_pair(name, analysis));
 }
-

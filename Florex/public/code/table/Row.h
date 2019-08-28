@@ -11,7 +11,6 @@
 
 using namespace std;
 
-
 class CRow : public Linked_map<string, PValue>
 {
 public:
@@ -21,8 +20,8 @@ public:
 
 	void init(PTableStruct tableStruct);
 
-	void setTableStruct(PTableStruct tableStruct){this->tableStruct = tableStruct;}
-	PTableStruct getTableStruct(){return tableStruct;}
+	void setTableStruct(PTableStruct tableStruct) { this->tableStruct = tableStruct; }
+	PTableStruct getTableStruct() { return tableStruct; }
 
 	bool save();
 	bool save2();
@@ -47,7 +46,6 @@ public:
 	void setValue(string& strKey, int& nValue);
 	void setValue(string& strKey, time_t tValue);
 
-
 	string getStringValue(string& strKey);
 	long getIntValue(string& strKey);
 	time_t getTimeValue(string& strKey);
@@ -62,11 +60,10 @@ public:
 	DATA_STATUS m_dataStatus;
 
 protected:
-	CLogObj &log;
+	CLogObj& log;
 	string getCondition();
 	PTableStruct tableStruct;
 };
 
 typedef shared_ptr<CRow> PRow;
 #define newRow(T) make_shared<CRow>(T)
-

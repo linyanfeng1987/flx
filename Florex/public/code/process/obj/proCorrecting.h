@@ -3,14 +3,13 @@
 #include "ConstDef.h"
 // 连续的校正数据，返回连续的值，在step中
 
-
 class CProCorrecting
 {
 public:
 	CProCorrecting();
 	~CProCorrecting();
 
-	void setStep(int step){this->step = step;}
+	void setStep(int step) { this->step = step; }
 	bool calc(double curTime, double curValue, map<double, double>& valueMap);
 
 protected:
@@ -22,4 +21,3 @@ protected:
 	double curValue;
 	double curTime;
 };
-

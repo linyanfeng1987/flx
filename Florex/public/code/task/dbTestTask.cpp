@@ -6,7 +6,7 @@
 
 const string CDbTestTask::logTag = "dbTestTask";
 
-CDbTestTask::CDbTestTask( int step, PThreadInfo taskInfo): CBaseThread(taskInfo)
+CDbTestTask::CDbTestTask(int step, PThreadInfo taskInfo) : CBaseThread(taskInfo)
 {
 	logInfo = newLogInfo(logTag);
 	this->step = step;
@@ -22,7 +22,7 @@ int CDbTestTask::completeTask()
 	return 0;
 }
 
-void CDbTestTask::runInThread( const char* argv )
+void CDbTestTask::runInThread(const char* argv)
 {
 	status = 1;
 	try
@@ -48,7 +48,7 @@ void CDbTestTask::runInThread( const char* argv )
 
 				log.ext(logInfo, PubFun::strFormat("insert new"));
 			}
-			else{
+			else {
 				int nSrcValue = row->getIntValue(CTestDbInfoStruct::key_value);
 				int nDestValue = nSrcValue;
 				if (-100 < nSrcValue && nSrcValue < 100)
@@ -65,7 +65,7 @@ void CDbTestTask::runInThread( const char* argv )
 			}
 			row->save();
 		}
-		
+
 		completeTask();
 		log.ext(logInfo, PubFun::strFormat("test db succ end"));
 	}

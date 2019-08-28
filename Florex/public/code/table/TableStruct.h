@@ -10,14 +10,12 @@
 主要记录字段信息，与sql交互的接口
 */
 
-class KeyList: public list<string>
+class KeyList : public list<string>
 {
 public:
-
 };
 
-
-class CTableStruct: public Linked_map<string, CField>
+class CTableStruct : public Linked_map<string, CField>
 {
 public:
 	CTableStruct(string strName);
@@ -33,9 +31,9 @@ public:
 	string getBaseUpdateSqlFormat();
 
 	string getSelectSql();
-	string getSelectSql(string &conditicon);
-	string getSelectSql(string &conditicon, string &order);
-	string getSelectSqlLimit1(string &conditicon, string &order);
+	string getSelectSql(string& conditicon);
+	string getSelectSql(string& conditicon, string& order);
+	string getSelectSqlLimit1(string& conditicon, string& order);
 
 	string getFieldsStr(string split = ",");
 
@@ -43,28 +41,28 @@ public:
 
 	void ensureExist();
 
-// 	string getSql();
-// 	string getInsertSql();
-// 	string getUpdateSql();
-// 	string getDeleteSql();
-// 
-// 	string getInsertSqlFormat();
-// 	string getUpdateSqlFormat();
-// 	string getCondition();
+	// 	string getSql();
+	// 	string getInsertSql();
+	// 	string getUpdateSql();
+	// 	string getDeleteSql();
+	//
+	// 	string getInsertSqlFormat();
+	// 	string getUpdateSqlFormat();
+	// 	string getCondition();
 
 	string tableName;
 
 	//KeyList& getKeyFields(){return m_keyFiled;}
-	
+
 	//void setKeyField(KeyList tmpList){std::copy(tmpList.begin(), tmpList.end(), std::back_inserter(m_keyFiled)); }
 
 protected:
 	//KeyList m_keyFiled;
-	CLogObj &log;
+	CLogObj& log;
 	string strInsertSqlFormat;
 	string strUpdateSqlFormat;
 
-	string baseGetSelectSql(string &conditicon, string &order);
+	string baseGetSelectSql(string& conditicon, string& order);
 };
 
 typedef shared_ptr<CTableStruct> PTableStruct;

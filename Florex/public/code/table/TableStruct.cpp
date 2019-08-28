@@ -2,14 +2,13 @@
 #include "PubFun.h"
 #include <regex>
 
-CTableStruct::CTableStruct(string strName):log(CLogObj::instance())
+CTableStruct::CTableStruct(string strName) :log(CLogObj::instance())
 {
 	setName(strName);
 }
 
-CTableStruct::CTableStruct():log(CLogObj::instance())
+CTableStruct::CTableStruct() : log(CLogObj::instance())
 {
-
 }
 
 CTableStruct::~CTableStruct(void)
@@ -21,9 +20,9 @@ std::string CTableStruct::getCreateTableSql()
 	string fields = "";
 	string pkFields = "";
 	string indexFields = "";
-	for(auto field : *this){
+	for (auto field : *this) {
 		string strField = PubFun::strFormat("`%s`", field.first.c_str());
-		if(field.second.bIsPk){
+		if (field.second.bIsPk) {
 			if (!pkFields.empty())
 			{
 				pkFields.append(",");
@@ -31,37 +30,43 @@ std::string CTableStruct::getCreateTableSql()
 			pkFields.append(strField);
 		}
 
-		if(field.second.isIndex){
+		if (field.second.isIndex) {
 			if (!indexFields.empty())
 			{
 				indexFields.append(",");
 			}
 			indexFields.append(strField);
 		}
-		
+
 		string fieldType = "";
-		if(typeInt == field.second.strType){
+		if (typeInt == field.second.strType) {
 			fieldType = "int";
-		}else if(typeIndex == field.second.strType){
+		}
+		else if (typeIndex == field.second.strType) {
 			fieldType = "bigint unsigned";
-		}else if(typeDouble == field.second.strType){
+		}
+		else if (typeDouble == field.second.strType) {
 			fieldType = "double";
-		}else if(typeString == field.second.strType){
+		}
+		else if (typeString == field.second.strType) {
 			fieldType = "CHAR(45)";
-		}else if(typeString2 == field.second.strType){
+		}
+		else if (typeString2 == field.second.strType) {
 			fieldType = "VARCHAR(4096)";
-		}else if(typeCount == field.second.strType){
+		}
+		else if (typeCount == field.second.strType) {
 			fieldType = "bigint unsigned";
-		}else if(typeBigString == field.second.strType){
+		}
+		else if (typeBigString == field.second.strType) {
 			fieldType = "mediumtext";
 		}
-		
+
 		string fieldDefSql = PubFun::strFormat("%s %s", strField.c_str(), fieldType.c_str());
 		if (!field.second.alowedEmpyt)
 		{
 			fieldDefSql.append(" NOT NULL");
 		}
-		if(!fields.empty())
+		if (!fields.empty())
 		{
 			fields.append(",\n");
 		}
@@ -89,7 +94,7 @@ std::string CTableStruct::getDeleteTableSql()
 	return "";
 }
 
-void CTableStruct::setName( string strName )
+void CTableStruct::setName(string strName)
 {
 	tableName = strName;
 }
@@ -99,19 +104,19 @@ std::string CTableStruct::getSelectSql()
 	return getSelectSql(string(""));
 }
 
-std::string CTableStruct::getSelectSql( string &conditicon )
+std::string CTableStruct::getSelectSql(string& conditicon)
 {
 	return getSelectSql(conditicon, string(""));
 }
 
-std::string CTableStruct::getSelectSql( string &conditicon, string &order )
+std::string CTableStruct::getSelectSql(string& conditicon, string& order)
 {
 	string strSql = baseGetSelectSql(conditicon, order);
 	strSql.append(";");
 	return strSql;
 }
 
-std::string CTableStruct::getSelectSqlLimit1( string &conditicon, string &order )
+std::string CTableStruct::getSelectSqlLimit1(string& conditicon, string& order)
 {
 	string strSql = baseGetSelectSql(conditicon, order);
 	strSql.append(" limit 1");
@@ -119,16 +124,16 @@ std::string CTableStruct::getSelectSqlLimit1( string &conditicon, string &order 
 	return strSql;
 }
 
-std::string CTableStruct::baseGetSelectSql( string &conditicon, string &order )
+std::string CTableStruct::baseGetSelectSql(string& conditicon, string& order)
 {
 	string strSql = PubFun::strFormat("select %s from %s", getFieldsStr().c_str(), tableName.c_str());
-	if(!conditicon.empty())
+	if (!conditicon.empty())
 	{
 		strSql.append(" where ");
 		strSql.append(conditicon);
 	}
 
-	if(!order.empty())
+	if (!order.empty())
 	{
 		strSql.append(" ");
 		strSql.append(order);
@@ -154,7 +159,7 @@ std::string CTableStruct::getBaseInsertSqlFormat()
 //UPDATE tbl_name SET col_name1=value1, col_name2=value2, бн WHERE conditions
 std::string CTableStruct::getBaseUpdateSqlFormat()
 {
-	if(strUpdateSqlFormat.empty())
+	if (strUpdateSqlFormat.empty())
 	{
 		strUpdateSqlFormat = "update " + tableName + " set %s %s;";
 	}
@@ -162,10 +167,10 @@ std::string CTableStruct::getBaseUpdateSqlFormat()
 	return strUpdateSqlFormat;
 }
 
-std::string CTableStruct::getFieldsStr( string split /*= ","*/ )
+std::string CTableStruct::getFieldsStr(string split /*= ","*/)
 {
 	string fields = "";
-	for(auto field : *this){
+	for (auto field : *this) {
 		if (!fields.empty())
 		{
 			fields.append(split);
@@ -200,7 +205,7 @@ bool CTableStruct::tableExist()
 			return false;
 		}*/
 	}
-	
+
 	return true;
 }
 
@@ -213,9 +218,7 @@ void CTableStruct::ensureExist()
 	}
 }
 
-
-
-// 
+//
 // std::string CTableStruct::getInsertSql()
 // {
 // 	static string strBaseSqlFormat = "";
@@ -223,7 +226,7 @@ void CTableStruct::ensureExist()
 // 	{
 // 		strBaseSqlFormat = getBaseInsertSqlFormat();
 // 	}
-// 
+//
 // 	char chSql[2048] = {0};
 // 	string strTmp = "";
 // 	CTableStruct::iterator rowIter;
@@ -238,10 +241,10 @@ void CTableStruct::ensureExist()
 // 	strTmp = strTmp.substr(0, strTmp.length()-2);
 // 	memset(chSql, 0, sizeof(chSql));
 // 	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp);
-// 
+//
 // 	return string(chSql);
 // }
-// 
+//
 // std::string CTableStruct::getInsertSqlFormat()
 // {
 // 	string strBaseSqlFormat = "";
@@ -262,10 +265,10 @@ void CTableStruct::ensureExist()
 // 	strBaseSqlFormat += "%s";
 // 	strBaseSqlFormat += " )";
 // 	strBaseSqlFormat += ";";
-// 
+//
 // 	return strBaseSqlFormat;
 // }
-// 
+//
 // std::string CTableStruct::getUpdateSql()
 // {
 // 	static string strBaseSqlFormat = "";
@@ -273,7 +276,7 @@ void CTableStruct::ensureExist()
 // 	{
 // 		strBaseSqlFormat = getBaseUpdateSqlFormat();
 // 	}
-// 
+//
 // 	char chSql[2048] = {0};
 // 	string strTmp = "";
 // 	CTableStruct::iterator rowIter;
@@ -290,10 +293,10 @@ void CTableStruct::ensureExist()
 // 	strTmp = strTmp.substr(0, strTmp.length()-2);
 // 	memset(chSql, 0, sizeof(chSql));
 // 	sprintf_s(chSql, strBaseSqlFormat.c_str(), strTmp);
-// 
+//
 // 	return string(chSql);
 // }
-// 
+//
 // //UPDATE tbl_name SET col_name1=value1, col_name2=value2, бн WHERE conditions
 // std::string CTableStruct::getUpdateSqlFormat()
 // {
@@ -305,10 +308,10 @@ void CTableStruct::ensureExist()
 // 	strBaseSqlFormat = strBaseSqlFormat.substr(0, strBaseSqlFormat.length()-2);
 // 	strBaseSqlFormat += " ";
 // 	strBaseSqlFormat += getCondition();
-// 
+//
 // 	return strBaseSqlFormat;
 // }
-// 
+//
 // std::string CTableStruct::getDeleteSql()
 // {
 // 	string strSql = "delete from ";
@@ -317,7 +320,7 @@ void CTableStruct::ensureExist()
 // 	strSql += getCondition();
 // 	return strSql;
 // }
-// 
+//
 // // where a = A and b = B
 // std::string CTableStruct::getCondition()
 // {
@@ -339,20 +342,20 @@ void CTableStruct::ensureExist()
 // 			strSql += " and ";
 // 		}
 // 	}
-// 
+//
 // 	if (!strSql.empty())
 // 	{
 // 		strSql = "where " + strSql;
 // 	}
-// 
+//
 // 	return "";
 // }
-// 
+//
 // void CTableStruct::init( CField *pField )
 // {
 // 	setField(pField);
 // }
-// 
+//
 // bool CTableStruct::setAndaddValue( string strKey, string strValue )
 // {
 // 	if (m_pField->find(strKey) != m_pField->end())
@@ -372,12 +375,12 @@ void CTableStruct::ensureExist()
 // 		}
 // 	}
 // }
-// 
+//
 // void CTableStruct::addByList( list<string> valueList )
 // {
 // 	list<string>::iterator iter= valueList.begin();
 // 	for (; iter != valueList.end();iter++)
 // 	{
-// 
+//
 // 	}
 // }

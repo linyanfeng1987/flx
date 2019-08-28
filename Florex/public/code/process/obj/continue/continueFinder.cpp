@@ -2,7 +2,7 @@
 #include <list>
 #include "table/Table.h"
 
-CContinueFinder::CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions)
+CContinueFinder::CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision>* _decisions)
 {
 	rateInfo = _rateInfo;
 	startValue = nullptr;
@@ -10,13 +10,13 @@ CContinueFinder::CContinueFinder(PRateInfo _rateInfo, PContinueJudgeGroup _pJudg
 	decisions = _decisions;
 }
 
-PContinueObj CContinueFinder::tryFindNew( PRateValue curValue )
+PContinueObj CContinueFinder::tryFindNew(PRateValue curValue)
 {
 	// 确定方向
 	PContinueObj pSection = nullptr;
 	double stepValue = startValue->value - curValue->value;
 	int curDirect = stepValue > 0 ? direct_down : direct_up;
-	if (curDirect  == expDir)
+	if (curDirect == expDir)
 	{
 		// 方向正确，尝试查找
 		// 当前容器内没有同方向的连续对象的时候，尝试判断是否生成新的

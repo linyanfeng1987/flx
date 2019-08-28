@@ -2,6 +2,4 @@
 
 CStrException::~CStrException(void)
 {
-
 }
-

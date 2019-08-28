@@ -25,7 +25,7 @@ const string calcDbName = "calc";
 
 const static int maxLineRead = 10000;
 
-const string rateNames[] = {"testRate","eurusd","usdjpy","xauusd","gbpusd","audusd"};
+const string rateNames[] = { "testRate","eurusd","usdjpy","xauusd","gbpusd","audusd" };
 
 const double g_priveSetp1 = 0.1;
 const double g_priveSetp2 = 0.0001;
@@ -62,14 +62,11 @@ typedef unsigned long indexType;
 const size_t longSleepTime = 60000;
 const size_t shortSleepTime = 1000;
 
-const int gHisCalcStepTime = 60*60*4;
+const int gHisCalcStepTime = 60 * 60 * 4;
 
 const int taskStatus_def = 0;
 const int taskStatus_run = 1;
 const int taskStatus_complate = 2;
 const int taskStatus_error = 3;
-
-
-
 
 #define DEBUG_CHECK

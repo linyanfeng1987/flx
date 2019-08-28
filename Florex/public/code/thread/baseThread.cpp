@@ -2,7 +2,7 @@
 #include <thread>
 
 using namespace std;
-CBaseThread::CBaseThread(PThreadInfo _threadInfo):log(CLogObj::instance())
+CBaseThread::CBaseThread(PThreadInfo _threadInfo) :log(CLogObj::instance())
 {
 	threadInfo = _threadInfo;
 	status = 0;
@@ -20,13 +20,12 @@ int CBaseThread::run(const char* argv)
 	return 0;
 }
 
-void CBaseThread::baseRunInThread( const char* argv )
+void CBaseThread::baseRunInThread(const char* argv)
 {
 	runInThread(argv);
 }
 
-
-void CThreadInfo::setThreadType( CalcThreadType _threadType )
+void CThreadInfo::setThreadType(CalcThreadType _threadType)
 {
 	threadType = _threadType;
 	switch (threadType)
@@ -42,7 +41,7 @@ void CThreadInfo::setThreadType( CalcThreadType _threadType )
 	}
 }
 
-CThreadInfo::CThreadInfo( PRow _threadInfoRow, CalcThreadType _threadType ):threadInfoRow(_threadInfoRow)
+CThreadInfo::CThreadInfo(PRow _threadInfoRow, CalcThreadType _threadType) :threadInfoRow(_threadInfoRow)
 {
 	setThreadType(_threadType);
 }

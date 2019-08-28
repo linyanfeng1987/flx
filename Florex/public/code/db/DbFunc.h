@@ -11,12 +11,11 @@
 
 class CDbFunc
 {
-
 protected:
-	 CDbFunc(void);
+	CDbFunc(void);
 public:
 	~CDbFunc(void);
-	
+
 	static CDbFunc& instance();
 
 	static PRow getThreadStatusLine(string rateName, string processTypeName);
@@ -28,6 +27,5 @@ public:
 	static void zeroThreadStatus();
 
 private:
-	//static CGlobalData& gData; 
+	//static CGlobalData& gData;
 };
-

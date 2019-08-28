@@ -10,7 +10,7 @@ class CAverageDecisionTemplate
 {
 public:
 	CAverageDecisionTemplate(double _optInPersent, double _optOutPersent);
-	~CAverageDecisionTemplate(){}
+	~CAverageDecisionTemplate() {}
 
 	double optInPersent;
 	double optOutPersent;
@@ -55,7 +55,6 @@ protected:
 	void none(PRateValue curValue, PRateValue averageValue);
 	void keepOpt(PRateValue curValue, PRateValue averageValue);
 
-
 	PAverageDecisionTemplate decisionTemplate;
 
 	double averageStepTime;
@@ -79,4 +78,3 @@ protected:
 };
 typedef shared_ptr<CAverageDecision> PAverageDecision;
 #define newAverageDecision(T1,T2,T3,T4) make_shared<CAverageDecision>(T1,T2,T3,T4)
-

@@ -1,19 +1,19 @@
 #include "monitor.h"
 #include "table/Row.h"
 
-CMonitor::CMonitor( string _name, string _rateName ):endRes(0),name(_name),rateName(_rateName)
+CMonitor::CMonitor(string _name, string _rateName) :endRes(0), name(_name), rateName(_rateName)
 {
 	monitorStruct = CMonitorValueStruct::instence();
 	monitorTopStruct = CMonitorValueStruct::instenceTop();
 }
 
-indexType CMonitor::addOpt( PFlxOpt flxOpt )
+indexType CMonitor::addOpt(PFlxOpt flxOpt)
 {
 	curOpts.insert(make_pair(flxOpt->getTagId(), flxOpt));
 	return flxOpt->getTagId();
 }
 
-void CMonitor::endOpt( indexType optTagId, PRateValue endValue, string& desc )
+void CMonitor::endOpt(indexType optTagId, PRateValue endValue, string& desc)
 {
 	auto optIter = curOpts.find(optTagId);
 	if (curOpts.end() != optIter)
@@ -25,7 +25,7 @@ void CMonitor::endOpt( indexType optTagId, PRateValue endValue, string& desc )
 	}
 }
 
-void CMonitor::endOpt( PRateValue endValue )
+void CMonitor::endOpt(PRateValue endValue)
 {
 	for (auto optPair : curOpts)
 	{
@@ -40,7 +40,7 @@ void CMonitor::endOpt( PRateValue endValue )
 	}
 }
 
-double CMonitor::getCurRes( PRateValue curValue )
+double CMonitor::getCurRes(PRateValue curValue)
 {
 	double res = 0;
 	for (auto optPair : curOpts)
@@ -57,13 +57,13 @@ double CMonitor::getEndRes()
 	return endRes;
 }
 
-void CMonitor::addEndOpt( pair<indexType, PFlxOpt> pr )
+void CMonitor::addEndOpt(pair<indexType, PFlxOpt> pr)
 {
 	endOpts.insert(pr);
 	endRes += pr.second->getEndResValue();
 }
 
-void CMonitor::saveToDb( int dataType, double curTime, string curTimeDesc, double sumValue )
+void CMonitor::saveToDb(int dataType, double curTime, string curTimeDesc, double sumValue)
 {
 	PRow row = newRow(monitorStruct);
 
@@ -85,4 +85,3 @@ void CMonitor::saveToDb( int dataType, double curTime, string curTimeDesc, doubl
 	}
 	row->save();
 }
-

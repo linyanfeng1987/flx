@@ -1,7 +1,6 @@
 #include "Field.h"
 
-
-void CField::load( string _strName, string _strType/*=typeString*/, bool _bIsPk /*= false*/, bool _isIndex /*= false*/, bool _alowedEmpyt /*= false*/ )
+void CField::load(string _strName, string _strType/*=typeString*/, bool _bIsPk /*= false*/, bool _isIndex /*= false*/, bool _alowedEmpyt /*= false*/)
 {
 	strName = _strName;
 	strType = _strType;
@@ -12,10 +11,10 @@ void CField::load( string _strName, string _strType/*=typeString*/, bool _bIsPk 
 
 bool CField::isNumberType()
 {
-	if(typeInt == strType || typeDouble == strType || "float" == strType){
+	if (typeInt == strType || typeDouble == strType || "float" == strType) {
 		return true;
 	}
-	else{
+	else {
 		return false;
 	}
 }

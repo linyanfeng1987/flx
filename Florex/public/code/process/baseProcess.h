@@ -11,10 +11,10 @@ using namespace std;
 class CBaseProcess
 {
 public:
-	CBaseProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo);
+	CBaseProcess(PProcessCfgInfo _threadInfo, PRateInfo _rateInfo);
 	~CBaseProcess();
 
-	virtual void calc(list<PRateValue> &values) = 0;
+	virtual void calc(list<PRateValue>& values) = 0;
 	//virtual void init(PRow pTaskInfo);
 
 	virtual void init();
@@ -28,5 +28,3 @@ protected:
 	PProcessCfgInfo threadInfo;
 };
 typedef shared_ptr<CBaseProcess> PBaseProcess;
-
-

@@ -11,12 +11,12 @@
 
 using namespace std;
 // 连续有个起点A
-// 连续有方向 
+// 连续有方向
 // 连续的判定？1回撤的幅度？
 
 // 在一定时间段，一个方向上，连续？
 // 起始点的判断？上一个的终点？那不同的阈值将决定不同的终点？
-// 尝试多个阈值？ 阈值的准确性？ 
+// 尝试多个阈值？ 阈值的准确性？
 // 连续方向的切换平率？
 // 如何定义方向的正确性？
 // 是否分类统计？manager？ 先不设置manager试试
@@ -33,24 +33,23 @@ using namespace std;
 //				builder：标准的集合？初始连续判断+obj生成
 //				continus：多个obj的存储
 
-
 class CContinueObj
 {
 public:
-	CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions);
+	CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision>* _decisions);
 	void init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& judegLevel);
 
-	unsigned long long getTagId(){ return tagId;}
+	unsigned long long getTagId() { return tagId; }
 
 	emumContinueStatus isContinueGoOn(PRateValue curValue);
 
 	void CContinueObj::stopContinue(PRateValue curValue);
 
-	PContinueValue getContinueValue(){return pContinueValue;}
+	PContinueValue getContinueValue() { return pContinueValue; }
 
-	PContinueJudgeGroup getJudgeGroup(){return pJudgeGroup;}
+	PContinueJudgeGroup getJudgeGroup() { return pJudgeGroup; }
 
-	int getCurLevel(){return pContinueValue->direct;}
+	int getCurLevel() { return pContinueValue->direct; }
 protected:
 	void levelChange(int newLevel, PRateValue curValue);
 	indexType tagId;
@@ -64,7 +63,7 @@ protected:
 	//PRateValue tryEndValue;
 
 	//int maxLevel;
-	// 连续等级 
+	// 连续等级
 	//int curLevel;
 	// 上次上报的值
 	//CRateValue lastValue;

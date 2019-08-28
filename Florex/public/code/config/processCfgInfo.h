@@ -10,7 +10,7 @@ class CProcessCfgInfo : public CBaseCfgInfo
 public:
 	using CBaseCfgInfo::CBaseCfgInfo;
 
-	void loadByXml(TiXmlElement *node);
+	void loadByXml(TiXmlElement* node);
 
 	time_t step;
 	PDataSrcInfo dataSrcInfo;

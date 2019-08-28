@@ -10,8 +10,8 @@ public:
 
 	void add(double value);
 	void clear();
-	double getSum(){return sumValue;}
-	int getSize(){return dataList.size();}
+	double getSum() { return sumValue; }
+	int getSize() { return dataList.size(); }
 
 	double getAverage();
 protected:
@@ -19,4 +19,3 @@ protected:
 	unsigned int maxSize;
 	double sumValue;
 };
-

@@ -8,7 +8,7 @@
 class CCalcThread : public CBaseThread
 {
 public:
-	CCalcThread( PThreadInfo _threadInfo);
+	CCalcThread(PThreadInfo _threadInfo);
 	~CCalcThread();
 
 	//void setBaseCale(bool _isBaseCale){isBaseCale = _isBaseCale;}
@@ -22,15 +22,15 @@ protected:
 
 	//PCalcProcess getProcess( PRow taskInfo );
 
-	PCalcProcess getProcess( PProcessCfgInfo processInfo, string& rateName);
+	PCalcProcess getProcess(PProcessCfgInfo processInfo, string& rateName);
 
 	PRow getOneTask();
 	void rangTaskList();
-	PCalcProcess getProcessTask( PRow processTaskInfoRow );
+	PCalcProcess getProcessTask(PRow processTaskInfoRow);
 
 	void withBaseCalc(map<time_t, time_t>& resValueMap, string& rateName);
 	void calcProcess(map<time_t, time_t>& resValueMap, string& rateName);
-	
+
 	PCalcProcess process;
 	list<PRow> tasks;
 

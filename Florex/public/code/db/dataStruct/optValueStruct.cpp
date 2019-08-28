@@ -25,10 +25,8 @@ COptValueStruct::COptValueStruct()
 	init();
 }
 
-
 COptValueStruct::~COptValueStruct()
 {
-	
 }
 
 void COptValueStruct::init()
@@ -40,7 +38,7 @@ void COptValueStruct::init()
 
 	field.load(tagName, typeString, true);
 	this->insert(make_pair(field.strName, field));
-	
+
 	field.load(rateName, typeString, true);
 	this->insert(make_pair(field.strName, field));
 
@@ -87,4 +85,3 @@ POptValueStruct COptValueStruct::instence()
 	initMutex.unlock();
 	return gp;
 }
-

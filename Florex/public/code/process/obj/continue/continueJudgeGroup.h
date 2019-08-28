@@ -4,7 +4,6 @@
 #include "process/obj/function/fun1.h"
 using namespace std;
 
-
 class CContinueJudgeGroup
 {
 public:
@@ -12,7 +11,7 @@ public:
 	string name;
 
 	//emumContinueStatus isContinueGoOn(int& level, PRateValue curValue, PRateValue startValue, PRateValue& tryEndValue, int curDirect, PContinueValue& pContinueValue );
-	emumContinueStatus isContinueGoOn( PRateValue curValue, PContinueValue pContinueValue );
+	emumContinueStatus isContinueGoOn(PRateValue curValue, PContinueValue pContinueValue);
 	int isContinueStart(double& stepPersent);
 
 	void init(double minStepValuePersent, double retrcementSpead);
@@ -22,7 +21,6 @@ protected:
 	int maxObjNumber;
 	// 每级比例 高等级*比例= 低等级
 	double stepLevelPersent;
-
 
 	// 必须达到最小便宜比例，才算在此区间上连续, 单位：千分比
 	double minStepValuePersent;

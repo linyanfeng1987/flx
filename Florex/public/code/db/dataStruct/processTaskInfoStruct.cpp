@@ -1,20 +1,20 @@
 #include "processTaskInfoStruct.h"
 #include "PubFun.h"
 
-string CProcessTaskInfoStruct::key_taskId = "taskId"; 
-string CProcessTaskInfoStruct::key_rate = "rate"; 
-string CProcessTaskInfoStruct::key_rateType = "rateType"; 
-string CProcessTaskInfoStruct::key_startTime = "startTime"; 
-string CProcessTaskInfoStruct::key_startTimeDesc = "startTimeDesc"; 
-string CProcessTaskInfoStruct::key_endTime = "endTime"; 
-string CProcessTaskInfoStruct::key_endTimeDesc = "endTimeDesc"; 
-string CProcessTaskInfoStruct::key_threadId = "threadId"; 
-string CProcessTaskInfoStruct::key_paramter = "paramter"; 
-string CProcessTaskInfoStruct::key_status = "status"; 
+string CProcessTaskInfoStruct::key_taskId = "taskId";
+string CProcessTaskInfoStruct::key_rate = "rate";
+string CProcessTaskInfoStruct::key_rateType = "rateType";
+string CProcessTaskInfoStruct::key_startTime = "startTime";
+string CProcessTaskInfoStruct::key_startTimeDesc = "startTimeDesc";
+string CProcessTaskInfoStruct::key_endTime = "endTime";
+string CProcessTaskInfoStruct::key_endTimeDesc = "endTimeDesc";
+string CProcessTaskInfoStruct::key_threadId = "threadId";
+string CProcessTaskInfoStruct::key_paramter = "paramter";
+string CProcessTaskInfoStruct::key_status = "status";
 
 CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 {
-	tableName = "core.processTask" ; 
+	tableName = "core.processTask";
 	this->setName(tableName);
 	CField field;
 	//taskId
@@ -53,13 +53,11 @@ CProcessTaskInfoStruct::CProcessTaskInfoStruct()
 
 CProcessTaskInfoStruct::~CProcessTaskInfoStruct()
 {
-	
 }
 
 PProcessTaskInfoStruct CProcessTaskInfoStruct::instence()
 {
-	static CProcessTaskInfoStruct *p = new CProcessTaskInfoStruct();
+	static CProcessTaskInfoStruct* p = new CProcessTaskInfoStruct();
 	static PProcessTaskInfoStruct g(p);
 	return g;
 }
-

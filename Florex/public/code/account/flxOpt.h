@@ -9,16 +9,16 @@ class CFlxOpt
 public:
 	CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateValue _beginValue, int _direct);
 
-	bool isEnd(){return nullptr != endValue;}
+	bool isEnd() { return nullptr != endValue; }
 	void setEnd(PRateValue _endValue);
-	void setEnd(PRateValue _endValue, string &_desc);
-	PRateValue getEnd(){return endValue;}
-	double getStartTime(){return beginValue->time;}
+	void setEnd(PRateValue _endValue, string& _desc);
+	PRateValue getEnd() { return endValue; }
+	double getStartTime() { return beginValue->time; }
 
 	double getCurResValue(PRateValue curValue);
 	double getEndResValue();
 	void saveToDb();
-	indexType getTagId(){return optTagId;}
+	indexType getTagId() { return optTagId; }
 protected:
 	static indexType optTagIdCount;
 	indexType optTagId;

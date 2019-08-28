@@ -5,8 +5,8 @@ using namespace std;
 class CBaseFun
 {
 public:
-	CBaseFun(){};
-	virtual ~CBaseFun(){};
+	CBaseFun() {};
+	virtual ~CBaseFun() {};
 	virtual double calc(double xValue) = 0;
 };
 

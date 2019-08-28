@@ -15,7 +15,7 @@ void processRun(int value)
 	taskRunner.run();
 }
 
-CtaskRunner::CtaskRunner():log(CLogObj::instance()),gData(CGlobalData::instance())
+CtaskRunner::CtaskRunner() :log(CLogObj::instance()), gData(CGlobalData::instance())
 {
 	logInfo = newLogInfo(logTag);
 	maxProcessCount = 10;
@@ -41,7 +41,7 @@ void CtaskRunner::run()
 bool CtaskRunner::reloadThreadList()
 {
 	bool hasData = false;
-	try{
+	try {
 		// 从数据库中加载未执行的任务
 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
 		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_threadStatus.c_str(), 0));
@@ -49,7 +49,7 @@ bool CtaskRunner::reloadThreadList()
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
-		for(auto it : *table)
+		for (auto it : *table)
 		{
 			it.second->setIntValue(CThreadStatusStruct::key_threadStatus, 1);
 			it.second->save();
@@ -68,9 +68,7 @@ bool CtaskRunner::reloadThreadList()
 	return hasData;
 }
 
-
-
-// 
+//
 // void CtaskRunner::runProcess(PRow processInfoRow)
 // {
 // 	PCalcProcess task = getProcessTask(processInfoRow);
@@ -86,8 +84,8 @@ bool CtaskRunner::reloadThreadList()
 // 	runingTasks.insert(make_pair(processTypeName, task));
 // 	count = task.use_count();
 // }
-// 
-// 
+//
+//
 // bool CtaskRunner::reloadTaskList()
 // {
 // 	bool hasData = false;
@@ -97,16 +95,16 @@ bool CtaskRunner::reloadThreadList()
 // 		string sql = taskInfoStruct->getSelectSql(string("status = 0"));
 // 		PTable table = newTable(taskInfoStruct);
 // 		CDbObj::instance().selectData(sql.c_str(), table);
-// 		
+//
 // 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
 // 		string sql = processSt->getSelectSql(PubFun::strFormat("%s=%d", CThreadStatusStruct::key_threadStatus.c_str(), 0));
-// 
+//
 // 		for(auto it : *table)
 // 		{
 // 			it.second->setStringValue(CCalcProcessInfoStruct::key_status, string("1"));
 // 			it.second->save();
 // 			gData.addProcessTaskInfo(it.second);
-// 
+//
 // 			hasData = true;
 // 		}
 // 	}
@@ -114,10 +112,10 @@ bool CtaskRunner::reloadThreadList()
 // 	{
 // 		log.error(logInfo, string("reloadTaskList 失败！msg:").append(e.what()));
 // 	}
-// 	
+//
 // 	return hasData;
 // }
-// 
+//
 // void CtaskRunner::rangTaskList_save()
 // {
 // 	// 执行任务
@@ -153,7 +151,7 @@ bool CtaskRunner::reloadThreadList()
 // 		{
 // 			if (isFirstRun)
 // 			{
-// 				
+//
 // 				::Sleep(longSleepTime);
 // 			}
 // 			else
@@ -163,7 +161,7 @@ bool CtaskRunner::reloadThreadList()
 // 		}
 // 	}
 // }
-// 
+//
 // void CtaskRunner::rangTaskList()
 // {
 // 	// 执行任务
@@ -198,7 +196,7 @@ bool CtaskRunner::reloadThreadList()
 // 	{
 // 		if (isFirstRun)
 // 		{
-// 
+//
 // 			::Sleep(longSleepTime);
 // 		}
 // 		else
@@ -208,30 +206,30 @@ bool CtaskRunner::reloadThreadList()
 // 	}
 // 	}
 // }
-// 
+//
 // // 通过info生成对应处理的process
-// 
-// 
+//
+//
 // PCalcProcess CtaskRunner::getProcessTask( PRow processTaskInfoRow )
 // {
 // 	PCalcProcess process = getProcess(processTaskInfoRow);
 // 	PRow processStatus = CDbFunc::getThreadStatusLine(processTaskInfoRow->getStringValue(CCalcProcessInfoStruct::key_threadTypeName));
-// 
+//
 // // 	string rateName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_rate);
 // // 	string processTypeName = processTaskInfo->getStringValue(CCalcProcessInfoStruct::key_threadTypeName);
 // // 	string taskName = rateName + "_" + processTypeName;
-// 
+//
 // 	PThreadInfo processTaskInfo = newThreadInfo(processTaskInfoRow, thread_calc_stauts);
 // 	PCalcProcess task = newCalcProcess(processTaskInfo, processStatus, process);
-// 
+//
 // 	return task;
 // }
-// 
+//
 // void CtaskRunner::runFixTask()
 // {
 // 	for (string rateName : rateNames)
 // 	{
 // 	}
 // }
-// 
-// 
+//
+//

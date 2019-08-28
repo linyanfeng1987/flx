@@ -13,7 +13,7 @@ void CContinueValue::calc()
 	//startValue = startRateValue->value;
 	//endValue = tryEndRateValue->value;
 	//stopValue = stopRateValue->value;
-	stepValue = (startRateValue->value - tryEndRateValue->value)*direct;
+	stepValue = (startRateValue->value - tryEndRateValue->value) * direct;
 
 	//startTime = startRateValue->time;
 	stepTime = tryEndRateValue->time - startRateValue->time;
@@ -38,7 +38,7 @@ PRow CContinueValue::buildDbRow(int groupId, PContinueValueStruct pSt)
 	pRow->setDoubleValue(CContinueValueStruct::endValue, tryEndRateValue->value);
 	pRow->setDoubleValue(CContinueValueStruct::stepValue, stepValue);
 	pRow->setDoubleValue(CContinueValueStruct::stepTime, stepTime);
-	
+
 	pRow->setIntValue(CContinueValueStruct::startLevel, startLevel);
 	pRow->setIntValue(CContinueValueStruct::maxLevel, maxLevel);
 	pRow->setIntValue(CContinueValueStruct::stopLevel, stopLevel);
@@ -68,16 +68,16 @@ void CContinueValue::buildLevels()
 	}
 }
 
-void CContinueValue::setBaseValue( indexType _tagId, PRateValue _startRateValue, PRateValue _tryEndRateValue, int _direct, int _curLevel )
+void CContinueValue::setBaseValue(indexType _tagId, PRateValue _startRateValue, PRateValue _tryEndRateValue, int _direct, int _curLevel)
 {
 	tagId = _tagId;
 	startRateValue = _startRateValue;
 	tryEndRateValue = _tryEndRateValue;
 	direct = _direct;
-	curLevel  = _curLevel;
+	curLevel = _curLevel;
 }
 
-void CContinueValue::setEndValue( PRateValue _stopRateValue, double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue )
+void CContinueValue::setEndValue(PRateValue _stopRateValue, double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue)
 {
 	stopRateValue = _stopRateValue;
 	curRetrcementValue = _curRetrcementValue;
@@ -86,7 +86,7 @@ void CContinueValue::setEndValue( PRateValue _stopRateValue, double _curRetrceme
 	calc();
 }
 
-void CContinueValue::setCurLevel( int _curLevel )
+void CContinueValue::setCurLevel(int _curLevel)
 {
 	curLevel = _curLevel;
 	maxLevel = curLevel > maxLevel ? curLevel : maxLevel;

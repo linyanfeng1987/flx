@@ -7,7 +7,7 @@ using namespace std;
 class CFun1 : public CBaseFun
 {
 public:
-	CFun1(double param1, double param2){this->param1 = param1; this->param2 = param2;}
+	CFun1(double param1, double param2) { this->param1 = param1; this->param2 = param2; }
 	virtual double calc(double xValue);
 protected:
 	double param1;

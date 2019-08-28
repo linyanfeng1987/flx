@@ -1,25 +1,24 @@
 #include "threadStatusStruct.h"
 #include "PubFun.h"
 
-
-string CThreadStatusStruct::key_threadId = "threadId"; 
-string CThreadStatusStruct::key_rateName = "rateName"; 
-string CThreadStatusStruct::key_threadTypeName = "processTypeName"; 
-string CThreadStatusStruct::key_threadStatus = "threadStatus"; 
+string CThreadStatusStruct::key_threadId = "threadId";
+string CThreadStatusStruct::key_rateName = "rateName";
+string CThreadStatusStruct::key_threadTypeName = "processTypeName";
+string CThreadStatusStruct::key_threadStatus = "threadStatus";
 string CThreadStatusStruct::key_stepTime = "stepTime";
 
-//string CThreadStatusStruct::key_step = "step"; 
+//string CThreadStatusStruct::key_step = "step";
 string CThreadStatusStruct::key_buildTaskLastTime = "buildTaskLastTime";
 string CThreadStatusStruct::key_buildTaskLastTimeDesc = "buildTaskLastTimeDesc";
 string CThreadStatusStruct::key_buildTaskStartTimeDesc = "buildTaskStartTimeDesc";
 string CThreadStatusStruct::key_buildTaskEndTimeDesc = "buildTaskEndTimeDesc";
 string CThreadStatusStruct::key_completeTaskLastTime = "completeTaskLastTime";
-string CThreadStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc"; 
+string CThreadStatusStruct::key_completeTaskLastTimeDesc = "completeTaskLastTimeDesc";
 
 CThreadStatusStruct::CThreadStatusStruct()
 {
 	idCount = 0;
-	tableName = "core.threadStatus" ;
+	tableName = "core.threadStatus";
 	this->setName(tableName);
 	CField field;
 
@@ -67,12 +66,11 @@ CThreadStatusStruct::CThreadStatusStruct()
 
 CThreadStatusStruct::~CThreadStatusStruct()
 {
-	
 }
 
 PThreadStatusStruct CThreadStatusStruct::instence()
 {
-	static CThreadStatusStruct *p = new CThreadStatusStruct();
+	static CThreadStatusStruct* p = new CThreadStatusStruct();
 	static PThreadStatusStruct g(p);
 	return g;
 }

@@ -1,2 +1,1 @@
-
-double countSuxfix(const char *suxfix);
+double countSuxfix(const char* suxfix);

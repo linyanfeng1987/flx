@@ -3,29 +3,29 @@
 
 CValue::CValue()
 {
-// 	setValue(string(""));
- 	dataStatus = DATA_SAME;
+	// 	setValue(string(""));
+	dataStatus = DATA_SAME;
 }
 
-CValue::CValue( string strValue )
+CValue::CValue(string strValue)
 {
 	setValue(strValue);
 	dataStatus = DATA_SAME;
 }
 
-CValue::CValue( double dValue )
+CValue::CValue(double dValue)
 {
 	setValue(dValue);
 	dataStatus = DATA_SAME;
 }
 
-CValue::CValue( int nValue )
+CValue::CValue(int nValue)
 {
 	setValue(nValue);
 	dataStatus = DATA_SAME;
 }
 
-CValue::CValue( time_t tValue )
+CValue::CValue(time_t tValue)
 {
 	setValue(tValue);
 	dataStatus = DATA_SAME;
@@ -77,7 +77,7 @@ string& CValue::getStrValue()
 	return *pStrValue;
 }
 
-void CValue::setValue( double dValue )
+void CValue::setValue(double dValue)
 {
 	// 一旦修改，旧的数据就废掉了
 	init();
@@ -86,7 +86,7 @@ void CValue::setValue( double dValue )
 	dataStatus = DATA_CHANGE;
 }
 
-void CValue::setValue( int nValue )
+void CValue::setValue(int nValue)
 {
 	init();
 	dataType = valueType_int;
@@ -94,7 +94,7 @@ void CValue::setValue( int nValue )
 	dataStatus = DATA_CHANGE;
 }
 
-void CValue::setValue( string &strValue )
+void CValue::setValue(string& strValue)
 {
 	init();
 	dataType = valueType_str;
@@ -102,7 +102,7 @@ void CValue::setValue( string &strValue )
 	dataStatus = DATA_CHANGE;
 }
 
-void CValue::setValue( time_t tValue )
+void CValue::setValue(time_t tValue)
 {
 	init();
 	dataType = valueType_timet;
@@ -146,12 +146,12 @@ void CValue::buildStringValue()
 	}
 	else
 	{
-		pStrValue = make_shared<string>(""); 
+		pStrValue = make_shared<string>("");
 	}
 }
 
 void CValue::buildIntValue()
-{ 
+{
 	if (valueType_str == dataType)
 	{
 		pIntValue = make_shared<int>(PubFun::stringToInt(*pStrValue));
@@ -194,5 +194,3 @@ bool CValue::empty()
 {
 	return valueType_def == dataType;
 }
-
-

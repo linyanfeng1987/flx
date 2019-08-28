@@ -20,7 +20,6 @@ protected:
 	CThreshold* check(double checkValue);
 	double calculate(double beginValue, double endValue, double second);
 
-
 	map<string, CurRate> lastCurRateMap;
 	map<string, HisRate> lastHisRateMap;
 	double total;

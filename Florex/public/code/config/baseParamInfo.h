@@ -5,13 +5,13 @@
 #include "baseCfgInfo.h"
 
 using namespace std;
-class CBaseParamInfo:public CBaseCfgInfo
+class CBaseParamInfo :public CBaseCfgInfo
 {
 public:
 	CBaseParamInfo(void);
 	virtual~CBaseParamInfo(void);
 
-	virtual void loadByXml(TiXmlElement *node);
+	virtual void loadByXml(TiXmlElement* node);
 	string param;
 
 	list<double>& getNumParams();

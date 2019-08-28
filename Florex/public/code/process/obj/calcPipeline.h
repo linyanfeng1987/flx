@@ -10,16 +10,15 @@ using namespace std;
 class CCalcPipeline
 {
 public:
-	CCalcPipeline(){}
-	virtual ~CCalcPipeline(){}
+	CCalcPipeline() {}
+	virtual ~CCalcPipeline() {}
 	virtual void add(PRateValue rateValue);
 
-	void puchBack(PBasePipelineNode node){nodes.push_back(node);}
-	void clear(){nodes.clear();}
-	
-protected:
-	list<PBasePipelineNode> nodes;	
+	void puchBack(PBasePipelineNode node) { nodes.push_back(node); }
+	void clear() { nodes.clear(); }
 
+protected:
+	list<PBasePipelineNode> nodes;
 };
 typedef shared_ptr<CCalcPipeline> PCalcPipeline;
 #define newCalcPipeline() make_shared<CCalcPipeline>()

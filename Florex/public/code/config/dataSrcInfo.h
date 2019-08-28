@@ -9,7 +9,7 @@ class CDataSrcInfo : public CBaseCfgInfo
 public:
 	using CBaseCfgInfo::CBaseCfgInfo;
 
-	void loadByXml(TiXmlElement *node);
+	void loadByXml(TiXmlElement* node);
 
 protected:
 	string srcType;

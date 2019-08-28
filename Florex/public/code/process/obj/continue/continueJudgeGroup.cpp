@@ -1,7 +1,6 @@
 #include "continueJudgeGroup.h"
 
-
-CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPersent, PBaseFun retrcementCalcFun )
+CContinueJudgeGroup::CContinueJudgeGroup(int maxObjNumber, double stepLevelPersent, PBaseFun retrcementCalcFun)
 {
 	this->maxObjNumber = maxObjNumber;
 	this->stepLevelPersent = stepLevelPersent;
@@ -9,7 +8,7 @@ CContinueJudgeGroup::CContinueJudgeGroup( int maxObjNumber, double stepLevelPers
 }
 
 /*
-emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue, 
+emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue curValue, PRateValue startValue,
 													   PRateValue& tryEndValue, int curDirect, PContinueValue& pContinueValue )
 {
 	//int correcteLevel=0;@@@@
@@ -41,9 +40,9 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue c
 			++nextLevel;
 		}
 	}
-	
+
 	else if (continue_lowDown == conStatus)
-	{  
+	{
 		int nextLevel = level - 1;
 		while (nextLevel >= 0)
 		{
@@ -71,7 +70,7 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( int& level, PRateValue c
 }
 */
 
-emumContinueStatus CContinueJudgeGroup::isContinueGoOn( PRateValue curValue, PContinueValue pContinueValue )
+emumContinueStatus CContinueJudgeGroup::isContinueGoOn(PRateValue curValue, PContinueValue pContinueValue)
 {
 	//int correcteLevel=0;@@@@
 	// 计算简化的可能性，讲时间作为中断计算的一部分，随着时间的增长，中断比例越少，时间趋于0，则中断校正系数趋于1
@@ -83,7 +82,7 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( PRateValue curValue, PCo
 	emumContinueStatus conStatus = pCurJudge->isContinueGoOn(curValue, pContinueValue);
 	if (continue_groupUp == conStatus)
 	{
-		pContinueValue->tryEndRateValue =  curValue;
+		pContinueValue->tryEndRateValue = curValue;
 		int nextLevel = curLevel + 1;
 		while (nextLevel <= maxObjNumber)
 		{
@@ -105,7 +104,7 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( PRateValue curValue, PCo
 	}
 	/*
 	else if (continue_lowDown == conStatus)
-	{  
+	{
 		int nextLevel = level - 1;
 		while (nextLevel >= 0)
 		{
@@ -132,12 +131,12 @@ emumContinueStatus CContinueJudgeGroup::isContinueGoOn( PRateValue curValue, PCo
 	return conStatus;
 }
 
-void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementSpead )
+void CContinueJudgeGroup::init(double minStepValuePersent, double retrcementSpead)
 {
 	this->minStepValuePersent = minStepValuePersent;
 	this->retrcementSpead = retrcementSpead;
 	double retrcementValue = 0;
-	for (int nLevelIndex = 0; nLevelIndex <= maxObjNumber ; nLevelIndex++)
+	for (int nLevelIndex = 0; nLevelIndex <= maxObjNumber; nLevelIndex++)
 	{
 		PContinueJudgeObj pObj = newContinueJudgeObj(nLevelIndex);
 		// 回撤值需要动态变更，暂定函数 0.618*(1-0.4^x)
@@ -150,11 +149,11 @@ void CContinueJudgeGroup::init( double minStepValuePersent, double retrcementSpe
 	}
 }
 
-int CContinueJudgeGroup::isContinueStart( double& stepPersent )
+int CContinueJudgeGroup::isContinueStart(double& stepPersent)
 {
 	int level = -1;
-	
-	for (auto objPair: judgeGroup)
+
+	for (auto objPair : judgeGroup)
 	{
 		if (objPair.second->isContinueStart(stepPersent))
 		{

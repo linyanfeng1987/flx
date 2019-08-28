@@ -14,7 +14,7 @@ public:
 	CBaseCfgInfo(void);
 	virtual~CBaseCfgInfo(void);
 
-	virtual void loadByXml(TiXmlElement *node);
+	virtual void loadByXml(TiXmlElement* node);
 
 	string tagName;
 };

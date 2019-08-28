@@ -31,7 +31,6 @@ private:
 	const noncopyable& operator=(const noncopyable&);
 };
 
-
 // Note: assumes K and V are POD types.
 template <typename K, typename V>
 class Linked_map : private noncopyable
@@ -140,7 +139,7 @@ public:
 	iterator insert(iterator it, const value_type& v)
 	{
 		pIterator pIt = mappeds_.find(v.first);
-		if(pIt != mappeds_.end())
+		if (pIt != mappeds_.end())
 		{
 			values_.erase(pIt->second);
 			--sizes_;
@@ -196,6 +195,5 @@ private:
 	// The map of list nodes.
 	std::map<K, iterator> mappeds_;
 };
-
 
 #endif // __LINKED_MAP_H__

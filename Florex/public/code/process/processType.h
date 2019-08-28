@@ -18,8 +18,7 @@ rate  标识作用的货币对
 
 依赖关系，逐次配置依赖的数据源，如果是原始数据，则直接是rate
 
-
-dependOnList 存储的依赖关系， 
+dependOnList 存储的依赖关系，
 其中标识的是 processTypeName 和 timeStep， 具体使用的时候拼上rate来唯一标识数据
 
 */
@@ -28,19 +27,17 @@ dependOnList 存储的依赖关系，
 CRow 用于标识依赖关系，以及基础信息，
 */
 
-
 class CProcessType
 {
 public:
 	CProcessType();
 	~CProcessType();
-	
+
 	string getProcessName();
 	string getType();
 	bool compare(string strFlag);
 
 public:
-	
 
 	//string rate;
 	string processTypeName;
@@ -53,7 +50,4 @@ public:
 
 	list<string> dependOnTypeList;
 private:
-	
 };
-
-

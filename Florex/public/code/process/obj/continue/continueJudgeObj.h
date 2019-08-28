@@ -8,12 +8,12 @@
 
 using namespace std;
 // 连续有个起点A
-// 连续有方向 
+// 连续有方向
 // 连续的判定？1回撤的幅度？
 
 // 在一定时间段，一个方向上，连续？
 // 起始点的判断？上一个的终点？那不同的阈值将决定不同的终点？
-// 尝试多个阈值？ 阈值的准确性？ 
+// 尝试多个阈值？ 阈值的准确性？
 // 连续方向的切换平率？
 // 如何定义方向的正确性？
 // 是否分类统计？manager？ 先不设置manager试试
@@ -44,7 +44,7 @@ public:
 	CContinueJudgeObj(int continueLevel);
 
 	static double getStepPersent(PRateValue curValue, PRateValue startValue);
-	
+
 	void init(double minStepValuePersent, double retrcementValue, double retrcementSpead);
 
 	bool isContinueStart_s(const PRateValue curValue, PRateValue startValue);
@@ -53,15 +53,14 @@ public:
 	emumContinueStatus isContinueGoOn(PRateValue curValue, PContinueValue pContinueValue);
 
 	bool isLowDown(double& curRetrcementSpead);
-	int getLevel(){return continueLevel;}
+	int getLevel() { return continueLevel; }
 protected:
-	bool add(const PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect );
+	bool add(const PRateValue curValue, PRateValue startValue, PRateValue tryEndValue, int& curDirect);
 
-	
 	// 停止连续，记录连续，并尝试校验新的连续
 	//bool stopContinue(PRateValue stopValue, PRateValue startValue, PRateValue tryEndValue);
 
-	// 连续等级 
+	// 连续等级
 	int continueLevel;
 
 	// 必须达到最小便宜比例，才算在此区间上连续, 单位：千分比

@@ -18,11 +18,11 @@ public:
 
 	static PCurRateStruct instence();
 
-	static string priceBuy; 
-	static string priceSell; 
-	static string volume; 
+	static string priceBuy;
+	static string priceSell;
+	static string volume;
 
-	static string percentSpead_s; 
+	static string percentSpead_s;
 	CCurRateStruct();
 protected:
 	void init();

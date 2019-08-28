@@ -8,41 +8,40 @@
 using namespace   std;
 class CDbObj
 {
-
 protected:
-	 CDbObj(void);
+	CDbObj(void);
 
-	 static CDbObj* g_db;
-	 static map<size_t,CDbObj*>* pDbMap;
+	static CDbObj* g_db;
+	static map<std::thread::id, CDbObj*>* pDbMap;
 public:
 	~CDbObj(void);
-	
+
 	static CDbObj& instance();
 	static void release();
 
-	PRow selectOneData(const char * sql, PTableStruct tableStruct);
+	PRow selectOneData(const char* sql, PTableStruct tableStruct);
 
-	void selectData(const char * sql, PTable resTable);
+	void selectData(const char* sql, PTable resTable);
 
-	void executeSql(const char * sql);
+	void executeSql(const char* sql);
 
 	void insertDatas(list<string> sqls);
 	void insertData(string sql);
 
 	void initMySQL();
-	
+
 protected:
 	void baseInsert(string sql);
 	void tryConnect();
 	void connectDefDb();
-	void connectMySQL(char *host,unsigned int port,char * Db,char * user,char* passwd,char * charset,string &strMsg);
+	void connectMySQL(char* host, unsigned int port, char* Db, char* user, char* passwd, char* charset, string& strMsg);
 
-	void baseExecuteSql(const char * sql);
+	void baseExecuteSql(const char* sql);
 
 	void startTransaction();
 	void commit();
-	
-	void throwSqlError(string sql="");
+
+	void throwSqlError(string sql = "");
 
 	bool isMySqlInit;
 	MYSQL mysql;

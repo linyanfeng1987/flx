@@ -7,7 +7,7 @@ CAverageDecisionTemplate::CAverageDecisionTemplate(double _optInPersent, double 
 	optOutPersent = _optOutPersent;
 }
 
-CAverageDecision::CAverageDecision( PAverageDecisionTemplate _decisionTemplate, double _averageStepTime, string _monitorName, PRateInfo _rateInfo)
+CAverageDecision::CAverageDecision(PAverageDecisionTemplate _decisionTemplate, double _averageStepTime, string _monitorName, PRateInfo _rateInfo)
 {
 	decisionTemplate = _decisionTemplate;
 	optTagId = 0;
@@ -21,7 +21,7 @@ CAverageDecision::CAverageDecision( PAverageDecisionTemplate _decisionTemplate, 
 	trySetStartTime = 0;
 
 	optAccountr = COptAccount::instence();
-	decisionName = PubFun::strFormat("average_%d_%d", (int)(decisionTemplate->optInPersent*100), (int)(decisionTemplate->optOutPersent*100));
+	decisionName = PubFun::strFormat("average_%d_%d", (int)(decisionTemplate->optInPersent * 100), (int)(decisionTemplate->optOutPersent * 100));
 
 	rateInfo = _rateInfo;
 	monitorName = _monitorName;
@@ -29,26 +29,25 @@ CAverageDecision::CAverageDecision( PAverageDecisionTemplate _decisionTemplate, 
 	tagName = PubFun::strFormat("%s_%s", monitorName.c_str(), decisionName.c_str());
 }
 
-void CAverageDecision::record( PRateValue curValue )
+void CAverageDecision::record(PRateValue curValue)
 {
 	optAccountr->record(tagName, rateInfo->rateName, curValue);
 }
 
-void CAverageDecision::setTryDirect( double nowTime, int nowDirect )
+void CAverageDecision::setTryDirect(double nowTime, int nowDirect)
 {
 	tryDirect = nowDirect;
 	trySetStartTime = nowTime;
 	//nowStatus = status_confusion;
 }
 
-
-void CAverageDecision::add( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::add(PRateValue curValue, PRateValue averageValue)
 {
 	if (recordValue.empty())
 	{
 		recordValue.append("begin");
 	}
-	recordValue.append(PubFun::strFormat(",%.4lf/%.4lf", curValue->value,averageValue->value));
+	recordValue.append(PubFun::strFormat(",%.4lf/%.4lf", curValue->value, averageValue->value));
 	switch (nowStatus)
 	{
 	case status_wait:
@@ -61,9 +60,9 @@ void CAverageDecision::add( PRateValue curValue, PRateValue averageValue )
 	//trySetDir(curValue, averageValue);
 }
 
-void CAverageDecision::trySetDir( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::trySetDir(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect == tryDirect)
 	{
 		if (isDirectSet(curValue->time - trySetStartTime))
@@ -76,7 +75,7 @@ void CAverageDecision::trySetDir( PRateValue curValue, PRateValue averageValue )
 			}
 			optTagId = optAccountr->optIn(tagName, rateInfo->rateName, 0, curValue, nowDirect);
 			nowStatus += status_tryIn;
-		}			
+		}
 	}
 	else
 	{
@@ -84,33 +83,32 @@ void CAverageDecision::trySetDir( PRateValue curValue, PRateValue averageValue )
 	}
 }
 
-void CAverageDecision::keepOpt( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::keepOpt(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect != tryDirect)
 	{
-		setTryDirect(curValue->time, nowDirect);		
+		setTryDirect(curValue->time, nowDirect);
 	}
 }
 
-void CAverageDecision::none( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::none(PRateValue curValue, PRateValue averageValue)
 {
-
 }
 
-bool CAverageDecision::isDirectSet( double stepTime )
+bool CAverageDecision::isDirectSet(double stepTime)
 {
 	return false;
 }
 
-bool CAverageDecision::isDirectInit( double stepTime )
+bool CAverageDecision::isDirectInit(double stepTime)
 {
 	return false;
 }
 
-void CAverageDecision::wait( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::wait(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect == tryDirect)
 	{
 		double stepTime = curValue->time - trySetStartTime;
@@ -128,7 +126,7 @@ void CAverageDecision::wait( PRateValue curValue, PRateValue averageValue )
 			{
 				throw CStrException("fun_confusion error");
 			}
-		}			
+		}
 	}
 	else
 	{
@@ -137,9 +135,9 @@ void CAverageDecision::wait( PRateValue curValue, PRateValue averageValue )
 	}
 }
 
-void CAverageDecision::tryIn( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::tryIn(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect == tryDirect)
 	{
 		if (isDirectSet(curValue->time - trySetStartTime))
@@ -153,7 +151,7 @@ void CAverageDecision::tryIn( PRateValue curValue, PRateValue averageValue )
 			{
 				throw CStrException("fun_confusion_tryIn error");
 			}
-		}			
+		}
 	}
 	else
 	{
@@ -161,9 +159,9 @@ void CAverageDecision::tryIn( PRateValue curValue, PRateValue averageValue )
 	}
 }
 
-void CAverageDecision::keep( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::keep(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect != optDirect)
 	{
 		if (nowDirect == tryDirect)
@@ -184,24 +182,22 @@ void CAverageDecision::keep( PRateValue curValue, PRateValue averageValue )
 				{
 					throw CStrException("fun_status_clear error");
 				}
-			}	
+			}
 		}
 		else
 		{
 			setTryDirect(curValue->time, nowDirect);
-		}		
+		}
 	}
-	
 }
 
-void CAverageDecision::tryOut( PRateValue curValue, PRateValue averageValue )
+void CAverageDecision::tryOut(PRateValue curValue, PRateValue averageValue)
 {
-	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down; 
+	int nowDirect = curValue->value - averageValue->value > 0 ? direct_up : direct_down;
 	if (nowDirect == tryDirect)
 	{
 		if (isDirectSet(curValue->time - trySetStartTime))
 		{
-
 			if (0 != optTagId)
 			{
 				optAccountr->optOut(tagName, rateInfo->rateName, optTagId, curValue);
@@ -212,13 +208,10 @@ void CAverageDecision::tryOut( PRateValue curValue, PRateValue averageValue )
 			{
 				throw CStrException("fun_status_clear_tryOut error");
 			}
-		}			
+		}
 	}
 	else
 	{
 		setTryDirect(curValue->time, nowDirect);
 	}
 }
-
-
-

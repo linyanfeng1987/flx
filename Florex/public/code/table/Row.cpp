@@ -3,19 +3,19 @@
 #include "PubFun.h"
 #include "db/DbObj.h"
 
-std::string trim(std::string s) 
+std::string trim(std::string s)
 {
-	if (s.empty()) 
+	if (s.empty())
 	{
 		return s;
 	}
 
-	s.erase(0,s.find_first_not_of(" "));
+	s.erase(0, s.find_first_not_of(" "));
 	s.erase(s.find_last_not_of(" ") + 1);
 	return s;
 }
 
-CRow::CRow(PTableStruct tableStruct):log(CLogObj::instance())
+CRow::CRow(PTableStruct tableStruct) :log(CLogObj::instance())
 {
 	setDataStatus(DATA_NEW);
 	init(tableStruct);
@@ -31,31 +31,31 @@ std::string CRow::getSql()
 	switch (m_dataStatus)
 	{
 	case DATA_NEW:
-		{
-			strSql = getInsertSql();
-		}
-		
-		break;
+	{
+		strSql = getInsertSql();
+	}
+
+	break;
 	case DATA_SAME:
-		{
-			strSql = "";
-		}
-		break;
+	{
+		strSql = "";
+	}
+	break;
 	case DATA_CHANGE:
-		{
-			strSql = getUpdateSql();
-		}
-		break;
+	{
+		strSql = getUpdateSql();
+	}
+	break;
 	case DATA_DELETE:
-		{
-			strSql = getDeleteSql();
-		}
-		break;
+	{
+		strSql = getDeleteSql();
+	}
+	break;
 	default:
-		{
-			strSql = "";
-		}
-		break;
+	{
+		strSql = "";
+	}
+	break;
 	}
 
 	return strSql;
@@ -66,13 +66,13 @@ std::string CRow::getInsertSql()
 	string strBaseSqlFormat = tableStruct->getBaseInsertSqlFormat();
 	string strTmp = "";
 	string strValue = "";
-	for(auto field : *tableStruct){
+	for (auto field : *tableStruct) {
 		strValue = getStringValue(field.first);
 		if (!strTmp.empty())
 		{
 			strTmp += ",";
 		}
-		//strTmp +="'" + strValue + "'";	
+		//strTmp +="'" + strValue + "'";
 		if (typeCount == field.second.strType)
 		{
 			strTmp.append("0");
@@ -88,8 +88,6 @@ std::string CRow::getInsertSql()
 	return strSql;
 }
 
-
-
 std::string CRow::getUpdateSql()
 {
 	string strBaseSqlFormat = tableStruct->getBaseUpdateSqlFormat();
@@ -97,7 +95,7 @@ std::string CRow::getUpdateSql()
 	string strTmp = "";
 	strTmp.clear();
 	string strValue;
-	for(auto field : *tableStruct){
+	for (auto field : *tableStruct) {
 		auto valueIter = find(field.first);
 		if (end() != valueIter && !valueIter->second->isDataSame())
 		{
@@ -109,11 +107,11 @@ std::string CRow::getUpdateSql()
 			//strTmp += field.first + "='" + strValue + "'";
 			if (typeCount == field.second.strType)
 			{
-				strTmp.append(PubFun::strFormat("%s=%s+1",field.first.c_str(), field.first.c_str()));
+				strTmp.append(PubFun::strFormat("%s=%s+1", field.first.c_str(), field.first.c_str()));
 			}
 			else
 			{
-				strTmp.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+				strTmp.append(PubFun::strFormat("%s='%s'", field.first.c_str(), strValue.c_str()));
 			}
 		}
 	}
@@ -123,7 +121,7 @@ std::string CRow::getUpdateSql()
 		string strCondition = getCondition();
 		strSql = PubFun::strFormat(strBaseSqlFormat.c_str(), strTmp.c_str(), strCondition.c_str());
 	}
-	
+
 	return strSql;
 }
 
@@ -157,7 +155,7 @@ std::string CRow::getCondition()
 			strSql += "'";
 		}
 	}
-	
+
 	if (!strSql.empty())
 	{
 		strSql = " where " + strSql;
@@ -172,12 +170,12 @@ std::string CRow::getCondition()
 	return strSql;
 }
 
-void CRow::init( PTableStruct tableStruct )
+void CRow::init(PTableStruct tableStruct)
 {
 	setTableStruct(tableStruct);
 }
 
-void CRow::setAndaddValue( string& strKey, string& strValue )
+void CRow::setAndaddValue(string& strKey, string& strValue)
 {
 	if (tableStruct->find(strKey) != tableStruct->end())
 	{
@@ -197,13 +195,13 @@ void CRow::setAndaddValue( string& strKey, string& strValue )
 	}
 }
 
-void CRow::addByList( list<string> valueList )
+void CRow::addByList(list<string> valueList)
 {
 	if (valueList.size() != tableStruct->size())
 	{
 		throw CStrException("addByList error.");
 	}
-	list<string>::iterator valueIter= valueList.begin();
+	list<string>::iterator valueIter = valueList.begin();
 	for (auto fieldPair : *tableStruct)
 	{
 		setAndaddValue(fieldPair.first, *valueIter);
@@ -211,7 +209,7 @@ void CRow::addByList( list<string> valueList )
 	}
 }
 
-std::string CRow::getValue( string& strKey )
+std::string CRow::getValue(string& strKey)
 {
 	PValue destValue = nullptr;
 	CRow::iterator iter = this->find(strKey);
@@ -226,10 +224,10 @@ std::string CRow::getValue( string& strKey )
 	return destValue->getStrValue();
 }
 
-void CRow::setValue( string& strKey, string& strValue )
+void CRow::setValue(string& strKey, string& strValue)
 {
 	auto iter = this->find(strKey);
-	if(iter != this->end())
+	if (iter != this->end())
 	{
 		iter->second->setValue(strValue);
 	}
@@ -241,10 +239,10 @@ void CRow::setValue( string& strKey, string& strValue )
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
 
-void CRow::setValue( string& strKey, double dValue )
+void CRow::setValue(string& strKey, double dValue)
 {
 	auto iter = this->find(strKey);
-	if(iter != this->end())
+	if (iter != this->end())
 	{
 		iter->second->setValue(dValue);
 	}
@@ -256,10 +254,10 @@ void CRow::setValue( string& strKey, double dValue )
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
 
-void CRow::setValue( string& strKey, int& nValue )
+void CRow::setValue(string& strKey, int& nValue)
 {
 	auto iter = this->find(strKey);
-	if(iter != this->end())
+	if (iter != this->end())
 	{
 		iter->second->setValue(nValue);
 	}
@@ -271,10 +269,10 @@ void CRow::setValue( string& strKey, int& nValue )
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
 
-void CRow::setValue( string& strKey, time_t tValue )
+void CRow::setValue(string& strKey, time_t tValue)
 {
 	auto iter = this->find(strKey);
-	if(iter != this->end())
+	if (iter != this->end())
 	{
 		iter->second->setValue(tValue);
 	}
@@ -285,7 +283,6 @@ void CRow::setValue( string& strKey, time_t tValue )
 
 	setDataStatus(m_dataStatus == DATA_SAME ? DATA_CHANGE : m_dataStatus);
 }
-
 
 std::string CRow::getStringValue(string& strKey)
 {
@@ -307,27 +304,27 @@ double CRow::getDoubleValue(string& strKey)
 	return emptyFind(strKey)->getDoubleValue();
 }
 
-void CRow::setStringValue(string& strKey, string& strValue )
+void CRow::setStringValue(string& strKey, string& strValue)
 {
 	this->setValue(strKey, strValue);
 }
 
-void CRow::setIntValue(string& strKey, int nValue )
+void CRow::setIntValue(string& strKey, int nValue)
 {
 	this->setValue(strKey, nValue);
 }
 
-void CRow::setIndexValue( string& strKey, indexType iValue )
+void CRow::setIndexValue(string& strKey, indexType iValue)
 {
 	this->setValue(strKey, PubFun::indexToString(iValue));
 }
 
-void CRow::setTimeValue(string& strKey, time_t tValue )
+void CRow::setTimeValue(string& strKey, time_t tValue)
 {
 	this->setValue(strKey, tValue);
 }
 
-void CRow::setDoubleValue(string& strKey, double dValue )
+void CRow::setDoubleValue(string& strKey, double dValue)
 {
 	this->setValue(strKey, dValue);
 }
@@ -337,7 +334,7 @@ bool CRow::isExit()
 	bool bIsExit = false;
 	string strValue = "";
 	string conditicon = "";
-	for(auto field : *tableStruct){
+	for (auto field : *tableStruct) {
 		if (field.second.bIsPk)
 		{
 			strValue = getStringValue(field.first);
@@ -345,8 +342,8 @@ bool CRow::isExit()
 			{
 				conditicon += "and ";
 			}
-			//conditicon +="'" + strValue + "'";	
-			conditicon.append(PubFun::strFormat("%s='%s'",field.first.c_str(), strValue.c_str()));
+			//conditicon +="'" + strValue + "'";
+			conditicon.append(PubFun::strFormat("%s='%s'", field.first.c_str(), strValue.c_str()));
 		}
 	}
 
@@ -377,7 +374,7 @@ bool CRow::save()
 			CDbObj::instance().executeSql(strSql.c_str());
 			setDataStatus(DATA_SAME);
 		}
-		catch (CStrException &e)
+		catch (CStrException& e)
 		{
 			log.error(string(e.what()));
 		}
@@ -396,12 +393,12 @@ bool CRow::save2()
 			CDbObj::instance().executeSql(strSql.c_str());
 			setDataStatus(DATA_SAME);
 		}
-		catch (CStrException &e)
+		catch (CStrException& e)
 		{
 			string strMsg = e.what();
 			if (-1 == strMsg.find("for key 'PRIMARY'"))
 			{
-				log.info(PubFun::strFormat("插入失败，使用修改方式,sql:%s",strSql.c_str()));
+				log.info(PubFun::strFormat("插入失败，使用修改方式,sql:%s", strSql.c_str()));
 				setDataStatus(DATA_CHANGE);
 				save();
 			}
@@ -411,20 +408,20 @@ bool CRow::save2()
 	return true;
 }
 
-void CRow::setDataStatus( DATA_STATUS status )
+void CRow::setDataStatus(DATA_STATUS status)
 {
-	if (DATA_SAME ==  status)
+	if (DATA_SAME == status)
 	{
 		for (auto valuePair : *this)
 		{
 			valuePair.second->setSame();
 		}
 	}
-	
+
 	m_dataStatus = status;
 }
 
-PValue CRow::emptyFind( string key )
+PValue CRow::emptyFind(string key)
 {
 	auto iter = find(key);
 	if (this->end() != iter)
@@ -434,8 +431,5 @@ PValue CRow::emptyFind( string key )
 	else
 	{
 		return newValue();
-	}	 
+	}
 }
-
-
-

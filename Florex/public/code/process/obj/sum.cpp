@@ -10,14 +10,14 @@ CSum::~CSum()
 {
 }
 
-void CSum::add( double value )
+void CSum::add(double value)
 {
 	dataList.push_back(value);
 	sumValue += value;
-	if(dataList.size() > maxSize)
+	if (dataList.size() > maxSize)
 	{
 		auto iter = dataList.begin();
-		if(iter != dataList.end())
+		if (iter != dataList.end())
 		{
 			sumValue -= *iter;
 			dataList.pop_front();
@@ -34,9 +34,9 @@ void CSum::clear()
 double CSum::getAverage()
 {
 	int size = getSize();
-	if(0 != size)
+	if (0 != size)
 	{
-		return getSum()/getSize();
+		return getSum() / getSize();
 	}
 	else
 	{

@@ -1,9 +1,6 @@
-
 #include "HisRate.h"
 #include "PubFun.h"
 #include <algorithm>
-
-
 
 HisRate::HisRate(void)
 {
@@ -18,42 +15,41 @@ HisRate::HisRate(void)
 	real_volume = 0;
 }
 
-
 HisRate::~HisRate(void)
 {
 }
 
 std::string HisRate::toString()
 {
-	char tmp[1024] = {0};
+	char tmp[1024] = { 0 };
 	sprintf_s(tmp, "time:%d, timeStepType:%d, open:%f, high:%f, low:%f, close:%f, tick_volume:%d, spread:%d, real_volume:%d",
-		time, timeStepType, open,  high, low, close, tick_volume,  spread, real_volume);
+		time, timeStepType, open, high, low, close, tick_volume, spread, real_volume);
 
 	return string(tmp);
 }
 
-void HisRate::loadByLine( string line )
+void HisRate::loadByLine(string line)
 {
 	//XAUUSD,20010102,231200,268.8000,268.8000,268.8000,268.8000,4
 	string strDate = "";
 	string strTime = "";
-	char strName[128] = {0};
+	char strName[128] = { 0 };
 	list<string> strList = PubFun::split(line, ",");
 
 	int nIndex = 1;
-	for ( string strTmp : strList )
+	for (string strTmp : strList)
 	{
 		switch (nIndex)
 		{
 		case 1:
-			transform(strTmp.begin(),strTmp.end(),strTmp.begin(),tolower);
-			this->rateName = strTmp; 
+			transform(strTmp.begin(), strTmp.end(), strTmp.begin(), tolower);
+			this->rateName = strTmp;
 			break;
 		case 2:
-			strDate = strTmp; 
+			strDate = strTmp;
 			break;
 		case 3:
-			strTime = strTmp; 
+			strTime = strTmp;
 			break;
 		case 4:
 			sscanf_s(strTmp.c_str(), "%lf", &(this->open));
@@ -65,10 +61,10 @@ void HisRate::loadByLine( string line )
 			sscanf_s(strTmp.c_str(), "%lf", &(this->low));
 			break;
 		case 7:
-			sscanf_s(strTmp.c_str(), "%lf", &(this->close)); 
+			sscanf_s(strTmp.c_str(), "%lf", &(this->close));
 			break;
 		case 8:
-			sscanf_s(strTmp.c_str(), "%d", &(this->real_volume)); 
+			sscanf_s(strTmp.c_str(), "%d", &(this->real_volume));
 			break;
 		}
 		nIndex++;
@@ -83,10 +79,9 @@ void HisRate::loadByLine( string line )
 
 	time_t t = PubFun::HisRateStringToDatetime(strTmp.c_str());
 
-	
 	this->time = (long int)t;
 	this->timeFormat = PubFun::getTimeFormat(t);
-	this->percentSpead_s = PubFun::calcPercentSpeadProS(this->time, 0, this->low, this->time+60, 0, this->high);
+	this->percentSpead_s = PubFun::calcPercentSpeadProS(this->time, 0, this->low, this->time + 60, 0, this->high);
 	this->timeStepType = timeStepStep_mm;
 }
 
@@ -96,7 +91,7 @@ std::string HisRate::toSqlString()
 						  ( %d, %.5f, %.5f, %.5f, %.5f, %d, \"%s\", %.5f);";
 	string strTableName = "currency_pair_";
 	strTableName += this->rateName;
-	strTableName = florexDbName +"."+ strTableName;
+	strTableName = florexDbName + "." + strTableName;
 	switch (this->timeStepType)
 	{
 	case timeStepStep_mm:
@@ -119,9 +114,9 @@ std::string HisRate::toSqlString()
 		break;
 	}
 
-	char chSql[2048] = {0};
+	char chSql[2048] = { 0 };
 	memset(chSql, 0, sizeof(chSql));
-	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(), 
+	sprintf_s(chSql, strSqlFormat.c_str(), strTableName.c_str(),
 		this->time, this->open, this->low, this->high, this->close, this->real_volume, this->timeFormat.c_str(), this->percentSpead_s);
 
 	return chSql;

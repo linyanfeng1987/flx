@@ -14,10 +14,10 @@ CProCorrecting::~CProCorrecting()
 {
 }
 
-bool CProCorrecting::calc( double tmpTime, double tmpValue, map<double, double>& valueMap )
+bool CProCorrecting::calc(double tmpTime, double tmpValue, map<double, double>& valueMap)
 {
 	valueMap.clear();
-	if(0 != this->curTime)
+	if (0 != this->curTime)
 	{
 		lastTime = curTime;
 		lastValue = curValue;
@@ -26,16 +26,16 @@ bool CProCorrecting::calc( double tmpTime, double tmpValue, map<double, double>&
 	curValue = tmpValue;
 
 	double timeDef = curTime - lastTime;
-	if(0 != timeDef)
+	if (0 != timeDef)
 	{
 		double valueDef = curValue - lastValue;
 		double valueSetp = valueDef / timeDef;
 		list<time_t> timeList;
 		PubFun::getIntListByStep(timeList, lastTime, curTime, step);
 		double tempValue = 0;
-		for(long long timePoint : timeList)
+		for (long long timePoint : timeList)
 		{
-			tempValue = lastValue+(timePoint - lastTime)*valueSetp;
+			tempValue = lastValue + (timePoint - lastTime) * valueSetp;
 			valueMap.insert(make_pair(double(timePoint), tempValue));
 		}
 	}

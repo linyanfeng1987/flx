@@ -1,7 +1,7 @@
 #include "calcProData.h"
 #include "PubFun.h"
 
-CCalcProData::CCalcProData( PRateInfo rateInfo )
+CCalcProData::CCalcProData(PRateInfo rateInfo)
 {
 	init(rateInfo);
 }
@@ -15,7 +15,7 @@ CCalcProData::~CCalcProData()
 	}
 }
 
-PRateValue CCalcProData::calcRateValue( PRow rateRow )
+PRateValue CCalcProData::calcRateValue(PRow rateRow)
 {
 	long curTime = rateRow->getIntValue(CCurRateStruct::curTime);
 	long curMsec = rateRow->getIntValue(CCurRateStruct::curMsec);
@@ -28,7 +28,7 @@ PRateValue CCalcProData::calcRateValue( PRow rateRow )
 	return rateValue;
 }
 
-void CCalcProData::saveToDb( PRateValue rateValue )
+void CCalcProData::saveToDb(PRateValue rateValue)
 {
 	PRow row = newRow(calcRateStruct);
 	row->setDoubleValue(CCalcRateStruct::curValue, rateValue->value);
@@ -44,11 +44,10 @@ void CCalcProData::saveToDb( PRateValue rateValue )
 	}
 }
 
-void CCalcProData::init( PRateInfo rateInfo )
+void CCalcProData::init(PRateInfo rateInfo)
 {
-// 	PRateInfo rateInfo = newRateInfo();
-// 	string rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
+	// 	PRateInfo rateInfo = newRateInfo();
+	// 	string rateName = pTaskInfo->getStringValue(CProcessTaskInfoStruct::key_rateType);
 	calcRateStruct = newCalcRateStruct(rateInfo->rateName);
 	resTable = newTable(calcRateStruct);
 }
-

@@ -19,17 +19,15 @@ protected:
 
 	bool buildByThread();
 
-
 	time_t getRateLastTime(string rateName);
 	time_t getRateStartTime(string rateName);
 	time_t getRateTime(string rateName, string orderSql);
 	map<string, PRow> taskConfigs;
 
 	CLogObj& log;
-	CDbObj* pDb; 
-	CGlobalData& gData; 
+	CDbObj* pDb;
+	CGlobalData& gData;
 
 	static const string logTag;
 	PLogInfo logInfo;
 };
-

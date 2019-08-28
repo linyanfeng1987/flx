@@ -16,9 +16,9 @@
 const int timeStep = 3600;
 const string CCalcThread::logTag = "calcThread";
 
-CCalcThread::CCalcThread( PThreadInfo _threadInfo ):CBaseThread(_threadInfo)
+CCalcThread::CCalcThread(PThreadInfo _threadInfo) :CBaseThread(_threadInfo)
 {
-	logInfo = newLogInfo(logTag);	
+	logInfo = newLogInfo(logTag);
 	needBaseCalc = false;
 }
 
@@ -33,8 +33,8 @@ bool CCalcThread::init()
 	// 从数据库中加载未执行的任务
 	int processId = threadInfo->getRowData()->getIntValue(CThreadStatusStruct::key_threadId);
 	auto taskTableStruct = CProcessTaskInfoStruct::instence();
-	string updateSql = PubFun::strFormat("update %s set %s=%d where %s=%d and %s=%d;", 
-		taskTableStruct->tableName.c_str(), 
+	string updateSql = PubFun::strFormat("update %s set %s=%d where %s=%d and %s=%d;",
+		taskTableStruct->tableName.c_str(),
 		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def,
 		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
 		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_run);
@@ -42,11 +42,11 @@ bool CCalcThread::init()
 
 	// 拼好查询语句
 	getTaskSql = taskTableStruct->getSelectSqlLimit1(
-		PubFun::strFormat("%s=%d and %s=%d", 
-		CProcessTaskInfoStruct::key_threadId.c_str(), processId,
-		CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def), 
-		PubFun::strFormat("order by %s", 
-		CProcessTaskInfoStruct::key_startTime.c_str()));
+		PubFun::strFormat("%s=%d and %s=%d",
+			CProcessTaskInfoStruct::key_threadId.c_str(), processId,
+			CProcessTaskInfoStruct::key_status.c_str(), taskStatus_def),
+		PubFun::strFormat("order by %s",
+			CProcessTaskInfoStruct::key_startTime.c_str()));
 
 	string processTypeName = threadInfo->getRowData()->getStringValue(CThreadStatusStruct::key_threadTypeName);
 	processCfgInfo = CGlobalData::instance().getProcessInfo(processTypeName);
@@ -72,7 +72,7 @@ bool CCalcThread::init()
 // 	if (-1 != processTypeName.find(processType_baseCalc))
 // 	{
 // 		needBaseCalc = true;
-// 	} 
+// 	}
 // 	if (-1 != processTypeName.find(processType_average))
 // 	{
 // 		PAverageAnalysis averageAnalysis = newAverageAnalysis(rateInfo);
@@ -83,11 +83,11 @@ bool CCalcThread::init()
 // 		PContinueAnalysis continueAnalysis = newContinueAnalysis(rateInfo);
 // 		process->addAnalysis(processType_continue, continueAnalysis);
 // 	}
-// 
+//
 // 	return process;
 // }
 
-PCalcProcess CCalcThread::getProcess( PProcessCfgInfo processInfo, string& rateName)
+PCalcProcess CCalcThread::getProcess(PProcessCfgInfo processInfo, string& rateName)
 {
 	PRateInfo rateInfo = newRateInfo();
 	rateInfo->rateName = rateName;
@@ -97,20 +97,20 @@ PCalcProcess CCalcThread::getProcess( PProcessCfgInfo processInfo, string& rateN
 	PAnalysisInfo analysisInfo = processInfo->analysisInfo;
 	if (analysisInfo->analysisType == processType_average)
 	{
-		PAverageAnalysis averageAnalysis = newAverageAnalysis(analysisInfo,rateInfo);
+		PAverageAnalysis averageAnalysis = newAverageAnalysis(analysisInfo, rateInfo);
 		process->addAnalysis(processType_average, averageAnalysis);
 	}
-	
+
 	if (analysisInfo->analysisType == processType_continue)
 	{
-		PContinueAnalysis continueAnalysis = newContinueAnalysis(analysisInfo,rateInfo);
+		PContinueAnalysis continueAnalysis = newContinueAnalysis(analysisInfo, rateInfo);
 		process->addAnalysis(processType_continue, continueAnalysis);
 	}
 
 	return process;
 }
 
-void CCalcThread::runInThread( const char* argv )
+void CCalcThread::runInThread(const char* argv)
 {
 	if (init())
 	{
@@ -126,7 +126,7 @@ void CCalcThread::rangTaskList()
 	// 执行任务
 	static bool isFirstRun = true;
 	PRow task = getOneTask();
-	if(nullptr != task)
+	if (nullptr != task)
 	{
 		isFirstRun = false;
 		//string param = taskInfoRow->getStringValue(CProcessTaskInfoStruct::key_paramter);
@@ -148,7 +148,7 @@ void CCalcThread::rangTaskList()
 PRow CCalcThread::getOneTask()
 {
 	PRow row = nullptr;
-	try{
+	try {
 		row = CDbObj::instance().selectOneData(getTaskSql.c_str(), CProcessTaskInfoStruct::instence());
 		if (nullptr != row)
 		{
@@ -164,7 +164,7 @@ PRow CCalcThread::getOneTask()
 	return row;
 }
 
-void CCalcThread::runTask( PRow taskInfoRow )
+void CCalcThread::runTask(PRow taskInfoRow)
 {
 	try
 	{
@@ -222,7 +222,7 @@ int CCalcThread::completeTask(PRow taskInfoRow)
 	return 0;
 }
 
-void CCalcThread::withBaseCalc( map<time_t, time_t>& resValueMap, string& rateName )
+void CCalcThread::withBaseCalc(map<time_t, time_t>& resValueMap, string& rateName)
 {
 	PCurRateStruct rateStruct = newCurRateStruct(rateName);
 	PTable rateTable = newTable(rateStruct);
@@ -240,7 +240,7 @@ void CCalcThread::withBaseCalc( map<time_t, time_t>& resValueMap, string& rateNa
 	}
 }
 
-void CCalcThread::calcProcess( map<time_t, time_t>& resValueMap, string& rateName )
+void CCalcThread::calcProcess(map<time_t, time_t>& resValueMap, string& rateName)
 {
 	PCalcRateStruct rateStruct = newCalcRateStruct(rateName);
 	PTable rateTable = newTable(rateStruct);
@@ -256,9 +256,10 @@ void CCalcThread::calcProcess( map<time_t, time_t>& resValueMap, string& rateNam
 		CDbObj::instance().selectData(sql.c_str(), rateTable);
 
 		list<PRateValue> values;
+		PRow row = nullptr;
 		for (auto rowPair : *rateTable)
 		{
-			PRow row = rowPair.second;;
+			row = rowPair.second;
 			double curDTime = row->getDoubleValue(CCalcRateStruct::curTime);
 			double curValue = row->getDoubleValue(CCalcRateStruct::curValue);
 			string timeDesc = row->getStringValue(CCalcRateStruct::timeFormat);
@@ -266,11 +267,7 @@ void CCalcThread::calcProcess( map<time_t, time_t>& resValueMap, string& rateNam
 			PRateValue rateValue = newRateValueP3(curDTime, curValue, timeDesc);
 			values.push_back(rateValue);
 		}
-		
+
 		process->calc(values);
 	}
 }
-
-
-
-

@@ -1,7 +1,7 @@
 #include "sumByTime.h"
 #include "PubFun.h"
 
-CSumByTime::CSumByTime( double _maxTimeStep ):log(CLogObj::instance())
+CSumByTime::CSumByTime(double _maxTimeStep) :log(CLogObj::instance())
 {
 	maxTimeStep = _maxTimeStep;
 	sumValue = 0;
@@ -12,7 +12,7 @@ CSumByTime::~CSumByTime()
 {
 }
 
-double CSumByTime::add( PRateValue curValue )
+double CSumByTime::add(PRateValue curValue)
 {
 	values.push_back(curValue);
 	sumValue += curValue->value;
@@ -47,9 +47,9 @@ double CSumByTime::getAverage()
 {
 	int size = getSize();
 	double res = 0;
-	if(0 != size)
+	if (0 != size)
 	{
-		res = sumValue/size;
+		res = sumValue / size;
 #ifdef DEBUG_CHECK
 		double debugSum = 0;
 		for (PRateValue rateValue : values)

@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cstdio>
-#include <cstring> 
+#include <cstring>
 #include <cstdlib>
 
 const int  SIZE = 100; // 栈的初始容量
@@ -12,12 +12,12 @@ const int INF = -0xfffffff;// 用于空栈时防止尴尬，返回一个不能读取的地址，让读取
 template <class T>
 struct Strack
 {
-	T *top;// 栈顶的指针
-	T *base;// 栈底的指针
+	T* top;// 栈顶的指针
+	T* base;// 栈底的指针
 	int strackSize;//栈容量
 	void init()//栈的初始化
 	{
-		base = (T *)malloc(SIZE * sizeof(T));//分配内存
+		base = (T*)malloc(SIZE * sizeof(T));//分配内存
 		top = base;
 		strackSize = SIZE;
 	}
@@ -40,7 +40,7 @@ struct Strack
 	void push(T x)
 	{//栈顶插入元素
 		if (isPull()) {//如果内存不够重新分配内存
-			base = (T *)realloc(base, (strackSize + ADDSIZE)*(sizeof(T)));
+			base = (T*)realloc(base, (strackSize + ADDSIZE) * (sizeof(T)));
 			top = base + strackSize;
 			strackSize += ADDSIZE;
 		}
@@ -72,7 +72,7 @@ int compareNumber(char x)//用来比较符号的优先级
 	return -1;
 }
 
-void change(char *mid, char *suxfix)//中缀表达式转换为后缀表达式     
+void change(char* mid, char* suxfix)//中缀表达式转换为后缀表达式
 {
 	int i = 0, len = strlen(mid), mid_index = 0;
 	//char c;
@@ -108,9 +108,9 @@ void change(char *mid, char *suxfix)//中缀表达式转换为后缀表达式
 			intElements.push(mid[i]);
 			i++;
 		}
-		else if (mid[i] >= '0'&&mid[i] <= '9')
+		else if (mid[i] >= '0' && mid[i] <= '9')
 		{
-			while (mid[i] >= '0'&&mid[i] <= '9')
+			while (mid[i] >= '0' && mid[i] <= '9')
 			{
 				suxfix[mid_index++] = mid[i];
 				i++;
@@ -119,7 +119,6 @@ void change(char *mid, char *suxfix)//中缀表达式转换为后缀表达式
 		}
 		else
 		{
-
 		}
 	}
 	while (intElements.Top() != '#') {
@@ -130,14 +129,14 @@ void change(char *mid, char *suxfix)//中缀表达式转换为后缀表达式
 	suxfix[mid_index] = 0;
 }
 
-double countSuxfix(const char *suxfix)//计算后缀表达式   suxfix后缀表达式
+double countSuxfix(const char* suxfix)//计算后缀表达式   suxfix后缀表达式
 {
 	int len = strlen(suxfix);
 	double x;
 	Strack <int >intElements;
 	intElements.init();
 	int i = 0;
-	while (i<len) {
+	while (i < len) {
 		if (suxfix[i] == ' ')// 用于表达式有效字符集用完跳出循环
 		{
 			i++;
@@ -161,7 +160,7 @@ double countSuxfix(const char *suxfix)//计算后缀表达式   suxfix后缀表达式
 		case '*':
 			x = intElements.Top();
 			intElements.pop();
-			x = intElements.Top()*x;
+			x = intElements.Top() * x;
 			intElements.pop();
 			i++;
 			break;
@@ -173,17 +172,16 @@ double countSuxfix(const char *suxfix)//计算后缀表达式   suxfix后缀表达式
 			i++;
 			break;
 		default:
-			{
-				x = 0;
-				while (suxfix[i] >= '0'&&suxfix[i] <= '9') {
-					x = x * 10 + suxfix[i] - '0';// 连续2个数，第一个*10，以此类推
-					i++;
-				}
+		{
+			x = 0;
+			while (suxfix[i] >= '0' && suxfix[i] <= '9') {
+				x = x * 10 + suxfix[i] - '0';// 连续2个数，第一个*10，以此类推
+				i++;
 			}
+		}
 		}
 
 		intElements.push((int)x);
 	}
 	return intElements.Top();
 }
-

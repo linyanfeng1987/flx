@@ -1,5 +1,5 @@
 #pragma once
-#include "baseCurRateStruct.h" 
+#include "baseCurRateStruct.h"
 #include "table/TableStruct.h"
 #include <mutex>
 
@@ -28,11 +28,11 @@ public:
 
 	static string stepTime;
 	static string resValue;
-	
+
 	static string direct;
 
 	static string optDesc;
 protected:
 	void init();
 	static mutex initMutex;
-}; 
+};

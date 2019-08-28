@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include <map>
+#include <string>
 #include <memory>
 #include "LinkedHashMap.h"
 
@@ -9,11 +10,11 @@ using namespace std;
 class CRateValue
 {
 public:
-	CRateValue():time(0), value(0){}
-	CRateValue(double _time, double _value):time(_time), value(_value){}
-	CRateValue(double _time, double _value, string& _timeDesc):time(_time), value(_value), timeDesc(_timeDesc){}
+	CRateValue() :time(0), value(0) {}
+	CRateValue(double _time, double _value) :time(_time), value(_value) {}
+	CRateValue(double _time, double _value, std::string& _timeDesc) :time(_time), value(_value), timeDesc(_timeDesc) {}
 
-	bool isValid() const{return time != 0;} 
+	bool isValid() const { return time != 0; }
 	double time;
 	double value;
 	string timeDesc;

@@ -11,7 +11,7 @@ using namespace std;
 class CStepValue
 {
 public:
-	CStepValue(){
+	CStepValue() {
 		stepTime = 0;
 		stepValue = 0;
 	}
@@ -26,10 +26,10 @@ public:
 	~CSumByTime();
 
 	double add(PRateValue rateValue);
-	
+
 	void clear();
-	double getSum(){return sumValue;}
-	int getSize(){return values.size();}
+	double getSum() { return sumValue; }
+	int getSize() { return values.size(); }
 
 	double getAverage();
 protected:
@@ -40,8 +40,8 @@ protected:
 	double sumValue;
 
 	CLogObj& log;
-// 	double lastTime;
-// 	double firstTime;
+	// 	double lastTime;
+	// 	double firstTime;
 };
 
 typedef shared_ptr<CSumByTime> PSumByTime;

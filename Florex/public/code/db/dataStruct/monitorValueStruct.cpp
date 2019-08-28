@@ -11,7 +11,7 @@ string CMonitorValueStruct::dataType = "dataType";
 string CMonitorValueStruct::optCount = "optCount";
 mutex CMonitorValueStruct::initMutex;
 
-CMonitorValueStruct::CMonitorValueStruct(bool _isTop):isTop(_isTop)
+CMonitorValueStruct::CMonitorValueStruct(bool _isTop) :isTop(_isTop)
 {
 	string tableName;
 	if (isTop)
@@ -22,21 +22,19 @@ CMonitorValueStruct::CMonitorValueStruct(bool _isTop):isTop(_isTop)
 	{
 		tableName = PubFun::strFormat("%s.monitorValue", calcDbName.c_str());
 	}
-	
+
 	setName(tableName);
 	init();
 }
 
-
 CMonitorValueStruct::~CMonitorValueStruct()
 {
-	
 }
 
 void CMonitorValueStruct::init()
 {
 	CField field;
-	
+
 	field.load(rateName, typeString, true);
 	this->insert(make_pair(field.strName, field));
 
@@ -60,7 +58,7 @@ void CMonitorValueStruct::init()
 		field.load(optCount, typeCount, false, false, true);
 		this->insert(make_pair(field.strName, field));
 	}
-	
+
 	ensureExist();
 }
 
@@ -79,4 +77,3 @@ PMonitorValueStruct CMonitorValueStruct::instenceTop()
 	initMutex.unlock();
 	return gp;
 }
-

@@ -41,7 +41,7 @@ typedef shared_ptr<ofstream> POfstream;
 class CWriteInfo
 {
 public:
-	CWriteInfo(int _writeType):writeType(_writeType),logFile(nullptr),lineCount(0),fileCount(0){}
+	CWriteInfo(int _writeType) :writeType(_writeType), logFile(nullptr), lineCount(0), fileCount(0) {}
 	POfstream logFile;
 	unsigned int lineCount;
 	unsigned int fileCount;
@@ -57,10 +57,9 @@ public:
 	CLogInfo(string _name, int _maxLogType);
 	CLogInfo(string _name);
 	//CLogInfo(size_t id, string name){this->id = id; this->name = name;}
-	
-	
+
 	// id(线程id)
-	size_t threadId;
+	std::thread::id* pThreadId = nullptr;
 	// 名称（线程名称）
 	string name;
 	// error info等
@@ -80,19 +79,19 @@ class CLogObj
 public:
 	static CLogObj& instance();
 
-// 	void addLogInfo(size_t id, CLogInfo &info);
-// 	void addLogInfo(CLogInfo &info);
+	// 	void addLogInfo(size_t id, CLogInfo &info);
+	// 	void addLogInfo(CLogInfo &info);
 	void error(PLogInfo logInfo, string& msg);
 	void info(PLogInfo logInfo, string& msg);
 	void warn(PLogInfo logInfo, string& msg);
 	void debug(PLogInfo logInfo, string& msg);
 	void ext(PLogInfo logInfo, string& msg);
 
-	void error(string& msg){error(logInfo, msg);}
-	void info( string& msg){info(logInfo, msg);}
-	void warn(string& msg){warn(logInfo, msg);}
-	void debug(string& msg){debug(logInfo, msg);}
-	void ext(string& msg){ext(logInfo, msg);}
+	void error(string& msg) { error(logInfo, msg); }
+	void info(string& msg) { info(logInfo, msg); }
+	void warn(string& msg) { warn(logInfo, msg); }
+	void debug(string& msg) { debug(logInfo, msg); }
+	void ext(string& msg) { ext(logInfo, msg); }
 
 	void logString(PLogInfo logInfo, int logType, string& str);
 
@@ -103,12 +102,12 @@ public:
 	static string extTag;
 
 protected:
-// 	CLogInfo* getLogInfo();
-// 	string makeFileName(string logFileFormat, string id="");
-// 	string makeFileName( string tag, CLogInfo &logInfo, string id="");
+	// 	CLogInfo* getLogInfo();
+	// 	string makeFileName(string logFileFormat, string id="");
+	// 	string makeFileName( string tag, CLogInfo &logInfo, string id="");
 	string makeLogStr(string levelTag, string& userMsg);
-//	void writeLog(string fileName, string& str);
-	
+	//	void writeLog(string fileName, string& str);
+
 	void writeLog(PLogInfo logInfo, int logType, string& str);
 	void writeLog(PWriteInfo writeInfo, string& str);
 	void openNewFile(PLogInfo logInfo, PWriteInfo writeInfo, int logType);
@@ -129,4 +128,3 @@ protected:
 	//map<string, string> fileMap;
 	map<size_t, CLogInfo> logInfoMap;
 };
-

@@ -2,17 +2,17 @@
 #include "globalData.h"
 #include "tinyXml/tinyxml.h"
 
-CGlobalData::CGlobalData():log(CLogObj::instance())
+CGlobalData::CGlobalData() :log(CLogObj::instance())
 {
- 	wchar_t* path = nullptr;
- 	_get_wpgmptr(&path);
+	wchar_t* path = nullptr;
+	_get_wpgmptr(&path);
 	string strPath = PubFun::wcharToChar(path);
 	string strMsg = PubFun::strFormat("curPath:%s", strPath.c_str());
 	log.info(strMsg);
-	cout<<strMsg<<endl;
-// 	wchar_t path2[256];
-// 	GetModuleFileName(NULL, path2, 256);
-// 	wprintf(_T("path:%s\n"),path2);
+	cout << strMsg << endl;
+	// 	wchar_t path2[256];
+	// 	GetModuleFileName(NULL, path2, 256);
+	// 	wprintf(_T("path:%s\n"),path2);
 	tasks = newTable(CProcessTaskInfoStruct::instence());
 }
 
@@ -36,25 +36,25 @@ void CGlobalData::loadConfig()
 {
 	TiXmlDocument doc;
 	doc.LoadFile(".././conf/processInfo.xml");
-	TiXmlElement *root = doc.FirstChildElement(); 
+	TiXmlElement* root = doc.FirstChildElement();
 	if (nullptr == root)
-	{	
+	{
 		string errorMsg(doc.ErrorDesc());
 		log.error(errorMsg);
 	}
 	else
 	{
-		TiXmlElement *childNode = root->FirstChildElement();
+		TiXmlElement* childNode = root->FirstChildElement();
 		while (nullptr != childNode)
 		{
-			if(PubFun::isNodeNamed(childNode, "process"))
+			if (PubFun::isNodeNamed(childNode, "process"))
 			{
 				PProcessCfgInfo threadCfgInfo = newProcessCfgInfo();
 				threadCfgInfo->loadByXml(childNode);
 				processCfgInfos.insert(make_pair(threadCfgInfo->tagName, threadCfgInfo));
 			}
 
-			childNode = childNode->NextSiblingElement(); 
+			childNode = childNode->NextSiblingElement();
 		}
 	}
 }
@@ -64,37 +64,36 @@ void CGlobalData::initDataInCode()
 	list<string> tmpList;
 	CProcessType tmpType;
 
-// 	tmpType.processTypeName = processType_baseCalc;
-// 	tmpType.timeStep = 900;
-// 	tmpType.dependOnTypeList.push_back("");
-// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-// 	tmpList.push_back(tmpType.processTypeName);
+	// 	tmpType.processTypeName = processType_baseCalc;
+	// 	tmpType.timeStep = 900;
+	// 	tmpType.dependOnTypeList.push_back("");
+	// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	// 	tmpList.push_back(tmpType.processTypeName);
 
-// 	tmpType.processTypeName = PubFun::strFormat("%s_%s_%s", processType_baseCalc.c_str(),processType_continue.c_str(),processType_average.c_str());
-// 	tmpType.timeStep = 900;
-// 	tmpType.dependOnTypeList.push_back("");
-// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-// 	tmpList.push_back(tmpType.processTypeName);
+	// 	tmpType.processTypeName = PubFun::strFormat("%s_%s_%s", processType_baseCalc.c_str(),processType_continue.c_str(),processType_average.c_str());
+	// 	tmpType.timeStep = 900;
+	// 	tmpType.dependOnTypeList.push_back("");
+	// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	// 	tmpList.push_back(tmpType.processTypeName);
 
-// 	tmpType.processTypeName = processType_average;
-// 	tmpType.timeStep = 900;
-// 	tmpType.dependOnTypeList.push_back("");
-// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-// 	tmpList.push_back(tmpType.processTypeName);
+	// 	tmpType.processTypeName = processType_average;
+	// 	tmpType.timeStep = 900;
+	// 	tmpType.dependOnTypeList.push_back("");
+	// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	// 	tmpList.push_back(tmpType.processTypeName);
 
-// 	tmpType.processTypeName = processType_continue;
-// 	tmpType.timeStep = 900;
-// 	tmpType.dependOnTypeList.push_back("");
-// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
-// 	tmpList.push_back(tmpType.processTypeName);
-
+	// 	tmpType.processTypeName = processType_continue;
+	// 	tmpType.timeStep = 900;
+	// 	tmpType.dependOnTypeList.push_back("");
+	// 	porcessTypes.insert(make_pair(tmpType.processTypeName, tmpType));
+	// 	tmpList.push_back(tmpType.processTypeName);
 
 	processRates.insert(make_pair(rateNames[3], tmpList));
 }
 
-CProcessType* CGlobalData::getProcessType( string processId )
+CProcessType* CGlobalData::getProcessType(string processId)
 {
-	CProcessType *pCfg = nullptr;
+	CProcessType* pCfg = nullptr;
 	map<string, CProcessType>::iterator iter = porcessTypes.find(processId);
 	if (iter != porcessTypes.end())
 	{
@@ -172,7 +171,6 @@ void CGlobalData::init()
 
 void CGlobalData::initDataInXml()
 {
-
 }
 
 void CGlobalData::initDataStruct()
@@ -182,7 +180,7 @@ void CGlobalData::initDataStruct()
 	PThreadStatusStruct p3 = CThreadStatusStruct::instence();
 }
 
-PProcessCfgInfo CGlobalData::getProcessInfo( string key )
+PProcessCfgInfo CGlobalData::getProcessInfo(string key)
 {
 	PProcessCfgInfo destInfo = nullptr;
 	auto iter = processCfgInfos.find(key);
@@ -192,4 +190,3 @@ PProcessCfgInfo CGlobalData::getProcessInfo( string key )
 	}
 	return destInfo;
 }
-

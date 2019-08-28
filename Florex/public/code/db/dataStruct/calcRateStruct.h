@@ -1,5 +1,5 @@
 #pragma once
-#include "baseCurRateStruct.h" 
+#include "baseCurRateStruct.h"
 #include "table/TableStruct.h"
 
 class CCalcRateStruct;
@@ -10,7 +10,7 @@ class CCalcRateStruct : public CTableStruct
 public:
 	using CTableStruct::CTableStruct;
 
-	CCalcRateStruct(string _rateName,string _timeName, string _typeName);
+	CCalcRateStruct(string _rateName, string _timeName, string _typeName);
 	~CCalcRateStruct();
 
 	static PCalcRateStruct instence();
@@ -24,15 +24,15 @@ public:
 	string timeName;
 	string typeName;
 
-	static string curValue; 
-	static string curTime; 
+	static string curValue;
+	static string curTime;
 	static string timeFormat;
 	CCalcRateStruct();
 protected:
-	
+
 	void init();
 	void addField();
-}; 
+};
 
 #define newCalcRateAverageStruct(T1,T2) make_shared<CCalcRateStruct>(T1,T2,"average")
 #define newCalcRateStruct(T1) make_shared<CCalcRateStruct>(T1,"","")

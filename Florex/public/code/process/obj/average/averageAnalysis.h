@@ -12,7 +12,7 @@ class CAverageAnalysis : public CBaseAnalysis
 {
 public:
 	using CBaseAnalysis::CBaseAnalysis;
-	CAverageAnalysis(PAnalysisInfo _analysisInfo, PRateInfo _rateInfo):CBaseAnalysis(_analysisInfo, _rateInfo){}
+	CAverageAnalysis(PAnalysisInfo _analysisInfo, PRateInfo _rateInfo) :CBaseAnalysis(_analysisInfo, _rateInfo) {}
 
 	virtual void add(PRateValue value);
 
@@ -23,9 +23,9 @@ protected:
 	//map<long, PAverageObj> averageObjs;
 
 	list<PCalcPipeline> pipelines;
-// 	unsigned int maxMemberSize;
-// 	double minContinueStep;
-// 	double persentStep;
+	// 	unsigned int maxMemberSize;
+	// 	double minContinueStep;
+	// 	double persentStep;
 };
 typedef shared_ptr<CAverageAnalysis> PAverageAnalysis;
 #define newAverageAnalysis(T1,T2) make_shared<CAverageAnalysis>(T1,T2)

@@ -1,8 +1,7 @@
 #include "AutoMutex.h"
 #include "PubFun.h"
 
-
-CAutoMutex::CAutoMutex( recursive_mutex *pMutex )
+CAutoMutex::CAutoMutex(recursive_mutex* pMutex)
 {
 	this->pMutex = pMutex;
 	//CLogObj::instance().debug(PubFun::strFormat("mutex while lock, thisId:%d, mutexId:%d", this, pMutex));
@@ -10,7 +9,7 @@ CAutoMutex::CAutoMutex( recursive_mutex *pMutex )
 	//CLogObj::instance().debug(PubFun::strFormat("mutex locked, thisId:%d, mutexId:%d", this, pMutex));
 }
 
-CAutoMutex::~CAutoMutex( void )
+CAutoMutex::~CAutoMutex(void)
 {
 	//CLogObj::instance().debug(PubFun::strFormat("mutex while unlock, thisId:%d, mutexId:%d", this, pMutex));
 	this->pMutex->unlock();

@@ -27,7 +27,7 @@ CLogObj::CLogObj()
 	_get_wpgmptr(&path);
 	string strPath = PubFun::wcharToChar(path);
 	int nIndex = strPath.find_last_of('\\');
-	if(-1 != nIndex)
+	if (-1 != nIndex)
 	{
 		strPathBase = strPath.substr(0, nIndex);
 	}
@@ -38,22 +38,22 @@ CLogObj::CLogObj()
 	logInfo = newLogInfo(logTag);
 }
 
-void CLogObj::error(PLogInfo logInfo, string& msg )
+void CLogObj::error(PLogInfo logInfo, string& msg)
 {
 	logString(logInfo, log_error, msg);
 }
 
-void CLogObj::info(PLogInfo logInfo, string& msg )
+void CLogObj::info(PLogInfo logInfo, string& msg)
 {
 	logString(logInfo, log_info, msg);
 }
 
-void CLogObj::warn(PLogInfo logInfo, string& msg )
+void CLogObj::warn(PLogInfo logInfo, string& msg)
 {
 	logString(logInfo, log_warn, msg);
 }
 
-void CLogObj::debug(PLogInfo logInfo, string& msg )
+void CLogObj::debug(PLogInfo logInfo, string& msg)
 {
 	logString(logInfo, log_debug, msg);
 }
@@ -63,7 +63,6 @@ void CLogObj::ext(PLogInfo logInfo, string& msg)
 	logString(logInfo, log_ext, msg);
 }
 
-
 // std::string CLogObj::makeFileName( string tag, CLogInfo &logInfo, string id/*=""*/ )
 // {
 // 	string fileAllPath = "";
@@ -72,8 +71,8 @@ void CLogObj::ext(PLogInfo logInfo, string& msg)
 // 	map<string, string>::iterator fileIter = fileMap.find(fileKey);
 // 	if (fileMap.end() == fileIter)
 // 	{
-// 		SYSTEMTIME s_time; 
-// 		GetLocalTime(&s_time); 
+// 		SYSTEMTIME s_time;
+// 		GetLocalTime(&s_time);
 // 		char ch[2048] = {0};
 // 		string logPath = PubFun::strFormat(logBasePathFormat.c_str(), logInfo.name.c_str());
 // 		string logFileFormat = "";
@@ -89,7 +88,7 @@ void CLogObj::ext(PLogInfo logInfo, string& msg)
 // 		string fileName(ch);
 // 		PubFun::makeNewFile(logPath, fileName);
 // 		fileAllPath = PubFun::strFormat("%s/%s",logPath.c_str(), fileName.c_str());
-// 
+//
 // 		logInfo.logPathMap.insert(make_pair(tag, fileAllPath));
 // 		fileMap.insert(make_pair(fileKey, fileAllPath));
 // 	}
@@ -97,15 +96,15 @@ void CLogObj::ext(PLogInfo logInfo, string& msg)
 // 	{
 // 		fileAllPath = fileIter->second;
 // 	}
-// 
+//
 // 	return fileAllPath;
 // }
-// 
+//
 // std::string CLogObj::makeFileName( string logFileFormat, string id/*=""*/ )
 // {
 // 	string fileAllPath = "";
-// 	SYSTEMTIME s_time; 
-// 	GetLocalTime(&s_time); 
+// 	SYSTEMTIME s_time;
+// 	GetLocalTime(&s_time);
 // 	char ch[2048] = {0};
 // 	size_t threadId = std::this_thread::get_id().hash();
 // 	string fileKey = PubFun::strFormat("%u_%s", threadId, logFileFormat.c_str());
@@ -123,29 +122,28 @@ void CLogObj::ext(PLogInfo logInfo, string& msg)
 // 		string fileName(ch);
 // 		PubFun::makeNewFile(logPath, fileName);
 // 		fileAllPath = PubFun::strFormat("%s/%s",logPath.c_str(), fileName.c_str());
-// 
+//
 // 		fileMap.insert(make_pair(fileKey, fileAllPath));
 // 	}
 // 	else
 // 	{
 // 		fileAllPath = fileIter->second;
 // 	}
-// 	
+//
 // 	return fileAllPath;
 // }
 
-std::string CLogObj::makeLogStr( string levelTag, string& userMsg )
+std::string CLogObj::makeLogStr(string levelTag, string& userMsg)
 {
-	SYSTEMTIME s_time; 
-	GetLocalTime(&s_time); 
-	size_t threadId = std::this_thread::get_id().hash();
-	string logMsg = PubFun::strFormat("[%d-%d-%d %d:%d:%d]:[threadId:%u][%s]%s\n", s_time.wYear, s_time.wMonth, s_time.wDay, 
+	SYSTEMTIME s_time;
+	GetLocalTime(&s_time);
+	std::thread::id threadId = std::this_thread::get_id();
+	string logMsg = PubFun::strFormat("[%d-%d-%d %d:%d:%d]:[threadId:%u][%s]%s\n", s_time.wYear, s_time.wMonth, s_time.wDay,
 		s_time.wHour, s_time.wMinute, s_time.wSecond, threadId, levelTag.c_str(), userMsg.c_str());
 	return logMsg;
 }
 
-
-void CLogObj::logString( PLogInfo logInfo, int logType, string& str )
+void CLogObj::logString(PLogInfo logInfo, int logType, string& str)
 {
 	string levelTag = "";
 	switch (logType)
@@ -167,7 +165,7 @@ void CLogObj::logString( PLogInfo logInfo, int logType, string& str )
 		break;
 	}
 	string logMsg = makeLogStr(levelTag, str);
-	static int writeFlags[] = {write_error, write_info, write_warn, write_debug, write_ext};
+	static int writeFlags[] = { write_error, write_info, write_warn, write_debug, write_ext };
 	for (int writeFlag : writeFlags)
 	{
 		if (0 != (logType & writeFlag))
@@ -180,7 +178,7 @@ void CLogObj::logString( PLogInfo logInfo, int logType, string& str )
 	}
 }
 
-void CLogObj::writeLog( PLogInfo logInfo, int writeType, string& str )
+void CLogObj::writeLog(PLogInfo logInfo, int writeType, string& str)
 {
 	PWriteInfo writeInfo = nullptr;
 	auto logObjIter = logInfo->logObjs.find(writeType);
@@ -197,18 +195,18 @@ void CLogObj::writeLog( PLogInfo logInfo, int writeType, string& str )
 
 	if (maxFileLineCount <= writeInfo->lineCount)
 	{
-		writeInfo->logFile->close();  
+		writeInfo->logFile->close();
 		writeInfo->logFile = nullptr;
 	}
 
 	if (nullptr == writeInfo->logFile)
 	{
-		openNewFile(logInfo, writeInfo,writeType);
+		openNewFile(logInfo, writeInfo, writeType);
 	}
 	writeLog(writeInfo, str);
 }
 
-void CLogObj::writeLog( PWriteInfo writeInfo, string& str )
+void CLogObj::writeLog(PWriteInfo writeInfo, string& str)
 {
 	if (write_debug == writeInfo->writeType)
 	{
@@ -217,12 +215,12 @@ void CLogObj::writeLog( PWriteInfo writeInfo, string& str )
 
 	if (writeInfo->logFile->is_open())
 	{
-		*(writeInfo->logFile)<<str<<endl;
+		*(writeInfo->logFile) << str << endl;
 		writeInfo->lineCount++;
 	}
 }
 
-void CLogObj::openNewFile( PLogInfo logInfo, PWriteInfo writeInfo, int writeType )
+void CLogObj::openNewFile(PLogInfo logInfo, PWriteInfo writeInfo, int writeType)
 {
 	string strLogType = "";
 	switch (writeType)
@@ -243,29 +241,26 @@ void CLogObj::openNewFile( PLogInfo logInfo, PWriteInfo writeInfo, int writeType
 		strLogType = "debug";
 		break;
 	}
-	if (0 == logInfo->threadId )
+	if (nullptr == logInfo->pThreadId)
 	{
-		logInfo->threadId = std::this_thread::get_id().hash();
+		logInfo->pThreadId = &(std::this_thread::get_id());
 	}
 
 	// module, type, threadid, fileId
-	string logPath = PubFun::strFormat("%s/%s/%s/",strPathBase.c_str(), strLogType.c_str(), logInfo->name.c_str());
-	string fileName = PubFun::strFormat("%s_%u_%u.log", strLogType.c_str(), logInfo->threadId, writeInfo->fileCount++);
+	string logPath = PubFun::strFormat("%s/%s/%s/", strPathBase.c_str(), strLogType.c_str(), logInfo->name.c_str());
+	string fileName = PubFun::strFormat("%s_%u_%u.log", strLogType.c_str(), std::hash<std::thread::id>()(*(logInfo->pThreadId)), writeInfo->fileCount++);
 	PubFun::makeNewFile(logPath, fileName);
-	string filePath = PubFun::strFormat("%s/%s",logPath.c_str(), fileName.c_str());
+	string filePath = PubFun::strFormat("%s/%s", logPath.c_str(), fileName.c_str());
 	writeInfo->filePath = filePath;
 	writeInfo->logFile = newOfstream();
 	writeInfo->logFile->open(filePath, std::ios_base::app);
 	writeInfo->lineCount = 0;
 }
 
-
-CLogInfo::CLogInfo( string _name, int _maxLogType ):name(_name), maxLogType(_maxLogType),threadId(0)
-{
-	//id = std::this_thread::get_id().hash();
+CLogInfo::CLogInfo(string _name, int _maxLogType) :name(_name), maxLogType(_maxLogType)
+{	//id = std::this_thread::get_id().hash();
 }
 
-CLogInfo::CLogInfo( string _name ):name(_name), maxLogType(write_debug),threadId(0)
+CLogInfo::CLogInfo(string _name) : name(_name), maxLogType(write_debug)
 {
-
 }

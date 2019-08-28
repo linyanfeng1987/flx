@@ -8,7 +8,7 @@ using namespace std;
 const int valueType_def = -1;
 const int valueType_str = 0;
 const int valueType_int = 1;
-const int valueType_timet  = 2;
+const int valueType_timet = 2;
 const int valueType_double = 3;
 
 const string emptyString = "";
@@ -41,10 +41,10 @@ public:
 	void setValue(double dValue);
 	void setValue(int nValue);
 	void setValue(time_t tValue);
-	void setValue(string &strValue);
+	void setValue(string& strValue);
 
-	bool isDataSame(){return DATA_SAME == dataStatus;}
-	void setSame(){ dataStatus = DATA_SAME;}
+	bool isDataSame() { return DATA_SAME == dataStatus; }
+	void setSame() { dataStatus = DATA_SAME; }
 protected:
 	void init();
 	void buildDoubleValue();

@@ -25,4 +25,3 @@ protected:
 };
 typedef shared_ptr<CContinueDecision> PContinueDecision;
 #define newContinueDecision(T1) make_shared<CContinueDecision>(T1)
-

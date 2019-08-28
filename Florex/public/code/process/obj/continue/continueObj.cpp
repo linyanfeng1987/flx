@@ -2,11 +2,11 @@
 #include "PubFun.h"
 
 indexType CContinueObj::tagIdCount = 0;
-CContinueObj::CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision> *_decisions):tagId(++tagIdCount)
+CContinueObj::CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, list<PContinueDecision>* _decisions) :tagId(++tagIdCount)
 {
 	rateInfo = _rateInfo;
 	pContinueValue = nullptr;
-	pJudgeGroup  = _pJudgeGroup;
+	pJudgeGroup = _pJudgeGroup;
 	curStatus = continue_keep;
 
 	for (PContinueDecision decison : *_decisions)
@@ -19,26 +19,26 @@ CContinueObj::CContinueObj(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup
 	}
 }
 
-void CContinueObj::init( PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& _curLevel )
+void CContinueObj::init(PRateValue startValue, PRateValue tryEndValue, int& curDirect, int& _curLevel)
 {
 	pContinueValue = newContinueValue();
 	pContinueValue->setBaseValue(tagId, startValue, tryEndValue, curDirect, _curLevel);
 	levelChange(_curLevel, tryEndValue);
 	curStatus = continue_keep;
 
-// 	this->startValue = startValue;
-// 	this->tryEndValue = tryEndValue;
-// 	this->curDirect = curDirect;
-// 	//this->curLevel = curLevel;
-// 	this->maxLevel = curLevel;
-// 	levelStep.push_back(curLevel);	
+	// 	this->startValue = startValue;
+	// 	this->tryEndValue = tryEndValue;
+	// 	this->curDirect = curDirect;
+	// 	//this->curLevel = curLevel;
+	// 	this->maxLevel = curLevel;
+	// 	levelStep.push_back(curLevel);
 }
 
-emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
+emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue)
 {
 	int tmpLevel = pContinueValue->getCurLevel();
 	curStatus = pJudgeGroup->isContinueGoOn(curValue, pContinueValue);
-	if ( continue_stop == curStatus )
+	if (continue_stop == curStatus)
 	{
 		stopContinue(curValue);
 	}
@@ -46,13 +46,13 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 	{
 		if (++keepCount >= 1000)
 		{
-			for (PContinueDecision decision: decisions)
+			for (PContinueDecision decision : decisions)
 			{
 				decision->record(curValue);
 				keepCount = 0;
 			}
 		}
-		if ( pContinueValue->getCurLevel() != tmpLevel )
+		if (pContinueValue->getCurLevel() != tmpLevel)
 		{
 			levelChange(tmpLevel, curValue);
 		}
@@ -63,15 +63,15 @@ emumContinueStatus CContinueObj::isContinueGoOn(PRateValue curValue )
 
 void CContinueObj::stopContinue(PRateValue curValue)
 {
-	for (PContinueDecision decision: decisions)
+	for (PContinueDecision decision : decisions)
 	{
 		decision->continueStop(curValue);
 	}
 }
 
-void CContinueObj::levelChange( int newLevel, PRateValue curValue )
+void CContinueObj::levelChange(int newLevel, PRateValue curValue)
 {
-	for (PContinueDecision decision: decisions)
+	for (PContinueDecision decision : decisions)
 	{
 		decision->levelUp(newLevel, curValue, tagId, pContinueValue->direct);
 	}

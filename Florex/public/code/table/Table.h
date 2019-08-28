@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-class CTable: public Linked_map<int, PRow>
+class CTable : public Linked_map<int, PRow>
 {
 public:
 	CTable(PTableStruct tableStruct);
@@ -20,11 +20,10 @@ public:
 
 private:
 
-	CTable(const CTable &otherOne); // 私有的拷贝构造函数
-	CTable &operator = (const CTable &otherOne);
+	CTable(const CTable& otherOne); // 私有的拷贝构造函数
+	CTable& operator = (const CTable& otherOne);
 	int m_rowIndex;
 };
 
 typedef shared_ptr<CTable> PTable;
 #define newTable(T) make_shared<CTable>(T)
-

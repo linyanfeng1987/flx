@@ -13,7 +13,7 @@ public:
 protected:
 	void runInThread(const char* argv);
 	int completeTask();
-	
+
 	int step;
 	static const string logTag;
 	PLogInfo logInfo;

@@ -17,16 +17,16 @@ public:
 	void setEndValue(PRateValue _stopRateValue, double _curRetrcementValue, double _retrcementValue, double _judgeRetrcementValue);
 	void buildLevels();
 
-	int getCurLevel(){return curLevel;}
+	int getCurLevel() { return curLevel; }
 	void setCurLevel(int _curLevel);
-	
+
 	PRow buildDbRow(int groupId, PContinueValueStruct pSt);
-	
+
 	PRateValue startRateValue;
 	PRateValue tryEndRateValue;
 	// 停止相关信息
 	PRateValue stopRateValue;
-	
+
 	// 停止的判断信息，类型暂定
 	string stopType;
 
@@ -36,7 +36,7 @@ public:
 
 	indexType tagId;
 
-	// 存表数据 
+	// 存表数据
 	//double startValue;
 	//double startTime;
 
@@ -48,7 +48,7 @@ public:
 	//double stopTime;
 
 	double minValue;
-	
+
 	int direct;
 
 	int startLevel;

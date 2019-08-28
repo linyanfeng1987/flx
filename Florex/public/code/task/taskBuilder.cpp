@@ -12,7 +12,7 @@
 
 const string CTaskBuilder::logTag = "taskBuilder";
 
-CTaskBuilder::CTaskBuilder():log(CLogObj::instance()),gData(CGlobalData::instance())
+CTaskBuilder::CTaskBuilder() :log(CLogObj::instance()), gData(CGlobalData::instance())
 {
 	logInfo = newLogInfo(logTag);
 }
@@ -33,7 +33,7 @@ void CTaskBuilder::run()
 
 	bool hasTask = false;
 	while (true)
-	{		
+	{
 		hasTask = buildByThread();
 		if (!hasTask)
 		{
@@ -43,19 +43,19 @@ void CTaskBuilder::run()
 	}
 }
 
-void CTaskBuilder::buildThreadByRate( string rateName, list<string>& processTypeNames )
+void CTaskBuilder::buildThreadByRate(string rateName, list<string>& processTypeNames)
 {
-	for(string& processTypeName :processTypeNames)
+	for (string& processTypeName : processTypeNames)
 	{
 		CProcessType* pPorcessType = gData.getProcessType(processTypeName);
-		if(pPorcessType != nullptr)
+		if (pPorcessType != nullptr)
 		{
 			buildThreadByType(rateName, *pPorcessType);
-		}	
+		}
 	}
 }
 
-void CTaskBuilder::buildThreadByType(string rateName, CProcessType& processType )
+void CTaskBuilder::buildThreadByType(string rateName, CProcessType& processType)
 {
 	//string tableName = PubFun::strFormat("%s.currency_pair_%s", florexDbName.c_str(), rateName.c_str());
 	string porcessTypeName = processType.getProcessName();
@@ -64,7 +64,7 @@ void CTaskBuilder::buildThreadByType(string rateName, CProcessType& processType 
 	//获取第一行的值
 	time_t processBuildLastTime = 0;
 	time_t taskBuildEndTime = 0;
-	if(nullptr == threadStatusInfo)
+	if (nullptr == threadStatusInfo)
 	{
 		// 获取rate的起始时间代替
 		processBuildLastTime = getRateStartTime(rateName);
@@ -79,7 +79,7 @@ void CTaskBuilder::buildThreadByType(string rateName, CProcessType& processType 
 		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_stepTime, processType.timeStep);
 		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, processBuildLastTime);
 		threadStatusInfo->setTimeValue(CThreadStatusStruct::key_completeTaskLastTime, 0);
-		
+
 		threadStatusInfo->save();
 	}
 }
@@ -98,14 +98,13 @@ bool CTaskBuilder::buildByThread()
 		PRow threadInfoRow = threadInfo->getRowData();
 		string rateName = threadInfoRow->getStringValue(CThreadStatusStruct::key_rateName);
 		int threadId = threadInfoRow->getIntValue(CThreadStatusStruct::key_threadId);
-		
+
 		processBuildLastTime = threadInfoRow->getTimeValue(CThreadStatusStruct::key_buildTaskLastTime);
 		log.debug(logInfo, PubFun::strFormat("get buildLastTime from threadStatusInfo %ld", processBuildLastTime));
 		// 获取终止时间
 		string formartEndTime = threadInfoRow->getStringValue(CThreadStatusStruct::key_buildTaskEndTimeDesc);
 		log.debug(logInfo, PubFun::strFormat("get buildTaskEndTimeDesc from threadStatusInfo %%s", formartEndTime.c_str()));
 		taskBuildEndTime = PubFun::formartTimeToDatetime(formartEndTime.c_str());
-
 
 		if (0 == processBuildLastTime || -1 == processBuildLastTime)
 		{
@@ -118,7 +117,7 @@ bool CTaskBuilder::buildByThread()
 				processBuildLastTime = getRateStartTime(rateName);
 			}
 			threadInfoRow->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, processBuildLastTime);
-			threadInfoRow->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc,  PubFun::getTimeFormat(processBuildLastTime));
+			threadInfoRow->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
 			threadInfoRow->save();
 		}
 
@@ -126,7 +125,7 @@ bool CTaskBuilder::buildByThread()
 		{
 			// 使用rate的时间替换
 			taskBuildEndTime = getRateLastTime(rateName);
-			log.debug(logInfo, PubFun::strFormat("get rateLastTime by rate:%s value:%ld", rateName.c_str(),taskBuildEndTime));
+			log.debug(logInfo, PubFun::strFormat("get rateLastTime by rate:%s value:%ld", rateName.c_str(), taskBuildEndTime));
 		}
 
 		PProcessTaskInfoStruct taskInfoStruct = CProcessTaskInfoStruct::instence();
@@ -137,7 +136,7 @@ bool CTaskBuilder::buildByThread()
 			PRow taskInfo = newRow(taskInfoStruct);
 			taskInfo->setStringValue(CProcessTaskInfoStruct::key_rate, rateName);
 			taskInfo->setStringValue(CProcessTaskInfoStruct::key_rateType, rateName);
-			taskInfo->setStringValue( CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
+			taskInfo->setStringValue(CProcessTaskInfoStruct::key_taskId, PubFun::get14CurTimeString() + "_" + PubFun::intToString(rand()));
 			taskInfo->setTimeValue(CProcessTaskInfoStruct::key_startTime, processBuildLastTime);
 			taskInfo->setStringValue(CProcessTaskInfoStruct::key_startTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
 			processBuildLastTime += gHisCalcStepTime;
@@ -150,7 +149,7 @@ bool CTaskBuilder::buildByThread()
 			taskInfo->save();
 
 			threadInfoRow->setTimeValue(CThreadStatusStruct::key_buildTaskLastTime, processBuildLastTime);
-			threadInfoRow->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc,  PubFun::getTimeFormat(processBuildLastTime));
+			threadInfoRow->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(processBuildLastTime));
 			//threadStatusInfo->setStringValue(CThreadStatusStruct::key_buildTaskLastTimeDesc, PubFun::getTimeFormat(endTime));
 			threadInfoRow->save();
 		}
@@ -181,22 +180,22 @@ bool CTaskBuilder::reloadTaskList_delete()
 	return hasData;
 }*/
 
-time_t CTaskBuilder::getRateLastTime( string strTableName )
+time_t CTaskBuilder::getRateLastTime(string strTableName)
 {
 	return getRateTime(strTableName, "order by curTime desc, curMsec desc limit 1");
 }
 
-time_t CTaskBuilder::getRateStartTime( string strTableName )
+time_t CTaskBuilder::getRateStartTime(string strTableName)
 {
 	return getRateTime(strTableName, "order by curTime, curMsec limit 1");
 }
 
-time_t CTaskBuilder::getRateTime( string strTableName, string orderSql )
+time_t CTaskBuilder::getRateTime(string strTableName, string orderSql)
 {
 	string strSqlFormat = "select * from %s %s;";
 	time_t lastTime = -1;
 
-	char chSql[2048] = {0};
+	char chSql[2048] = { 0 };
 	memset(chSql, 0, sizeof(chSql));
 	PCurRateStruct rateStruct = newCurRateStruct(strTableName);
 	sprintf_s(chSql, strSqlFormat.c_str(), rateStruct->tableName.c_str(), orderSql.c_str());
@@ -209,10 +208,6 @@ time_t CTaskBuilder::getRateTime( string strTableName, string orderSql )
 		//获取第一行的值
 		lastTime = PubFun::stringToInt(iter->second->getValue(string("curTime")));
 	}
-	
+
 	return lastTime;
 }
-
-
-
-

@@ -11,7 +11,7 @@ public:
 	time_t GetLastTimeFromeRate(string rateName, int nType = timeStepStep_def);
 
 protected:
-	
+
 private:
 	CDataOperation();
 	CLogObj& log;

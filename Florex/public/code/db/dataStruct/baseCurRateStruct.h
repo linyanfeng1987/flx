@@ -1,7 +1,6 @@
 #pragma once
 #include "table/TableStruct.h"
 
-
 class CBaseCurRateStruct : public CTableStruct
 {
 public:
@@ -11,11 +10,10 @@ public:
 	void setPureRateName(string pureRateName);
 	void setTableName(string rateName);
 
+	static string curTime;
+	static string curMsec;
 
-	static string curTime; 
-	static string curMsec; 
-
-	static string timeFormat; 
+	static string timeFormat;
 
 	string pureRateName;
 

@@ -10,11 +10,11 @@ class CCalcProcess : public CBaseProcess
 {
 public:
 	using CBaseProcess::CBaseProcess;
-	CCalcProcess( PProcessCfgInfo _threadInfo, PRateInfo _rateInfo);
+	CCalcProcess(PProcessCfgInfo _threadInfo, PRateInfo _rateInfo);
 	void addAnalysis(string name, PBaseAnalysis analysis);
 
 	void calc(PTable rateTable);
-	void calc(list<PRateValue> &values);
+	void calc(list<PRateValue>& values);
 	virtual void init();
 protected:
 	map<string, PBaseAnalysis> analysiss;
@@ -26,4 +26,3 @@ protected:
 };
 typedef shared_ptr<CCalcProcess> PCalcProcess;
 #define newCalcProcess(T1,T2) make_shared<CCalcProcess>(T1,T2)
-

@@ -26,4 +26,3 @@ public:
 	void loadByLine(string line);
 	string toSqlString();
 };
-

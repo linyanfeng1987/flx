@@ -19,9 +19,8 @@ protected:
 	int maxProcessCount;
 	CLogObj& log;
 	map<string, PCalcThread> runingThreads;
-	CGlobalData& gData; 
+	CGlobalData& gData;
 
 	static const string logTag;
 	PLogInfo logInfo;
 };
-

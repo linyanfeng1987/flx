@@ -12,7 +12,6 @@
 #include "db/dataStruct/calcRateStruct.h"
 #include "table/Row.h"
 
-
 #include "process/decision/averageDecision.h"
 
 using namespace std;
@@ -20,7 +19,7 @@ using namespace std;
 class CAverageDecisionNode : public CBasePipelineNode
 {
 public:
-	CAverageDecisionNode(list<PAverageDecisionTemplate> &_dTemplates, PRateInfo _rateInfo, double _stepTime);
+	CAverageDecisionNode(list<PAverageDecisionTemplate>& _dTemplates, PRateInfo _rateInfo, double _stepTime);
 	virtual ~CAverageDecisionNode();
 
 	virtual PRateValue add(PRateValue curValue);

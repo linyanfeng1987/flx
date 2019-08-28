@@ -2,26 +2,23 @@
 
 CBaseCap::CBaseCap()
 {
-
 }
 
 CBaseCap::~CBaseCap()
 {
-
 }
 
-void CBaseCap::setThreshold( list<CThreshold> thresholds )
+void CBaseCap::setThreshold(list<CThreshold> thresholds)
 {
-
 }
 
-CThreshold* CBaseCap::pour( double value, double second )
+CThreshold* CBaseCap::pour(double value, double second)
 {
-	CThreshold* pDestThreshold = check(total); 
+	CThreshold* pDestThreshold = check(total);
 	return pDestThreshold;
 }
 
-CThreshold* CBaseCap::pour( HisRate rate )
+CThreshold* CBaseCap::pour(HisRate rate)
 {
 	map<string, HisRate>::iterator iter = lastHisRateMap.find(rate.rateName);
 	if (iter != lastHisRateMap.end())
@@ -33,13 +30,13 @@ CThreshold* CBaseCap::pour( HisRate rate )
 	return nullptr;
 }
 
-CThreshold* CBaseCap::pour( CurRate rate )
+CThreshold* CBaseCap::pour(CurRate rate)
 {
 	map<string, CurRate>::iterator iter = lastCurRateMap.find(rate.rateName);
 	if (iter != lastCurRateMap.end())
 	{
 		CurRate& lastRate = iter->second;
-		double second = (rate.time - lastRate.time) + (rate.mscd - lastRate.mscd)/1000.0;
+		double second = (rate.time - lastRate.time) + (rate.mscd - lastRate.mscd) / 1000.0;
 		this->calculate(lastRate.priceBuy, rate.priceBuy, second);
 	}
 
@@ -47,13 +44,13 @@ CThreshold* CBaseCap::pour( CurRate rate )
 	return nullptr;
 }
 
-CThreshold* CBaseCap::check( double checkValue )
+CThreshold* CBaseCap::check(double checkValue)
 {
-	CThreshold* pDestThreshold = nullptr; 
+	CThreshold* pDestThreshold = nullptr;
 	return pDestThreshold;
 }
 
-double CBaseCap::calculate( double beginValue, double endValue, double second )
+double CBaseCap::calculate(double beginValue, double endValue, double second)
 {
 	return 0.0;
 }
@@ -62,4 +59,3 @@ void CBaseCap::clear()
 {
 	total = 0;
 }
-

@@ -21,8 +21,7 @@ public:
 	PTable resTable;
 
 protected:
-	void saveToDb( PRateValue rateValue );
+	void saveToDb(PRateValue rateValue);
 };
 typedef shared_ptr<CCalcProData> PCalcProData;
 #define newCalcProData(T) make_shared<CCalcProData>(T)
-

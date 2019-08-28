@@ -13,7 +13,7 @@ CProcessType::~CProcessType()
 
 std::string CProcessType::getProcessName()
 {
-	if(processTypeName.empty())
+	if (processTypeName.empty())
 	{
 		return "";
 	}
@@ -25,7 +25,7 @@ std::string CProcessType::getProcessName()
 
 std::string CProcessType::getType()
 {
-	if(processTypeName.empty())
+	if (processTypeName.empty())
 	{
 		return "";
 	}
@@ -35,7 +35,7 @@ std::string CProcessType::getType()
 	}
 }
 
-bool CProcessType::compare( string strFlag )
+bool CProcessType::compare(string strFlag)
 {
 	return strFlag == getProcessName();
 }

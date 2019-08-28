@@ -11,7 +11,7 @@ class CAnalysisInfo : public CBaseCfgInfo
 public:
 	using CBaseCfgInfo::CBaseCfgInfo;
 
-	virtual void loadByXml(TiXmlElement *node);
+	virtual void loadByXml(TiXmlElement* node);
 
 	string analysisType;
 	map<string, PBaseParamInfo> paramGroup;

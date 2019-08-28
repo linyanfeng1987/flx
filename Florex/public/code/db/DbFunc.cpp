@@ -2,25 +2,21 @@
 #include "DbObj.h"
 #include "LogObj.h"
 
-
 //CGlobalData& CDbFunc::gData = CGlobalData::instance();
 CDbFunc::CDbFunc(void)
 {
 }
 
-
 CDbFunc::~CDbFunc(void)
 {
-
 }
 
-
-PRow CDbFunc::getThreadStatusLine( string rateName, string processTypeName )
+PRow CDbFunc::getThreadStatusLine(string rateName, string processTypeName)
 {
 	PThreadStatusStruct tableSt = CThreadStatusStruct::instence();
 	string sql = tableSt->getSelectSql(PubFun::strFormat("%s = '%s' and %s = '%s'",
 		CThreadStatusStruct::key_rateName.c_str(), rateName.c_str(),
-		CThreadStatusStruct::key_threadTypeName.c_str(),  processTypeName.c_str()));
+		CThreadStatusStruct::key_threadTypeName.c_str(), processTypeName.c_str()));
 
 	return CDbObj::instance().selectOneData(sql.c_str(), tableSt);
 }
@@ -42,14 +38,14 @@ int CDbFunc::getThreadLastId()
 
 void CDbFunc::zeroThreadStatus()
 {
-	try{
+	try {
 		// 从数据库中加载未执行的任务
 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
 		string sql = processSt->getSelectSql();
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
-		for(auto it : *table)
+		for (auto it : *table)
 		{
 			// 重置所有线程状态
 			it.second->setIntValue(CThreadStatusStruct::key_threadStatus, 0);
@@ -64,14 +60,14 @@ void CDbFunc::zeroThreadStatus()
 
 void CDbFunc::getThreadInfos(list<PThreadInfo>& threadInfos)
 {
-	try{
+	try {
 		// 从数据库中加载未执行的任务
 		PThreadStatusStruct processSt = CThreadStatusStruct::instence();
 		string sql = processSt->getSelectSql();
 		PTable table = newTable(processSt);
 		CDbObj::instance().selectData(sql.c_str(), table);
 
-		for(auto it : *table)
+		for (auto it : *table)
 		{
 			PThreadInfo info = newThreadInfo(it.second, thread_calc_stauts);
 			threadInfos.push_back(info);

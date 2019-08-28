@@ -12,7 +12,6 @@
 #include "db/dataStruct/calcRateStruct.h"
 #include "table/Row.h"
 
-
 #include "process/decision/averageDecision.h"
 
 using namespace std;
@@ -20,11 +19,11 @@ using namespace std;
 class CAverageCalcNode : public CBasePipelineNode
 {
 public:
-	CAverageCalcNode( PRateInfo _rateInfo, double _stepTime);
+	CAverageCalcNode(PRateInfo _rateInfo, double _stepTime);
 	virtual ~CAverageCalcNode();
 
 	virtual PRateValue add(PRateValue curValue);
-	indexType getTagId(){return tagId;}
+	indexType getTagId() { return tagId; }
 protected:
 	void saveToDb(PRateValue averageValue);
 	indexType tagId;

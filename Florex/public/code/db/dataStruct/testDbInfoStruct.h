@@ -14,6 +14,4 @@ public:
 
 	static string key_id;
 	static string key_value;
-	
 };
-

@@ -6,8 +6,8 @@ using namespace std;
 class CRateInfo
 {
 public:
-	~CRateInfo(void){}
-	CRateInfo(){}
+	~CRateInfo(void) {}
+	CRateInfo() {}
 
 	string rateName;
 };

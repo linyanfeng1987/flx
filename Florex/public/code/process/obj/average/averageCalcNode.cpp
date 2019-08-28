@@ -2,16 +2,15 @@
 #include "PubFun.h"
 
 indexType CAverageCalcNode::tagIdCount = 0;
-CAverageCalcNode::CAverageCalcNode(PRateInfo _rateInfo, double _stepTime):tagId(++tagIdCount),stepTime(_stepTime)
+CAverageCalcNode::CAverageCalcNode(PRateInfo _rateInfo, double _stepTime) :tagId(++tagIdCount), stepTime(_stepTime)
 {
 	rateInfo = _rateInfo;
 	averCalcObj = newSumByTime(_stepTime);
 	averageStruct = newCalcRateAverageStruct(rateInfo->rateName, PubFun::intToString((long)stepTime));
 	resTable = newTable(averageStruct);
-
 }
 
-PRateValue CAverageCalcNode::add( PRateValue curValue )
+PRateValue CAverageCalcNode::add(PRateValue curValue)
 {
 	PRateValue averValue = newRateValueCopy(*curValue);
 	averValue->value = averCalcObj->add(curValue);
@@ -20,7 +19,7 @@ PRateValue CAverageCalcNode::add( PRateValue curValue )
 	return averValue;
 }
 
-void CAverageCalcNode::saveToDb( PRateValue averageValue )
+void CAverageCalcNode::saveToDb(PRateValue averageValue)
 {
 	PRow row = newRow(averageStruct);
 	row->setDoubleValue(CCalcRateStruct::curValue, averageValue->value);

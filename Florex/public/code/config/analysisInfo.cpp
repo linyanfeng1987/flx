@@ -1,20 +1,19 @@
 #include "analysisInfo.h"
 #include "PubFun.h"
 
-
-void CAnalysisInfo::loadByXml(TiXmlElement *node)
+void CAnalysisInfo::loadByXml(TiXmlElement* node)
 {
 	CBaseCfgInfo::loadByXml(node);
-	analysisType =  PubFun::getStrAttrFromEle(node, "type");
-	TiXmlElement *childNode = node->FirstChildElement();
+	analysisType = PubFun::getStrAttrFromEle(node, "type");
+	TiXmlElement* childNode = node->FirstChildElement();
 	while (nullptr != childNode)
 	{
-		if(PubFun::isNodeNamed(childNode, "pipeline"))
+		if (PubFun::isNodeNamed(childNode, "pipeline"))
 		{
 			pipelineInfo = newPipelineInfo();
 			pipelineInfo->loadByXml(childNode);
 		}
-		else if(PubFun::isNodeNamed(childNode, "param"))
+		else if (PubFun::isNodeNamed(childNode, "param"))
 		{
 			PBaseParamInfo paramInfo = newBaseParamInfo();
 			paramInfo->loadByXml(childNode);
@@ -22,6 +21,6 @@ void CAnalysisInfo::loadByXml(TiXmlElement *node)
 			paramGroup.insert(make_pair(paramInfo->tagName, paramInfo));
 		}
 
-		childNode = childNode->NextSiblingElement(); 
+		childNode = childNode->NextSiblingElement();
 	}
 }

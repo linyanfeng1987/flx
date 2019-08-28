@@ -2,16 +2,16 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-string CCalcRateStruct::curValue = "curValue"; 
-string CCalcRateStruct::curTime = "curTime"; 
-string CCalcRateStruct::timeFormat = "timeFormat"; 
+string CCalcRateStruct::curValue = "curValue";
+string CCalcRateStruct::curTime = "curTime";
+string CCalcRateStruct::timeFormat = "timeFormat";
 
-CCalcRateStruct::CCalcRateStruct(string _rateName,string _timeName, string _typeName) 
+CCalcRateStruct::CCalcRateStruct(string _rateName, string _timeName, string _typeName)
 {
 	rateName = _rateName;
 	timeName = _timeName;
 	typeName = _typeName;
-	buildTableName();	
+	buildTableName();
 	init();
 }
 
@@ -22,7 +22,6 @@ CCalcRateStruct::CCalcRateStruct()
 
 CCalcRateStruct::~CCalcRateStruct()
 {
-	
 }
 
 void CCalcRateStruct::init()
@@ -45,11 +44,10 @@ void CCalcRateStruct::addField()
 	this->insert(make_pair(field.strName, field));
 }
 
-
 void CCalcRateStruct::buildTableName()
 {
 	string str;
-	if (!typeName.empty()&&!timeName.empty() )
+	if (!typeName.empty() && !timeName.empty())
 	{
 		str = PubFun::strFormat("%s.currency_pair_%s_%s%s", calcDbName.c_str(), rateName.c_str(), typeName.c_str(), timeName.c_str());
 	}
@@ -57,7 +55,7 @@ void CCalcRateStruct::buildTableName()
 	{
 		str = PubFun::strFormat("%s.currency_pair_%s", calcDbName.c_str(), rateName.c_str());
 	}
-	
+
 	this->setName(str);
 }
 
@@ -73,12 +71,12 @@ std::string CCalcRateStruct::getLastRecordSql()
 	return getSelectSqlLimit1(string(""), order);
 }
 
-double CCalcRateStruct::getLastRecordTime( PCalcRateStruct calcRateStruct )
+double CCalcRateStruct::getLastRecordTime(PCalcRateStruct calcRateStruct)
 {
 	double lastTime = -1;
 	try
 	{
-		CDbObj &dbObj = CDbObj::instance();
+		CDbObj& dbObj = CDbObj::instance();
 		string sql = calcRateStruct->getLastRecordSql();
 		PRow row = dbObj.selectOneData(sql.c_str(), calcRateStruct);
 		if (nullptr != row)
@@ -86,11 +84,10 @@ double CCalcRateStruct::getLastRecordTime( PCalcRateStruct calcRateStruct )
 			lastTime = row->getDoubleValue(CCalcRateStruct::curTime);
 		}
 	}
-	catch (CStrException &e)
+	catch (CStrException& e)
 	{
 		e.what();
 	}
 
 	return lastTime;
 }
-

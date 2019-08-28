@@ -2,7 +2,6 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-
 string CContinueValueStruct::tagId = "tagId";
 
 string CContinueValueStruct::direct = "direct";
@@ -37,10 +36,8 @@ CContinueValueStruct::CContinueValueStruct(string rateName)
 	init();
 }
 
-
 CContinueValueStruct::~CContinueValueStruct()
 {
-	
 }
 
 void CContinueValueStruct::init()
@@ -55,7 +52,7 @@ void CContinueValueStruct::init()
 
 	field.load(groupId, typeInt, true);
 	this->insert(make_pair(field.strName, field));
-	
+
 	field.load(startTime, typeDouble, true);
 	this->insert(make_pair(field.strName, field));
 	field.load(startTimeDesc, typeString);
@@ -69,7 +66,7 @@ void CContinueValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 	field.load(stopValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
-	
+
 	field.load(endValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
 	field.load(stepValue, typeDouble);
@@ -83,7 +80,7 @@ void CContinueValueStruct::init()
 	this->insert(make_pair(field.strName, field));
 	field.load(judgeRetrcementValue, typeDouble);
 	this->insert(make_pair(field.strName, field));
-	
+
 	field.load(startLevel, typeInt);
 	this->insert(make_pair(field.strName, field));
 	field.load(maxLevel, typeInt);

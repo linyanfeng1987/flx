@@ -5,6 +5,4 @@ public:
 	~CBaseCalc();
 
 private:
-
 };
-

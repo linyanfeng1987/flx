@@ -1,7 +1,6 @@
 #pragma once
-#include "baseCurRateStruct.h" 
+#include "baseCurRateStruct.h"
 #include "table/TableStruct.h"
-
 
 class CContinueValueStruct : public CTableStruct
 {
@@ -34,9 +33,9 @@ public:
 	static string judgeRetrcementValue;
 
 	static string levels;
-	
+
 protected:
 	void init();
-}; 
+};
 typedef shared_ptr<CContinueValueStruct> PContinueValueStruct;
 #define newContinueValueStruct(T1) make_shared<CContinueValueStruct>(T1)

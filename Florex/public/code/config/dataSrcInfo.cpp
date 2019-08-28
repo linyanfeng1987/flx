@@ -1,7 +1,7 @@
 #include "dataSrcInfo.h"
 #include "PubFun.h"
 
-void CDataSrcInfo::loadByXml(TiXmlElement *node)
+void CDataSrcInfo::loadByXml(TiXmlElement* node)
 {
 	srcType = PubFun::getStrAttrFromEle(node, "type");
 	if (srcType == "sql")

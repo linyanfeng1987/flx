@@ -2,13 +2,12 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-string CCurRateStruct::priceBuy = "priceBuy"; 
-string CCurRateStruct::priceSell = "priceCell"; 
-string CCurRateStruct::volume = "volume"; 
-string CCurRateStruct::percentSpead_s = "percentSpead_s"; 
+string CCurRateStruct::priceBuy = "priceBuy";
+string CCurRateStruct::priceSell = "priceCell";
+string CCurRateStruct::volume = "volume";
+string CCurRateStruct::percentSpead_s = "percentSpead_s";
 
-
-CCurRateStruct::CCurRateStruct(string rateName):CBaseCurRateStruct(rateName)
+CCurRateStruct::CCurRateStruct(string rateName) :CBaseCurRateStruct(rateName)
 {
 	init();
 }
@@ -42,10 +41,9 @@ void CCurRateStruct::addField()
 
 CCurRateStruct::~CCurRateStruct()
 {
-	
 }
 
-PRateValue CCurRateStruct::getRateValue( PRow pCurRateRow )
+PRateValue CCurRateStruct::getRateValue(PRow pCurRateRow)
 {
 	long curTime = pCurRateRow->getIntValue(CCurRateStruct::curTime);
 	long curMsec = pCurRateRow->getIntValue(CCurRateStruct::curMsec);
@@ -61,8 +59,3 @@ PCurRateStruct CCurRateStruct::instence()
 	static PCurRateStruct p = make_shared<CCurRateStruct>();
 	return p;
 }
-
-
-
-
-

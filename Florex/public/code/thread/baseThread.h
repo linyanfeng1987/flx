@@ -19,13 +19,13 @@ class CThreadInfo
 public:
 	CThreadInfo(PRow _threadInfoRow, CalcThreadType _threadType);
 	//CThreadInfo(string _taskName, ThreadType _ThreadType);
-	~CThreadInfo(){};
+	~CThreadInfo() {};
 	void setThreadType(CalcThreadType _threadType);
-	bool threadAble(){return threadsAble;}
-	PRow getRowData(){return threadInfoRow;}
+	bool threadAble() { return threadsAble; }
+	PRow getRowData() { return threadInfoRow; }
 private:
 	bool threadsAble;
-	CalcThreadType threadType; 
+	CalcThreadType threadType;
 	PRow threadInfoRow;
 };
 
@@ -39,8 +39,8 @@ class CBaseThread
 public:
 	CBaseThread(PThreadInfo _threadInfo);
 	virtual ~CBaseThread();
-	PThreadInfo getThreadInfo(){return threadInfo;}
-	int getStatus(){return status;}
+	PThreadInfo getThreadInfo() { return threadInfo; }
+	int getStatus() { return status; }
 
 	int run(const char* argv);
 protected:
@@ -51,5 +51,4 @@ protected:
 	CLogObj& log;
 	PThreadInfo threadInfo;
 private:
-	
 };

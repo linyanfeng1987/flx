@@ -3,7 +3,7 @@
 
 indexType CFlxOpt::optTagIdCount = 0;
 
-CFlxOpt::CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateValue _beginValue, int _direct ):tagName(_tagName),srcTagId(_srcTagId),rateName(_rateName),beginValue(_beginValue),direct(_direct)
+CFlxOpt::CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateValue _beginValue, int _direct) :tagName(_tagName), srcTagId(_srcTagId), rateName(_rateName), beginValue(_beginValue), direct(_direct)
 {
 	optTagId = ++optTagIdCount;
 	endValue = nullptr;
@@ -11,9 +11,9 @@ CFlxOpt::CFlxOpt(string _tagName, indexType _srcTagId, string _rateName, PRateVa
 	optStruct = COptValueStruct::instence();
 }
 
-double CFlxOpt::getCurResValue( PRateValue curValue )
+double CFlxOpt::getCurResValue(PRateValue curValue)
 {
-	return (beginValue->value-curValue->value)*direct;
+	return (beginValue->value - curValue->value) * direct;
 }
 
 double CFlxOpt::getEndResValue()
@@ -21,16 +21,16 @@ double CFlxOpt::getEndResValue()
 	return endRes;
 }
 
-void CFlxOpt::setEnd( PRateValue _endValue )
+void CFlxOpt::setEnd(PRateValue _endValue)
 {
 	setEnd(_endValue, string(""));
 }
 
-void CFlxOpt::setEnd( PRateValue _endValue, string& _desc )
+void CFlxOpt::setEnd(PRateValue _endValue, string& _desc)
 {
 	endValue = _endValue;
 	desc = _desc;
-	endRes = (beginValue->value-endValue->value)*direct;
+	endRes = (beginValue->value - endValue->value) * direct;
 	saveToDb();
 }
 

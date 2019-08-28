@@ -2,7 +2,7 @@
 #include <list>
 #include "table/Table.h"
 
-CContinueKeeper::CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, int _curDir, list<PContinueDecision> &_decisions)
+CContinueKeeper::CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudgeGroup, int _curDir, list<PContinueDecision>& _decisions)
 {
 	rateInfo = _rateInfo;
 	objIndex = 0;
@@ -16,25 +16,24 @@ CContinueKeeper::CContinueKeeper(PRateInfo _rateInfo, PContinueJudgeGroup _pJudg
 	//finders.insert(make_pair(direct_down, newContinueFinder(pJudgeGroup)));
 }
 
-
 // 只记录生成最小连续的起始信息即可.
 bool CContinueKeeper::add(PRateValue curValue)
 {
 	if (nullptr == pCurObj)
 	{
 		// 查找
-		if(!pFinder->isStart())
+		if (!pFinder->isStart())
 		{
 			pFinder->setStart(curValue, curDir);
 		}
 		else
 		{
-			 pCurObj = pFinder->tryFindNew(curValue);
+			pCurObj = pFinder->tryFindNew(curValue);
 		}
 	}
 	else
 	{
-		if ( continue_stop == pCurObj->isContinueGoOn(curValue))
+		if (continue_stop == pCurObj->isContinueGoOn(curValue))
 		{
 			// 连续中断
 			hisObjs.push_back(pCurObj);

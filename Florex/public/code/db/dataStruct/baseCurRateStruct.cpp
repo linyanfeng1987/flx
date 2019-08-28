@@ -2,10 +2,9 @@
 #include "PubFun.h"
 #include "ConstDef.h"
 
-string CBaseCurRateStruct::curTime = "curTime"; 
-string CBaseCurRateStruct::curMsec = "curMsec"; 
-string CBaseCurRateStruct::timeFormat = "timeFormat"; 
-
+string CBaseCurRateStruct::curTime = "curTime";
+string CBaseCurRateStruct::curMsec = "curMsec";
+string CBaseCurRateStruct::timeFormat = "timeFormat";
 
 CBaseCurRateStruct::CBaseCurRateStruct(string pureRateName)
 {
@@ -20,7 +19,6 @@ CBaseCurRateStruct::CBaseCurRateStruct()
 
 CBaseCurRateStruct::~CBaseCurRateStruct()
 {
-	
 }
 
 void CBaseCurRateStruct::addField()
@@ -37,19 +35,16 @@ void CBaseCurRateStruct::addField()
 	this->insert(make_pair(field.strName, field));
 }
 
-
 void CBaseCurRateStruct::setPureRateName(string pureRateName)
 {
 	this->pureRateName = pureRateName;
 	setTableName(pureRateName);
 }
 
-
-void CBaseCurRateStruct::setTableName( string rateName)
+void CBaseCurRateStruct::setTableName(string rateName)
 {
-	string curTableName = florexDbName; 
+	string curTableName = florexDbName;
 	curTableName.append(".").append("currency_pair_").append(rateName);
 
 	this->setName(curTableName);
 }
-
